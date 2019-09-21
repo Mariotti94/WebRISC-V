@@ -1,0 +1,163 @@
+.form {
+    border: #999999 solid 1px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    background-color: white;
+}
+
+.numRiga {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: white;
+}
+
+.elemento {
+    border: #999999 solid 1px;
+    background-color: White;
+}
+
+.registro {
+    font-family: Arial;
+    font-size: 10px;
+}
+
+.testo {
+    font-family: Arial;
+    font-size: 10px;
+    text-decoration: none;
+    color: #666666;
+}
+
+.testoGrande {
+    font-family: Arial;
+    font-size: 12px;
+    text-decoration: none;
+    color: #000000;
+}
+
+A.link {
+    font-family: Arial;
+    font-size: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+A.link:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+A.link2 {
+    font-family: Arial;
+    font-size: 10px;
+    color: #666666;
+}
+
+A.link2:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+A.link3 {
+    font-family: Arial;
+    font-size: 10px;
+    color: black;
+}
+
+A.link3:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+A.link4 {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: black;
+    text-decoration: none;
+}
+
+A.link4:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+A.link4disabled {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: black;
+    text-decoration: none;
+    pointer-events: none;
+    cursor: default;
+}
+
+tr.top td {
+    border-top: thin solid black;
+}
+
+tr.bottom td {
+    border-bottom: thin solid black;
+}
+
+tr.row td:first-child {
+    border-left: thin solid black;
+}
+
+tr.row td:last-child {
+    border-right: thin solid black;
+}
+
+.bRight {
+    border-right: 1px solid black;
+}
+
+.bLeft {
+    border-left: 1px solid black;
+}
+
+.bTop {
+    border-top: 1px solid black;
+}
+
+.bBot {
+    border-bottom: 1px solid black;
+}
+
+.minIstrWd {
+    min-width: 75px;
+}
+
+.pipeTd {
+		border:1px solid #666666;
+		min-width: 20px;
+		text-align: center;
+}
+
+tr.alternating:nth-child(even){
+  background-color: white;
+}
+tr.alternating:nth-child(odd){
+  background-color: #f0f0f0;
+}
+
+#counter {
+    position: fixed;
+    width: 99.5%;
+    margin-left: 1px;
+    margin-top: -160px;
+    background: white;
+    padding: 2px;
+    border: 1px solid;
+}
+
+#destraTop {
+    margin-top: 160px;
+}
+
+BODY {
+    scrollbar-face-color: #cccccc;
+    scrollbar-highlight-color: #f7b217;
+    scrollbar-3dlight-color: #666666;
+    scrollbar-arrow-color: #000000;
+    scrollbar-darkshadow-color: #ffffff;
+    scrollbar-base-color: #f7b217
+}
