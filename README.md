@@ -45,7 +45,7 @@ The reference Installation has been done on the Linux distro UBUNTU 18.04LTS
   sudo ufw allow 'Apache'
   a2enmod php7.2
   sudo systemctl status apache2 	(alternatively you may want to run:
-									sudo service apache2 start && sudo service apache2 status )
+					sudo service apache2 start && sudo service apache2 status )
   
   --> you should see somthing like (ufw may fail if you don't have ufw... just ignore it):
     apache2.service - The Apache HTTP Server
