@@ -4,21 +4,22 @@
 //#############################################################################
 
 //#############################################################################
-//###### Funzione che converte un numero intero in un numero binario
-function IntToBin($intero,$lunghezza,$istruzione)
+//###### Funzione che converte una stringa GMP in un numero binario
+function GMPToBin($str,$lunghezza,$istruzione)
 {
-    $num=$intero;
-    $intero=abs($intero);
+	$str=strval($str);
+    $num=$str;
+    $str=gmp_strval(gmp_abs($str));
     $risultato='';
 
-    while($intero!=1 && $intero!=0)
+    while($str!="1" && $str!="0")
     {
-        $i=fmod($intero,2);
-        $intero=($intero-$i)/2;
+        $i=gmp_strval(gmp_mod($str,"2"));
+        $str=gmp_div_q(gmp_sub($str,$i),"2");
         $risultato=$i.$risultato;
 
     }
-    if ($intero!=0)
+    if ($str!="0")
     {
         $risultato="1".$risultato;
     }
@@ -29,7 +30,7 @@ function IntToBin($intero,$lunghezza,$istruzione)
 
     if ($istruzione!=1) //numero
     {
-        if ($num>=0)
+        if (gmp_cmp($num,0)>=0)
         {
             if (strlen($risultato)<$lunghezza)
             {
@@ -68,54 +69,51 @@ function IntToBin($intero,$lunghezza,$istruzione)
         }
     }
 
-    $function_ret=$risultato;
+    $function_ret=(strlen($risultato)>$lunghezza)?str_repeat("1",$lunghezza):$risultato;
     return $function_ret;
 }
 //#############################################################################
 
 //#############################################################################
-//#### Funzione che converte un numero binario in un numero intero
-function BinToInt($stringa,$istruzione)
+//#### Funzione che converte un numero binario in una stringa GMP
+function BinToGMP($str,$istruzione)
 {
-    $lunghezza=strlen($stringa);
+    $lunghezza=strlen($str);
     if ($lunghezza!=0)
     {
-        if( $stringa[0]=='1' && $lunghezza!=1 && $istruzione!=1)
+        if( $str[0]=='1' && $lunghezza!=1 && $istruzione!=1)
         {
-            $stringa=twoComplement($stringa);
+            $str=twoComplement($str);
             $j=0;
-            $k=0;
+            $k="0";
             $l=0;
             while($lunghezza!=$l)
             {
-                $i=substr($stringa,$lunghezza-1,1);
-                $i=intval($i);
-                $k=$k+($i*pow(2,$j));
+                $i=substr($str,$lunghezza-1,1);
+                $k=gmp_add($k,(gmp_mul($i,gmp_pow("2",strval($j)))));
                 $j=$j+1;
                 $lunghezza=$lunghezza-1;
             }
-            $k=-$k;
-            $function_ret=$k;
+            $function_ret=gmp_strval(gmp_neg($k));
         }
         else
         {
             $j=0;
-            $k=0;
+            $k="0";
             $l=0;
             while($lunghezza!=$l)
             {
-                $i=substr($stringa,$lunghezza-1,1);
-                $i=intval($i);
-                $k=$k+($i*pow(2,$j));
+                $i=substr($str,$lunghezza-1,1);
+                $k=gmp_add($k,(gmp_mul($i,gmp_pow("2",strval($j)))));
                 $j=$j+1;
                 $lunghezza=$lunghezza-1;
             }
-            $function_ret=$k;
+            $function_ret=gmp_strval($k);
         }
     }
     else
     {
-        $function_ret=0;
+        $function_ret="0";
     }
 
     return $function_ret;
@@ -152,110 +150,111 @@ function twoComplement($str)
 //#############################################################################
 function ALU($controllo,$dato1,$dato2)
 {
-    $dato1=floatval($dato1);
-    $dato2=floatval($dato2);
-
+	$dato1=strval($dato1);
+    $dato2=strval($dato2);
+	
     switch ($controllo)
     {
         case "0000": //AND:
-            $risultato=$dato1 & $dato2;
+            $risultato=gmp_strval(gmp_and($dato1,$dato2));
             break;
 
         case "0011": //XOR:
-            $risultato=$dato1 ^ $dato2;
+            $risultato=gmp_strval(gmp_xor($dato1,$dato2));
             break;
 
         case "0001": //OR:
-            $risultato=$dato1 | $dato2;
+            $risultato=gmp_strval(gmp_or($dato1,$dato2));
             break;
 
         case "0010": //SOMMA:
-            $risultato=$dato1+$dato2;
+            $risultato=gmp_strval(gmp_add($dato1,$dato2));
             break;
 
         case "0110": //SOTTRAZIONE:
-            $risultato=$dato1-$dato2;
+            $risultato=gmp_strval(gmp_sub($dato1,$dato2));
             break;
 
         case "0111": //SET ON LESS THAN:
-            if ($dato1<$dato2)
+            if (gmp_cmp($dato1,$dato2)<0)
             {
-                $risultato=1;
+                $risultato="1";
             }
             else
             {
-                $risultato=0;
+                $risultato="0";
             }
             break;
 
         case "0100": //SET ON LESS THAN IMMEDIATE UNSIGNED:
-            $dato1=abs($dato1); //valore assoluto
-            $dato2=abs($dato2);
-            if ($dato1<$dato2)
+            $dato1=gmp_abs($dato1); //valore assoluto
+            $dato2=gmp_abs($dato2);
+            if (gmp_cmp($dato1,$dato2)<0)
             {
-                $risultato=1;
+                $risultato="1";
             }
             else
             {
-                $risultato=0;
+                $risultato="0";
             }
             break;
 
         case "1000": //mul
-            $HILO=$dato1*$dato2;
+            $HILO=gmp_strval(gmp_mul($dato1,$dato2));
             $_SESSION['HILO']=$HILO;
-            $HILO_bin=IntToBin($HILO,128,0);
-            $risultato=BinToInt(substr($HILO_bin,64,64),0);
+            $HILO_bin=GMPToBin($HILO,128,0);
+            $risultato=BinToGMP(substr($HILO_bin,64,64),0);
             break;
 
         case "1001": //div
-            $HI_val=fmod($dato1,$dato2);
-            $LO_val=($dato1-$HI_val)/$dato2;
-            $HILO_val=IntToBin($HI_val,64,0).IntToBin($LO_val,64,0);
-            $HILO=BinToInt($HILO_val,0);
+            $HI_val=gmp_strval(gmp_mod($dato1,$dato2));
+            $LO_val=gmp_strval(gmp_div_q(gmp_sub($dato1,$HI_val),$dato2));
+            $HILO_val=GMPToBin($HI_val,64,0).GMPToBin($LO_val,64,0);
+            $HILO=BinToGMP($HILO_val,0);
             $_SESSION['HILO']=$HILO;
             $risultato=$LO_val;
             break;
 
         case "1010": //mulh
-            $HILO=$dato1*$dato2;
+            $HILO=gmp_strval(gmp_mul($dato1,$dato2));
             $_SESSION['HILO']=$HILO;
-            $HILO_bin=IntToBin($HILO,128,0);
-            $risultato=BinToInt(substr($HILO_bin,0,64),0);
+            $HILO_bin=GMPToBin($HILO,128,0);
+            $risultato=BinToGMP(substr($HILO_bin,0,64),0);
             break;
 
         case "1011": //rem
-            $HI_val=fmod($dato1,$dato2);
-            $LO_val=($dato1-$HI_val)/$dato2;
-            $HILO_val=IntToBin($HI_val,64,0).IntToBin($LO_val,64,0);
-            $HILO=BinToInt($HILO_val,0);
+            $HI_val=gmp_strval(gmp_mod($dato1,$dato2));
+            $LO_val=gmp_strval(gmp_div_q(gmp_sub($dato1,$HI_val),$dato2));
+            $HILO_val=GMPToBin($HI_val,64,0).GMPToBin($LO_val,64,0);
+            $HILO=BinToGMP($HILO_val,0);
             $_SESSION['HILO']=$HILO;
             $risultato=$HI_val;
             break;
 
 		case "1110": //SLL:
-            $risultato=$dato1<<$dato2;
+			$risultato=GMPToBin($dato1,64,0);
+			$risultato=substr($risultato,$dato2).str_repeat('0',$dato2);
+			$risultato=BinToGMP($risultato,0);
             break;
 
 		case "1101": //SRL:
-            $risultato=$dato1>>$dato2;
-			$risultato=IntToBin($risultato,64,0);
-			$risultato=str_repeat('0',$dato2).substr($risultato,$dato2);
-			$risultato=BinToInt($risultato,0);
+			$risultato=GMPToBin($dato1,64,0);
+			$risultato=str_repeat('0',$dato2).substr($risultato,0,-$dato2);
+			$risultato=BinToGMP($risultato,0);
             break;
 			
         case "1111": //SRA:
-            $risultato=$dato1>>$dato2;
+            $risultato=GMPToBin($dato1,64,0);
+			$risultato=str_repeat($risultato[0],$dato2).substr($risultato,0,-$dato2);
+			$risultato=BinToGMP($risultato,0);
             break;
 
-
         default:
-            $risultato=0;
+            $risultato="0";
             break;
     }
 
     $function_ret=$risultato;
-
     return $function_ret;
 }
 //#############################################################################
@@ -359,10 +358,10 @@ function EXMux5($MUX5controllo,$dato1,$dato2)
 function UnitaDiCtrl_ctrl($instruction)
 {
     $op=substr($instruction,25,7);
-    $op=BinToInt($op,1);
+    $op=BinToGMP($op,1);
 
     $funct3=substr($instruction,17,3);
-    $funct3=BinToInt($funct3,1);
+    $funct3=BinToGMP($funct3,1);
 
     switch ($op)
     {
@@ -526,7 +525,7 @@ function UnitaCtrlAlu($ctrl,$funct7,$funct3,$op)
                             $function_ret="1010";
                         break;
 
-                    case hexdec(5): //srl|sra
+                    case hexdec(5):
 						if($funct7==hexdec(0))
 							$function_ret="1101"; //srl
 						if($funct7==hexdec(20))
@@ -579,7 +578,10 @@ function UnitaCtrlAlu($ctrl,$funct7,$funct3,$op)
                         break;
 
                     case hexdec(5):
-						$function_ret="1101"; //srli
+						if($funct7==hexdec(0))
+							$function_ret="1101"; //srli
+						if($funct7==hexdec(20))
+							$function_ret="1111"; //srai
                         break;
                     default:
                         $function_ret="";
@@ -1098,70 +1100,6 @@ function decodeIstr($istr)
             $rs2=trim($rs2);
             break;
 
-		case 'slli':
-			$tipo='I';
-            $op=hexdec(13);
-            $funct3=hexdec(1);
-            if(strlen($a)==0)
-            {
-                $rd='ERR';
-                $rs1='ERR';
-                $imm='ERR';
-                break;
-            }
-            $rd=strtok($a,',');
-            $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
-            $rd=trim($rd);
-            if(strlen($a)==0)
-            {
-                $rs1='ERR';
-                $imm='ERR';
-                break;
-            }
-            $rs1=strtok($a,',');
-            $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
-            $rs1=trim($rs1);
-            if(strlen($a)==0)
-            {
-                $imm='ERR';
-                break;
-            }
-            $imm=strtok($a,PHP_EOL);
-            $imm=is_numeric(trim($imm))?trim($imm):'ERR';
-            break;
-
-        case 'srli':
-            $tipo='I';
-            $op=hexdec(13);
-            $funct3=hexdec(5);
-            if(strlen($a)==0)
-            {
-                $rd='ERR';
-                $rs1='ERR';
-                $imm='ERR';
-                break;
-            }
-            $rd=strtok($a,',');
-            $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
-            $rd=trim($rd);
-            if(strlen($a)==0)
-            {
-                $rs1='ERR';
-                $imm='ERR';
-                break;
-            }
-            $rs1=strtok($a,',');
-            $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
-            $rs1=trim($rs1);
-            if(strlen($a)==0)
-            {
-                $imm='ERR';
-                break;
-            }
-            $imm=strtok($a,PHP_EOL);
-            $imm=is_numeric(trim($imm))?trim($imm):'ERR';
-            break;
-			
 		case 'sra':
             $tipo='R';
             $op=hexdec(33);
@@ -1194,7 +1132,107 @@ function decodeIstr($istr)
             $rs2=strtok($a,PHP_EOL);
             $rs2=trim($rs2);
             break;
+			
+		case 'slli':
+			$tipo='I';
+            $op=hexdec(13);
+            $funct3=hexdec(1);
+			$funct7=hexdec(0);
+            if(strlen($a)==0)
+            {
+                $rd='ERR';
+                $rs1='ERR';
+                $imm='ERR';
+                break;
+            }
+            $rd=strtok($a,',');
+            $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
+            $rd=trim($rd);
+            if(strlen($a)==0)
+            {
+                $rs1='ERR';
+                $imm='ERR';
+                break;
+            }
+            $rs1=strtok($a,',');
+            $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
+            $rs1=trim($rs1);
+            if(strlen($a)==0)
+            {
+                $imm='ERR';
+                break;
+            }
+            $imm=strtok($a,PHP_EOL);
+            $imm=is_numeric(trim($imm))?trim($imm):'ERR';
+            break;
 
+        case 'srli':
+            $tipo='I';
+            $op=hexdec(13);
+            $funct3=hexdec(5);
+			$funct7=hexdec(0);
+            if(strlen($a)==0)
+            {
+                $rd='ERR';
+                $rs1='ERR';
+                $imm='ERR';
+                break;
+            }
+            $rd=strtok($a,',');
+            $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
+            $rd=trim($rd);
+            if(strlen($a)==0)
+            {
+                $rs1='ERR';
+                $imm='ERR';
+                break;
+            }
+            $rs1=strtok($a,',');
+            $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
+            $rs1=trim($rs1);
+            if(strlen($a)==0)
+            {
+                $imm='ERR';
+                break;
+            }
+            $imm=strtok($a,PHP_EOL);
+            $imm=is_numeric(trim($imm))?trim($imm):'ERR';
+            break;
+		
+        case 'srai':
+            $tipo='I';
+            $op=hexdec(13);
+            $funct3=hexdec(5);
+			$funct7=hexdec(20);
+            if(strlen($a)==0)
+            {
+                $rd='ERR';
+                $rs1='ERR';
+                $imm='ERR';
+                break;
+            }
+            $rd=strtok($a,',');
+            $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
+            $rd=trim($rd);
+            if(strlen($a)==0)
+            {
+                $rs1='ERR';
+                $imm='ERR';
+                break;
+            }
+            $rs1=strtok($a,',');
+            $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
+            $rs1=trim($rs1);
+            if(strlen($a)==0)
+            {
+                $imm='ERR';
+                break;
+            }
+            $imm=strtok($a,PHP_EOL);
+            $imm=is_numeric(trim($imm))?trim($imm):'ERR';
+			$imm=($imm!='ERR')?BinToGMP(GMPToBin($funct7,7,1).GMPToBin($imm,5,1),1):$imm;
+            break;
+			
 		case 'lb':
             $tipo='I';
             $op=hexdec(3);
@@ -1775,7 +1813,7 @@ function decodeIstr($istr)
             $rs1=intval($rs1);
             $rs2=intval($rs2);
             $rd=intval($rd);
-            $function_ret=IntToBin($funct7,7,1).IntToBin($rs2,5,1).IntToBin($rs1,5,1).IntToBin($funct3,3,1).IntToBin($rd,5,1).IntToBin($op,7,1);
+            $function_ret=GMPToBin($funct7,7,1).GMPToBin($rs2,5,1).GMPToBin($rs1,5,1).GMPToBin($funct3,3,1).GMPToBin($rd,5,1).GMPToBin($op,7,1);
         }
     }
 
@@ -1795,7 +1833,7 @@ function decodeIstr($istr)
             $rd=intval($rd);
             $imm=intval($imm);
 
-            $function_ret=IntToBin($imm,12,0).IntToBin($rs1,5,1).IntToBin($funct3,3,1).IntToBin($rd,5,1).IntToBin($op,7,1);
+            $function_ret=GMPToBin($imm,12,0).GMPToBin($rs1,5,1).GMPToBin($funct3,3,1).GMPToBin($rd,5,1).GMPToBin($op,7,1);
         }
     }
 
@@ -1815,8 +1853,8 @@ function decodeIstr($istr)
             $rs1=intval($rs1);
             $rs2=intval($rs2);
             $imm=intval($imm);
-            $imm_bin=IntToBin($imm,12,1);
-            $function_ret=substr($imm_bin,0,7).IntToBin($rs2,5,1).IntToBin($rs1,5,1).IntToBin($funct3,3,1).substr($imm_bin,7,5).IntToBin($op,7,1);
+            $imm_bin=GMPToBin($imm,12,1);
+            $function_ret=substr($imm_bin,0,7).GMPToBin($rs2,5,1).GMPToBin($rs1,5,1).GMPToBin($funct3,3,1).substr($imm_bin,7,5).GMPToBin($op,7,1);
         }
     }
 
@@ -1837,7 +1875,7 @@ function decodeIstr($istr)
             $rs2=intval($rs2);
 
             $target=':'.$imm;
-            $function_ret=IntToBin($rs2,5,1).IntToBin($rs1,5,1).IntToBin($funct3,3,1).IntToBin($op,7,1).$target; //to change target
+            $function_ret=GMPToBin($rs2,5,1).GMPToBin($rs1,5,1).GMPToBin($funct3,3,1).GMPToBin($op,7,1).$target; //to change target
 
         }
     }
@@ -1854,7 +1892,7 @@ function decodeIstr($istr)
         else
         {
             $rd=intval($rd);
-            $function_ret=IntToBin($imm,20,1).IntToBin($rd,5,1).IntToBin($op,7,1);
+            $function_ret=GMPToBin($imm,20,1).GMPToBin($rd,5,1).GMPToBin($op,7,1);
         }
     }
 
@@ -1870,7 +1908,7 @@ function decodeIstr($istr)
         else
         {
             $rd=intval($rd);
-            $function_ret=IntToBin($rd,5,1).IntToBin($op,7,1).':'.$target; //to change target
+            $function_ret=GMPToBin($rd,5,1).GMPToBin($op,7,1).':'.$target; //to change target
         }
     }
 
@@ -2163,7 +2201,6 @@ function cLabel($label,$tabRil,$dimTabRil)
         if ($c==$label)
         {
             $function_ret=substr($a1,0,$b1-1);
-            $function_ret=intval($function_ret);
             break;
         }
         $i=$i+1;
@@ -2432,9 +2469,11 @@ function instrName($op,$funct3,$funct7)
 			case hexdec(1):
                 $function_ret='Slli';
                 break;
-
             case hexdec(5):
-				$function_ret='Srli';
+				if($funct7==hexdec(0))
+					$function_ret="Srli";
+				if($funct7==hexdec(20))
+					$function_ret='Srai';
                 break;
             default:
                 $function_ret='';

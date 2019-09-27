@@ -1,12 +1,9 @@
 <?php
 session_start();
 require_once "src/init.php";
-if (isset($_GET['reset']) && $_GET['reset']=='yes')
-{
-    $_SESSION['codice']='';
-}
+$_SESSION['codice']='';
+$_SESSION['branchFlush']=true;
 ?>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
 <head>

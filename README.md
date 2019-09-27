@@ -4,7 +4,7 @@ WebRISC-V is a web-based graphical pipelined datapath simulation environment bui
 
 WebRISC-V is already online and ready to use, at the following link: [VERSION 1.1](http://www.dii.unisi.it/~giorgi/WebRISC-V)
 
-CURRENT VERSION on GitHub: VERSION 1.1
+CURRENT VERSION on GitHub: VERSION 1.2
 
 - [WebRISC-V](#WebRISC-V)
   - [Changelog](#changelog)
@@ -12,13 +12,21 @@ CURRENT VERSION on GitHub: VERSION 1.1
   
 ## Changelog
 
-#### VERSION 1.1
+###VERSION 1.2
 
-* General Bugfixes
+* Float to GMP numbers to remove approximation errors
+* Jump Control Hazard Resolution Selector [Flush Instruction || Execute Delay Slot]
+	* Load-and-Play Examples change with the selection
+* Implementation of SRAI
+* Other small Bugfixes
+
+###VERSION 1.1
+
 * Implementation of SLLI, SRLI
 * Implementation of Pipelining Table to better show execution
+* Other small Bugfixes
 
-#### VERSION 1.0
+###VERSION 1.0
 
 * Initial version, as described on the paper [WebRISC-V: a Web-Based Education-Oriented RISC-V Pipeline Simulation Environment
 ](https://dl.acm.org/citation.cfm?id=3338894)
@@ -33,7 +41,7 @@ The reference Installation has been done on the Linux distro UBUNTU 18.04LTS
 * To install the web-server with the PHP language included issue the following commands:
 ```
   sudo apt -y update && sudo apt -y install apache2 php libapache2-mod-php
-  sudo apt -y install php-pear php-fpm php-dev php-zip php-curl php-gd php-mysql php-mbstring php-xml php-xmlrpc 
+  sudo apt -y install php-pear php-fpm php-dev php-zip php-curl php-gd php-mysql php-mbstring php-xml php-xmlrpc php-gmp
   sudo ufw allow 'Apache'
   a2enmod php7.2
   sudo systemctl status apache2 	(alternatively you may want to run:

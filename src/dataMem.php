@@ -97,23 +97,23 @@ if (!isset($height))
                 ?>
 				
 				<tr>
-					<td rowspan="3" width="40" align="center" bgcolor="white"><?php       echo BinToInt($MemDati[$MemIndex+7].$MemDati[$MemIndex+6].$MemDati[$MemIndex+5].$MemDati[$MemIndex+4].$MemDati[$MemIndex+3].$MemDati[$MemIndex+2].$MemDati[$MemIndex+1].$MemDati[$MemIndex],0); ?></td>
-                    <td width="40" align="center" bgcolor="white"><?php       echo BinToInt($MemDati[$MemIndex+3].$MemDati[$MemIndex+2].$MemDati[$MemIndex+1].$MemDati[$MemIndex],0); ?></td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+3]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+3],0); ?> )</td>
-                    <td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+2]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+2],0); ?> )</td>
-                    <td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+1]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+1],0); ?> )</td>
-                    <td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex],0); ?> )</td>
+					<td rowspan="3" width="40" style="word-break: break-word;" align="center" bgcolor="white"><?php       echo BinToGMP($MemDati[$MemIndex+7].$MemDati[$MemIndex+6].$MemDati[$MemIndex+5].$MemDati[$MemIndex+4].$MemDati[$MemIndex+3].$MemDati[$MemIndex+2].$MemDati[$MemIndex+1].$MemDati[$MemIndex],0); ?></td>
+                    <td width="40" style="word-break: break-word;" align="center" bgcolor="white"><?php       echo BinToGMP($MemDati[$MemIndex+3].$MemDati[$MemIndex+2].$MemDati[$MemIndex+1].$MemDati[$MemIndex],0); ?></td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+3]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+3],0); ?> )</td>
+                    <td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+2]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+2],0); ?> )</td>
+                    <td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+1]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+1],0); ?> )</td>
+                    <td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex],0); ?> )</td>
 					<td width="30" align="center" bgcolor="#333333" class="numRiga"><?php       echo $MemIndex; ?></td>
                 </tr>
                 <tr>
                     <td colspan="6"><img src="../img/layout/x.gif" height="<?php       echo $height; ?>"></td>
                 </tr>
                 <tr>
-                    <td width="40" align="center" bgcolor="white"><?php       echo BinToInt($MemDati[$MemIndex+7].$MemDati[$MemIndex+6].$MemDati[$MemIndex+5].$MemDati[$MemIndex+4],0); ?></td>
-                    <td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+7]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+7],0); ?> )</td>
-                    <td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+6]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+6],0); ?> )</td>
-                    <td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+5]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+5],0); ?> )</td>
-                    <td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+4]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+4],0); ?> )</td>
+                    <td width="40" style="word-break: break-word;" align="center" bgcolor="white"><?php       echo BinToGMP($MemDati[$MemIndex+7].$MemDati[$MemIndex+6].$MemDati[$MemIndex+5].$MemDati[$MemIndex+4],0); ?></td>
+                    <td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+7]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+7],0); ?> )</td>
+                    <td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+6]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+6],0); ?> )</td>
+                    <td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+5]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+5],0); ?> )</td>
+                    <td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+4]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+4],0); ?> )</td>
 					<td width="30" align="center" bgcolor="#333333" class="numRiga"><?php       echo $MemIndex+4; ?></td>
                 </tr>
                 <tr>
@@ -135,23 +135,23 @@ if (!isset($height))
             {
 				?>
 				<tr>
-					<td rowspan="3" width="40" align="center" bgcolor="white"><?php       echo BinToInt($MemDati[$MemIndex+7].$MemDati[$MemIndex+6].$MemDati[$MemIndex+5].$MemDati[$MemIndex+4].$MemDati[$MemIndex+3].$MemDati[$MemIndex+2].$MemDati[$MemIndex+1].$MemDati[$MemIndex],0); ?></td>
-					<td width="40" align="center" bgcolor="white"><?php       echo BinToInt($MemDati[$MemIndex+3].$MemDati[$MemIndex+2].$MemDati[$MemIndex+1].$MemDati[$MemIndex],0); ?></td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+3]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+3],0); ?> )</td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+2]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+2],0); ?> )</td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+1]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+1],0); ?> )</td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex],0); ?> )</td>
+					<td rowspan="3" width="40" style="word-break: break-word;" align="center" bgcolor="white"><?php       echo BinToGMP($MemDati[$MemIndex+7].$MemDati[$MemIndex+6].$MemDati[$MemIndex+5].$MemDati[$MemIndex+4].$MemDati[$MemIndex+3].$MemDati[$MemIndex+2].$MemDati[$MemIndex+1].$MemDati[$MemIndex],0); ?></td>
+					<td width="40" style="word-break: break-word;" align="center" bgcolor="white"><?php       echo BinToGMP($MemDati[$MemIndex+3].$MemDati[$MemIndex+2].$MemDati[$MemIndex+1].$MemDati[$MemIndex],0); ?></td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+3]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+3],0); ?> )</td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+2]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+2],0); ?> )</td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+1]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+1],0); ?> )</td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex],0); ?> )</td>
 					<td width="30" align="center" bgcolor="#333333" class="numRiga"><?php       echo $MemIndex; ?></td>
 				</tr>
 				<tr>
 					<td colspan="6"><img src="../img/layout/x.gif" height="<?php       echo $height; ?>"></td>
 				</tr>
 				<tr>
-					<td width="40" align="center" bgcolor="white"><?php       echo BinToInt($MemDati[$MemIndex+7].$MemDati[$MemIndex+6].$MemDati[$MemIndex+5].$MemDati[$MemIndex+4],0); ?></td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+7]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+7],0); ?> )</td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+6]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+6],0); ?> )</td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+5]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+5],0); ?> )</td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+4]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+4],0); ?> )</td>
+					<td width="40" style="word-break: break-word;" align="center" bgcolor="white"><?php       echo BinToGMP($MemDati[$MemIndex+7].$MemDati[$MemIndex+6].$MemDati[$MemIndex+5].$MemDati[$MemIndex+4],0); ?></td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+7]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+7],0); ?> )</td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+6]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+6],0); ?> )</td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+5]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+5],0); ?> )</td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+4]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+4],0); ?> )</td>
 					<td width="30" align="center" bgcolor="#333333" class="numRiga"><?php       echo $MemIndex+4; ?></td>
 				</tr>
 				<tr>
@@ -179,23 +179,23 @@ if (!isset($height))
             {
 				?>
 				<tr>
-					<td rowspan="3" width="40" align="center" bgcolor="white"><?php       echo BinToInt($MemDati[$MemIndex+7].$MemDati[$MemIndex+6].$MemDati[$MemIndex+5].$MemDati[$MemIndex+4].$MemDati[$MemIndex+3].$MemDati[$MemIndex+2].$MemDati[$MemIndex+1].$MemDati[$MemIndex],0); ?></td>
-					<td width="40" align="center" bgcolor="white"><?php       echo BinToInt($MemDati[$MemIndex+3].$MemDati[$MemIndex+2].$MemDati[$MemIndex+1].$MemDati[$MemIndex],0); ?></td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+3]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+3],0); ?> )</td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+2]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+2],0); ?> )</td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+1]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+1],0); ?> )</td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex],0); ?> )</td>
+					<td rowspan="3" width="40" style="word-break: break-word;" align="center" bgcolor="white"><?php       echo BinToGMP($MemDati[$MemIndex+7].$MemDati[$MemIndex+6].$MemDati[$MemIndex+5].$MemDati[$MemIndex+4].$MemDati[$MemIndex+3].$MemDati[$MemIndex+2].$MemDati[$MemIndex+1].$MemDati[$MemIndex],0); ?></td>
+					<td width="40" style="word-break: break-word;" align="center" bgcolor="white"><?php       echo BinToGMP($MemDati[$MemIndex+3].$MemDati[$MemIndex+2].$MemDati[$MemIndex+1].$MemDati[$MemIndex],0); ?></td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+3]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+3],0); ?> )</td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+2]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+2],0); ?> )</td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+1]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+1],0); ?> )</td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex],0); ?> )</td>
 					<td width="30" align="center" bgcolor="#333333" class="numRiga"><?php       echo $MemIndex; ?></td>
 				</tr>
 				<tr>
 					<td colspan="6"><img src="../img/layout/x.gif" height="<?php       echo $height; ?>"></td>
 				</tr>
 				<tr>
-					<td width="40" align="center" bgcolor="white"><?php       echo BinToInt($MemDati[$MemIndex+7].$MemDati[$MemIndex+6].$MemDati[$MemIndex+5].$MemDati[$MemIndex+4],0); ?></td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+7]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+7],0); ?> )</td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+6]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+6],0); ?> )</td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+5]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+5],0); ?> )</td>
-					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+4]; ?><br>( <?php       echo BinToInt($MemDati[$MemIndex+4],0); ?> )</td>
+					<td width="40" style="word-break: break-word;" align="center" bgcolor="white"><?php       echo BinToGMP($MemDati[$MemIndex+7].$MemDati[$MemIndex+6].$MemDati[$MemIndex+5].$MemDati[$MemIndex+4],0); ?></td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+7]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+7],0); ?> )</td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+6]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+6],0); ?> )</td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+5]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+5],0); ?> )</td>
+					<td width="50" align="center" bgcolor="white"><?php       echo $MemDati[$MemIndex+4]; ?><br>( <?php       echo BinToGMP($MemDati[$MemIndex+4],0); ?> )</td>
 					<td width="30" align="center" bgcolor="#333333" class="numRiga"><?php       echo $MemIndex+4; ?></td>
 				</tr>
 				<tr>

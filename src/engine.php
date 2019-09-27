@@ -184,9 +184,9 @@ if ($_SESSION['clock']>1000)
 
 //############################################
 
-if ( $agg=="si" || $agg=="new" ||  $agg=="back" )
+if ( $agg=="refresh" || $agg=="new" ||  $agg=="back" )
 {
-	if ($agg=="si")	{
+	if ($agg=="refresh")	{
 		$_SESSION['segDati']=isset($_POST["segDati"])?$_POST["segDati"]:"";
 		$_SESSION['segCtrl']=isset($_POST["segCtrl"])?$_POST["segCtrl"]:"";
 	}
@@ -243,10 +243,10 @@ if (!$_SESSION['finito'] && $_SESSION['start'])
 //############################################
 //IS JUMP
 
-$isBranch = (BinToInt(substr($istruzione,25,7),1)==hexdec(63))?true:false;
-$typeBranch = (BinToInt(substr($istruzione,17,3),1)==hexdec(0))?'beq':'bne';
-$isJal = (BinToInt(substr($istruzione,25,7),1)==hexdec('6F'))?true:false;
-$isJalr = (BinToInt(substr($istruzione,25,7),1)==hexdec(67))?true:false;
+$isBranch = (BinToGMP(substr($istruzione,25,7),1)==hexdec(63))?true:false;
+$typeBranch = (BinToGMP(substr($istruzione,17,3),1)==hexdec(0))?'beq':'bne';
+$isJal = (BinToGMP(substr($istruzione,25,7),1)==hexdec('6F'))?true:false;
+$isJalr = (BinToGMP(substr($istruzione,25,7),1)==hexdec(67))?true:false;
 
 //############################################
 
@@ -273,7 +273,7 @@ if (substr($EX_MEM_M,1,1)=="1")
 {
 	if (substr($EX_MEM_M,2,2)=="11") //Save DWord
     {
-        $insieme=IntToBin($EX_MEM_DataW,64,0);
+        $insieme=GMPToBin($EX_MEM_DataW,64,0);
         $byte1=substr($insieme,0,8);
         $byte2=substr($insieme,8,8);
         $byte3=substr($insieme,16,8);
@@ -309,7 +309,7 @@ if (substr($EX_MEM_M,1,1)=="1")
     }
     else if (substr($EX_MEM_M,2,2)=="10") //Save Word
     {
-        $insieme=IntToBin($EX_MEM_DataW,32,0);
+        $insieme=GMPToBin($EX_MEM_DataW,32,0);
         $byte1=substr($insieme,0,8);
         $byte2=substr($insieme,8,8);
         $byte3=substr($insieme,16,8);
@@ -337,7 +337,7 @@ if (substr($EX_MEM_M,1,1)=="1")
     }
 	else if (substr($EX_MEM_M,2,2)=="01") //Save Half
     {
-        $insieme=IntToBin($EX_MEM_DataW,16,0);
+        $insieme=GMPToBin($EX_MEM_DataW,16,0);
         $byte1=substr($insieme,0,8);
         $byte2=substr($insieme,8,8);
         $prova=$EX_MEM_RIS%2;
@@ -361,7 +361,7 @@ if (substr($EX_MEM_M,1,1)=="1")
     }
     else if (substr($EX_MEM_M,2,2)=="00") //Save Byte
     {
-        $dato=IntToBin($EX_MEM_DataW,8,0); 
+        $dato=GMPToBin($EX_MEM_DataW,8,0); 
         $lungh=strlen($dato);
         if ($lungh>8)
         {
@@ -406,7 +406,7 @@ if (substr($EX_MEM_M,0,1)=="1")
 			$byte7=$MemDati[$EX_MEM_RIS+6];
 			$byte8=$MemDati[$EX_MEM_RIS+7];
             $temp_MEM_WB_DataR=$byte8.$byte7.$byte6.$byte5.$byte4.$byte3.$byte2.$byte1;
-            $temp_MEM_WB_DataR=BintoInt($temp_MEM_WB_DataR,0);
+            $temp_MEM_WB_DataR=BinToGMP($temp_MEM_WB_DataR,0);
         }
         else
         {
@@ -431,7 +431,7 @@ if (substr($EX_MEM_M,0,1)=="1")
             $byte3=$MemDati[$EX_MEM_RIS+2];
             $byte4=$MemDati[$EX_MEM_RIS+3];
             $temp_MEM_WB_DataR=$byte4.$byte3.$byte2.$byte1;
-            $temp_MEM_WB_DataR=BintoInt($temp_MEM_WB_DataR,0);
+            $temp_MEM_WB_DataR=BinToGMP($temp_MEM_WB_DataR,0);
         }
         else
         {
@@ -454,7 +454,7 @@ if (substr($EX_MEM_M,0,1)=="1")
             $byte1=$MemDati[$EX_MEM_RIS];
             $byte2=$MemDati[$EX_MEM_RIS+1];
             $temp_MEM_WB_DataR=$byte2.$byte1;
-            $temp_MEM_WB_DataR=BintoInt($temp_MEM_WB_DataR,0);
+            $temp_MEM_WB_DataR=BinToGMP($temp_MEM_WB_DataR,0);
         }
         else
         {
@@ -468,7 +468,7 @@ if (substr($EX_MEM_M,0,1)=="1")
 		if ($EX_MEM_RIS<=4999)
         {
 			$temp_MEM_WB_DataR=$MemDati[$EX_MEM_RIS]; //Load Byte
-			$temp_MEM_WB_DataR=BinToInt($temp_MEM_WB_DataR,0);
+			$temp_MEM_WB_DataR=BinToGMP($temp_MEM_WB_DataR,0);
 		}
 		else
         {
@@ -483,11 +483,11 @@ if (substr($EX_MEM_M,0,1)=="1")
 //TEMP OP FUNCT
 
 $temp_ID_EX_campoOp=substr($istruzione,25,7);
-$temp_ID_EX_campoOp=BinToInt($temp_ID_EX_campoOp,1);
+$temp_ID_EX_campoOp=BinToGMP($temp_ID_EX_campoOp,1);
 $temp_ID_EX_funct3=substr($istruzione,17,3);
-$temp_ID_EX_funct3=BinToInt($temp_ID_EX_funct3,1);
+$temp_ID_EX_funct3=BinToGMP($temp_ID_EX_funct3,1);
 $temp_ID_EX_funct7=substr($istruzione,0,7);
-$temp_ID_EX_funct7=BinToInt($temp_ID_EX_funct7,1);
+$temp_ID_EX_funct7=BinToGMP($temp_ID_EX_funct7,1);
 
 //############################################
 //IMMEDIATE GENERATOR
@@ -496,8 +496,13 @@ $tipo=instrType($temp_ID_EX_campoOp);
 $temp_ID_EX_imm=0;
 if($tipo=='I') //I
 {
-    $temp_ID_EX_imm=substr($istruzione,0,12);
-    $temp_ID_EX_imm=str_repeat($temp_ID_EX_imm[0],52).$temp_ID_EX_imm;
+	if( ($temp_ID_EX_campoOp==hexdec(13)) && ($temp_ID_EX_funct3==1 || $temp_ID_EX_funct3==5) )	{
+		$temp_ID_EX_imm=substr($istruzione,7,5);
+		$temp_ID_EX_imm=str_repeat("0",59).$temp_ID_EX_imm;
+	} else {
+		$temp_ID_EX_imm=substr($istruzione,0,12);
+		$temp_ID_EX_imm=str_repeat($temp_ID_EX_imm[0],52).$temp_ID_EX_imm;
+	}
 }
 if($tipo=='S') //S
 {
@@ -521,7 +526,7 @@ $temp_IF_ID_PCpiu4=$PC+1; //Aggiornamento del PC per la istruzione corrente
 $ID_EX_PCpiu4=$IF_ID_PCpiu4; //PC da propagare
 
 $newPC1=$temp_ID_EX_imm;
-$newPC1=BinToInt($newPC1,1); //Possibile nuovo PC 1, intero
+$newPC1=BinToGMP($newPC1,1); //Possibile nuovo PC 1, intero
 
 $newPC2=$temp_IF_ID_PCpiu4; //Posibile nuovo PC 2, PC + 4
 
@@ -556,7 +561,7 @@ $ALUdato1=EXMux3($Mux3Ctrl,$ID_EX_Data1,$WBdata,$EX_MEM_RIS);
 $temp_EX_MEM_DataW=EXMux4($Mux4Ctrl,$ID_EX_Data2,$WBdata,$EX_MEM_RIS);
 
 $Mux5Ctrl=substr($ID_EX_EX,2,1);
-$ID_EX_imm2=BinToInt($ID_EX_imm,0);
+$ID_EX_imm2=BinToGMP($ID_EX_imm,0);
 $ALUdato2=EXMux5($Mux5Ctrl,$temp_EX_MEM_DataW,$ID_EX_imm2);
 
 $AluOP=substr($ID_EX_EX,0,2); //AluOP sono bit del registro ID/EX.M
@@ -584,16 +589,16 @@ $temp_MEM_WB_RegW=$EX_MEM_RegW;
 //LOAD->R,I (M=>X), LOAD->SB (M=>D)
 
 $RL1=substr($istruzione,12,5); //Campo rs1 dell'istruzione
-$RL1=BinToInt($RL1,1);
+$RL1=BinToGMP($RL1,1);
 
 $RL2=substr($istruzione,7,5); //Campo rs2 dell'istruzione
-$RL2=BinToInt($RL2,1);
+$RL2=BinToGMP($RL2,1);
 
 $IsLW=substr($ID_EX_M,0,1); //Segnale di controllo MemRead
 
 if ($IsLW=="1")
 {
-    if ($ID_EX_RD==$RL1 || $ID_EX_RD==$RL2)
+    if (($ID_EX_RD==$RL1 || $ID_EX_RD==$RL2) && $ID_EX_RD!=0)
     {
 		if($stallo==0) {
 			$stallo++; 
@@ -615,9 +620,11 @@ $temp_ID_EX_Data2=$registri[$RL2]; //Dato letto 2, valore corispodente al regist
 $ctrl_EX=substr($ID_EX_WB,0,1); //Regwrite nello stato ex
 if ($ctrl_EX=="1" && $isBranch)
 {
-    if ($ID_EX_RD==$RL1 || $ID_EX_RD==$RL2) {
-		if($stallo==0)
+	//var_dump($ID_EX_RD,$RL1,$RL2); exit;
+    if (($ID_EX_RD==$RL1 || $ID_EX_RD==$RL2) && $ID_EX_RD!=0) {
+		if($stallo==0) {
 			$stallo++;
+		}
     }
 }
 
@@ -670,7 +677,7 @@ if(!$_SESSION['IF_scarta'])
 		$branch=true;
 		$branchCheck=true;
 		$rd=substr($istruzione,20,5);
-		$rd=BinToInt($rd,1);
+		$rd=BinToGMP($rd,1);
 		if($rd!=0) {
 			$registri[$rd]=$PC;
 		}
@@ -679,8 +686,8 @@ if(!$_SESSION['IF_scarta'])
 		$branch=true;
 		$branchCheck=true;
 		$rs1=substr($istruzione,12,5);
-		$rs1=BinToInt($rs1,1);
-		$newPC1=$registri[$rs1]+BinToInt($temp_ID_EX_imm,0);
+		$rs1=BinToGMP($rs1,1);
+		$newPC1=$registri[$rs1]+BinToGMP($temp_ID_EX_imm,0);
 	}
 }
 
@@ -688,7 +695,7 @@ if(!$_SESSION['IF_scarta'])
 //Generazioni dei segnali di controllo
 $PCsrc=$branch&&$branchCheck;
 //var_dump($branch,$branchCheck,$PCsrc,$bDato1,$bDato2);
-$IF_scarta=($PCsrc&&(!$stallo))?1:0; //branch (not stalled)
+$IF_scarta=($PCsrc&&(!$stallo)&&$_SESSION['branchFlush'])?1:0; //branch (not stalled)
 $ID_scarta=($stallo)?1:0; //stall,exception
 $EX_scarta=0;  //exception
 
@@ -708,7 +715,7 @@ else {
     $temp_ID_EX_EX=$ctrl_EX;
 }
 
-$temp_Istruzione=($stallo)?$istruzione:(($PCsrc)?str_repeat('0',32):$MemIstr[$PC]);
+$temp_Istruzione=($stallo)?$istruzione:(($PCsrc&&$_SESSION['branchFlush'])?str_repeat('0',32):$MemIstr[$PC]);
 $temp_IF_ID_PCpiu4=$PC+1;
 
 $_SESSION['prev_ifIstruzione']=$_SESSION['ifIstruzione'];
@@ -736,9 +743,11 @@ else
 {
 	$_SESSION['idIstruzione']=1001; //stallo;
 }
-//if($_SESSION['IF_scarta'] && !$PCsrc) {
-//	$_SESSION['idIstruzione']=1002;
-//}
+
+if($_SESSION['IF_scarta']) { //&& !$PCsrc) {
+	$_SESSION['idIstruzione']=1002;
+}
+
 $_SESSION['exIstruzione']=$b;
 $_SESSION['memIstruzione']=$c;
 $_SESSION['wbIstruzione']=$d;
@@ -757,11 +766,16 @@ if($_SESSION['idIstruzione']!=1001) {
 		$_SESSION['execTrail'][]=$MemIstr[$PC];
 		$_SESSION['execStage'][0]=count($_SESSION['execTrail'])-1;
 	} else {
-		$_SESSION['execStage'][0]="-";
+		$_SESSION['execStage'][0]="";
 	}
 } else {
-	$_SESSION['execStage'][1]="-";
+	$_SESSION['execStage'][1]="";
 }
+
+if($_SESSION['idIstruzione']==1002) { //jump flush
+	$_SESSION['execStage'][1]="";
+}
+
 $stage=array("F","D","X","M","W");
 for ($i=0; $i<count($_SESSION['execStage']); ++$i) {
 	if($_SESSION['execStage'][$i]!=="-") {
@@ -783,11 +797,11 @@ require_once "schema.php";
 //SALVATAGGIO DATI TEMPORANEI
 
 $ID_EX_RS1=substr($istruzione,12,5);
-$ID_EX_RS1=BinToInt($ID_EX_RS1,1);
+$ID_EX_RS1=BinToGMP($ID_EX_RS1,1);
 $ID_EX_RS2=substr($istruzione,7,5);
-$ID_EX_RS2=BinToInt($ID_EX_RS2,1);
+$ID_EX_RS2=BinToGMP($ID_EX_RS2,1);
 $ID_EX_RD=substr($istruzione,20,5);
-$ID_EX_RD=BinToInt($ID_EX_RD,1);
+$ID_EX_RD=BinToGMP($ID_EX_RD,1);
 $ID_EX_campoOp=$temp_ID_EX_campoOp;
 $ID_EX_funct3=$temp_ID_EX_funct3;
 $ID_EX_funct7=$temp_ID_EX_funct7;

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 <head>
     <title>WebRISC-V - RISC-V PIPELINED DATAPATH SIMULATION ONLINE</title>
@@ -16,7 +19,7 @@
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" bgcolor="#D4D0C8">
 <?php
 $destra=isset($_GET['dst'])?$_GET["dst"]:"";
-session_start();
+
 if (!$_SESSION['loaded'] || empty($_SESSION['codice'])) {
 	$_SESSION['asmName']='not loaded';
 }

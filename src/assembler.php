@@ -87,30 +87,28 @@ while($indice<$indice2)
             break;
         }
 
-        $b=intval($b);
         if (strlen($c2)>12)
         {
-            $t=IntToBin($b,12,1);
+            $t=GMPToBin($b,12,1);
             $b1=substr($t,0,1).substr($t,2,6);
             $b2=substr($t,8,4).substr($t,1,1);
             $riga[$indice]=$b1.substr($c2,0,13).$b2.substr($c2,13,7);
         }
         else
         {
-            $t=IntToBin($b,20,1);
+            $t=GMPToBin($b,20,1);
             $b=substr($t,0,1).substr($t,10,10).substr($t,9,1).substr($t,1,8);
             $riga[$indice]=$b.$c2;
-
         }
-
     }
-
     $indice=$indice+1;
 }
 
 require_once 'init.php';
-if(!empty($_SESSION['codice']))
+
+if(!empty($_SESSION['codice'])) {
 	$_SESSION['loaded']=true;
+}
 ?>
 <html>
 <head>

@@ -1,8 +1,6 @@
 <?php
 session_start();
-$version = "1.1";
 ?>
-
 <html>
 <head>
     <title>WebRISC-V - RISC-V PIPELINED DATAPATH SIMULATION ONLINE</title>
@@ -33,8 +31,8 @@ $version = "1.1";
 <table cellpadding="0" width="100%" cellspacing="0" border="0" height="96">
     <tr>
         <td width="137" valign="top" bgcolor="#f7b217">
-		<a href="../index.php?reset=yes" target="_parent"><img src="../img/content/img_logo.gif" border="0" width="137"></a>
-		<font face="Arial" size=1><br><b>VERSION <?php echo $version;?></b>: Write your feedback to <a HREF="mailto:giorgi@unisi.it">Roberto Giorgi</a>.</font>
+		<a href="../index.php" target="_parent"><img src="../img/content/img_logo.gif" border="0" width="137"></a>
+		<font face="Arial" size=1><br><b>VERSION <?php echo $_SESSION['version'];?></b>: Write your feedback to <a HREF="mailto:giorgi@unisi.it">Roberto Giorgi</a>.</font>
 		</td>
         <td width="50%" align="left">
             <table cellpadding="0" width="100%" cellspacing="0" border="0" height="96">
@@ -104,7 +102,7 @@ $version = "1.1";
 
                                     <table cellpadding="0" cellspacing="2" border="0" width="145" class="form" ID="Table4">
                                         <tr>
-                                            <td align="center"><a href="../index.php?reset=yes" target="_parent" class="link4">System Reset</a></td>
+                                            <td align="center"><a href="../index.php" target="_parent" class="link4">System Reset</a></td>
                                         </tr>
                                     </table>
                                 </td>
@@ -135,7 +133,7 @@ $version = "1.1";
                                 </td>
 								
                                 <td align="center" width="50%">
-									<form action="executeStep.php?agg=si" target="Body" method="post">
+									<form action="executeStep.php?agg=refresh" target="Body" method="post">
                                     <table cellpadding="0" cellspacing="0" border="0" width="145">
                                         <tr>
                                             <td align="center">

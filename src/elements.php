@@ -478,7 +478,7 @@
                         <br>
                         <table width="100%" cellpadding="0" cellspacing="0" ID="Table4" align="center" style="table-layout: fixed;">
                             <tr>
-                                <td align="right" class="testo" width="33%" style="word-wrap:break-word; white-space: normal;">
+                                <td align="right" class="testo" width="33%" style="word-break:break-word; white-space: normal;">
                                     Instruction:<br><?php     echo $dato;?>
                                 </td>
                                 <td align="center" class="testo" width="33%">
@@ -488,7 +488,7 @@
                                             </td></tr>
                                     </table>
                                 </td>
-                                <td align="left" valign="middle" class="testo" width="33%" style="word-wrap:break-word; white-space: normal;">
+                                <td align="left" valign="middle" class="testo" width="33%" style="word-break:break-word; white-space: normal;">
                                     Generated Immediate:<br><?php     echo $esteso;?>
                                 </td>
                             </tr>

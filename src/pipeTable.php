@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 <head>
     <title>WebRISC-V - RISC-V PIPELINED DATAPATH SIMULATION ONLINE</title>
@@ -9,7 +12,6 @@
 
 <table  style="border-collapse: collapse;">
 <?php
-	session_start();
 	require 'functions.php';
 	$clock=($_SESSION['finito'])?$_SESSION['clock']-1:$_SESSION['clock'];
 	
@@ -19,8 +21,8 @@
 		$funct3=substr($a,17,3);
 		$funct7=substr($a,0,7);
 
-		$tipo=instrType(BinToInt($op,1));
-		$oper=instrName(BinToInt($op,1),BinToInt($funct3,1),BinToInt($funct7,1));
+		$tipo=instrType(BinToGMP($op,1));
+		$oper=instrName(BinToGMP($op,1),BinToGMP($funct3,1),BinToGMP($funct7,1));
 		$istruzione='';
 
 		if($tipo=="R")
@@ -28,21 +30,26 @@
 			$rd=substr($a,20,5);
 			$rs1=substr($a,12,5);
 			$rs2=substr($a,7,5);
-			$istruzione=$oper." ".codRegister(BinToInt($rd,1)).", ".codRegister(BinToInt($rs1,1)).", ".codRegister(BinToInt($rs2,1));
+			$istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".codRegister(BinToGMP($rs1,1)).", ".codRegister(BinToGMP($rs2,1));
 		}
 		else if($tipo=="I")
 		{
 			$rd=substr($a,20,5);
 			$rs1=substr($a,12,5);
 			$imm=substr($a,0,12);
-			$check=BinToInt($op,1);
+			$check=BinToGMP($op,1);
 			if($check==hexdec(3) || $check==hexdec(67))
 			{
-				$istruzione=$oper." ".codRegister(BinToInt($rd,1)).", ".BinToInt($imm,0)."(".codRegister(BinToInt($rs1,1)).")";
+				$istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".BinToGMP($imm,0)."(".codRegister(BinToGMP($rs1,1)).")";
 			}
 			else
 			{
-				$istruzione=$oper." ".codRegister(BinToInt($rd,1)).", ".codRegister(BinToInt($rs1,1)).", ".BinToInt($imm,0);
+				if( BinToGMP($op,1)==hexdec(13) && (BinToGMP($funct3,1)==1 || BinToGMP($funct3,1)==5) )
+					$istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".codRegister(BinToGMP($rs1,1)).", ".BinToGMP(substr($a,7,5),0);
+				else if( BinToGMP($op,1)!=hexdec(73) )
+					$istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".codRegister(BinToGMP($rs1,1)).", ".BinToGMP($imm,0);
+				else
+					$istruzione=$oper;
 			}
 
 		}
@@ -51,26 +58,26 @@
 			$imm=substr($a,0,7).substr($a,20,5);
 			$rs1=substr($a,12,5);
 			$rs2=substr($a,7,5);
-			$istruzione=$oper." ".codRegister(BinToInt($rs2,1)).", ".BinToInt($imm,0)."(".codRegister(BinToInt($rs1,1)).")";
+			$istruzione=$oper." ".codRegister(BinToGMP($rs2,1)).", ".BinToGMP($imm,0)."(".codRegister(BinToGMP($rs1,1)).")";
 		}
 		else if($tipo=="SB")
 		{
 			$imm=substr($a,0,1).substr($a,24,1).substr($a,1,6).substr($a,20,4).'0';
 			$rs1=substr($a,12,5);
 			$rs2=substr($a,7,5);
-			$istruzione=$oper." ".codRegister(BinToInt($rs1,1)).", ".codRegister(BinToInt($rs2,1)).", ".BinToInt($imm,0);
+			$istruzione=$oper." ".codRegister(BinToGMP($rs1,1)).", ".codRegister(BinToGMP($rs2,1)).", ".BinToGMP($imm,0)*2;
 		}
 		else if($tipo=="U")
 		{
 			$rd=substr($a,20,5);
 			$imm=substr($a,0,20);
-			$istruzione=$oper." ".codRegister(BinToInt($rd,1)).", ".BinToInt($imm,0);
+			$istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".BinToGMP($imm,0);
 		}
 		else if($tipo=="UJ")
 		{
 			$rd=substr($a,20,5);
 			$imm=substr($a,0,1).substr($a,12,8).substr($a,11,1).substr($a,1,10).'0';
-			$istruzione=$oper." ".codRegister(BinToInt($rd,1)).", ".BinToInt($imm,0);
+			$istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".BinToGMP($imm,0)*2;
 		}
 		
 	

@@ -1,4 +1,7 @@
 <?php
+//VERSION
+$_SESSION['version']="1.2";
+
 //STATUS
 $_SESSION['clock']=0;
 $_SESSION['inserted']=false;

@@ -588,7 +588,7 @@ if ($_SESSION['segDati']!="")
 </div>
 
 <div id="Div27" style="position:absolute; left:667px; top:424px; width:40px; height:62px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=controlloALU&funct=<?php echo isset($ID_EX_funct7)?(isset($ID_EX_funct3)?IntToBin($ID_EX_funct7,7,1)[1].IntToBin($ID_EX_funct3,3,1):0):0;?>&aluOp=<?php echo isset($AluOP)?$AluOP:0;?>&ris=<?php echo isset($temp_EX_MEM_RIS)?$temp_EX_MEM_RIS:0;?>&ctrl=<?php echo isset($aluCtrl)?$aluCtrl:0;?>','','width=350 height=250');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=controlloALU&funct=<?php echo isset($ID_EX_funct7)?(isset($ID_EX_funct3)?GMPToBin($ID_EX_funct7,7,1)[1].GMPToBin($ID_EX_funct3,3,1):0):0;?>&aluOp=<?php echo isset($AluOP)?$AluOP:0;?>&ris=<?php echo isset($temp_EX_MEM_RIS)?$temp_EX_MEM_RIS:0;?>&ctrl=<?php echo isset($aluCtrl)?$aluCtrl:0;?>','','width=350 height=250');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="ALU CONTROL UNIT">
     </a>
 </div>
