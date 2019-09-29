@@ -70,7 +70,7 @@ $widthST5="106";
                     <td align="center" valign="middle">
                         <table width="60" height="150" cellpadding="0" cellspacing="0" class="<?php echo isset($classElemento)?$classElemento:0;?>">
                             <tr><td valign="top" align="center">
-                                    <font size="1">INSTRUCION<br>MEMORY
+                                    <font size="1">INSTRUCTION<br>MEMORY
                                         <br><br><br><br>
                                         <div align="left">ADDRESS</div>
                                         <br><br>
@@ -161,6 +161,7 @@ $widthST5="106";
                                         <div align="center"><b>REGISTERS</b></div>
                                         <br>
                                         <div align="left">Write<br>Register</div>
+										<br>
                                         <div align="right">Read Data 2</div>
                                         <div align="left">Write Data</div>
                                     </font>
@@ -178,7 +179,7 @@ $widthST5="106";
                         <br>
                         <table width="60" cellpadding="0" cellspacing="0" class="<?php echo isset($classElemento)?$classElemento:0;?>" ID="Table11">
                             <tr><td valign="middle" align="center">
-                                    <font size="1">IMMEDIATE<br>GENERATOR<br></font>
+                                    <font size="1">IMM<br>GEN<br></font>
                                 </td></tr>
                         </table>
 
@@ -372,18 +373,20 @@ $widthST5="106";
         <td width="<?php echo isset($widthST4)?$widthST4:0;?>">
 
             <table width="100%" height="100%" cellpadding="0" cellspacing="0" border="0" ID="Table22">
-                <tr>
+				<tr>
+				<td height="210"></td>
+				</tr>
+                <tr>					
                     <td align="right" valign="middle">
-                        <br><br><br><br><br><br><br><br><br><br><br>
-                        <table width="60" height="150" cellpadding="0" cellspacing="0" class="<?php echo isset($classElemento)?$classElemento:0;?>">
+                        <table width="60" height="160" cellpadding="0" cellspacing="0" class="<?php echo isset($classElemento)?$classElemento:0;?>">
                             <tr><td valign="top" align="center">
-                                    <font size="1"><br>DATA<br>MEMORY<br>
-                                        <br><br><br>
+                                    <font size="1">DATA<br>MEMORY<br>
+                                        <br><br><br><br>
                                         <div align="left">ADDRESS</div>
                                         <br><br>
-                                        <div align="right">DATA VALUE</div>
-                                        <br>
-                                        <div align="left">WRITTEN VALUE</div>
+                                        <div align="right">READ DATA</div>
+                                        <br><br>
+                                        <div align="left">WRITE DATA</div>
                                     </font>
                                 </td></tr>
                         </table>
@@ -468,7 +471,7 @@ if ($_SESSION['segDati']!="")
 
 <!--#### LINK AGLI ELEMENTI-->
 <div id="Div3" style="position:absolute; left:78px; top:315px; width:60px; height:150px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=Istruzioni&PC=<?php echo isset($PC)?$PC:0;?>&istr=<?php echo isset($temp_Istruzione)?$temp_Istruzione:0;?>','','width=450 height=330');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=Istruzioni&PC=<?php echo isset($PC)?$PC:0;?>&istr=<?php echo isset($temp_Istruzione)?$temp_Istruzione:str_repeat("0",32);?>','','width=450 height=330');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="INSTRUCTION MEMORY">
     </a>
 </div>
@@ -492,31 +495,31 @@ if ($_SESSION['segDati']!="")
 </div>
 
 <div id="Div7" style="position:absolute; left:25px; top:365px; width:30px; height:50px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=PC&newPC=<?php echo isset($temp_PC)?$temp_PC:0;?>&PC=<?php echo isset($PC)?$PC:0;?>&ctrl=<?php echo isset($stallo)?(int)$stallo:0;?>','','width=300 height=240');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=PC&newPC=<?php echo isset($temp_PC)?$temp_PC:0;?>&PC=<?php echo isset($PC)?$PC:0;?>&ctrl=<?php echo isset($stallo)?(($stallo)?1:0):0;?>','','width=300 height=240');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="PROGRAM COUNTER = <?php echo isset($PC)?$PC:0;?>">
     </a>
 </div>
 
 <div id="Div8" style="position:absolute; left:229px; top:25px; width:80px; height:50px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=criticita&rl1=<?php echo isset($RL1)?$RL1:0;?>&rl2=<?php echo isset($RL2)?$RL2:0;?>&stallo=<?php echo isset($stallo)?(int)$stallo:0;?>&mem=<?php echo isset($ID_EX_M)?$ID_EX_M:0;?>&rd=<?php echo isset($ID_EX_RD)?$ID_EX_RD:0;?>','','width=400 height=270');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=criticita&rl1=<?php echo isset($RL1)?$RL1:0;?>&rl2=<?php echo isset($RL2)?$RL2:0;?>&stallo=<?php echo isset($stallo)?(($stallo)?1:0):0;?>&mem=<?php echo isset($ID_EX_M)?$ID_EX_M:0;?>&rd=<?php echo isset($ID_EX_RD)?$ID_EX_RD:0;?>','','width=400 height=270');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="HAZARD DETECTION UNIT">
     </a>
 </div>
 
 <div id="Div9" style="position:absolute; left:222px; top:87px; width:56px; height:100px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=controllo&istr=<?php echo isset($istruzione)?$istruzione:0;?>&salta=<?php echo isset($branch)?(int)$branch:0;?>&ecc=<?php echo 0;?>&wb=<?php echo isset($ctrl_WB)?$ctrl_WB:0;?>&mem=<?php echo isset($ctrl_M)?$ctrl_M:0;?>&ex=<?php echo isset($ctrl_EX)?$ctrl_EX:0;?>&if_scarta=<?php echo isset($IF_scarta)?$IF_scarta:0;?>&id_scarta=<?php echo isset($ID_scarta)?$ID_scarta:0;?>&ex_scarta=<?php echo isset($EX_scarta)?$EX_scarta:0;?>','','width=450 height=270');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=controllo&istr=<?php echo isset($istruzione)?$istruzione:0;?>&salta=<?php echo isset($branch)?(int)$branch:0;?>&ecc=<?php echo 0;?>&wb=<?php echo isset($ctrl_WB)?$ctrl_WB:str_repeat("0",2);?>&mem=<?php echo isset($ctrl_M)?$ctrl_M:str_repeat("0",4);?>&ex=<?php echo isset($ctrl_EX)?$ctrl_EX:str_repeat("0",3);?>&if_scarta=<?php echo isset($IF_scarta)?$IF_scarta:0;?>&id_scarta=<?php echo isset($ID_scarta)?$ID_scarta:0;?>&ex_scarta=<?php echo isset($EX_scarta)?$EX_scarta:0;?>','','width=450 height=270');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="CONTROL UNIT">
     </a>
 </div>
 
 <div id="Div12" style="position:absolute; left:400px; top:130px; width:30px; height:50px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=idmux&ctrl=<?php echo isset($stallo)?(int)$stallo:0;?>&wb=<?php echo isset($ctrl_WB)?$ctrl_WB:0;?>&mem=<?php echo isset($ctrl_M)?$ctrl_M:0;?>&ex=<?php echo isset($ctrl_EX)?$ctrl_EX:0;?>&wb2=<?php echo isset($ctrl_WB)?$ctrl_WB:0;?>&mem2=<?php echo isset($ctrl_M)?$ctrl_M:0;?>&ex2=<?php echo isset($ctrl_EX)?$ctrl_EX:0;?>','','width=300 height=240');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=idmux&ctrl=<?php echo isset($stallo)?(($stallo)?1:0):0;?>&wb=<?php echo isset($ctrl_WB)?$ctrl_WB:str_repeat("0",2);?>&mem=<?php echo isset($ctrl_M)?$ctrl_M:str_repeat("0",4);?>&ex=<?php echo isset($ctrl_EX)?$ctrl_EX:str_repeat("0",3);?>&wb2=<?php echo isset($ctrl_WB)?$ctrl_WB:str_repeat("0",2);?>&mem2=<?php echo isset($ctrl_M)?$ctrl_M:str_repeat("0",4);?>&ex2=<?php echo isset($ctrl_EX)?$ctrl_EX:str_repeat("0",3);?>','','width=300 height=240');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="INSTRUCTION DECODE MULTIPLEXER">
     </a>
 </div>
 
 <div id="Div13" style="position:absolute; left:400px; top:35px; width:40px; height:40px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=or&stallo=<?php echo isset($stallo)?(int)$stallo:0;?>&id_scarta=<?php echo isset($ID_scarta)?$ID_scarta:0;?>','','width=300 height=280');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=or&stallo=<?php echo isset($stallo)?(($stallo)?1:0):0;?>&id_scarta=<?php echo isset($ID_scarta)?$ID_scarta:0;?>','','width=300 height=280');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="LOGIC OR">
     </a>
 </div>
@@ -528,7 +531,7 @@ if ($_SESSION['segDati']!="")
 </div>
 
 <div id="Div15" style="position:absolute; left:411px; top:315px; width:30px; height:50px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=uguale&DL1=<?php echo isset($temp_ID_EX_Data1)?$temp_ID_EX_Data1:0;?>&DL2=<?php echo isset($temp_ID_EX_Data2)?$temp_ID_EX_Data2:0;?>&ris=<?php echo isset($branchCheck)?"true":"false";?>&isBranch=<?php echo isset($isBranch)?(int)$isBranch:0;?>&isJal=<?php echo isset($isJal)?(int)$isJal:0;?>&isJalr=<?php echo isset($isJalr)?(int)$isJalr:0;?>','','width=300 height=260');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=uguale&DL1=<?php echo isset($temp_ID_EX_Data1)?$temp_ID_EX_Data1:0;?>&DL2=<?php echo isset($temp_ID_EX_Data2)?$temp_ID_EX_Data2:0;?>&ris=<?php echo isset($branchCheck)?(($branchCheck)?"true":"false"):"false";?>&isBranch=<?php echo isset($isBranch)?(int)$isBranch:0;?>&isJal=<?php echo isset($isJal)?(int)$isJal:0;?>&isJalr=<?php echo isset($isJalr)?(int)$isJalr:0;?>','','width=300 height=260');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="=">
     </a>
 </div>
@@ -582,13 +585,13 @@ if ($_SESSION['segDati']!="")
 </div>
 
 <div id="Div26" style="position:absolute; left:662px; top:330px; width:50px; height:50px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=alu&valore1=<?php echo isset($ALUdato1)?$ALUdato1:0;?>&valore2=<?php echo isset($ALUdato2)?$ALUdato2:0;?>&ris=<?php echo isset($temp_EX_MEM_RIS)?$temp_EX_MEM_RIS:0;?>&ctrl=<?php echo isset($aluCtrl)?$aluCtrl:0;?>','','width=350 height=250');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=alu&valore1=<?php echo isset($ALUdato1)?$ALUdato1:0;?>&valore2=<?php echo isset($ALUdato2)?$ALUdato2:0;?>&ris=<?php echo isset($temp_EX_MEM_RIS)?$temp_EX_MEM_RIS:0;?>&ctrl=<?php echo (isset($aluCtrl)&&($aluCtrl!=''))?$aluCtrl:"0010";?>','','width=350 height=250');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="ARITHMETIC LOGIC UNIT">
     </a>
 </div>
 
 <div id="Div27" style="position:absolute; left:667px; top:424px; width:40px; height:62px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=controlloALU&funct=<?php echo isset($ID_EX_funct7)?(isset($ID_EX_funct3)?GMPToBin($ID_EX_funct7,7,1)[1].GMPToBin($ID_EX_funct3,3,1):0):0;?>&aluOp=<?php echo isset($AluOP)?$AluOP:0;?>&ris=<?php echo isset($temp_EX_MEM_RIS)?$temp_EX_MEM_RIS:0;?>&ctrl=<?php echo isset($aluCtrl)?$aluCtrl:0;?>','','width=350 height=250');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=controlloALU&funct=<?php echo isset($ID_EX_funct7)?(isset($ID_EX_funct3)?GMPToBin($ID_EX_funct7,7,1)[1].GMPToBin($ID_EX_funct3,3,1):0):0;?>&aluOp=<?php echo isset($AluOP)?$AluOP:str_repeat("0",2);?>&ctrl=<?php echo (isset($aluCtrl)&&($aluCtrl!=''))?$aluCtrl:"0010";?>','','width=350 height=250');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="ALU CONTROL UNIT">
     </a>
 </div>
@@ -639,37 +642,37 @@ if ($_SESSION['segDati']!="")
 </div>
 
 <div id="Div32" style="position:absolute; left:452px; top:100px; width:41px; height:33px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=idexwb&dataIn=<?php echo isset($temp_ID_EX_WB)?$temp_ID_EX_WB:0;?>&dataOut=<?php echo isset($ID_EX_WB)?$ID_EX_WB:0;?>','','width=290 height=190');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=idexwb&dataIn=<?php echo isset($temp_ID_EX_WB)?$temp_ID_EX_WB:str_repeat("0",2);?>&dataOut=<?php echo isset($ID_EX_WB)?$ID_EX_WB:str_repeat("0",2);?>','','width=290 height=190');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="ID/EX.WB Register">
     </a>
 </div>
 
 <div id="Div33" style="position:absolute; left:452px; top:135px; width:41px; height:33px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=idexmem&dataIn=<?php echo isset($temp_ID_EX_M)?$temp_ID_EX_M:0;?>&dataOut=<?php echo isset($ID_EX_M)?$ID_EX_M:0;?>','','width=290 height=190');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=idexmem&dataIn=<?php echo isset($temp_ID_EX_M)?$temp_ID_EX_M:str_repeat("0",4);?>&dataOut=<?php echo isset($ID_EX_M)?$ID_EX_M:str_repeat("0",4);?>','','width=290 height=190');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="ID/EX.MEM Register">
     </a>
 </div>
 
 <div id="Div34" style="position:absolute; left:452px; top:170px; width:41px; height:33px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=idexex&dataIn=<?php echo isset($temp_ID_EX_EX)?$temp_ID_EX_EX:0;?>&dataOut=<?php echo isset($ID_EX_EX)?$ID_EX_EX:0;?>','','width=290 height=190');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=idexex&dataIn=<?php echo isset($temp_ID_EX_EX)?$temp_ID_EX_EX:str_repeat("0",3);?>&dataOut=<?php echo isset($ID_EX_EX)?$ID_EX_EX:str_repeat("0",3);?>','','width=290 height=190');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="ID/EX.EX Register">
     </a>
 </div>
 
 <div id="Div35" style="position:absolute; left:737px; top:135; width:43px; height:32px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=exmemwb&dataIn=<?php echo isset($temp_EX_MEM_WB)?$temp_EX_MEM_WB:0;?>&dataOut=<?php echo isset($EX_MEM_WB)?$EX_MEM_WB:0;?>','','width=290 height=190');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=exmemwb&dataIn=<?php echo isset($temp_EX_MEM_WB)?$temp_EX_MEM_WB:str_repeat("0",2);?>&dataOut=<?php echo isset($EX_MEM_WB)?$EX_MEM_WB:str_repeat("0",2);?>','','width=290 height=190');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="EX/MEM.WB Register">
     </a>
 </div>
 
 <div id="Div36" style="position:absolute; left:737px; top:170; width:43px; height:32px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=exmemmem&dataIn=<?php echo isset($temp_EX_MEM_M)?$temp_EX_MEM_M:0;?>&dataOut=<?php echo isset($EX_MEM_M)?$EX_MEM_M:0;?>','','width=290 height=190');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=exmemmem&dataIn=<?php echo isset($temp_EX_MEM_M)?$temp_EX_MEM_M:str_repeat("0",4);?>&dataOut=<?php echo isset($EX_MEM_M)?$EX_MEM_M:str_repeat("0",4);?>','','width=290 height=190');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="EX/MEM.MEM REgister">
     </a>
 </div>
 
 <div id="Div37" style="position:absolute; left:906px; top:170; width:43px; height:32px; z-index:1">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=memwbwb&dataIn=<?php echo isset($temp_MEM_WB_WB)?$temp_MEM_WB_WB:0;?>&dataOut=<?php echo isset($MEM_WB_WB)?$MEM_WB_WB:0;?>','','width=290 height=190');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=memwbwb&dataIn=<?php echo isset($temp_MEM_WB_WB)?$temp_MEM_WB_WB:str_repeat("0",2);?>&dataOut=<?php echo isset($MEM_WB_WB)?$MEM_WB_WB:str_repeat("0",2);?>','','width=290 height=190');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="MEM/WB.WB Register">
     </a>
 </div>

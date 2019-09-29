@@ -84,7 +84,8 @@
                             <tr><td align="right" class="testo" width="33%">New PC = <?php     echo $newPC*4;?>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    <font color="red">Control Signal = <?php     echo $stallo;?></font>
+                                    <font color="red">Stall = <?php     echo $stallo;?></font>
+									<br><br>
                                     <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table6">
                                         <tr><td valign="middle" align="center"><font size="1">PC</font></td></tr>
                                     </table>
@@ -104,20 +105,20 @@
                         $PC=$_GET["PC"];
                         $istruzione=$_GET["istr"];
                         ?>
-                        <div align="center" class="testoGrande"><b>INSTRCUTION MEMORY</b></div>
+                        <div align="center" class="testoGrande"><b>INSTRUCTION MEMORY</b></div>
                         <hr size="1" width="60%" noshade>
                         <div align="center" class="testoGrande">
                             This is where the instructions are fetched from.
                         </div>
                         <br>
                         <table width="100%" cellpadding="0" cellspacing="0" ID="Table2" align="center">
-                            <tr><td align="right" class="testo" width="33%">Address (PC) = <?php     echo $PC;?>
+                            <tr><td align="right" class="testo" width="33%">Address (PC) = <?php     echo $PC*4;?>
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <table width="60" height="150" cellpadding="0" cellspacing="0" class="elemento" ID="Table3">
                                         <tr><td valign="top" align="center">
-                                                <font size="1">INSTRUCION<br>MEMORY
-                                                    <br><br>
+                                                <font size="1">INSTRUCTION<br>MEMORY
+                                                    <br><br><br><br>
                                                     <div align="left">ADDRESS</div>
                                                     <br><br>
                                                     <div align="right">READ INSTRUCTION</div>
@@ -125,7 +126,9 @@
                                             </td></tr>
                                     </table>
                                 </td>
-                                <td align="left" valign="middle" class="testo" width="33%"><br><br><br><br><br><br><br>Instruction = <?php     echo $istruzione;?></td>
+                                <td align="left" valign="middle" class="testo" width="33%">
+								<br><br><br><br><br><br>
+								Instruction = <?php     echo '<br>'.substr($istruzione,0,16).'<br>'.substr($istruzione,16,16);?></td>
                                 </td></tr>
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form2">
@@ -146,17 +149,17 @@
                         <div align="center" class="testoGrande"><b>MUX - New PC</b></div>
                         <hr size="1" width="60%" noshade>
                         <div align="center" class="testoGrande">
-                            This multiplexer selects the new program counter value based on the two control signals. The first control signal decides whether a branch should be taken or not. The second control signal tells if there was an exception.
+                            This multiplexer selects the new program counter value based on the two control signals. The first control signal decides whether a jump should happen or not. The second control signal tells if there was an exception.
                             00 -> next instruction.
                             01 -> exception handling address (fixed).
-                            10 -> branch target branch address.
+                            10 -> jump target address.
                         </div>
                         <br>
                         <table width="100%" cellpadding="0" cellspacing="0" ID="Table4" align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <br><br><br>
                                     Branch Target Address = <?php     echo $salto*4;?><br>
-                                    Fixed Address = 40000040<br>
+                                    Fixed Address = 1C090000<br>
                                     PC + 4 = <?php     echo $PCpiu4*4;?><br>
                                 </td>
                                 <td align="center" class="testo" width="33%">
@@ -194,20 +197,22 @@
                         <div align="center" class="testoGrande"><b>AND LOGICO</b></div>
                         <hr size="1" width="60%" noshade>
                         <div align="center" class="testoGrande">
-                            This gate generates the MUX control signal "NewPC". This signal is high when
-                            the control units detects a branch instruction and the branch
-                            control condition is satisfied.
+                            This gate generates the MUX control signal "PCsrc". This signal is high when
+                            the control units detects a jump instruction and the jump comparator
+                            check is satisfied.
                         </div>
                         <table width="100%" cellpadding="0" cellspacing="0" ID="Table8" align="center">
                             <tr>
                                 <td align="center" class="testo" width="33%">
                                     <table cellpadding="5" cellspacing="5" border="0" ID="Table10">
-                                        <tr><td align="center" valign="middle" class="testo">
-                                                <font color="red" size="1">Jump Ctrl<br><?php     echo $ctrl1;?></font>
-                                            </td>
+                                        <tr>
                                             <td align="center" valign="middle" class="testo">
-                                                <font color="red" size="1">Branch<br><?php     echo $ctrl2;?></font>
-                                            </td></tr>
+                                                <font color="red" size="1">Jump Check<br><?php     echo $ctrl1;?></font>
+                                            </td>
+											<td align="center" valign="middle" class="testo">
+                                                <font color="red" size="1">Jump Control<br><?php     echo $ctrl2;?></font>
+                                            </td>
+										</tr>
                                     </table>
                                     <table width="40" height="40" cellpadding="0" cellspacing="0" class="elemento" ID="Table9">
                                         <tr><td valign="middle" align="center"><font size="1">AND</font></td></tr>
@@ -230,11 +235,11 @@
                         $mem=substr($mem,0,1);
                         $rd=$_GET["rd"];
                         ?>
-                        <div align="center" class="testoGrande"><b>HAZARD DETCTION UNIT</b></div>
+                        <div align="center" class="testoGrande"><b>HAZARD DETECTION UNIT</b></div>
                         <hr size="1" width="60%" noshade>
                         <div align="center" class="testoGrande">
                             This unit detects hazard conditions and produces control signals accordingly.
-                            In the case of 'lw' instrucion (ID/EX.RegisterRD = IF/ID.RegisterRs1 <font color=blue>or</font> ID/EX.RegisterRD = IF/ID.RegisterRs2 <font color=blue>and</font>
+                            In the case of 'lw' instruction (ID/EX.RegisterRD = IF/ID.RegisterRs1 <font color=blue>or</font> ID/EX.RegisterRD = IF/ID.RegisterRs2 <font color=blue>and</font>
                             ID/EX.MemRead = 1) a 'nop' must be inserted in the pipeline.
                         </div>
                         <br>
@@ -285,10 +290,13 @@
                         <br>
                         <table width="100%" cellpadding="0" cellspacing="0" ID="Table1" align="center">
                             <tr><td align="right" class="testo" width="33%">
-                                    <font color=red>Eccezione = <?php     echo $ecc;?></font><br>
-                                    <font color=red>Salta = <?php     echo $salta;?></font><br>
+								
+                                    <font color=red>Exception = <?php     echo $ecc;?></font><br>
+                                    <font color=red>Jump = <?php     echo $salta;?></font><br>
                                     <br>
-                                    Instruction = <?php     echo $istr;?>
+								<div style="float:right" align="left">	
+                                    Instruction = <?php     echo '<br>'.substr($istr,0,16).'<br>'.substr($istr,16,16);?>
+								</div>
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <table width="50" height="100" cellpadding="0" cellspacing="0" class="elemento" ID="Table6">
@@ -330,7 +338,7 @@
                                 <td align="center" class="testo">
                                     <table cellpadding="5" cellspacing="5" border="0" ID="Table12">
                                         <tr><td align="center" valign="middle" class="testo">
-                                                <font color="red" size="1">stall<br><?php     echo $stallo;?></font>
+                                                <font color="red" size="1">Stall<br><?php     echo $stallo;?></font>
                                             </td>
                                             <td align="center" valign="middle" class="testo">
                                                 <font color="red" size="1">ID.flush<br><?php     echo $id_scarta;?></font>
@@ -373,7 +381,7 @@
                                         Control.M = <?php     echo $mem;?><br>
                                         Control.EX = <?php     echo $ex;?><br>
                                         <br>
-                                        00 00 0000
+                                        00 0000 000
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="33%">
@@ -408,18 +416,18 @@
                         $isBranch=$_GET["isBranch"];
 						$isJal=$_GET["isJal"];
 						$isJalr=$_GET["isJalr"];
-                        $Str="NOT A JUMP";
+                        $str="NOT A JUMP";
                         if ($isBranch)
                         {
-                            $Str="Jump (Branch)";
+                            $str="Jump (Branch)";
                         }
                         if ($isJal)
                         {
-                            $Str="Jump (Jal)";
+                            $str="Jump (Jal)";
                         }
                         if ($isJalr)
                         {
-                            $Str="Jump (Jalr)";
+                            $str="Jump (Jalr)";
                         }
                         ?>
                         <div align="center" class="testoGrande"><b>JUMP COMPARATOR</b></div>
@@ -433,7 +441,7 @@
                             <tr>
                                 <td align="right" class="testo" width="33%">
                                     <font color="red">
-                                        <?php     echo $Str;?>
+                                        <?php     echo $str;?>
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="33%">
@@ -472,24 +480,27 @@
                         <div align="center" class="testoGrande"><b>IMMEDIATE GENERATOR</b></div>
                         <hr size="1" width="60%" noshade>
                         <div align="center" class="testoGrande">
-                            From instruction (32-bit) should be generated an 64-bit immediate,
+                            From the 32-bit instruction a 64-bit immediate should be generated,
+							<br>
                             since the ALU processes 64-bit data.
                         </div>
                         <br>
                         <table width="100%" cellpadding="0" cellspacing="0" ID="Table4" align="center" style="table-layout: fixed;">
                             <tr>
                                 <td align="right" class="testo" width="33%" style="word-break:break-word; white-space: normal;">
-                                    Instruction:<br><?php     echo $dato;?>
+								<div style="float:right" align="left">
+                                    Instruction =<br><?php     echo substr($dato,0,16).'<br>'.substr($dato,16,16);?>
+								</div>
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <table width="60" cellpadding="0" cellspacing="0" class="elemento" ID="Table7">
                                         <tr><td valign="middle" align="center">
-                                                <font size="1">IMM.<br>GEN.<br></font>
+                                                <font size="1">IMM<br>GEN<br></font>
                                             </td></tr>
                                     </table>
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="33%" style="word-break:break-word; white-space: normal;">
-                                    Generated Immediate:<br><?php     echo $esteso;?>
+                                    Generated Immediate =<br><?php     echo substr($esteso,0,16).'<br>'.substr($esteso,16,16).'<br>'.substr($esteso,32,16).'<br>'.substr($esteso,48,16);?>
                                 </td>
                             </tr>
                         </table>
@@ -513,10 +524,9 @@
                         <div align="center" class="testoGrande"><b>REGISTERS</b></div>
                         <hr size="1" width="60%" noshade>
                         <div align="center" class="testoGrande">
-                            This are is the register file: 32 32-bit registers. In the first half of
+                            This is the register file: 32 32-bit registers. In the first half of
                             a clock cycle, the values coming from the Write-back stage should be written.
-                            In the second half of a clock cycle, the values specified by the values <b>rs</b>
-                            and <b>rt</b> are read.
+                            In the second half of a clock cycle, the values specified by the values <b>rs</b> and <b>rt</b> are read.
                         </div>
                         <br>
                         <table width="100%" cellpadding="0" cellspacing="0" ID="Table8" align="center">
@@ -530,6 +540,7 @@
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <font color="red">RegWrite = <?php     echo $RegWrite;?></font>
+									<br><br>
                                     <table width="90" height="150" cellpadding="0" cellspacing="0" class="elemento" ID="Table9">
                                         <tr><td valign="top" align="center">
                                                 <font size="1">
@@ -621,7 +632,7 @@
                                     <font color="red">
                                         <br><br>
                                         ID.EX.M = <?php     echo $dato;?><br><br>
-                                        00
+                                        0000
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="33%">
@@ -675,6 +686,7 @@
                                             <td><div style="font-size: 8px;color:#666666;">00<br>01<br>10</div></td>
                                             <td valign="middle" align="center"><font size="1">M<br>U<br>X</font></td></tr>
                                     </table>
+									<br>
                                     <font color="red" size="1">Control = <?php     echo $ctrl;?></font>
                                 </td>
                                 <td align="left" valign="top" class="testo" width="33%">
@@ -718,6 +730,7 @@
                                             <td><div style="font-size: 8px;color:#666666;">00<br>01<br>10</div></td>
                                             <td valign="middle" align="center"><font size="1">M<br>U<br>X</font></td></tr>
                                     </table>
+									<br>
                                     <font color="red" size="1">Control = <?php     echo $ctrl;?></font>
                                 </td>
                                 <td align="left" valign="top" class="testo" width="33%">
@@ -748,12 +761,12 @@
                         </div>
                         <br>
                         <table width="100%" cellpadding="0" cellspacing="0" ID="Table10" align="center">
-                            <tr><td align="right" class="testo" width="33%">
+                            <tr><td align="right" class="testo" width="38%">
                                     <br><br>
                                     ID.EX.Data_Register 2 = <?php     echo $op1;?><br><br>
                                     ID.EX.Immediate_Register = <?php     echo $op2;?>
                                 </td>
-                                <td align="center" class="testo" width="33%">
+                                <td align="center" class="testo" width="24%">
                                     <font color="red">AluSrc = <?php     echo $ctrl;?></font><br><br>
                                     <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table11">
                                         <tr>
@@ -762,7 +775,7 @@
                                         </tr>
                                     </table>
                                 </td>
-                                <td align="left" valign="middle" class="testo" width="33%">
+                                <td align="left" valign="middle" class="testo" width="38%">
                                     <br><br>
                                     ALU Operand 2 = <?php     echo $ris;?>
                                 </td>
@@ -914,7 +927,7 @@
                         break;
 						
 					case "controlloalu": //UNITA' DI CONTROLLO DELLA ALU:
-                        $ris=$_GET["ris"];
+                        $ctrl=$_GET["ctrl"];
                         $funct=$_GET["funct"];
                         $aluOp=$_GET["aluOp"];
                         ?>
@@ -931,7 +944,8 @@
                                     <font color=red>ALUOp = <?php     echo $aluOp;?></font>
                                 </td>
                                 <td align="center" class="testo"  width="33%">
-                                    <font color=red>Result = <?php     echo $ris;?></font><br>
+                                    <font color=red>Result = <?php     echo $ctrl;?></font>
+									<br><br>
                                     <table width="40" height="60" cellpadding="0" cellspacing="0" class="elemento" ID="Table17">
                                         <tr><td valign="middle" align="center">
                                                 <font size="1">ALU<br>CONTROL<br>UNIT<br></font></td></tr>
@@ -1014,6 +1028,7 @@
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <font color="red">MemWrite = <?php     echo $memW;?></font>
+									<br><br>
                                     <table width="60" height="150" cellpadding="0" cellspacing="0" class="elemento" ID="Table3">
                                         <tr><td valign="top" align="center">
                                                 <font size="1"><br>DATA<br>MEMORY<br>
@@ -1026,9 +1041,10 @@
                                                 </font>
                                             </td></tr>
                                     </table>
+									<br><br>
                                     <font color="red">MemRead = <?php     echo $memR;?></font>
                                 </td>
-                                <td align="left" valign="middle" class="testo" width="33%"><br><br><br><br><br><br><br>
+                                <td align="left" valign="middle" class="testo" width="33%"><br><br><br><br><br>
                                     <?php     if ($DL!="")
                                     {
                                         ?>
