@@ -53,11 +53,11 @@
                         <hr size="1" width="60%" noshade>
                         <div align="center" class="testoGrande">This unit updates the PC</div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table5" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0" align="center">
                             <tr><td align="right" class="testo">PC = <?php     echo $PC*4;?><br><br>Constant = 4
                                 </td>
                                 <td align="center">
-                                    <table width="50" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table5">
+                                    <table width="50" height="50" cellpadding="0" cellspacing="0" class="elemento">
                                         <tr><td valign="middle" align="center"><font size="1">+</font></td></tr>
                                     </table>
                                 </td>
@@ -80,13 +80,13 @@
                         <hr size="1" width="60%" noshade>
                         <div align="center" class="testoGrande">This register is updated only if the control signal is zero (if the hazard detection unit does not signal a stall)</div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table1" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">New PC = <?php     echo $newPC*4;?>
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <font color="red">Stall = <?php     echo $stallo;?></font>
 									<br><br>
-                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table6">
+                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="middle" align="center"><font size="1">PC</font></td></tr>
                                     </table>
                                 </td>
@@ -95,7 +95,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form1">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit1" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -111,11 +111,11 @@
                             This is where the instructions are fetched from.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table2" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">Address (PC) = <?php     echo $PC*4;?>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    <table width="60" height="150" cellpadding="0" cellspacing="0" class="elemento" ID="Table3">
+                                    <table width="60" height="150" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="top" align="center">
                                                 <font size="1">INSTRUCTION<br>MEMORY
                                                     <br><br><br><br>
@@ -126,15 +126,14 @@
                                             </td></tr>
                                     </table>
                                 </td>
-                                <td align="left" valign="middle" class="testo" width="33%">
-								<br><br><br><br><br><br>
-								Instruction = <?php     echo '<br>'.substr($istruzione,0,16).'<br>'.substr($istruzione,16,16);?></td>
+                                <td align="left" valign="middle" class="testo" width="33%"><br><br><br><br><br><br>Instruction = <?php     echo '<br>'.substr($istruzione,0,16).'<br>'.substr($istruzione,16,16);?></td>
                                 </td></tr>
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form2">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit2" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
+
 
                         <?php
                         break;
@@ -155,7 +154,7 @@
                             10 -> jump target address.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table4" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <br><br><br>
                                     Branch Target Address = <?php     echo $salto*4;?><br>
@@ -163,7 +162,7 @@
                                     PC + 4 = <?php     echo $PCpiu4*4;?><br>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    <table cellpadding="5" cellspacing="5" border="0" ID="Table7">
+                                    <table cellpadding="5" cellspacing="5" border="0" >
                                         <tr><td align="center" valign="middle" class="testo">
                                                 <font color="red" size="1">PCsrc<br><?php     echo $ctrl1;?></font>
                                             </td>
@@ -171,7 +170,7 @@
                                                 <font color="red" size="1">Exception<br><?php     echo $ctrl2;?></font>
                                             </td></tr>
                                     </table>
-                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table7">
+                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr>
                                             <td><div style="font-size: 8px;color:#666666;">10<br>01<br>00</div></td>
                                             <td valign="middle" align="center"><font size="1">M<br>U<br>X</font></td></tr>
@@ -184,7 +183,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form3">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit2" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
                         <?php
                         break;
@@ -201,20 +200,20 @@
                             the control units detects a jump instruction and the jump comparator
                             check is satisfied.
                         </div>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table8" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr>
                                 <td align="center" class="testo" width="33%">
-                                    <table cellpadding="5" cellspacing="5" border="0" ID="Table10">
+                                    <table cellpadding="5" cellspacing="5" border="0" >
                                         <tr>
                                             <td align="center" valign="middle" class="testo">
-                                                <font color="red" size="1">Jump Check<br><?php     echo $ctrl1;?></font>
+                                                <font color="red" size="1">IsJump<br><?php     echo $ctrl1;?></font>
                                             </td>
 											<td align="center" valign="middle" class="testo">
-                                                <font color="red" size="1">Jump Control<br><?php     echo $ctrl2;?></font>
+                                                <font color="red" size="1">JumpCtrl<br><?php     echo $ctrl2;?></font>
                                             </td>
 										</tr>
                                     </table>
-                                    <table width="40" height="40" cellpadding="0" cellspacing="0" class="elemento" ID="Table9">
+                                    <table width="40" height="40" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="middle" align="center"><font size="1">AND</font></td></tr>
                                     </table>
                                     <font color="red">PCsrc = <?php     echo $ris;?></font>
@@ -222,7 +221,7 @@
                         </table>
                         <hr size="1" width="60%" noshade>
                         <form action="javascript:window.close()" method="post" ID="Form4">
-                            <input type="submit" value="Close This Window" class="form" ID="Submit3" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
                         <?php
                         break;
@@ -243,7 +242,7 @@
                             ID/EX.MemRead = 1) a 'nop' must be inserted in the pipeline.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table5" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo">
                                     <font color=red>Stall = <?php     echo $stallo;?></font><br>
                                     <font color=red>Stall = <?php     echo $stallo;?></font><br>
@@ -252,7 +251,7 @@
                                     ID/EX.RegisterRD = <?php     echo $rd;?>
                                 </td>
                                 <td align="center">
-                                    <table width="80" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table11">
+                                    <table width="80" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="middle" align="center">
                                                 <font size="1">HAZARD DETECTION UNIT<br></font>
                                             </td></tr>
@@ -288,7 +287,7 @@
                             This unit is a combinational network, which generates the control signals for all stages based on the values of OP and FUNCT fields.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table1" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
 								
                                     <font color=red>Exception = <?php     echo $ecc;?></font><br>
@@ -299,7 +298,7 @@
 								</div>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    <table width="50" height="100" cellpadding="0" cellspacing="0" class="elemento" ID="Table6">
+                                    <table width="50" height="100" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="middle" align="center">
                                                 <font size="1">CONTROL<BR>UNIT<br></font>
                                             </td></tr>
@@ -317,7 +316,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form1">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit1" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -333,10 +332,10 @@
                             This gate generates a signal for driving a MUX, which flushes the pipeline stages in case of stall or exception.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table3" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr>
                                 <td align="center" class="testo">
-                                    <table cellpadding="5" cellspacing="5" border="0" ID="Table12">
+                                    <table cellpadding="5" cellspacing="5" border="0" >
                                         <tr><td align="center" valign="middle" class="testo">
                                                 <font color="red" size="1">Stall<br><?php     echo $stallo;?></font>
                                             </td>
@@ -344,7 +343,7 @@
                                                 <font color="red" size="1">ID.flush<br><?php     echo $id_scarta;?></font>
                                             </td></tr>
                                     </table>
-                                    <table width="40" height="40" cellpadding="0" cellspacing="0" class="elemento" ID="Table14">
+                                    <table width="40" height="40" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="middle" align="center"><font size="1">OR</font></td></tr>
                                     </table>
                                     <font color="red">Result = <?php     echo $stallo;?></font>
@@ -353,7 +352,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form5">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit4" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -374,7 +373,7 @@
                             This multiplexer should forward the control signals in ID/EX registers or, in case of stall, force all signals to zero.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table2" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color="red"><br></rb>
                                         Control.WB = <?php     echo $wb;?><br>
@@ -386,7 +385,7 @@
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <font color="red">Control = <?php     echo $ctrl;?></font><br><br>
-                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table15">
+                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr>
                                             <td><div style="font-size: 8px;color:#666666;">0<br><br>1</div></td>
                                             <td valign="middle" align="center"><font size="1">M<br>U<br>X</font></td></tr>
@@ -403,7 +402,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form2">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit2" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -437,7 +436,7 @@
                             are equal and the branch condition is satisfied.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table13" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr>
                                 <td align="right" class="testo" width="33%">
                                     <font color="red">
@@ -446,7 +445,7 @@
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     Read Data 1 = <?php     echo $DL1;?>
-                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table16">
+                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="middle" align="center"><font size="1">=</font></td></tr>
                                     </table>
                                     Read Data 2 = <?php     echo $DL2;?>
@@ -467,7 +466,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form6">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit5" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -485,7 +484,7 @@
                             since the ALU processes 64-bit data.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table4" align="center" style="table-layout: fixed;">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center" style="table-layout: fixed;">
                             <tr>
                                 <td align="right" class="testo" width="33%" style="word-break:break-word; white-space: normal;">
 								<div style="float:right" align="left">
@@ -493,7 +492,7 @@
 								</div>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    <table width="60" cellpadding="0" cellspacing="0" class="elemento" ID="Table7">
+                                    <table width="60" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="middle" align="center">
                                                 <font size="1">IMM<br>GEN<br></font>
                                             </td></tr>
@@ -506,7 +505,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form3">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit3" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -524,12 +523,13 @@
                         <div align="center" class="testoGrande"><b>REGISTERS</b></div>
                         <hr size="1" width="60%" noshade>
                         <div align="center" class="testoGrande">
-                            This is the register file: 32 32-bit registers. In the first half of
+                            This are is the register file: 32 32-bit registers. In the first half of
                             a clock cycle, the values coming from the Write-back stage should be written.
-                            In the second half of a clock cycle, the values specified by the values <b>rs</b> and <b>rt</b> are read.
+                            In the second half of a clock cycle, the values specified by the values <b>rs</b>
+                            and <b>rt</b> are read.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table8" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr>
                                 <td align="right" class="testo" width="33%" valign="top">
                                     <br><br><br>
@@ -540,19 +540,21 @@
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <font color="red">RegWrite = <?php     echo $RegWrite;?></font>
-									<br><br>
-                                    <table width="90" height="150" cellpadding="0" cellspacing="0" class="elemento" ID="Table9">
+                                    <table width="90" height="150" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="top" align="center">
                                                 <font size="1">
-                                                    <div align="right">Read Data 1</div>
-                                                    <div align="left">Read<br>Register 1</div>
-                                                    <div align="left">Read<br>Register 2</div>
+                                                    <div align="right">READ DATA 1</div>
+													<br>
+                                                    <div align="left">READ REG 1</div>
+                                                    <br>
+													<div align="left">READ REG 2</div>
                                                     <br>
                                                     <div align="center"><b>REGISTERS</b></div>
-                                                    <br>
-                                                    <div align="left">Write<br>Register</div>
-                                                    <div align="right">Read Data 2</div>
-                                                    <div align="left">Write Data</div>
+                                                    <br><br>
+                                                    <div align="left">WRITE REG</div>
+                                                    <div align="right">READ DATA 2</div>
+													<br>
+                                                    <div align="left">WRITE DATA</div>
                                                 </font>
                                             </td></tr>
                                     </table>
@@ -567,9 +569,8 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form4">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit6" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
-
 
                         <?php
                         break;
@@ -585,7 +586,7 @@
                             otherwise those signals will propagate normally.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table2" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color="red">
                                         <br><br>
@@ -595,7 +596,7 @@
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <font color="red">EX.Flush = <?php     echo $ex_scarta;?></font><br><br>
-                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table15">
+                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr>
                                             <td><div style="font-size: 8px;color:#666666;">0<br><br>1</div></td>
                                             <td valign="middle" align="center"><font size="1">M<br>U<br>X</font></td></tr>
@@ -610,7 +611,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form2">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit2" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -627,7 +628,7 @@
                             MEM stage, otherwise those signals will propagate normally.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table1" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color="red">
                                         <br><br>
@@ -637,7 +638,7 @@
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <font color="red">EX.Flush = <?php     echo $ex_scarta;?></font><br><br>
-                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table3">
+                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr>
                                             <td><div style="font-size: 8px;color:#666666;">0<br><br>1</div></td>
                                             <td valign="middle" align="center"><font size="1">M<br>U<br>X</font></td></tr>
@@ -652,7 +653,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form1">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit1" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -673,7 +674,7 @@
                             the forwarding unit).
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table4" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%" valign="top">
                                     <br>
                                     ID/EX.Read_Data 1 = <?php     echo $DL1;?><br>
@@ -681,7 +682,7 @@
                                     EX/MEM.Data = <?php     echo $ex_mem;?><br>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table5">
+                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento">
                                         <tr>
                                             <td><div style="font-size: 8px;color:#666666;">00<br>01<br>10</div></td>
                                             <td valign="middle" align="center"><font size="1">M<br>U<br>X</font></td></tr>
@@ -696,7 +697,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form3">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit3" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -717,7 +718,7 @@
                             the forwarding unit).
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table6" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%" valign="top">
                                     <br>
                                     ID/EX.Read_Data 2 = <?php     echo $DL1;?><br>
@@ -725,7 +726,7 @@
                                     EX/MEM.Data = <?php     echo $ex_mem;?><br>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table7">
+                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr>
                                             <td><div style="font-size: 8px;color:#666666;">00<br>01<br>10</div></td>
                                             <td valign="middle" align="center"><font size="1">M<br>U<br>X</font></td></tr>
@@ -740,7 +741,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form4">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit4" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -760,7 +761,7 @@
                             (e.g. 'addi' or 'lw'/'sw').
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table10" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="38%">
                                     <br><br>
                                     ID.EX.Data_Register 2 = <?php     echo $op1;?><br><br>
@@ -768,7 +769,7 @@
                                 </td>
                                 <td align="center" class="testo" width="24%">
                                     <font color="red">AluSrc = <?php     echo $ctrl;?></font><br><br>
-                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table11">
+                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr>
                                             <td><div style="font-size: 8px;color:#666666;">0<br><br>1</div></td>
                                             <td valign="middle" align="center"><font size="1">M<br>U<br>X</font></td>
@@ -783,7 +784,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form6">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit6" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
 
@@ -804,7 +805,7 @@
                             index to the WB stage.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table8" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="30%">
                                     <br><br>
                                     ID.EX.Register RD = <?php     echo $rd;?><br><br>
@@ -812,7 +813,7 @@
                                 </td>
                                 <td align="center" class="testo" width="30%">
                                     <font color="red">RegDst = <?php     echo $RegDest;?></font><br><br>
-                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table9">
+                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr>
                                             <td><div style="font-size: 8px;color:#666666;">1<br><br>0</div></td>
                                             <td valign="middle" align="center"><font size="1">M<br>U<br>X</font></td>
@@ -827,7 +828,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form5">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit5" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -845,14 +846,14 @@
                             The ALU executes an operation on the two source operands based on its control signals: 000=AND, 001=OR, 010=ADD, 110=SUB, 111=SET_ON_LESS_THAN.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table13" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="30%">
                                     ALU operand 1 = <?php     echo $valore1;?><br><br>
                                     ALU operand 2 = <?php     echo $valore2;?>
                                     <br><br><br>
                                 </td>
                                 <td align="center" class="testo" width="30%">
-                                    <table width="50" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table14">
+                                    <table width="50" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="middle" align="center"><font size="1"><b>ALU</b></font></td></tr>
                                     </table>
                                     <br>
@@ -866,7 +867,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form8">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit7" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
 
@@ -897,7 +898,7 @@
                             When one of the possible four cases happens, then the forwarding unit enables the corresponding MUX and data is forwarded.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table12" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo">
                                     <font color=red>Ctrl MUX 4 = <?php     echo $mux1;?></font><br>
                                     <font color=red>Ctrl MUX 3 = <?php     echo $mux2;?></font><br>
@@ -905,7 +906,7 @@
                                     ID/EX.Register RS2 = <?php     echo $rs2;?><br>
                                 </td>
                                 <td align="center">
-                                    <table width="80" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table21">
+                                    <table width="80" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="middle" align="center">
                                                 <font size="1">FORWARDING UNIT<br></font>
                                             </td></tr>
@@ -938,15 +939,15 @@
 
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table16" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
-                                    Istr[30,14-12] = <?php     echo $funct;?><br><br>
+                                    <br><br>Istr[30,14-12] = <?php     echo $funct;?><br><br>
                                     <font color=red>ALUOp = <?php     echo $aluOp;?></font>
                                 </td>
                                 <td align="center" class="testo"  width="33%">
                                     <font color=red>Result = <?php     echo $ctrl;?></font>
 									<br><br>
-                                    <table width="40" height="60" cellpadding="0" cellspacing="0" class="elemento" ID="Table17">
+                                    <table width="40" height="60" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="middle" align="center">
                                                 <font size="1">ALU<br>CONTROL<br>UNIT<br></font></td></tr>
                                     </table>
@@ -957,7 +958,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form9">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit8" NAME="Submit8">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -976,7 +977,7 @@
                             should come from MEM (e.g. in case of 'lw' instruction) or EX stage.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table2" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <br><br>
                                     MEM/WB.ReadData = <?php     echo $DL;?><br><br>
@@ -984,7 +985,7 @@
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <font color="red">MemToReg = <?php     echo $ctrl;?></font><br><br>
-                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" ID="Table15">
+                                    <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr>
                                             <td><div style="font-size: 8px;color:#666666;">1<br><br>0</div></td>
                                             <td valign="middle" align="center"><font size="1">M<br>U<br>X</font></td></tr>
@@ -999,7 +1000,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form2">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit2" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -1020,7 +1021,7 @@
                             will store a value when MemWrite is active ('sw').
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table1" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <br><br><br><br><br>
                                     Address = <?php     echo $ind;?><br><br><br><br><br><br>
@@ -1028,23 +1029,21 @@
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <font color="red">MemWrite = <?php     echo $memW;?></font>
-									<br><br>
-                                    <table width="60" height="150" cellpadding="0" cellspacing="0" class="elemento" ID="Table3">
+                                    <table width="60" height="150" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="top" align="center">
                                                 <font size="1"><br>DATA<br>MEMORY<br>
                                                     <br><br><br>
                                                     <div align="left">ADDRESS</div>
                                                     <br><br>
-                                                    <div align="right">READ DATA</div>
+                                                    <div align="right">READ<br>DATA</div>
                                                     <br>
-                                                    <div align="left">WRITE DATA</div>
+                                                    <div align="left">WRITE<br>DATA</div>
                                                 </font>
                                             </td></tr>
                                     </table>
-									<br><br>
                                     <font color="red">MemRead = <?php     echo $memR;?></font>
                                 </td>
-                                <td align="left" valign="middle" class="testo" width="33%"><br><br><br><br><br>
+                                <td align="left" valign="middle" class="testo" width="33%"><br><br><br><br><br><br>
                                     <?php     if ($DL!="")
                                     {
                                         ?>
@@ -1059,7 +1058,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form1">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit2" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -1075,7 +1074,7 @@
                         </div>
                         <form action="javascript:window.close()" method="post" ID="Form1">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit1" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -1090,7 +1089,7 @@
                         </div>
                         <form action="javascript:window.close()" method="post" ID="Form1">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit1" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -1105,7 +1104,7 @@
                         </div>
                         <form action="javascript:window.close()" method="post" ID="Form1">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit1" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -1120,7 +1119,7 @@
                         </div>
                         <form action="javascript:window.close()" method="post" ID="Form1">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit1" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
                         <?php
                         break;
@@ -1135,14 +1134,14 @@
                             This register holds control signals for WB stage.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table6" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color = "red">
                                         New Value = <?php     echo $dataIn;?>
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="20%">
-                                    <table width="35" height="35" cellpadding="0" cellspacing="0" border="0" background="../../img/layout/bg_ID_EX.gif" ID="Table7">
+                                    <table width="35" height="35" cellpadding="0" cellspacing="0" border="0" background="../img/layout/bg_ID_EX.gif" >
                                         <tr>
                                             <td valign="middle" align="center">
                                                 <font size="1">WB
@@ -1160,7 +1159,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form4">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit3" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -1176,14 +1175,14 @@
                             This register holds control signals for MEM stage.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table1" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color = "red">
                                         New Value = <?php     echo $dataIn;?>
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="20%">
-                                    <table width="35" height="35" cellpadding="0" cellspacing="0" border="0" background="../../img/layout/bg_ID_EX.gif" ID="Table3">
+                                    <table width="35" height="35" cellpadding="0" cellspacing="0" border="0" background="../img/layout/bg_ID_EX.gif" >
                                         <tr>
                                             <td valign="middle" align="center">
                                                 <font size="1">M
@@ -1201,7 +1200,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form1">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit1" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -1217,14 +1216,14 @@
                             This register holds control signals for EX stage.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table4" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color = "red">
                                         New Value = <?php     echo $dataIn;?>
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="20%">
-                                    <table width="35" height="35" cellpadding="0" cellspacing="0" border="0" background="../../img/layout/bg_ID_EX.gif" ID="Table5">
+                                    <table width="35" height="35" cellpadding="0" cellspacing="0" border="0" background="../img/layout/bg_ID_EX.gif">
                                         <tr>
                                             <td valign="middle" align="center">
                                                 <font size="1">EX
@@ -1242,7 +1241,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form3">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit1" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -1258,14 +1257,14 @@
                             This register holds control signals for WB stage.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table6" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color = "red">
                                         New Value = <?php     echo $dataIn;?>
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="20%">
-                                    <table width="35" height="35" cellpadding="0" cellspacing="0" border="0" background="../../img/layout/bg_EX_MEM.gif" ID="Table7">
+                                    <table width="35" height="35" cellpadding="0" cellspacing="0" border="0" background="../img/layout/bg_EX_MEM.gif" >
                                         <tr>
                                             <td valign="middle" align="center">
                                                 <font size="1">WB
@@ -1283,7 +1282,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form4">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit3" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -1299,14 +1298,14 @@
                             This register holds control signals for MEM stage.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table8" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color = "red">
                                         New Value = <?php     echo $dataIn;?>
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="20%">
-                                    <table width="35" height="35" cellpadding="0" cellspacing="0" border="0" background="../../img/layout/bg_EX_MEM.gif" ID="Table9">
+                                    <table width="35" height="35" cellpadding="0" cellspacing="0" border="0" background="../img/layout/bg_EX_MEM.gif" >
                                         <tr>
                                             <td valign="middle" align="center">
                                                 <font size="1">M
@@ -1324,7 +1323,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form5">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit1" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php
@@ -1340,14 +1339,14 @@
                             This register holds control signals for WB stage.
                         </div>
                         <br>
-                        <table width="100%" cellpadding="0" cellspacing="0" ID="Table10" align="center">
+                        <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color = "red">
                                         New Value = <?php     echo $dataIn;?>
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="20%">
-                                    <table width="35" height="35" cellpadding="0" cellspacing="0" border="0" background="../../img/layout/bg_MEM_WB.gif" ID="Table11">
+                                    <table width="35" height="35" cellpadding="0" cellspacing="0" border="0" background="../img/layout/bg_MEM_WB.gif" >
                                         <tr>
                                             <td valign="middle" align="center">
                                                 <font size="1">WB
@@ -1365,7 +1364,7 @@
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form6">
                             <hr size="1" width="60%" noshade>
-                            <input type="submit" value="Close This Window" class="form" ID="Submit3" NAME="Submit1">
+                            <input type="submit" value="Close This Window" class="form" >
                         </form>
 
                         <?php

@@ -138,7 +138,7 @@ $_SESSION['finito'] = ($_SESSION['ifIstruzione']==1002) && ($_SESSION['idIstruzi
                 $c2="white";
                 $c3="white";
                 ?>
-                <table cellpadding="0" cellspacing="0" width="100%" border="0" align="center" bgcolor="#D4D0C8" ID="Table1">
+                <table cellpadding="0" cellspacing="0" width="100%" border="0" align="center" bgcolor="#D4D0C8" >
                     <tr>
                         <td width="5"><img src="../img/layout/bg_destra_active1.gif"></td>
                         <td valign="middle" align="center" background="../img/layout/bg_destra_active3.gif">
@@ -192,7 +192,7 @@ $_SESSION['finito'] = ($_SESSION['ifIstruzione']==1002) && ($_SESSION['idIstruzi
                 $c2="white";
                 $c3="#D4D0C8";
                 ?>
-                <table cellpadding="0" cellspacing="0" width="100%" border="0" align="center" bgcolor="#D4D0C8" ID="Table2">
+                <table cellpadding="0" cellspacing="0" width="100%" border="0" align="center" bgcolor="#D4D0C8" >
                     <tr>
                         <td width="5"><img src="../img/layout/bg_destra_active1.gif"></td>
                         <td align="center" background="../img/layout/bg_destra_active3.gif">

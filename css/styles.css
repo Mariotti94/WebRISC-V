@@ -35,6 +35,32 @@
     color: #000000;
 }
 
+.bRight {
+    border-right: 1px solid black;
+}
+
+.bLeft {
+    border-left: 1px solid black;
+}
+
+.bTop {
+    border-top: 1px solid black;
+}
+
+.bBot {
+    border-bottom: 1px solid black;
+}
+
+.minIstrWd {
+    min-width: 75px;
+}
+
+.pipeTd {
+		border:1px solid #666666;
+		min-width: 20px;
+		text-align: center;
+}
+
 A.link {
     font-family: Arial;
     font-size: 10px;
@@ -106,32 +132,6 @@ tr.row td:last-child {
     border-right: thin solid black;
 }
 
-.bRight {
-    border-right: 1px solid black;
-}
-
-.bLeft {
-    border-left: 1px solid black;
-}
-
-.bTop {
-    border-top: 1px solid black;
-}
-
-.bBot {
-    border-bottom: 1px solid black;
-}
-
-.minIstrWd {
-    min-width: 75px;
-}
-
-.pipeTd {
-		border:1px solid #666666;
-		min-width: 20px;
-		text-align: center;
-}
-
 tr.alternating:nth-child(even){
   background-color: white;
 }
@@ -153,7 +153,7 @@ tr.alternating:nth-child(odd){
     margin-top: 160px;
 }
 
-BODY {
+body {
     scrollbar-face-color: #cccccc;
     scrollbar-highlight-color: #f7b217;
     scrollbar-3dlight-color: #666666;

@@ -80,7 +80,7 @@ if ($dim!=0)
 
         ?>
         <br>
-        <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" ID="Table1">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" >
             
 		<?php
 			$text1='<tr><td align="center" valign="middle" bgcolor=';
@@ -138,7 +138,7 @@ if ($dim!=0)
                     <?php     if ($tipo=="R")
                     {
                         ?>
-                        <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" ID="Table2">
+                        <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" >
                             <tr>
 								<td width="20%" align="center"><font size="1"><?php       echo BinToGMP($funct7,1);?></font></td>
                                 <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($rs2,1);?></font></td>
@@ -168,7 +168,7 @@ if ($dim!=0)
                     <?php     if ($tipo=="I")
                     {
                         ?>
-                        <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" ID="Table3">
+                        <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" >
                             <tr>
 								<td width="35%" align="center"><font size="1"><?php       echo BinToGMP($imm,0);?></font></td>
                                 <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($rs1,1);?></font></td>
@@ -195,7 +195,7 @@ if ($dim!=0)
                     <?php     if ($tipo=="S")
                     {
                         ?>
-                        <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" ID="Table3">
+                        <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" >
 						    <tr>
 								<td width="35%" align="center"><font size="1"><?php       echo BinToGMP($imm,0);?></font></td>
                                 <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($rs2,1);?></font></td>
@@ -222,7 +222,7 @@ if ($dim!=0)
                     <?php     if ($tipo=="SB")
                     {
                         ?>
-                        <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" ID="Table3">
+                        <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" >
 							<tr>
 								<td width="35%" align="center"><font size="1"><?php       echo BinToGMP($imm,0);?></font></td>
                                 <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($rs2,1);?></font></td>
@@ -249,7 +249,7 @@ if ($dim!=0)
                     <?php     if ($tipo=="U")
                     {
                         ?>
-                        <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" ID="Table4">
+                        <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" >
                             <tr>
                                 <td width="60%" align="center"><font size="1"><?php       echo BinToGMP($imm,1);?></font></td>
                                 <td width="20%" align="center"><font size="1"><?php       echo BinToGMP($rd,1);?></font></td>
@@ -270,7 +270,7 @@ if ($dim!=0)
                     <?php     if ($tipo=="UJ")
                     {
                         ?>
-                        <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" ID="Table4">
+                        <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" >
                             <tr>
                                 <td width="60%" align="center"><font size="1"><?php       echo BinToGMP($imm,1);?></font></td>
                                 <td width="20%" align="center"><font size="1"><?php       echo BinToGMP($rd,1);?></font></td>

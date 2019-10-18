@@ -1,6 +1,6 @@
 <?php
 //VERSION
-$_SESSION['version']="1.2";
+$_SESSION['version']="1.2a";
 
 //STATUS
 $_SESSION['clock']=0;
@@ -27,8 +27,8 @@ while($i!=32)
     $i=$i+1;
 }
 
-$registri[2]=4992;
-$registri[8]=4992;
+$registri[2]=5000;
+$registri[8]=5000;
 $_SESSION['registri']=$registri;
 $HILO=0;
 $_SESSION['HILO']=$HILO;

@@ -19,7 +19,7 @@ function popup_open(link,width,height,posX,posY,elemWidth) {
         posX = posX + elemWidth;
     popup.style.left = posX;
     posY = posY - top.frames[2].document.body.scrollTop;
-    if (posY > top.frames[2].document.body.offsetHeight/2)
+    if (posY > top.frames[2].document.body.offsetHeight/2 && (posY - 0.8 * height)>0)
         posY = posY - 0.8 * height;
     popup.style.top = posY;
     top.frames[2].document.body.appendChild(popup);

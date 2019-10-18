@@ -4,7 +4,7 @@ if (!isset($height))
     $height = 0;
 ?>
 <form action="leftPanel.php?dst=dati&tipo=parola" method="post">
-    <table cellpadding="0" cellspacing="2" border="0" width="100%" class="registro" ID="Table1">
+    <table cellpadding="0" cellspacing="2" border="0" width="100%" class="registro" >
         <tr><td class="registro" align="center" width="70%" bgcolor="white">
                 Display the dword at address
                 <select name="parola" class="form">
@@ -26,7 +26,7 @@ if (!isset($height))
 </form>
 
 <form action="leftPanel.php?dst=dati&tipo=serie" method="post" ID="Form1">
-    <table cellpadding="0" cellspacing="2" border="0" width="100%" class="registro" ID="Table2">
+    <table cellpadding="0" cellspacing="2" border="0" width="100%" class="registro" >
         <tr><td class="registro" align="center" width="70%" bgcolor="white">
                 Display the dwords between<br>
                 address
@@ -62,7 +62,7 @@ if (!isset($height))
 </form>
 
 <form action="leftPanel.php?dst=dati&tipo=tutto" method="post" ID="Form2">
-    <table cellpadding="0" cellspacing="2" border="0" width="100%" class="registro" ID="Table3">
+    <table cellpadding="0" cellspacing="2" border="0" width="100%" class="registro" >
         <tr><td class="registro" align="center" width="70%" bgcolor="white">
                 Display ALL Memory
             </td>
@@ -71,7 +71,7 @@ if (!isset($height))
             </td></tr>
 </form>
 
-<table cellpadding="0" cellspacing="2" border="0" width="100%" class="registro" ID="Table4">
+<table cellpadding="0" cellspacing="2" border="0" width="100%" class="registro" >
     <tr>
 		<td width="40" align="center" style="border:1px solid #666666">Dec. Val.<br>(dword)</td>
         <td width="40" align="center" style="border:1px solid #666666">Dec. Val.<br>(word)</td>
