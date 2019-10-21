@@ -13,14 +13,15 @@ function popup_open(link,width,height,posX,posY,elemWidth) {
     popup.height = height;
     popup.width = width;
     posX = posX - top.frames[2].document.body.scrollLeft;
-    if (posX > top.frames[2].document.body.offsetWidth/2)
+    if ( posX > top.frames[2].document.body.scrollWidth/2 )
         posX = posX - width;
     else
         posX = posX + elemWidth;
     popup.style.left = posX;
-    posY = posY - top.frames[2].document.body.scrollTop;
-    if (posY > top.frames[2].document.body.offsetHeight/2 && (posY - 0.8 * height)>0)
-        posY = posY - 0.8 * height;
+	if( ( posY + height ) > top.frames[2].document.body.scrollHeight )
+		posY = top.frames[2].document.body.scrollHeight - 1.1 * height;
+	posY = posY - top.frames[2].document.body.scrollTop;
+	posY = ( posY > 0 ) ? posY : 0;
     popup.style.top = posY;
     top.frames[2].document.body.appendChild(popup);
 };
@@ -28,8 +29,8 @@ function popup_open(link,width,height,posX,posY,elemWidth) {
 function popup_set() {
     top.frames[2].document.querySelectorAll('div>a').forEach(function(element) {
         var link = element.getAttribute('onclick').split('\'')[1];
-        var width = element.getAttribute('onclick').split('\'')[5].replace(/=/g,' ').split(' ')[1];
-        var height = element.getAttribute('onclick').split('\'')[5].replace(/=/g,' ').split(' ')[3];
+        var width = element.getAttribute('onclick').split('\'')[5].replace(/,/g,' ').replace(/=/g,' ').split(' ')[1];
+        var height = element.getAttribute('onclick').split('\'')[5].replace(/,/g,' ').replace(/=/g,' ').split(' ')[3];
         var left = element.parentElement.offsetLeft;
         var top = element.parentElement.offsetTop;
         var parentWidth = parseInt(element.parentElement.style.width.split("p")[0]);

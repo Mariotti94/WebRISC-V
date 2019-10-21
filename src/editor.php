@@ -149,14 +149,14 @@ session_start();
                                         {
                                             ?>
                                             <tr>
-												<td align="right" valign="middle" bgcolor="#cccccc" class="numRiga" <?php if($i==0) echo "style='padding-top: 3px;'" ?>><?php   echo $i+1;?></td>
+												<td align="right" valign="middle" bgcolor="#cccccc" class="numRiga" <?php if($i==0) echo "style='padding-top: 3px;'" ?>><?php echo $i+1;?></td>
 											</tr>
-                                            <?php   $i=$i+1;
+                                            <?php $i=$i+1;
                                         } ?>
                                     </table>
                                 </td>
                                 <td align="left" valign="top">
-                                    <textarea id="asmTxt" style="width:400px; border:0px;" name="codice" cols="70" rows="1000" class="form" onkeypress="javascript:if(document.getElementById('asmName').value=='') document.getElementById('asmName').value='handwritten.s';"><?php echo isset($_SESSION['codice'])?$_SESSION['codice']:'';?></textarea>
+                                    <textarea id="asmTxt" class="form" style="width:400px; border:0px;" name="codice" cols="70" rows="1000" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"  onkeypress="javascript:if(document.getElementById('asmName').value=='') document.getElementById('asmName').value='handwritten.s';"><?php echo isset($_SESSION['codice'])?$_SESSION['codice']:'';?></textarea>
                                 </td></tr>
                         </table>
                     </div>

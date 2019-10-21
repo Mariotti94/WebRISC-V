@@ -122,38 +122,38 @@ if ($dim!=0)
                 <td width="40%" align="center" valign="middle" bgcolor="white">
                     <font size="1" face="arial">
                         <b>Address <?php echo $index*4;?> (0x<?php echo dechex($index*4);?>)</b><br>
-                        <?php     echo $tipo;?>-type Instruction:<br>
+                        <?php echo $tipo;?>-type Instruction:<br>
                     </font>
                     <font size="3" face="arial">
-                        <b><?php     echo $istruzione;?></b>
+                        <b><?php echo $istruzione;?></b>
                     </font>
                     <br>
                     <font size="2" face="arial">
-                        <b><?php     echo $a;?></b>
+                        <b><?php echo $a;?></b>
                     </font>
                 </td>
             </tr>
             <tr>
                 <td width="60%" bgcolor="#cccccc" valign="top" align="center">
-                    <?php     if ($tipo=="R")
+                    <?php if ($tipo=="R")
                     {
                         ?>
                         <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" >
                             <tr>
-								<td width="20%" align="center"><font size="1"><?php       echo BinToGMP($funct7,1);?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($rs2,1);?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($rs1,1);?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($funct3,1);?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($rd,1);?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo BinToGMP($op,1);?></font></td>
+								<td width="20%" align="center"><font size="1"><?php echo BinToGMP($funct7,1);?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo BinToGMP($rs2,1);?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo BinToGMP($rs1,1);?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo BinToGMP($funct3,1);?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo BinToGMP($rd,1);?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo BinToGMP($op,1);?></font></td>
                             </tr>
                             <tr>
-                                <td width="20%" align="center"><font size="1"><?php       echo $funct7;?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo $rs2;?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo $rs1;?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo $funct3;?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo $rd;?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo $op;?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo $funct7;?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo $rs2;?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo $rs1;?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo $funct3;?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo $rd;?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo $op;?></font></td>
                             </tr>
                             <tr>
                                 <td width="20%" align="center"><font size="1">FUNCT7</font></td>
@@ -164,24 +164,24 @@ if ($dim!=0)
                                 <td width="20%" align="center"><font size="1">OP</font></td>
                             </tr>
                         </table>
-                    <?php     } ?>
-                    <?php     if ($tipo=="I")
+                    <?php } ?>
+                    <?php if ($tipo=="I")
                     {
                         ?>
                         <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" >
                             <tr>
-								<td width="35%" align="center"><font size="1"><?php       echo BinToGMP($imm,0);?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($rs1,1);?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($funct3,1);?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($rd,1);?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo BinToGMP($op,1);?></font></td>
+								<td width="35%" align="center"><font size="1"><?php echo BinToGMP($imm,0);?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo BinToGMP($rs1,1);?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo BinToGMP($funct3,1);?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo BinToGMP($rd,1);?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo BinToGMP($op,1);?></font></td>
                             </tr>
                             <tr>
-								<td width="35%" align="center"><font size="1"><?php       echo $imm;?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo $rs1;?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo $funct3;?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo $rd;?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo $op;?></font></td>
+								<td width="35%" align="center"><font size="1"><?php echo $imm;?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo $rs1;?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo $funct3;?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo $rd;?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo $op;?></font></td>
                             </tr>
                             <tr>
 								<td width="35%" align="center"><font size="1">IMMEDIATE</font></td>
@@ -191,24 +191,24 @@ if ($dim!=0)
                                 <td width="20%" align="center"><font size="1">OP</font></td>
                             </tr>
                         </table>
-                    <?php     } ?>
-                    <?php     if ($tipo=="S")
+                    <?php } ?>
+                    <?php if ($tipo=="S")
                     {
                         ?>
                         <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" >
 						    <tr>
-								<td width="35%" align="center"><font size="1"><?php       echo BinToGMP($imm,0);?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($rs2,1);?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($rs1,1);?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($funct3,1);?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo BinToGMP($op,1);?></font></td>
+								<td width="35%" align="center"><font size="1"><?php echo BinToGMP($imm,0);?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo BinToGMP($rs2,1);?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo BinToGMP($rs1,1);?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo BinToGMP($funct3,1);?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo BinToGMP($op,1);?></font></td>
                             </tr>
                             <tr>
-								<td width="35%" align="center"><font size="1"><?php       echo $imm;?></font></td>
-								<td width="15%" align="center"><font size="1"><?php       echo $rs2;?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo $rs1;?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo $funct3;?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo $op;?></font></td>
+								<td width="35%" align="center"><font size="1"><?php echo $imm;?></font></td>
+								<td width="15%" align="center"><font size="1"><?php echo $rs2;?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo $rs1;?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo $funct3;?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo $op;?></font></td>
                             </tr>
                             <tr>
 								<td width="35%" align="center"><font size="1">IMMEDIATE</font></td>
@@ -218,24 +218,24 @@ if ($dim!=0)
                                 <td width="20%" align="center"><font size="1">OP</font></td>
                             </tr>
                         </table>
-                    <?php     } ?>
-                    <?php     if ($tipo=="SB")
+                    <?php } ?>
+                    <?php if ($tipo=="SB")
                     {
                         ?>
                         <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" >
 							<tr>
-								<td width="35%" align="center"><font size="1"><?php       echo BinToGMP($imm,0);?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($rs2,1);?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($rs1,1);?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo BinToGMP($funct3,1);?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo BinToGMP($op,1);?></font></td>
+								<td width="35%" align="center"><font size="1"><?php echo BinToGMP($imm,0);?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo BinToGMP($rs2,1);?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo BinToGMP($rs1,1);?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo BinToGMP($funct3,1);?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo BinToGMP($op,1);?></font></td>
                             </tr>
                             <tr>
-								<td width="35%" align="center"><font size="1"><?php       echo $imm;?></font></td>
-								<td width="15%" align="center"><font size="1"><?php       echo $rs2;?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo $rs1;?></font></td>
-                                <td width="15%" align="center"><font size="1"><?php       echo $funct3;?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo $op;?></font></td>
+								<td width="35%" align="center"><font size="1"><?php echo $imm;?></font></td>
+								<td width="15%" align="center"><font size="1"><?php echo $rs2;?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo $rs1;?></font></td>
+                                <td width="15%" align="center"><font size="1"><?php echo $funct3;?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo $op;?></font></td>
                             </tr>
                             <tr>
 								<td width="35%" align="center"><font size="1">IMMEDIATE</font></td>
@@ -245,20 +245,20 @@ if ($dim!=0)
                                 <td width="20%" align="center"><font size="1">OP</font></td>
                             </tr>
                         </table>
-                    <?php     } ?>
-                    <?php     if ($tipo=="U")
+                    <?php } ?>
+                    <?php if ($tipo=="U")
                     {
                         ?>
                         <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" >
                             <tr>
-                                <td width="60%" align="center"><font size="1"><?php       echo BinToGMP($imm,1);?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo BinToGMP($rd,1);?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo BinToGMP($op,1);?></font></td>
+                                <td width="60%" align="center"><font size="1"><?php echo BinToGMP($imm,1);?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo BinToGMP($rd,1);?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo BinToGMP($op,1);?></font></td>
                             </tr>
                             <tr>
-                                <td width="60%" align="center"><font size="1"><?php       echo $imm;?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo $rd;?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo $op;?></font></td>
+                                <td width="60%" align="center"><font size="1"><?php echo $imm;?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo $rd;?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo $op;?></font></td>
                             </tr>
                             <tr>
                                 <td width="60%" align="center"><font size="1">ADDRESS</font></td>
@@ -266,20 +266,20 @@ if ($dim!=0)
                                 <td width="20%" align="center"><font size="1">OP</font></td>
                             </tr>
                         </table>
-                    <?php     } ?>
-                    <?php     if ($tipo=="UJ")
+                    <?php } ?>
+                    <?php if ($tipo=="UJ")
                     {
                         ?>
                         <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" >
                             <tr>
-                                <td width="60%" align="center"><font size="1"><?php       echo BinToGMP($imm,1);?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo BinToGMP($rd,1);?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo BinToGMP($op,1);?></font></td>
+                                <td width="60%" align="center"><font size="1"><?php echo BinToGMP($imm,1);?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo BinToGMP($rd,1);?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo BinToGMP($op,1);?></font></td>
                             </tr>
                             <tr>
-                                <td width="60%" align="center"><font size="1"><?php       echo $imm;?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo $rd;?></font></td>
-                                <td width="20%" align="center"><font size="1"><?php       echo $op;?></font></td>
+                                <td width="60%" align="center"><font size="1"><?php echo $imm;?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo $rd;?></font></td>
+                                <td width="20%" align="center"><font size="1"><?php echo $op;?></font></td>
                             </tr>
                             <tr>
                                 <td width="60%" align="center"><font size="1">ADDRESS</font></td>
@@ -287,7 +287,7 @@ if ($dim!=0)
                                 <td width="20%" align="center"><font size="1">OP</font></td>
                             </tr>
                         </table>
-                    <?php     } ?>
+                    <?php } ?>
                 </td>
             </tr>
         </table>

@@ -16,8 +16,8 @@ $_SESSION['branchFlush']=true;
 <frameset rows="112,*" frameborder="NO" border="0" framespacing="0">
     <frame src="src/header.php" name="Header" scrolling="NO" noresize >
     <frameset cols="340,*" frameborder="NO" border="0" framespacing="0">
-        <frame src="src/leftPanel.php" name="MemIstr" scrolling="YES">
-        <frame src="src/executeStep.php" name="Body" scrolling="YES" noresize>
+        <frame src="src/leftPanel.php" name="MemIstr" scrolling="yes">
+        <frame src="src/executeStep.php" name="Body" scrolling="yes" noresize>
     </frameset>
 </frameset>
 <noframes>

@@ -54,14 +54,14 @@
                         <div align="center" class="testoGrande">This unit updates the PC</div>
                         <br>
                         <table width="100%" cellpadding="0" cellspacing="0" align="center">
-                            <tr><td align="right" class="testo">PC = <?php     echo $PC*4;?><br><br>Constant = 4
+                            <tr><td align="right" class="testo">PC = <?php echo $PC*4;?><br><br>Constant = 4
                                 </td>
                                 <td align="center">
                                     <table width="50" height="50" cellpadding="0" cellspacing="0" class="elemento">
                                         <tr><td valign="middle" align="center"><font size="1">+</font></td></tr>
                                     </table>
                                 </td>
-                                <td align="left" valign="middle" class="testo">Result = <?php     echo $PCpiu4*4;?></td>
+                                <td align="left" valign="middle" class="testo">Result = <?php echo $PCpiu4*4;?></td>
                                 </td></tr>
                         </table>
                         <form action="javascript:window.close()" method="post">
@@ -81,16 +81,16 @@
                         <div align="center" class="testoGrande">This register is updated only if the control signal is zero (if the hazard detection unit does not signal a stall)</div>
                         <br>
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
-                            <tr><td align="right" class="testo" width="33%">New PC = <?php     echo $newPC*4;?>
+                            <tr><td align="right" class="testo" width="33%">New PC = <?php echo $newPC*4;?>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    <font color="red">Stall = <?php     echo $stallo;?></font>
+                                    <font color="red">Stall = <?php echo $stallo;?></font>
 									<br><br>
                                     <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="middle" align="center"><font size="1">PC</font></td></tr>
                                     </table>
                                 </td>
-                                <td align="left" valign="middle" class="testo" width="33%">PC = <?php     echo $PC*4;?></td>
+                                <td align="left" valign="middle" class="testo" width="33%">PC = <?php echo $PC*4;?></td>
                                 </td></tr>
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form1">
@@ -112,7 +112,7 @@
                         </div>
                         <br>
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
-                            <tr><td align="right" class="testo" width="33%">Address (PC) = <?php     echo $PC*4;?>
+                            <tr><td align="right" class="testo" width="33%">Address (PC) = <?php echo $PC*4;?>
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <table width="60" height="150" cellpadding="0" cellspacing="0" class="elemento" >
@@ -126,7 +126,7 @@
                                             </td></tr>
                                     </table>
                                 </td>
-                                <td align="left" valign="middle" class="testo" width="33%"><br><br><br><br><br><br>Instruction = <?php     echo '<br>'.substr($istruzione,0,16).'<br>'.substr($istruzione,16,16);?></td>
+                                <td align="left" valign="middle" class="testo" width="33%"><br><br><br><br><br><br>Instruction = <?php echo '<br>'.substr($istruzione,0,16).'<br>'.substr($istruzione,16,16);?></td>
                                 </td></tr>
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form2">
@@ -157,17 +157,17 @@
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <br><br><br>
-                                    Branch Target Address = <?php     echo $salto*4;?><br>
+                                    Branch Target Address = <?php echo $salto*4;?><br>
                                     Fixed Address = 1C090000<br>
-                                    PC + 4 = <?php     echo $PCpiu4*4;?><br>
+                                    PC + 4 = <?php echo $PCpiu4*4;?><br>
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <table cellpadding="5" cellspacing="5" border="0" >
                                         <tr><td align="center" valign="middle" class="testo">
-                                                <font color="red" size="1">PCsrc<br><?php     echo $ctrl1;?></font>
+                                                <font color="red" size="1">PCsrc<br><?php echo $ctrl1;?></font>
                                             </td>
                                             <td align="center" valign="middle" class="testo">
-                                                <font color="red" size="1">Exception<br><?php     echo $ctrl2;?></font>
+                                                <font color="red" size="1">Exception<br><?php echo $ctrl2;?></font>
                                             </td></tr>
                                     </table>
                                     <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
@@ -206,17 +206,17 @@
                                     <table cellpadding="5" cellspacing="5" border="0" >
                                         <tr>
                                             <td align="center" valign="middle" class="testo">
-                                                <font color="red" size="1">IsJump<br><?php     echo $ctrl1;?></font>
+                                                <font color="red" size="1">IsJump<br><?php echo $ctrl1;?></font>
                                             </td>
 											<td align="center" valign="middle" class="testo">
-                                                <font color="red" size="1">JumpCtrl<br><?php     echo $ctrl2;?></font>
+                                                <font color="red" size="1">JumpCtrl<br><?php echo $ctrl2;?></font>
                                             </td>
 										</tr>
                                     </table>
                                     <table width="40" height="40" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="middle" align="center"><font size="1">AND</font></td></tr>
                                     </table>
-                                    <font color="red">PCsrc = <?php     echo $ris;?></font>
+                                    <font color="red">PCsrc = <?php echo $ris;?></font>
                                 </td></tr>
                         </table>
                         <hr size="1" width="60%" noshade>
@@ -244,11 +244,11 @@
                         <br>
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo">
-                                    <font color=red>Stall = <?php     echo $stallo;?></font><br>
-                                    <font color=red>Stall = <?php     echo $stallo;?></font><br>
-                                    Read Register 1 = <?php     echo $RL1;?><br>
-                                    Read Register 2 = <?php     echo $RL2;?><br>
-                                    ID/EX.RegisterRD = <?php     echo $rd;?>
+                                    <font color=red>Stall = <?php echo $stallo;?></font><br>
+                                    <font color=red>Stall = <?php echo $stallo;?></font><br>
+                                    Read Register 1 = <?php echo $RL1;?><br>
+                                    Read Register 2 = <?php echo $RL2;?><br>
+                                    ID/EX.RegisterRD = <?php echo $rd;?>
                                 </td>
                                 <td align="center">
                                     <table width="80" height="50" cellpadding="0" cellspacing="0" class="elemento" >
@@ -258,9 +258,9 @@
                                     </table>
                                 </td>
                                 <td align="left" valign="middle" class="testo">
-                                    <font color=red>Stall = <?php     echo $stallo;?></font><br>
+                                    <font color=red>Stall = <?php echo $stallo;?></font><br>
                                     <br>
-                                    <font color=red>ID/EX.MemRead = <?php     echo $mem;?></font><br>
+                                    <font color=red>ID/EX.MemRead = <?php echo $mem;?></font><br>
                                 </td></tr>
                         </table>
                         <form action="javascript:window.close()" method="post">
@@ -290,11 +290,11 @@
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
 								
-                                    <font color=red>Exception = <?php     echo $ecc;?></font><br>
-                                    <font color=red>Jump = <?php     echo $salta;?></font><br>
+                                    <font color=red>Exception = <?php echo $ecc;?></font><br>
+                                    <font color=red>Jump = <?php echo $salta;?></font><br>
                                     <br>
 								<div style="float:right" align="left">	
-                                    Instruction = <?php     echo '<br>'.substr($istr,0,16).'<br>'.substr($istr,16,16);?>
+                                    Instruction = <?php echo '<br>'.substr($istr,0,16).'<br>'.substr($istr,16,16);?>
 								</div>
                                 </td>
                                 <td align="center" class="testo" width="33%">
@@ -305,13 +305,13 @@
                                     </table>
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="33%">
-                                    <font color=red>IF.Flush = <?php     echo $if_scarta;?></font><br>
-                                    <font color=red>ID.Flush = <?php     echo $id_scarta;?></font><br>
-                                    <font color=red>EX.Flush = <?php     echo $ex_scarta;?><br>
+                                    <font color=red>IF.Flush = <?php echo $if_scarta;?></font><br>
+                                    <font color=red>ID.Flush = <?php echo $id_scarta;?></font><br>
+                                    <font color=red>EX.Flush = <?php echo $ex_scarta;?><br>
                                         <br>
-                                        Control.WB = <?php     echo $wb;?><br>
-                                        Control.M = <?php     echo $mem;?><br>
-                                        Control.EX = <?php     echo $ex;?></font>
+                                        Control.WB = <?php echo $wb;?><br>
+                                        Control.M = <?php echo $mem;?><br>
+                                        Control.EX = <?php echo $ex;?></font>
                                 </td></tr>
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form1">
@@ -337,16 +337,16 @@
                                 <td align="center" class="testo">
                                     <table cellpadding="5" cellspacing="5" border="0" >
                                         <tr><td align="center" valign="middle" class="testo">
-                                                <font color="red" size="1">Stall<br><?php     echo $stallo;?></font>
+                                                <font color="red" size="1">Stall<br><?php echo $stallo;?></font>
                                             </td>
                                             <td align="center" valign="middle" class="testo">
-                                                <font color="red" size="1">ID.flush<br><?php     echo $id_scarta;?></font>
+                                                <font color="red" size="1">ID.flush<br><?php echo $id_scarta;?></font>
                                             </td></tr>
                                     </table>
                                     <table width="40" height="40" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="middle" align="center"><font size="1">OR</font></td></tr>
                                     </table>
-                                    <font color="red">Result = <?php     echo $stallo;?></font>
+                                    <font color="red">Result = <?php echo $stallo;?></font>
                                 </td>
                             </tr>
                         </table>
@@ -376,15 +376,15 @@
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color="red"><br></rb>
-                                        Control.WB = <?php     echo $wb;?><br>
-                                        Control.M = <?php     echo $mem;?><br>
-                                        Control.EX = <?php     echo $ex;?><br>
+                                        Control.WB = <?php echo $wb;?><br>
+                                        Control.M = <?php echo $mem;?><br>
+                                        Control.EX = <?php echo $ex;?><br>
                                         <br>
                                         00 0000 000
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    <font color="red">Control = <?php     echo $ctrl;?></font><br><br>
+                                    <font color="red">Control = <?php echo $ctrl;?></font><br><br>
                                     <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr>
                                             <td><div style="font-size: 8px;color:#666666;">0<br><br>1</div></td>
@@ -393,9 +393,9 @@
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="33%">
                                     <font color="red"><br><br>
-                                        ID/EX.WB = <?php     echo $wb;?><br>
-                                        ID/EX.M = <?php     echo $mem;?><br>
-                                        ID/EX.EX = <?php     echo $ex;?>
+                                        ID/EX.WB = <?php echo $wb;?><br>
+                                        ID/EX.M = <?php echo $mem;?><br>
+                                        ID/EX.EX = <?php echo $ex;?>
                                     </font>
                                 </td>
                             </tr>
@@ -440,15 +440,15 @@
                             <tr>
                                 <td align="right" class="testo" width="33%">
                                     <font color="red">
-                                        <?php     echo $str;?>
+                                        <?php echo $str;?>
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    Read Data 1 = <?php     echo $DL1;?>
+                                    Read Data 1 = <?php echo $DL1;?>
                                     <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="middle" align="center"><font size="1">=</font></td></tr>
                                     </table>
-                                    Read Data 2 = <?php     echo $DL2;?>
+                                    Read Data 2 = <?php echo $DL2;?>
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="33%">
                                     <?php
@@ -456,7 +456,7 @@
                                     {
                                         ?>
                                         <font color="red">
-                                            Result = <?php       echo $ris;?><br>
+                                            Result = <?php echo $ris;?><br>
                                         </font>
                                         <?php
                                     }
@@ -486,20 +486,20 @@
                         <br>
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center" style="table-layout: fixed;">
                             <tr>
-                                <td align="right" class="testo" width="33%" style="word-break:break-word; white-space: normal;">
+                                <td align="right" class="testo" width="33%">
 								<div style="float:right" align="left">
-                                    Instruction =<br><?php     echo substr($dato,0,16).'<br>'.substr($dato,16,16);?>
+                                    Instruction =<br><?php echo substr($dato,0,16).'<br>'.substr($dato,16,16);?>
 								</div>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    <table width="60" cellpadding="0" cellspacing="0" class="elemento" >
+                                    <table width="60" cellpadding="0" cellspacing="0" class="elemento">
                                         <tr><td valign="middle" align="center">
                                                 <font size="1">IMM<br>GEN<br></font>
                                             </td></tr>
                                     </table>
                                 </td>
-                                <td align="left" valign="middle" class="testo" width="33%" style="word-break:break-word; white-space: normal;">
-                                    Generated Immediate =<br><?php     echo substr($esteso,0,16).'<br>'.substr($esteso,16,16).'<br>'.substr($esteso,32,16).'<br>'.substr($esteso,48,16);?>
+                                <td align="left" valign="middle" class="testo" width="33%">
+                                    Generated Immediate =<br><?php echo substr($esteso,0,16).'<br>'.substr($esteso,16,16).'<br>'.substr($esteso,32,16).'<br>'.substr($esteso,48,16);?>
                                 </td>
                             </tr>
                         </table>
@@ -533,13 +533,13 @@
                             <tr>
                                 <td align="right" class="testo" width="33%" valign="top">
                                     <br><br><br>
-                                    Read Register 1 = <?php     echo $RL1;?><br><br>
-                                    Read Register 2 = <?php     echo $RL2;?><br><br><br><br><br>
-                                    Write Register = <?php     echo $RW;?><br><br><br>
-                                    Write Data = <?php     echo $WBdata;?><br>
+                                    Read Register 1 = <?php echo $RL1;?><br><br>
+                                    Read Register 2 = <?php echo $RL2;?><br><br><br><br><br>
+                                    Write Register = <?php echo $RW;?><br><br><br>
+                                    Write Data = <?php echo $WBdata;?><br>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    <font color="red">RegWrite = <?php     echo $RegWrite;?></font>
+                                    <font color="red">RegWrite = <?php echo $RegWrite;?></font>
                                     <table width="90" height="150" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="top" align="center">
                                                 <font size="1">
@@ -561,9 +561,9 @@
                                 </td>
                                 <td align="left" valign="top" class="testo" width="33%">
                                     <br><br>
-                                    Read Data 1 = <?php     echo $DL1;?>
+                                    Read Data 1 = <?php echo $DL1;?>
                                     <br><br><br><br><br><br><br><br><br>
-                                    Read Data 2 = <?php     echo $DL2;?>
+                                    Read Data 2 = <?php echo $DL2;?>
                                 </td>
                             </tr>
                         </table>
@@ -590,12 +590,12 @@
                             <tr><td align="right" class="testo" width="33%">
                                     <font color="red">
                                         <br><br>
-                                        ID.EX.WB = <?php     echo $dato;?><br><br>
+                                        ID.EX.WB = <?php echo $dato;?><br><br>
                                         00
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    <font color="red">EX.Flush = <?php     echo $ex_scarta;?></font><br><br>
+                                    <font color="red">EX.Flush = <?php echo $ex_scarta;?></font><br><br>
                                     <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr>
                                             <td><div style="font-size: 8px;color:#666666;">0<br><br>1</div></td>
@@ -604,7 +604,7 @@
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="33%">
                                     <font color="red"><br><br>
-                                        EX.MEM.WB = <?php     echo $dato;?>
+                                        EX.MEM.WB = <?php echo $dato;?>
                                     </font>
                                 </td>
                             </tr>
@@ -632,12 +632,12 @@
                             <tr><td align="right" class="testo" width="33%">
                                     <font color="red">
                                         <br><br>
-                                        ID.EX.M = <?php     echo $dato;?><br><br>
+                                        ID.EX.M = <?php echo $dato;?><br><br>
                                         0000
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    <font color="red">EX.Flush = <?php     echo $ex_scarta;?></font><br><br>
+                                    <font color="red">EX.Flush = <?php echo $ex_scarta;?></font><br><br>
                                     <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr>
                                             <td><div style="font-size: 8px;color:#666666;">0<br><br>1</div></td>
@@ -646,7 +646,7 @@
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="33%">
                                     <font color="red"><br><br>
-                                        EX.MEM.M = <?php     echo $dato;?>
+                                        EX.MEM.M = <?php echo $dato;?>
                                     </font>
                                 </td>
                             </tr>
@@ -677,9 +677,9 @@
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%" valign="top">
                                     <br>
-                                    ID/EX.Read_Data 1 = <?php     echo $DL1;?><br>
-                                    MEM/WB.Data = <?php     echo $mem_wb;?><br>
-                                    EX/MEM.Data = <?php     echo $ex_mem;?><br>
+                                    ID/EX.Read_Data 1 = <?php echo $DL1;?><br>
+                                    MEM/WB.Data = <?php echo $mem_wb;?><br>
+                                    EX/MEM.Data = <?php echo $ex_mem;?><br>
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento">
@@ -688,11 +688,11 @@
                                             <td valign="middle" align="center"><font size="1">M<br>U<br>X</font></td></tr>
                                     </table>
 									<br>
-                                    <font color="red" size="1">Control = <?php     echo $ctrl;?></font>
+                                    <font color="red" size="1">Control = <?php echo $ctrl;?></font>
                                 </td>
                                 <td align="left" valign="top" class="testo" width="33%">
                                     <br><br>
-                                    ALU Operand 1 = <?php     echo $ris;?></td>
+                                    ALU Operand 1 = <?php echo $ris;?></td>
                                 </td></tr>
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form3">
@@ -721,9 +721,9 @@
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%" valign="top">
                                     <br>
-                                    ID/EX.Read_Data 2 = <?php     echo $DL1;?><br>
-                                    MEM/WB.Data = <?php     echo $mem_wb;?><br>
-                                    EX/MEM.Data = <?php     echo $ex_mem;?><br>
+                                    ID/EX.Read_Data 2 = <?php echo $DL1;?><br>
+                                    MEM/WB.Data = <?php echo $mem_wb;?><br>
+                                    EX/MEM.Data = <?php echo $ex_mem;?><br>
                                 </td>
                                 <td align="center" class="testo" width="33%">
                                     <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
@@ -732,11 +732,11 @@
                                             <td valign="middle" align="center"><font size="1">M<br>U<br>X</font></td></tr>
                                     </table>
 									<br>
-                                    <font color="red" size="1">Control = <?php     echo $ctrl;?></font>
+                                    <font color="red" size="1">Control = <?php echo $ctrl;?></font>
                                 </td>
                                 <td align="left" valign="top" class="testo" width="33%">
                                     <br><br>
-                                    ALU Operand 2 = <?php     echo $ris;?></td>
+                                    ALU Operand 2 = <?php echo $ris;?></td>
                                 </td></tr>
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form4">
@@ -764,11 +764,11 @@
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="38%">
                                     <br><br>
-                                    ID.EX.Data_Register 2 = <?php     echo $op1;?><br><br>
-                                    ID.EX.Immediate_Register = <?php     echo $op2;?>
+                                    ID.EX.Data_Register 2 = <?php echo $op1;?><br><br>
+                                    ID.EX.Immediate_Register = <?php echo $op2;?>
                                 </td>
                                 <td align="center" class="testo" width="24%">
-                                    <font color="red">AluSrc = <?php     echo $ctrl;?></font><br><br>
+                                    <font color="red">AluSrc = <?php echo $ctrl;?></font><br><br>
                                     <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr>
                                             <td><div style="font-size: 8px;color:#666666;">0<br><br>1</div></td>
@@ -778,7 +778,7 @@
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="38%">
                                     <br><br>
-                                    ALU Operand 2 = <?php     echo $ris;?>
+                                    ALU Operand 2 = <?php echo $ris;?>
                                 </td>
                             </tr>
                         </table>
@@ -808,11 +808,11 @@
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="30%">
                                     <br><br>
-                                    ID.EX.Register RD = <?php     echo $rd;?><br><br>
-                                    ID.EX.Register RT = <?php     echo $rt;?>
+                                    ID.EX.Register RD = <?php echo $rd;?><br><br>
+                                    ID.EX.Register RT = <?php echo $rt;?>
                                 </td>
                                 <td align="center" class="testo" width="30%">
-                                    <font color="red">RegDst = <?php     echo $RegDest;?></font><br><br>
+                                    <font color="red">RegDst = <?php echo $RegDest;?></font><br><br>
                                     <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr>
                                             <td><div style="font-size: 8px;color:#666666;">1<br><br>0</div></td>
@@ -822,7 +822,7 @@
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="40%">
                                     <br><br>
-                                    EX.MEM.Register RD = <?php     echo $rDest;?>
+                                    EX.MEM.Register RD = <?php echo $rDest;?>
                                 </td>
                             </tr>
                         </table>
@@ -848,8 +848,8 @@
                         <br>
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="30%">
-                                    ALU operand 1 = <?php     echo $valore1;?><br><br>
-                                    ALU operand 2 = <?php     echo $valore2;?>
+                                    ALU operand 1 = <?php echo $valore1;?><br><br>
+                                    ALU operand 2 = <?php echo $valore2;?>
                                     <br><br><br>
                                 </td>
                                 <td align="center" class="testo" width="30%">
@@ -857,10 +857,10 @@
                                         <tr><td valign="middle" align="center"><font size="1"><b>ALU</b></font></td></tr>
                                     </table>
                                     <br>
-                                    <font color="red">Control = <?php     echo $ctrl;?></font>
+                                    <font color="red">Control = <?php echo $ctrl;?></font>
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="40%">
-                                    Result = <?php     echo $ris;?>
+                                    Result = <?php echo $ris;?>
                                     <br><br><br>
                                 </td>
                             </tr>
@@ -900,10 +900,10 @@
                         <br>
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo">
-                                    <font color=red>Ctrl MUX 4 = <?php     echo $mux1;?></font><br>
-                                    <font color=red>Ctrl MUX 3 = <?php     echo $mux2;?></font><br>
-                                    ID/EX.Register RS1 = <?php     echo $rs1;?><br>
-                                    ID/EX.Register RS2 = <?php     echo $rs2;?><br>
+                                    <font color=red>Ctrl MUX 4 = <?php echo $mux1;?></font><br>
+                                    <font color=red>Ctrl MUX 3 = <?php echo $mux2;?></font><br>
+                                    ID/EX.Register RS1 = <?php echo $rs1;?><br>
+                                    ID/EX.Register RS2 = <?php echo $rs2;?><br>
                                 </td>
                                 <td align="center">
                                     <table width="80" height="50" cellpadding="0" cellspacing="0" class="elemento" >
@@ -913,10 +913,10 @@
                                     </table>
                                 </td>
                                 <td align="left" valign="middle" class="testo">
-                                    EX/MEM.Register RD = <?php     echo $regW1;?><br>
-                                    <font color=red>EX/MEM.RegWrite = <?php     echo $mem1;?></font><br>
-                                    MEM/WB.Register RD = <?php     echo $regW2;?><br>
-                                    <font color=red>MEM/WB.RegWrite = <?php     echo $mem2;?></font><br>
+                                    EX/MEM.Register RD = <?php echo $regW1;?><br>
+                                    <font color=red>EX/MEM.RegWrite = <?php echo $mem1;?></font><br>
+                                    MEM/WB.Register RD = <?php echo $regW2;?><br>
+                                    <font color=red>MEM/WB.RegWrite = <?php echo $mem2;?></font><br>
                                 </td></tr>
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form7">
@@ -941,11 +941,11 @@
                         <br>
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
-                                    <br><br>Istr[30,14-12] = <?php     echo $funct;?><br><br>
-                                    <font color=red>ALUOp = <?php     echo $aluOp;?></font>
+                                    <br><br>Istr[30,14-12] = <?php echo $funct;?><br><br>
+                                    <font color=red>ALUOp = <?php echo $aluOp;?></font>
                                 </td>
                                 <td align="center" class="testo"  width="33%">
-                                    <font color=red>Result = <?php     echo $ctrl;?></font>
+                                    <font color=red>Result = <?php echo $ctrl;?></font>
 									<br><br>
                                     <table width="40" height="60" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="middle" align="center">
@@ -980,11 +980,11 @@
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <br><br>
-                                    MEM/WB.ReadData = <?php     echo $DL;?><br><br>
-                                    MEM/WB.CalcData = <?php     echo $DC;?>
+                                    MEM/WB.ReadData = <?php echo $DL;?><br><br>
+                                    MEM/WB.CalcData = <?php echo $DC;?>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    <font color="red">MemToReg = <?php     echo $ctrl;?></font><br><br>
+                                    <font color="red">MemToReg = <?php echo $ctrl;?></font><br><br>
                                     <table width="30" height="50" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr>
                                             <td><div style="font-size: 8px;color:#666666;">1<br><br>0</div></td>
@@ -993,7 +993,7 @@
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="33%">
                                     <font color="red"><br><br>
-                                        Result = <?php     echo $WBdata;?>
+                                        Result = <?php echo $WBdata;?>
                                     </font>
                                 </td>
                             </tr>
@@ -1024,11 +1024,11 @@
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <br><br><br><br><br>
-                                    Address = <?php     echo $ind;?><br><br><br><br><br><br>
-                                    Write Data = <?php     echo $DS;?>
+                                    Address = <?php echo $ind;?><br><br><br><br><br><br>
+                                    Write Data = <?php echo $DS;?>
                                 </td>
                                 <td align="center" class="testo" width="33%">
-                                    <font color="red">MemWrite = <?php     echo $memW;?></font>
+                                    <font color="red">MemWrite = <?php echo $memW;?></font>
                                     <table width="60" height="150" cellpadding="0" cellspacing="0" class="elemento" >
                                         <tr><td valign="top" align="center">
                                                 <font size="1"><br>DATA<br>MEMORY<br>
@@ -1041,19 +1041,19 @@
                                                 </font>
                                             </td></tr>
                                     </table>
-                                    <font color="red">MemRead = <?php     echo $memR;?></font>
+                                    <font color="red">MemRead = <?php echo $memR;?></font>
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="33%"><br><br><br><br><br><br>
-                                    <?php     if ($DL!="")
+                                    <?php if ($DL!="")
                                     {
                                         ?>
-                                        Read Data= <?php       echo $DL;?>
-                                    <?php     }
+                                        Read Data= <?php echo $DL;?>
+                                    <?php }
                                     else
                                     {
                                         ?>
                                         <font color="red">NO DATA</font>
-                                    <?php     } ?>
+                                    <?php } ?>
                                 </td></tr>
                         </table>
                         <form action="javascript:window.close()" method="post" ID="Form1">
@@ -1137,7 +1137,7 @@
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color = "red">
-                                        New Value = <?php     echo $dataIn;?>
+                                        New Value = <?php echo $dataIn;?>
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="20%">
@@ -1152,7 +1152,7 @@
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="46%">
                                     <font color = "red">
-                                        Old Value = <?php     echo $dataOut;?>
+                                        Old Value = <?php echo $dataOut;?>
                                     </font>
                                 </td>
                             </tr>
@@ -1178,7 +1178,7 @@
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color = "red">
-                                        New Value = <?php     echo $dataIn;?>
+                                        New Value = <?php echo $dataIn;?>
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="20%">
@@ -1193,7 +1193,7 @@
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="46%">
                                     <font color = "red">
-                                        Old Value = <?php     echo $dataOut;?>
+                                        Old Value = <?php echo $dataOut;?>
                                     </font>
                                 </td>
                             </tr>
@@ -1219,7 +1219,7 @@
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color = "red">
-                                        New Value = <?php     echo $dataIn;?>
+                                        New Value = <?php echo $dataIn;?>
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="20%">
@@ -1234,7 +1234,7 @@
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="46%">
                                     <font color = "red">
-                                        Old Value = <?php     echo $dataOut;?>
+                                        Old Value = <?php echo $dataOut;?>
                                     </font>
                                 </td>
                             </tr>
@@ -1260,7 +1260,7 @@
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color = "red">
-                                        New Value = <?php     echo $dataIn;?>
+                                        New Value = <?php echo $dataIn;?>
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="20%">
@@ -1275,7 +1275,7 @@
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="46%">
                                     <font color = "red">
-                                        Old Value = <?php     echo $dataOut;?>
+                                        Old Value = <?php echo $dataOut;?>
                                     </font>
                                 </td>
                             </tr>
@@ -1301,7 +1301,7 @@
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color = "red">
-                                        New Value = <?php     echo $dataIn;?>
+                                        New Value = <?php echo $dataIn;?>
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="20%">
@@ -1316,7 +1316,7 @@
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="46%">
                                     <font color = "red">
-                                        Old Value = <?php     echo $dataOut;?>
+                                        Old Value = <?php echo $dataOut;?>
                                     </font>
                                 </td>
                             </tr>
@@ -1342,7 +1342,7 @@
                         <table width="100%" cellpadding="0" cellspacing="0"  align="center">
                             <tr><td align="right" class="testo" width="33%">
                                     <font color = "red">
-                                        New Value = <?php     echo $dataIn;?>
+                                        New Value = <?php echo $dataIn;?>
                                     </font>
                                 </td>
                                 <td align="center" class="testo" width="20%">
@@ -1357,7 +1357,7 @@
                                 </td>
                                 <td align="left" valign="middle" class="testo" width="46%">
                                     <font color = "red">
-                                        Old Value = <?php     echo $dataOut;?>
+                                        Old Value = <?php echo $dataOut;?>
                                     </font>
                                 </td>
                             </tr>
