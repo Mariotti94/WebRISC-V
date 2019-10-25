@@ -2,7 +2,7 @@
 
 WebRISC-V is a web-based graphical pipelined datapath simulation environment built for the [RISC-V instruction set architecture](https://content.riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf) in PHP, suitable for teaching how assembly level code is executed on the RISC-V pipelined architecture and illustrating its architectural elements.
 
-WebRISC-V is already online and ready to use, at the following link: [VERSION 1.2](http://www.dii.unisi.it/~giorgi/WebRISC-V)
+WebRISC-V is already online and ready to use, at the following link: [VERSION 1.2a](http://www.dii.unisi.it/~giorgi/WebRISC-V)
 
 CURRENT VERSION on GitHub: VERSION 1.2a
 
