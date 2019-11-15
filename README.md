@@ -2,13 +2,13 @@
 
 WebRISC-V is a web-based graphical pipelined datapath simulation environment built for the [RISC-V instruction set architecture](https://content.riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf) in PHP, suitable for teaching how assembly level code is executed on the RISC-V pipelined architecture and illustrating its architectural elements.
 
-WebRISC-V is already online and ready to use, at the following link: [VERSION 1.3](http://www.dii.unisi.it/~giorgi/WebRISC-V)
+WebRISC-V is already online and ready to use, at the following link: [VERSION 1.5](http://www.dii.unisi.it/~giorgi/WebRISC-V)
 
-CURRENT VERSION on GitHub: VERSION 1.4
+CURRENT VERSION on GitHub: VERSION 1.5
 
-- [WebRISC-V](#WebRISC-V)
+- [WebRISC-V](#webrisc-v)
   - [Changelog](#changelog)
-  - [Local Installation](#installation)
+  - [Local Installation](#local-installation)
   
 ## Changelog
 
@@ -70,8 +70,8 @@ The reference Installation has been done on the Linux distro UBUNTU 18.04LTS
   sudo apt -y install php-pear php-fpm php-dev php-zip php-curl php-gd php-mysql php-mbstring php-xml php-xmlrpc php-gmp
   sudo ufw allow 'Apache'
   a2enmod php7.2
-  sudo systemctl status apache2 	(alternatively you may want to run:
-									sudo service apache2 start && sudo service apache2 status )
+  sudo systemctl status apache2		(alternatively you may want to run:
+					sudo service apache2 start && sudo service apache2 status )
   
   --> you should see somthing like (ufw may fail if you don't have ufw... just ignore it):
     apache2.service - The Apache HTTP Server
