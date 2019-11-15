@@ -1,10 +1,8 @@
 <?php
-require "functions.php";
+require_once 'functions.php';
 $height=3;
-$registri=$_SESSION['registri'];
-$HILO=$_SESSION['HILO'];
+$registri=$_SESSION['data'][$_SESSION['index']]['registri'];
 ?>
-<br>
 <br>
 <table cellpadding="0" cellspacing="2" border="0" width="100%" class="registro">
     <tr>

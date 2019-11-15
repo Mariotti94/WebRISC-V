@@ -1,11 +1,10 @@
 <?php
 session_start();
-require 'functions.php';
+require_once 'functions.php';
 
-if(isset($_POST['asmName']) && $_POST['asmName']!="")
+if (isset($_POST['asmName']) && $_POST['asmName']!="")
 	$_SESSION['asmName']=$_POST['asmName'];
 
-//############## Inserimento nel vettore (riga per riga)
 $codice=$_POST['codice'];
 $_SESSION['codice']=trim($codice);
 
@@ -18,87 +17,90 @@ for ($key=0; $key<count($riga); ++$key) {
 	$riga[$key]=trim($riga[$key]).PHP_EOL;
 }
 $k=count($riga);
-//var_dump($riga,$k);exit;
 
-//LIMIT INSTR AMOUNT
-if($k>1000)
+
+//LIMIT NUMBER OF INSTRUCTIONS
+if ($k>1000)
 {
     $k=1000;
     $riga = array_slice($riga, $k);
 }
 
-//############## Decodifica dell'istruzioni e rilocazione delle label
+//##########################################
+//Decode instructions e relocate labels
 
 $ERR='';
 $indice=0;
-$indice2=0;
+$total=0;
 
 while($indice<$k)
 {
     $a=(strpos($riga[$indice],':',1) ? strpos($riga[$indice],':',1)+1 : 0); //a!=0 -> label
-	//var_dump($a);
+	
     if ($a==0)
     {
-        // Controllo sulla riga vuota o commento
+        // control for empty or comment rows
         if (ord($riga[$indice])!=13 && ord($riga[$indice])!=35)
         {
-            $a=decodeIstr($riga[$indice]); // Decodifica della istruzione
+            $a=decodeIstr($riga[$indice]);
 
             if ($a!='ERR')
             {
-                $riga[$indice2]=$a; // Salva nel vettore
+                $riga[$total]=$a;
             }
             else
             {
-                $ERR='ERROR: Instruction at line '.($indice+1); // Caso dell'errore
+                $ERR='ERROR: Instruction at line '.($indice+1);
                 break;
 
             }
-            $indice2=$indice2+1;
+            $total=$total+1;
         }
     }
     else
     {
-        //####### Caso della Label
         $a=substr($riga[$indice],0,$a-1);
-        if(!isset($dimTabRil)) $dimTabRil=0;
-        $tabRil[$dimTabRil]=$indice2.'|'.$a; // Inserimento della label nella tab. di riloc.
+        if (!isset($dimTabRil)) $dimTabRil=0;
+        $tabRil[$dimTabRil]=$total.'|'.$a; //insert label in relocation table
         $dimTabRil=$dimTabRil+1;
     }
     $indice=$indice+1;
 }
+$riga=array_slice($riga, 0, $total);
 
-//######## Sost. delle label con indirizzi corispondenti
+//label to address
 $indice=0;
-while($indice<$indice2)
+while($indice<$total)
 {
     $a=(strpos($riga[$indice],':',1) ? strpos($riga[$indice],':',1)+1 : 0);
     if ($a!=0)
     {
         $b=substr($riga[$indice],$a);
-        $c2=substr($riga[$indice],0,$a-1);
+        $c=substr($riga[$indice],0,$a-1);
         $b=trim($b);
         $b=cLabel($b,$tabRil,$dimTabRil);
 
-        if ($b==='ERR')
-        {
+        if ($b==='ERR') {
             if ($ERR=='')
                 $ERR='ERROR: Label does not exist: '.explode(':',$riga[$indice])[1];
             break;
         }
+		else {		
+			$b=($b-$indice)*2;
+		}
 
-        if (strlen($c2)>12)
+        if (strlen($c)>12)
         {
-            $t=GMPToBin($b,12,1);
+            $t=GMPToBin($b,12,0);
             $b1=substr($t,0,1).substr($t,2,6);
             $b2=substr($t,8,4).substr($t,1,1);
-            $riga[$indice]=$b1.substr($c2,0,13).$b2.substr($c2,13,7);
+            $riga[$indice]=$b1.substr($c,0,13).$b2.substr($c,13,7);
         }
         else
         {
-            $t=GMPToBin($b,20,1);
+            $t=GMPToBin($b,20,0);
             $b=substr($t,0,1).substr($t,10,10).substr($t,9,1).substr($t,1,8);
-            $riga[$indice]=$b.$c2;
+            $riga[$indice]=$b.$c;
         }
     }
     $indice=$indice+1;
@@ -106,41 +108,43 @@ while($indice<$indice2)
 
 require_once 'init.php';
 
-if(!empty($_SESSION['codice'])) {
+if (!empty($_SESSION['codice'])) {
 	$_SESSION['loaded']=true;
 }
-?>
-<html>
-<head>
-    <title>WebRISC-V - RISC-V PIPELINED DATAPATH SIMULATION ONLINE</title>
-    <meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
-    <link href='../css/styles.css' rel='stylesheet' type='text/css'>
-	<meta name="robots" content="noindex" />
-</head>
-<body leftmargin='0' topmargin='0' marginwidth='0' marginheight='0' bgcolor='#666666'>
-<?php
-//######## In caso dell'errore stampa il messaggio
+
 if ($ERR!='')
 {
+	?>
+	<html>
+	<head>
+		<title>WebRISC-V - RISC-V PIPELINED DATAPATH SIMULATION ONLINE</title>
+		<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
+		<link href='../css/main.css' rel='stylesheet' type='text/css'>
+		<meta name="robots" content="noindex" />
+	</head>
+	<body leftmargin='0' topmargin='0' marginwidth='0' marginheight='0' bgcolor='#666666'>
+	<?php
     print '<div align=center><br><font size=2 face=arial color=red><b>';
     print $ERR;
     print '</b></font></div>';
+	?>
+	</body>
+	</html>
+	<?php
 	exit();
-//######## Altrimenti, stampa la lista
 }
 else
 {
-    $riga[$indice2]='00000000000000000000000000000000';
-    $riga[$indice2+1]='00000000000000000000000000000000';
-    $riga[$indice2+2]='00000000000000000000000000000000';
-    $riga[$indice2+3]='00000000000000000000000000000000';
-    $riga[$indice2+4]='00000000000000000000000000000000';
-    $_SESSION['MemIstr']=$riga;
-    $_SESSION['MemIstrDim']=$indice2;
+    $riga[$total]='00000000000000000000000000000000';
+    $riga[$total+1]='00000000000000000000000000000000';
+    $riga[$total+2]='00000000000000000000000000000000';
+    $riga[$total+3]='00000000000000000000000000000000';
+    $riga[$total+4]='00000000000000000000000000000000';
+    $_SESSION['memIstr']=$riga;
+    $_SESSION['memIstrDim']=$total;
 }
 
-
 $_SESSION['destra']='';
-header('Location: leftPanel.php');
+header('Location: leftPanel.php?exec=start');
 ?>
 

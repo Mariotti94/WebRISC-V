@@ -1,15 +1,12 @@
 <?php
-require "functions.php";
-?>
-<br>
-
-<?php
-$mem=$_SESSION['MemIstr'];
-$dim=$_SESSION['MemIstrDim'];
+require_once 'functions.php';
+$mem=$_SESSION['memIstr'];
+$dim=$_SESSION['memIstrDim'];
 $dim=intval($dim);
 
 if ($dim!=0)
 {	
+	echo '<div id="memIstr"></div>';
     $index=0;
     while($index<$dim)
     {
@@ -17,66 +14,62 @@ if ($dim!=0)
         $op=substr($a,25,7);
         $funct3=substr($a,17,3);
         $funct7=substr($a,0,7);
+		$rs2=substr($a,7,5);
 
-        //var_dump($op,$a);exit;
         $tipo=instrType(BinToGMP($op,1));
-        $oper=instrName(BinToGMP($op,1),BinToGMP($funct3,1),BinToGMP($funct7,1));
+        $oper=instrName(BinToGMP($op,1),BinToGMP($funct3,1),BinToGMP($funct7,1),BinToGMP($rs2,1));
         $istruzione='';
 
-        if($tipo=="R")
+        if ($tipo=="R")
         {
             $rd=substr($a,20,5);
             $rs1=substr($a,12,5);
             $rs2=substr($a,7,5);
             $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".codRegister(BinToGMP($rs1,1)).", ".codRegister(BinToGMP($rs2,1));
         }
-        else if($tipo=="I")
+        else if ($tipo=="I")
         {
             $rd=substr($a,20,5);
             $rs1=substr($a,12,5);
             $imm=substr($a,0,12);
 			$check=BinToGMP($op,1);
-            if($check==hexdec(3) || $check==hexdec(67))
+            if ($check==hexdec(3) || $check==hexdec(67))
             {
                 $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".BinToGMP($imm,0)."(".codRegister(BinToGMP($rs1,1)).")";
             }
             else
             {
-				if( BinToGMP($op,1)==hexdec(13) && (BinToGMP($funct3,1)==1 || BinToGMP($funct3,1)==5) )
+				if (BinToGMP($op,1)==hexdec(13) && (BinToGMP($funct3,1)==1 || BinToGMP($funct3,1)==5) )
 					$istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".codRegister(BinToGMP($rs1,1)).", ".BinToGMP(substr($a,7,5),0);
-				else if( BinToGMP($op,1)!=hexdec(73) )
+				else if (BinToGMP($op,1)!=hexdec(73) )
 					$istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".codRegister(BinToGMP($rs1,1)).", ".BinToGMP($imm,0);
 				else
 					$istruzione=$oper;
             }
 
         }
-        else if($tipo=="S")
+        else if ($tipo=="S")
         {
             $imm=substr($a,0,7).substr($a,20,5);
             $rs1=substr($a,12,5);
             $rs2=substr($a,7,5);
             $istruzione=$oper." ".codRegister(BinToGMP($rs2,1)).", ".BinToGMP($imm,0)."(".codRegister(BinToGMP($rs1,1)).")";
         }
-        else if($tipo=="SB")
+        else if ($tipo=="SB")
         {
-            $imm=substr($a,0,1).substr($a,24,1).substr($a,1,6).substr($a,20,4).'0';
+            $imm=substr($a,0,1).substr($a,24,1).substr($a,1,6).substr($a,20,4);
             $rs1=substr($a,12,5);
             $rs2=substr($a,7,5);
-            $istruzione=$oper." ".codRegister(BinToGMP($rs1,1)).", ".codRegister(BinToGMP($rs2,1)).", ".BinToGMP($imm,0)*2;
+			$address=($index*4+BinToGMP($imm,0)*2);
+            $istruzione=$oper." ".codRegister(BinToGMP($rs1,1)).", ".codRegister(BinToGMP($rs2,1)).", ".$address;
         }
-        else if($tipo=="UJ")
+        else if ($tipo=="UJ")
         {
             $rd=substr($a,20,5);
-            $imm=substr($a,0,1).substr($a,12,8).substr($a,11,1).substr($a,1,10).'0';
-            $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".BinToGMP($imm,0)*2;
+            $imm=substr($a,0,1).substr($a,12,8).substr($a,11,1).substr($a,1,10);
+			$address=($index*4+BinToGMP($imm,0)*2);
+            $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".$address;
         }
-		//else if($tipo=="U")
-        //{
-        //    $rd=substr($a,20,5);
-        //    $imm=substr($a,0,20);
-        //    $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".BinToGMP($imm,0);
-        //}
 
         ?>
         <br>
@@ -86,35 +79,40 @@ if ($dim!=0)
 			$text1='<tr><td align="center" valign="middle" bgcolor=';
 			$text2='> <font size="2" face="arial" color="black">';
 			$text3='</font> </td></tr>';
-			if ($_SESSION['ifIstruzione']==$index) {
+			if ($_SESSION['data'][$_SESSION['index']]['ifIstruzione']==$index) {
 				$color='pink';
+				$id=' id="ifStage"';
 				$message='INSTRUCTION IN IF STAGE';
-				$message=($_SESSION['idIstruzione']==1001)?$message.'<b style="position: absolute; font-size: 20px; margin-left: 2px;">*</b>':$message;
-				echo $text1.$color.$text2.$message.$text3;
+				$message=($_SESSION['data'][$_SESSION['index']]['idIstruzione']==1001)?$message.'<b style="position: absolute; font-size: 20px; margin-left: 2px;">*</b>':$message;
+				echo $text1.$color.$id.$text2.$message.$text3;
 
 			}
-			if ($_SESSION['idIstruzione']==$index) {
+			if ($_SESSION['data'][$_SESSION['index']]['idIstruzione']==$index) {
 				$color='red';
+				$id=' id="idStage"';
 				$message='INSTRUCTION IN ID STAGE';
-				$message=($_SESSION['exIstruzione']==1001)?$message.'<b style="position: absolute; font-size: 20px; margin-left: 2px;">*</b>':$message;
-				echo $text1.$color.$text2.$message.$text3;
+				$message=($_SESSION['data'][$_SESSION['index']]['exIstruzione']==1001)?$message.'<b style="position: absolute; font-size: 20px; margin-left: 2px;">*</b>':$message;
+				echo $text1.$color.$id.$text2.$message.$text3;
 			}
-			if ($_SESSION['exIstruzione']==$index) {
+			if ($_SESSION['data'][$_SESSION['index']]['exIstruzione']==$index) {
 				$color='yellow';
+				$id=' id="exStage"';
 				$message='INSTRUCTION IN EX STAGE';
-				$message=($_SESSION['memIstruzione']==1001)?$message.'<b style="position: absolute; font-size: 20px; margin-left: 2px;">*</b>':$message;
-				echo $text1.$color.$text2.$message.$text3;
+				$message=($_SESSION['data'][$_SESSION['index']]['memIstruzione']==1001)?$message.'<b style="position: absolute; font-size: 20px; margin-left: 2px;">*</b>':$message;
+				echo $text1.$color.$id.$text2.$message.$text3;
 			}
-			if ($_SESSION['memIstruzione']==$index) {
+			if ($_SESSION['data'][$_SESSION['index']]['memIstruzione']==$index) {
 				$color='blue';
+				$id=' id="memStage"';
 				$message='INSTRUCTION IN MEM STAGE';
-				$message=($_SESSION['wbIstruzione']==1001)?$message.'<b style="position: absolute; font-size: 20px; margin-left: 2px;">*</b>':$message;
-				echo $text1.$color.$text2.$message.$text3;
+				$message=($_SESSION['data'][$_SESSION['index']]['wbIstruzione']==1001)?$message.'<b style="position: absolute; font-size: 20px; margin-left: 2px;">*</b>':$message;
+				echo $text1.$color.$id.$text2.$message.$text3;
 			}
-			if ($_SESSION['wbIstruzione']==$index) {
+			if ($_SESSION['data'][$_SESSION['index']]['wbIstruzione']==$index) {
 				$color='green';
+				$id=' id="wbStage"';
 				$message='INSTRUCTION IN WB STAGE';
-				echo $text1.$color.$text2.$message.$text3;
+				echo $text1.$color.$id.$text2.$message.$text3;
 			}
 			
 		?>
@@ -272,7 +270,7 @@ if ($dim!=0)
                         ?>
                         <table width="280" cellpadding="2" cellspacing="0" style="border:1px solid #666666" >
                             <tr>
-                                <td width="60%" align="center"><font size="1"><?php echo BinToGMP($imm,1);?></font></td>
+                                <td width="60%" align="center"><font size="1"><?php echo BinToGMP($imm,0);?></font></td>
                                 <td width="20%" align="center"><font size="1"><?php echo BinToGMP($rd,1);?></font></td>
                                 <td width="20%" align="center"><font size="1"><?php echo BinToGMP($op,1);?></font></td>
                             </tr>
@@ -294,18 +292,16 @@ if ($dim!=0)
         <?php
         $index=$index+1;
     }
-
 }
 else
 {
-
     ?>
-
+    <br>
     <br>
     <div align="center" class="testoGrande">
         Instruction Memory is EMPTY
-        <form action="editor.php" method="post" target="Body" ID="Form1">
-            <input type="submit" value="Click HERE to load a program" name="load" class="form" ID="Submit1">
+        <form action="editor.php" method="post" target="Layout" style="margin: 5px;">
+            <input type="submit" value="Click HERE to load a program" name="load" class="form" style="padding: 1px 5px;">
         </form>
     </div>
 <?php } ?>

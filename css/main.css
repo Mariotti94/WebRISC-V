@@ -3,6 +3,7 @@
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 10px;
     background-color: white;
+    user-select: none;
 }
 
 .numRiga {
@@ -56,64 +57,67 @@
 }
 
 .pipeTd {
-		border:1px solid #666666;
-		min-width: 20px;
-		text-align: center;
+    border:1px solid #666666;
+    min-width: 20px;
+    text-align: center;
 }
 
-A.link {
+a.link {
     font-family: Arial;
     font-size: 10px;
     text-decoration: none;
     color: white;
+    user-select: none;
 }
 
-A.link:hover {
+a.link:hover {
     color: red;
-    text-decoration: underline;
 }
 
-A.link2 {
+a.link2 {
     font-family: Arial;
     font-size: 10px;
+    text-decoration: none;
     color: #666666;
+    user-select: none;
 }
 
-A.link2:hover {
+a.link2:hover {
     color: red;
-    text-decoration: underline;
 }
 
-A.link3 {
+a.link3 {
     font-family: Arial;
     font-size: 10px;
+    text-decoration: none;
     color: black;
+    user-select: none;
 }
 
-A.link3:hover {
+a.link3:hover {
     color: red;
-    text-decoration: underline;
 }
 
-A.link4 {
+a.link4 {
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 10px;
     color: black;
     text-decoration: none;
+    user-select: none;
 }
 
-A.link4:hover {
+a.link4:hover {
     color: red;
-    text-decoration: underline;
 }
 
-A.link4disabled {
+a.link4disabled {
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 10px;
-    color: black;
+    color: #aaa;
     text-decoration: none;
-    pointer-events: none;
     cursor: default;
+    pointer-events: none;
+    user-select: none;
 }
 
 tr.top td {
@@ -133,31 +137,46 @@ tr.row td:last-child {
 }
 
 tr.alternating:nth-child(even){
-  background-color: white;
+    background-color: white;
 }
+
 tr.alternating:nth-child(odd){
-  background-color: #f0f0f0;
+    background-color: #f0f0f0;
+}
+
+input.form {
+    cursor: pointer;
+}
+
+input.form:hover {
+    color: red;
+}
+
+textarea:focus {
+    outline: none !important;
+}
+
+#schemaBody {
+    background-color: #f0f0f0;
 }
 
 #counter {
     position: fixed;
     width: 99.5%;
     margin-left: 1px;
-    margin-top: -160px;
+    margin-top: -175px;
     background: white;
     padding: 2px;
     border: 1px solid;
 }
 
 #destraTop {
-    margin-top: 160px;
+    margin-top: 175px;
 }
 
-body {
-    scrollbar-face-color: #cccccc;
-    scrollbar-highlight-color: #f7b217;
-    scrollbar-3dlight-color: #666666;
-    scrollbar-arrow-color: #000000;
-    scrollbar-darkshadow-color: #ffffff;
-    scrollbar-base-color: #f7b217
+#popupToggleBox {
+    position: absolute;
+    top: 540px;
+    background-color: wheat;
+    border: 5px double #f7b217;
 }

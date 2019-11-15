@@ -1,10 +1,10 @@
 <?php
 //#############################################################################
-//###################FUNZIONI CONVERSIONE E ELEMENTI###########################
+//######################## FUNCTIONS: CONVERSIONS #############################
 //#############################################################################
 
 //#############################################################################
-//###### Funzione che converte una stringa GMP in un numero binario
+//GMP string to binary number
 function GMPToBin($str,$lunghezza,$istruzione)
 {
 	$str=strval($str);
@@ -28,7 +28,7 @@ function GMPToBin($str,$lunghezza,$istruzione)
         $risultato="0";
     }
 
-    if ($istruzione!=1) //numero
+    if ($istruzione!=1) //signed
     {
         if (gmp_cmp($num,0)>=0)
         {
@@ -56,7 +56,7 @@ function GMPToBin($str,$lunghezza,$istruzione)
             }
         }
     }
-    else //istruzione
+    else //unsigned
     {
         if (strlen($risultato)<$lunghezza)
         {
@@ -69,19 +69,19 @@ function GMPToBin($str,$lunghezza,$istruzione)
         }
     }
 
-    $function_ret=(strlen($risultato)>$lunghezza)?str_repeat("1",$lunghezza):$risultato;
+    $function_ret=(strlen($risultato)>$lunghezza)?str_repeat('1',$lunghezza):$risultato;
     return $function_ret;
 }
 //#############################################################################
 
 //#############################################################################
-//#### Funzione che converte un numero binario in una stringa GMP
+//Binary number to GMP string
 function BinToGMP($str,$istruzione)
 {
     $lunghezza=strlen($str);
     if ($lunghezza!=0)
     {
-        if( $str[0]=='1' && $lunghezza!=1 && $istruzione!=1)
+        if ($str[0]=='1' && $lunghezza!=1 && $istruzione!=1)
         {
             $str=twoComplement($str);
             $j=0;
@@ -121,7 +121,7 @@ function BinToGMP($str,$istruzione)
 //#############################################################################
 
 //#############################################################################
-//#### Funzione complemento a due binario
+//Two's complement of binary number
 function twoComplement($str)
 {
     $n = strlen($str);
@@ -132,7 +132,6 @@ function twoComplement($str)
     // If there exists no '1' exit
     if ($i == -1)
         return $str;
-
     // Continue traversal after the position of first '1'
     for ($k = $i-1 ; $k >= 0; $k--)
     {
@@ -142,9 +141,12 @@ function twoComplement($str)
         else
             $str[$k] = '1';
     }
-
     return $str;
 }
+//#############################################################################
+
+//#############################################################################
+//################### FUNCTIONS: ARCHITECTURAL ELEMENTS #######################
 //#############################################################################
 
 //#############################################################################
@@ -155,27 +157,27 @@ function ALU($controllo,$dato1,$dato2)
 	
     switch ($controllo)
     {
-        case "0000": //AND:
+        case "0000": //AND
             $risultato=gmp_strval(gmp_and($dato1,$dato2));
             break;
 
-        case "0011": //XOR:
+        case "0011": //XOR
             $risultato=gmp_strval(gmp_xor($dato1,$dato2));
             break;
 
-        case "0001": //OR:
+        case "0001": //OR
             $risultato=gmp_strval(gmp_or($dato1,$dato2));
             break;
 
-        case "0010": //SOMMA:
+        case "0010": //SOMMA
             $risultato=gmp_strval(gmp_add($dato1,$dato2));
             break;
 
-        case "0110": //SOTTRAZIONE:
+        case "0110": //SOTTRAZIONE
             $risultato=gmp_strval(gmp_sub($dato1,$dato2));
             break;
 
-        case "0111": //SET ON LESS THAN:
+        case "0111": //SET ON LESS THAN
             if (gmp_cmp($dato1,$dato2)<0)
             {
                 $risultato="1";
@@ -186,8 +188,8 @@ function ALU($controllo,$dato1,$dato2)
             }
             break;
 
-        case "0100": //SET ON LESS THAN IMMEDIATE UNSIGNED:
-            $dato1=gmp_abs($dato1); //valore assoluto
+        case "0100": //SET ON LESS THAN IMMEDIATE UNSIGNED
+            $dato1=gmp_abs($dato1);
             $dato2=gmp_abs($dato2);
             if (gmp_cmp($dato1,$dato2)<0)
             {
@@ -199,51 +201,43 @@ function ALU($controllo,$dato1,$dato2)
             }
             break;
 
-        case "1000": //mul
+        case "1000": //MUL
             $HILO=gmp_strval(gmp_mul($dato1,$dato2));
-            $_SESSION['HILO']=$HILO;
             $HILO_bin=GMPToBin($HILO,128,0);
             $risultato=BinToGMP(substr($HILO_bin,64,64),0);
             break;
 
-        case "1001": //div
+        case "1001": //DIV
             $HI_val=gmp_strval(gmp_mod($dato1,$dato2));
             $LO_val=gmp_strval(gmp_div_q(gmp_sub($dato1,$HI_val),$dato2));
-            $HILO_val=GMPToBin($HI_val,64,0).GMPToBin($LO_val,64,0);
-            $HILO=BinToGMP($HILO_val,0);
-            $_SESSION['HILO']=$HILO;
             $risultato=$LO_val;
             break;
 
-        case "1010": //mulh
+        case "1010": //MULH
             $HILO=gmp_strval(gmp_mul($dato1,$dato2));
-            $_SESSION['HILO']=$HILO;
             $HILO_bin=GMPToBin($HILO,128,0);
             $risultato=BinToGMP(substr($HILO_bin,0,64),0);
             break;
 
-        case "1011": //rem
+        case "1011": //REM
             $HI_val=gmp_strval(gmp_mod($dato1,$dato2));
-            $LO_val=gmp_strval(gmp_div_q(gmp_sub($dato1,$HI_val),$dato2));
-            $HILO_val=GMPToBin($HI_val,64,0).GMPToBin($LO_val,64,0);
-            $HILO=BinToGMP($HILO_val,0);
-            $_SESSION['HILO']=$HILO;
+            //$LO_val=gmp_strval(gmp_div_q(gmp_sub($dato1,$HI_val),$dato2));
             $risultato=$HI_val;
             break;
 
-		case "1110": //SLL:
+		case "1110": //SLL
 			$risultato=GMPToBin($dato1,64,0);
 			$risultato=substr($risultato,$dato2).str_repeat('0',$dato2);
 			$risultato=BinToGMP($risultato,0);
             break;
 
-		case "1101": //SRL:
+		case "1101": //SRL
 			$risultato=GMPToBin($dato1,64,0);
 			$risultato=str_repeat('0',$dato2).substr($risultato,0,-$dato2);
 			$risultato=BinToGMP($risultato,0);
             break;
 			
-        case "1111": //SRA:
+        case "1111": //SRA
             $risultato=GMPToBin($dato1,64,0);
 			$risultato=str_repeat($risultato[0],$dato2).substr($risultato,0,-$dato2);
 			$risultato=BinToGMP($risultato,0);
@@ -354,7 +348,6 @@ function EXMux5($MUX5controllo,$dato1,$dato2)
 //#############################################################################
 
 //#############################################################################
-
 function UnitaDiCtrl_ctrl($instruction)
 {
     $op=substr($instruction,25,7);
@@ -366,27 +359,27 @@ function UnitaDiCtrl_ctrl($instruction)
     switch ($op)
     {
         case 0:
-            //stallo
+            //stall
             $ex="000";
             $mem="0000";
             $wb="00";
 
         case hexdec(33):
-            //tipo R
+            //type R
             $ex="100";
             $mem="0000";
             $wb="10";
             break;
 
         case hexdec(13):
-            //tipo I
+            //type I
             $ex="101";
             $mem="0000";
             $wb="10";
             break;
 
         case hexdec(63):
-            //tipo SB
+            //type SB
             $ex="010";
             $mem="0000";
             $wb="00";
@@ -429,7 +422,7 @@ function UnitaDiCtrl_ctrl($instruction)
             break;
 
         case hexdec(23):
-            //tipo S
+            //type S
             $ex="001";
             $wb="01";
             switch($funct3)
@@ -469,7 +462,6 @@ function UnitaDiCtrl_ctrl($instruction)
 
     return array($ex,$mem,$wb);
 }
-
 //#############################################################################
 
 //#############################################################################
@@ -478,7 +470,7 @@ function UnitaCtrlAlu($ctrl,$funct7,$funct3,$op)
     $function_ret="";
     switch ($ctrl)
     {
-        case "00": //caso delle lw, sw, lb, lbu, sb:
+        case "00": //lw, sw, lb, lbu, sb
             $function_ret="0010";
             break;
 
@@ -486,17 +478,17 @@ function UnitaCtrlAlu($ctrl,$funct7,$funct3,$op)
             $function_ret="0110";
             break;
 
-        case "10": //Tipo R
-            if($op==hexdec(33))
+        case "10": //type R
+            if ($op==hexdec(33))
             {
                 switch($funct3)
                 {
                     case hexdec(0):
-                        if($funct7==hexdec(0)) //add
+                        if ($funct7==hexdec(0)) //add
                             $function_ret="0010";
-                        else if($funct7==hexdec(20)) //sub
+                        else if ($funct7==hexdec(20)) //sub
                             $function_ret="0110";
-                        else if($funct7==hexdec(1)) //mul
+                        else if ($funct7==hexdec(1)) //mul
                             $function_ret="1000";
                         break;
 
@@ -505,30 +497,30 @@ function UnitaCtrlAlu($ctrl,$funct7,$funct3,$op)
                         break;
 
                     case hexdec(6):
-                        if($funct7==hexdec(0)) //or
+                        if ($funct7==hexdec(0)) //or
                             $function_ret="0001";
-                        else if($funct7==hexdec(1)) //rem
+                        else if ($funct7==hexdec(1)) //rem
                             $function_ret="1011";
                         break;
 
                     case hexdec(4):
-                        if($funct7==hexdec(0)) //xor
+                        if ($funct7==hexdec(0)) //xor
                             $function_ret="0011";
-                        else if($funct7==hexdec(1)) //div
+                        else if ($funct7==hexdec(1)) //div
                             $function_ret="1001";
                         break;
 
                     case hexdec(1):
-                        if($funct7==hexdec(0)) //sll
+                        if ($funct7==hexdec(0)) //sll
                             $function_ret="1110";
-                        else if($funct7==hexdec(1)) //mulh
+                        else if ($funct7==hexdec(1)) //mulh
                             $function_ret="1010";
                         break;
 
                     case hexdec(5):
-						if($funct7==hexdec(0))
+						if ($funct7==hexdec(0))
 							$function_ret="1101"; //srl
-						if($funct7==hexdec(20))
+						if ($funct7==hexdec(20))
 							$function_ret="1111"; //sra
                         break;
 
@@ -545,7 +537,7 @@ function UnitaCtrlAlu($ctrl,$funct7,$funct3,$op)
                         break;
                 }
             }
-            else if($op==hexdec(13))
+            else if ($op==hexdec(13))
             {
                 switch ($funct3)
                 {
@@ -573,14 +565,14 @@ function UnitaCtrlAlu($ctrl,$funct7,$funct3,$op)
                         $function_ret="0100";
                         break;
 						
-					case hexdec(1):
-                        $function_ret="1110"; //slli
+					case hexdec(1): //slli
+                        $function_ret="1110";
                         break;
 
                     case hexdec(5):
-						if($funct7==hexdec(0))
+						if ($funct7==hexdec(0))
 							$function_ret="1101"; //srli
-						if($funct7==hexdec(20))
+						if ($funct7==hexdec(20))
 							$function_ret="1111"; //srai
                         break;
                     default:
@@ -596,11 +588,11 @@ function UnitaCtrlAlu($ctrl,$funct7,$funct3,$op)
 //#############################################################################
 
 //#############################################################################
-//#################FUNZIONI DI CODIFICA E DECODIFICA###########################
+//################## FUNCTIONS: ENCODING AND DECODING #########################
 //#############################################################################
 
 //#############################################################################
-//###### Funzione che in prende una istruzione come una striga e la decodifica
+//Instruction string to binary
 function decodeIstr($istr)
 {
     $cmd=strtok($istr,' ');
@@ -614,7 +606,7 @@ function decodeIstr($istr)
             $op=hexdec(33);
             $funct3=hexdec(0);
             $funct7=hexdec(0);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -624,7 +616,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $rs2='ERR';
@@ -633,7 +625,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 break;
@@ -646,7 +638,7 @@ function decodeIstr($istr)
             $tipo='I';
             $op=hexdec(13);
             $funct3=hexdec(0);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -656,7 +648,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $imm='ERR';
@@ -665,7 +657,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 break;
@@ -679,7 +671,7 @@ function decodeIstr($istr)
             $op=hexdec(33);
             $funct3=hexdec(0);
             $funct7=hexdec(20);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -689,7 +681,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $rs2='ERR';
@@ -698,7 +690,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 break;
@@ -712,7 +704,7 @@ function decodeIstr($istr)
             $op=hexdec(33);
             $funct3=hexdec(4);
             $funct7=hexdec(1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -722,7 +714,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $rs2='ERR';
@@ -731,7 +723,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 break;
@@ -745,7 +737,7 @@ function decodeIstr($istr)
             $op=hexdec(33);
             $funct3=hexdec(6);
             $funct7=hexdec(1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -755,7 +747,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $rs2='ERR';
@@ -764,7 +756,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 break;
@@ -778,7 +770,7 @@ function decodeIstr($istr)
             $op=hexdec(33);
             $funct3=hexdec(0);
             $funct7=hexdec(1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -788,7 +780,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $rs2='ERR';
@@ -797,7 +789,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 break;
@@ -811,7 +803,7 @@ function decodeIstr($istr)
             $op=hexdec(33);
             $funct3=hexdec(1);
             $funct7=hexdec(1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -821,7 +813,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $rs2='ERR';
@@ -830,7 +822,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 break;
@@ -844,7 +836,7 @@ function decodeIstr($istr)
             $op=hexdec(33);
             $funct3=hexdec(7);
             $funct7=hexdec(0);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -854,7 +846,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $rs2='ERR';
@@ -863,7 +855,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 break;
@@ -876,7 +868,7 @@ function decodeIstr($istr)
             $tipo='I';
             $op=hexdec(13);
             $funct3=hexdec(7);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -886,7 +878,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $imm='ERR';
@@ -895,7 +887,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 break;
@@ -909,7 +901,7 @@ function decodeIstr($istr)
             $op=hexdec(33);
             $funct3=hexdec(6);
             $funct7=hexdec(0);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -919,7 +911,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $rs2='ERR';
@@ -928,7 +920,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 break;
@@ -941,7 +933,7 @@ function decodeIstr($istr)
             $tipo='I';
             $op=hexdec(13);
             $funct3=hexdec(6);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -951,7 +943,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $imm='ERR';
@@ -960,7 +952,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 break;
@@ -974,7 +966,7 @@ function decodeIstr($istr)
             $op=hexdec(33);
             $funct3=hexdec(4);
             $funct7=hexdec(0);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -984,7 +976,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $rs2='ERR';
@@ -993,7 +985,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 break;
@@ -1006,7 +998,7 @@ function decodeIstr($istr)
             $tipo='I';
             $op=hexdec(13);
             $funct3=hexdec(4);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1016,7 +1008,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $imm='ERR';
@@ -1025,7 +1017,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 break;
@@ -1039,7 +1031,7 @@ function decodeIstr($istr)
             $op=hexdec(33);
             $funct3=hexdec(1);
             $funct7=hexdec(0);
-			if(strlen($a)==0)
+			if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1049,7 +1041,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $rs2='ERR';
@@ -1058,7 +1050,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 break;
@@ -1072,7 +1064,7 @@ function decodeIstr($istr)
             $op=hexdec(33);
             $funct3=hexdec(5);
             $funct7=hexdec(0);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1082,7 +1074,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $rs2='ERR';
@@ -1091,7 +1083,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 break;
@@ -1105,7 +1097,7 @@ function decodeIstr($istr)
             $op=hexdec(33);
             $funct3=hexdec(5);
             $funct7=hexdec(20);
-             if(strlen($a)==0)
+             if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1115,7 +1107,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $rs2='ERR';
@@ -1124,7 +1116,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 break;
@@ -1138,7 +1130,7 @@ function decodeIstr($istr)
             $op=hexdec(13);
             $funct3=hexdec(1);
 			$funct7=hexdec(0);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1148,7 +1140,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $imm='ERR';
@@ -1157,7 +1149,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 break;
@@ -1171,7 +1163,7 @@ function decodeIstr($istr)
             $op=hexdec(13);
             $funct3=hexdec(5);
 			$funct7=hexdec(0);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1181,7 +1173,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $imm='ERR';
@@ -1190,7 +1182,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 break;
@@ -1204,7 +1196,7 @@ function decodeIstr($istr)
             $op=hexdec(13);
             $funct3=hexdec(5);
 			$funct7=hexdec(20);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1214,7 +1206,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $imm='ERR';
@@ -1223,7 +1215,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 break;
@@ -1237,7 +1229,7 @@ function decodeIstr($istr)
             $tipo='I';
             $op=hexdec(3);
             $funct3=hexdec(0);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1247,7 +1239,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 $rs1='ERR';
@@ -1256,7 +1248,7 @@ function decodeIstr($istr)
             $imm=strtok($a,'\(');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($imm)+1)));
             $imm=is_numeric(trim($imm))?trim($imm):'ERR';
-            if(strlen($a)==0 || $imm==='ERR')
+            if (strlen($a)==0 || $imm==='ERR')
             {
                 $rs1='ERR';
                 break;
@@ -1269,7 +1261,7 @@ function decodeIstr($istr)
             $tipo='I';
             $op=hexdec(3);
             $funct3=hexdec(1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1279,7 +1271,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 $rs1='ERR';
@@ -1288,7 +1280,7 @@ function decodeIstr($istr)
             $imm=strtok($a,'\(');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($imm)+1)));
             $imm=is_numeric(trim($imm))?trim($imm):'ERR';
-            if(strlen($a)==0 || $imm==='ERR')
+            if (strlen($a)==0 || $imm==='ERR')
             {
                 $rs1='ERR';
                 break;
@@ -1301,7 +1293,7 @@ function decodeIstr($istr)
             $tipo='I';
             $op=hexdec(3);
             $funct3=hexdec(2);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1311,7 +1303,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 $rs1='ERR';
@@ -1320,7 +1312,7 @@ function decodeIstr($istr)
             $imm=strtok($a,'\(');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($imm)+1)));
             $imm=is_numeric(trim($imm))?trim($imm):'ERR';
-            if(strlen($a)==0 || $imm==='ERR')
+            if (strlen($a)==0 || $imm==='ERR')
             {
                 $rs1='ERR';
                 break;
@@ -1333,7 +1325,7 @@ function decodeIstr($istr)
             $tipo='I';
             $op=hexdec(3);
             $funct3=hexdec(3);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1343,7 +1335,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 $rs1='ERR';
@@ -1352,7 +1344,7 @@ function decodeIstr($istr)
             $imm=strtok($a,'\(');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($imm)+1)));
             $imm=is_numeric(trim($imm))?trim($imm):'ERR';
-            if(strlen($a)==0 || $imm==='ERR')
+            if (strlen($a)==0 || $imm==='ERR')
             {
                 $rs1='ERR';
                 break;
@@ -1365,7 +1357,7 @@ function decodeIstr($istr)
             $tipo='I';
             $op=hexdec(3);
             $funct3=hexdec(4);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1375,7 +1367,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 $rs1='ERR';
@@ -1384,7 +1376,7 @@ function decodeIstr($istr)
             $imm=strtok($a,'\(');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($imm)+1)));
             $imm=is_numeric(trim($imm))?trim($imm):'ERR';
-            if(strlen($a)==0 || $imm==='ERR')
+            if (strlen($a)==0 || $imm==='ERR')
             {
                 $rs1='ERR';
                 break;
@@ -1397,7 +1389,7 @@ function decodeIstr($istr)
             $tipo='S';
             $op=hexdec(23);
             $funct3=hexdec(0);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 $imm='ERR';
@@ -1407,7 +1399,7 @@ function decodeIstr($istr)
             $rs2=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs2)+1)));
             $rs2=trim($rs2);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 $rs1='ERR';
@@ -1416,7 +1408,7 @@ function decodeIstr($istr)
             $imm=strtok($a,'\(');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($imm)+1)));
             $imm=is_numeric(trim($imm))?trim($imm):'ERR';
-            if(strlen($a)==0 || $imm==='ERR')
+            if (strlen($a)==0 || $imm==='ERR')
             {
                 $rs1='ERR';
                 break;
@@ -1429,7 +1421,7 @@ function decodeIstr($istr)
             $tipo='S';
             $op=hexdec(23);
             $funct3=hexdec(1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 $imm='ERR';
@@ -1439,7 +1431,7 @@ function decodeIstr($istr)
             $rs2=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs2)+1)));
             $rs2=trim($rs2);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 $rs1='ERR';
@@ -1448,7 +1440,7 @@ function decodeIstr($istr)
             $imm=strtok($a,'\(');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($imm)+1)));
             $imm=is_numeric(trim($imm))?trim($imm):'ERR';
-            if(strlen($a)==0 || $imm==='ERR')
+            if (strlen($a)==0 || $imm==='ERR')
             {
                 $rs1='ERR';
                 break;
@@ -1461,7 +1453,7 @@ function decodeIstr($istr)
             $tipo='S';
             $op=hexdec(23);
             $funct3=hexdec(2);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 $imm='ERR';
@@ -1471,7 +1463,7 @@ function decodeIstr($istr)
             $rs2=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs2)+1)));
             $rs2=trim($rs2);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 $rs1='ERR';
@@ -1480,7 +1472,7 @@ function decodeIstr($istr)
             $imm=strtok($a,'\(');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($imm)+1)));
             $imm=is_numeric(trim($imm))?trim($imm):'ERR';
-            if(strlen($a)==0 || $imm==='ERR')
+            if (strlen($a)==0 || $imm==='ERR')
             {
                 $rs1='ERR';
                 break;
@@ -1493,7 +1485,7 @@ function decodeIstr($istr)
             $tipo='S';
             $op=hexdec(23);
             $funct3=hexdec(3);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 $imm='ERR';
@@ -1503,7 +1495,7 @@ function decodeIstr($istr)
             $rs2=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs2)+1)));
             $rs2=trim($rs2);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 $rs1='ERR';
@@ -1512,7 +1504,7 @@ function decodeIstr($istr)
             $imm=strtok($a,'\(');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($imm)+1)));
             $imm=is_numeric(trim($imm))?trim($imm):'ERR';
-            if(strlen($a)==0 || $imm==='ERR')
+            if (strlen($a)==0 || $imm==='ERR')
             {
                 $rs1='ERR';
                 break;
@@ -1525,7 +1517,7 @@ function decodeIstr($istr)
             $tipo='SB';
             $op=hexdec(63);
             $funct3=hexdec(0);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 $rs1='ERR';
@@ -1535,7 +1527,7 @@ function decodeIstr($istr)
             $rs2=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs2)+1)));
             $rs2=trim($rs2);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $imm='ERR';
@@ -1544,7 +1536,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 break;
@@ -1557,7 +1549,7 @@ function decodeIstr($istr)
             $tipo='SB';
             $op=hexdec(63);
             $funct3=hexdec(1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 $rs1='ERR';
@@ -1567,7 +1559,7 @@ function decodeIstr($istr)
             $rs2=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs2)+1)));
             $rs2=trim($rs2);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $imm='ERR';
@@ -1576,7 +1568,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 break;
@@ -1590,7 +1582,7 @@ function decodeIstr($istr)
             $op=hexdec(33);
             $funct3=hexdec(2);
             $funct7=hexdec(0);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1600,7 +1592,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $rs2='ERR';
@@ -1609,7 +1601,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 break;
@@ -1622,7 +1614,7 @@ function decodeIstr($istr)
             $tipo='I';
             $op=hexdec(13);
             $funct3=hexdec(2);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1632,7 +1624,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $imm='ERR';
@@ -1641,7 +1633,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 break;
@@ -1655,7 +1647,7 @@ function decodeIstr($istr)
             $op=hexdec(33);
             $funct3=hexdec(3);
             $funct7=hexdec(0);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1665,7 +1657,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $rs2='ERR';
@@ -1674,7 +1666,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs2='ERR';
                 break;
@@ -1687,7 +1679,7 @@ function decodeIstr($istr)
             $tipo='I';
             $op=hexdec(13);
             $funct3=hexdec(3);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1697,7 +1689,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 $imm='ERR';
@@ -1706,7 +1698,7 @@ function decodeIstr($istr)
             $rs1=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rs1)+1)));
             $rs1=trim($rs1);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 break;
@@ -1719,7 +1711,7 @@ function decodeIstr($istr)
             $tipo='UJ';
             $op=hexdec('6F');
             $rd='x0';
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $target='ERR';
                 break;
@@ -1734,7 +1726,7 @@ function decodeIstr($istr)
             $funct3=hexdec(0);
             $rd='x0';
             $imm=0;
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $rs1='ERR';
                 break;
@@ -1747,7 +1739,7 @@ function decodeIstr($istr)
             $tipo='UJ';
             $op=hexdec('6F');
             $rd='ra';
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $target='ERR';
                 break;
@@ -1760,7 +1752,7 @@ function decodeIstr($istr)
             $tipo='I';
             $op=hexdec(67);
             $funct3=hexdec(0);
-			if(strlen($a)==0)
+			if (strlen($a)==0)
             {
                 $rd='ERR';
                 $rs1='ERR';
@@ -1770,7 +1762,7 @@ function decodeIstr($istr)
             $rd=strtok($a,',');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
             $rd=trim($rd);
-            if(strlen($a)==0)
+            if (strlen($a)==0)
             {
                 $imm='ERR';
                 $rs1='ERR';
@@ -1779,7 +1771,7 @@ function decodeIstr($istr)
             $imm=strtok($a,'\(');
             $a=substr($a,strlen($a)-(strlen($a)-(strlen($imm)+1)));
             $imm=is_numeric(trim($imm))?trim($imm):'ERR';
-            if(strlen($a)==0 || $imm==='ERR')
+            if (strlen($a)==0 || $imm==='ERR')
             {
                 $rs1='ERR';
                 break;
@@ -1787,6 +1779,24 @@ function decodeIstr($istr)
             $rs1=strtok($a,'\)');
             $rs1=trim($rs1);
             break;
+			
+		case 'ecall':
+			$tipo='I';
+			$op=hexdec(73);
+			$funct3=hexdec(0);
+			$rd='x0';
+			$rs1='x0';
+			$imm=0;
+			break;
+			
+		case 'ebreak':
+			$tipo='I';
+			$op=hexdec(73);
+			$funct3=hexdec(0);
+			$rd='x0';
+			$rs1='x0';
+			$imm=1;
+			break;
 
         default:
             $tipo='ERR';
@@ -1874,8 +1884,8 @@ function decodeIstr($istr)
             $rs1=intval($rs1);
             $rs2=intval($rs2);
 
-            $target=':'.$imm;
-            $function_ret=GMPToBin($rs2,5,1).GMPToBin($rs1,5,1).GMPToBin($funct3,3,1).GMPToBin($op,7,1).$target; //to change target
+            $target=':'.$imm; //target label to decode later
+            $function_ret=GMPToBin($rs2,5,1).GMPToBin($rs1,5,1).GMPToBin($funct3,3,1).GMPToBin($op,7,1).$target;
 
         }
     }
@@ -1908,7 +1918,8 @@ function decodeIstr($istr)
         else
         {
             $rd=intval($rd);
-            $function_ret=GMPToBin($rd,5,1).GMPToBin($op,7,1).':'.$target; //to change target
+			$target=':'.$target; //target label to decode later
+            $function_ret=GMPToBin($rd,5,1).GMPToBin($op,7,1).$target; 
         }
     }
 
@@ -1917,7 +1928,7 @@ function decodeIstr($istr)
 //#############################################################################
 
 //#############################################################################
-//###### Funzione che trasfroma registro stringa in numero corispodente
+//Register string to number
 function decRegister($reg)
 {
     switch ($reg)
@@ -2187,7 +2198,8 @@ function decRegister($reg)
 }
 //#############################################################################
 
-//###### Funzione che converte il nome del label all'indirizzo dove punta
+//#############################################################################
+//Label string to address
 function cLabel($label,$tabRil,$dimTabRil)
 {
     $i=0;
@@ -2207,10 +2219,10 @@ function cLabel($label,$tabRil,$dimTabRil)
     }
     return $function_ret;
 }
-
 //#############################################################################
 
-//###### Funzione che trasfroma numero corispodente di un registro in stringa $xx
+//#############################################################################
+//Register number to string
 function codRegister($reg)
 {
 
@@ -2354,24 +2366,25 @@ function codRegister($reg)
 }
 //#############################################################################
 
-//###### Funzione che identifica la istruzione
-function instrName($op,$funct3,$funct7)
+//#############################################################################
+//Identify instruction name
+function instrName($op,$funct3,$funct7,$rs2)
 {
     $op=intval($op);
     $funct3=intval($funct3);
     $funct7=intval($funct7);
     $function_ret='';
 
-    if($op==hexdec(33))
+    if ($op==hexdec(33))
     {
         switch ($funct3)
         {
             case hexdec(0):
-                if($funct7==hexdec(0))
+                if ($funct7==hexdec(0))
                     $function_ret='Add';
-                if($funct7==hexdec(20))
+                if ($funct7==hexdec(20))
                     $function_ret='Sub';
-                if($funct7==hexdec(1))
+                if ($funct7==hexdec(1))
                     $function_ret='Mul';
                 break;
 
@@ -2380,30 +2393,30 @@ function instrName($op,$funct3,$funct7)
                 break;
 
             case hexdec(6):
-                if($funct7==hexdec(0))
+                if ($funct7==hexdec(0))
                     $function_ret='Or';
-                if($funct7==hexdec(1))
+                if ($funct7==hexdec(1))
                     $function_ret='Rem';
                 break;
 
             case hexdec(4):
-                if($funct7==hexdec(0))
+                if ($funct7==hexdec(0))
                     $function_ret='Xor';
-                if($funct7==hexdec(1))
+                if ($funct7==hexdec(1))
                     $function_ret='Div';
                 break;
 
             case hexdec(1):
-                if($funct7==hexdec(0))
+                if ($funct7==hexdec(0))
                     $function_ret='Sll';
-                if($funct7==hexdec(1))
+                if ($funct7==hexdec(1))
                     $function_ret='Mulh';
                 break;
 
             case hexdec(5):
-				if($funct7==hexdec(0))
+				if ($funct7==hexdec(0))
 					$function_ret='Srl';
-				if($funct7==hexdec(20))
+				if ($funct7==hexdec(20))
 					$function_ret='Sra';
                 break;
 
@@ -2420,7 +2433,7 @@ function instrName($op,$funct3,$funct7)
                 break;
         }
     }
-    else if($op==hexdec(3))
+    else if ($op==hexdec(3))
     {
         switch ($funct3)
         {
@@ -2444,7 +2457,7 @@ function instrName($op,$funct3,$funct7)
                 break;
         }
     }
-    else if($op==hexdec(13))
+    else if ($op==hexdec(13))
     {
         switch ($funct3)
         {
@@ -2470,9 +2483,9 @@ function instrName($op,$funct3,$funct7)
                 $function_ret='Slli';
                 break;
             case hexdec(5):
-				if($funct7==hexdec(0))
+				if ($funct7==hexdec(0))
 					$function_ret="Srli";
-				if($funct7==hexdec(20))
+				if ($funct7==hexdec(20))
 					$function_ret='Srai';
                 break;
             default:
@@ -2480,7 +2493,7 @@ function instrName($op,$funct3,$funct7)
                 break;
         }
     }
-    else if($op==hexdec(67))
+    else if ($op==hexdec(67))
     {
         switch ($funct3)
         {
@@ -2492,7 +2505,7 @@ function instrName($op,$funct3,$funct7)
                 break;
         }
     }
-    else if($op==hexdec(23))
+    else if ($op==hexdec(23))
     {
         switch ($funct3)
         {
@@ -2513,7 +2526,7 @@ function instrName($op,$funct3,$funct7)
                 break;
         }
     }
-    else if($op==hexdec(63))
+    else if ($op==hexdec(63))
     {
         switch ($funct3)
         {
@@ -2528,45 +2541,60 @@ function instrName($op,$funct3,$funct7)
                 break;
         }
     }
-    else if($op==hexdec('6F'))
+    else if ($op==hexdec('6F'))
     {
         $function_ret='Jal';
+    }
+	else if ($op==hexdec(73))
+    {
+		if ($rs2==0)
+			$function_ret='Ecall';
+		else if ($rs2==1)
+			$function_ret='Ebreak';
+		else
+			$function_ret='';
     }
 
     return $function_ret;
 }
 //#############################################################
-//###### Funzione che identifica la istruzione
+
+//#############################################################
+//Identify instruction type
 function instrType($op)
 {
     $op=intval($op);
     $type='';
 
-    if($op==hexdec(33))
+    if ($op==hexdec(33))
     {
         $type='R';
     }
-    if($op==hexdec(3))
+    if ($op==hexdec(3))
     {
         $type='I';
     }
-    if($op==hexdec(13))
+    if ($op==hexdec(13))
     {
         $type='I';
     }
-    if($op==hexdec(67))
+    if ($op==hexdec(67))
     {
         $type='I';
     }
-    if($op==hexdec(23))
+	if ($op==hexdec(73))
+    {
+        $type='I';
+    }
+    if ($op==hexdec(23))
     {
         $type='S';
     }
-    if($op==hexdec(63))
+    if ($op==hexdec(63))
     {
         $type='SB';
     }
-    if($op==hexdec('6F'))
+    if ($op==hexdec('6F'))
     {
         $type='UJ';
     }

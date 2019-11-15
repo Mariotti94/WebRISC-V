@@ -1,8 +1,11 @@
 <?php
 session_start();
 $_SESSION['inserted']=true;
-$cosa=$_POST["programma"];
-if($_SESSION['branchFlush']) {
+if ($_POST['btn_submit']=="Insert in Textbox")
+	$cosa=$_POST["programma"];
+else
+	$cosa="";
+if ($_SESSION['branchFlush']) {
 	switch ($cosa)
 	{
 		case "calculator":
@@ -91,7 +94,7 @@ if($_SESSION['branchFlush']) {
 			$codice=$codice.'####################################'.PHP_EOL;
 			$codice=$codice.'# Compute the factorial of n (n!)'.PHP_EOL;
 			$codice=$codice.'# int factorialRec(int n) {'.PHP_EOL;
-			$codice=$codice.'#    if(n<2) { return 1; }'.PHP_EOL;
+			$codice=$codice.'#    if (n<2) { return 1; }'.PHP_EOL;
 			$codice=$codice.'#    else { return n*factorial(n-1); }'.PHP_EOL;
 			$codice=$codice.'# }'.PHP_EOL;
 			$codice=$codice.'# a2 = n'.PHP_EOL;
@@ -168,6 +171,21 @@ if($_SESSION['branchFlush']) {
 			$codice=$codice.'lw t0, 0(sp)'.PHP_EOL;
 			$codice=$codice.'# A stall happens here'.PHP_EOL;
 			$codice=$codice.'add t1, t0, x0';
+			$_SESSION['codice']=$codice;
+			$_SESSION['asmName']=$cosa.'.s';
+			header('Location: editor.php');
+			break;
+			
+		case "syscall":
+			$codice='';
+			$codice=$codice.'####################################'.PHP_EOL;
+			$codice=$codice.'# This programs demonstrates'.PHP_EOL;
+			$codice=$codice.'# the behavior of syscalls.'.PHP_EOL;
+			$codice=$codice.'####################################'.PHP_EOL;
+			$codice=$codice.'addi a7, x0, 5 # read int syscall code'.PHP_EOL;
+			$codice=$codice.'ecall'.PHP_EOL;
+			$codice=$codice.'addi a7, x0, 1  # print int syscall code'.PHP_EOL;
+			$codice=$codice.'ecall'.PHP_EOL;
 			$_SESSION['codice']=$codice;
 			$_SESSION['asmName']=$cosa.'.s';
 			header('Location: editor.php');
@@ -277,7 +295,7 @@ else {
 			$codice=$codice.'####################################'.PHP_EOL;
 			$codice=$codice.'# Compute the factorial of n (n!)'.PHP_EOL;
 			$codice=$codice.'# int factorialRec(int n) {'.PHP_EOL;
-			$codice=$codice.'#    if(n<2) { return 1; }'.PHP_EOL;
+			$codice=$codice.'#    if (n<2) { return 1; }'.PHP_EOL;
 			$codice=$codice.'#    else { return n*factorial(n-1); }'.PHP_EOL;
 			$codice=$codice.'# }'.PHP_EOL;
 			$codice=$codice.'# a2 = n'.PHP_EOL;
@@ -360,6 +378,21 @@ else {
 			header('Location: editor.php');
 			break;
 			
+		case "syscall":
+			$codice='';
+			$codice=$codice.'####################################'.PHP_EOL;
+			$codice=$codice.'# This programs demonstrates'.PHP_EOL;
+			$codice=$codice.'# the behavior of syscalls.'.PHP_EOL;
+			$codice=$codice.'####################################'.PHP_EOL;
+			$codice=$codice.'addi a7, x0, 5 # read int syscall code'.PHP_EOL;
+			$codice=$codice.'ecall'.PHP_EOL;
+			$codice=$codice.'addi a7, x0, 1  # print int syscall code'.PHP_EOL;
+			$codice=$codice.'ecall'.PHP_EOL;
+			$_SESSION['codice']=$codice;
+			$_SESSION['asmName']=$cosa.'.s';
+			header('Location: editor.php');
+			break;
+
 		default:
 			$_SESSION['codice']='';
 			$_SESSION['asmName']='not loaded';

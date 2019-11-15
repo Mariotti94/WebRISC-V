@@ -1,83 +1,64 @@
 <?php
-//############################################
 
-$agg=isset($_GET["agg"])?$_GET["agg"]:"";
-if ($agg=="back")
+if (empty($_SESSION['memIstrDim']))
 {
-	//RESTORE PREVIOUS DATA
-	$_SESSION['start'] = $_SESSION['prev_start'];
-	$_SESSION['clock']=$_SESSION['prev_clock'];
-	$_SESSION['finito']=$_SESSION['prev_finito'];
-	$_SESSION['HILO']=$_SESSION['prev_HILO'];
-	$_SESSION['ifIstruzione']=$_SESSION['prev_ifIstruzione'];
-	$_SESSION['idIstruzione']=$_SESSION['prev_idIstruzione'];
-	$_SESSION['exIstruzione']=$_SESSION['prev_exIstruzione'];
-	$_SESSION['memIstruzione']=$_SESSION['prev_memIstruzione'];
-	$_SESSION['wbIstruzione']=$_SESSION['prev_wbIstruzione'];
-	$_SESSION['MemIstr']=$_SESSION['prev_MemIstr'];
-	$_SESSION['registri']=$_SESSION['prev_registri'];
-	$_SESSION['MemDati']=$_SESSION['prev_MemDati'];
-	$_SESSION['PC']=$_SESSION['prev_PC'];
-	$_SESSION['ID_scarta']=$_SESSION['prev_ID_scarta'];
-	$_SESSION['EX_scarta']=$_SESSION['prev_EX_scarta'];
-	$_SESSION['IF_scarta']=$_SESSION['prev_IF_scarta'];
-	$_SESSION['Istruzione']=$_SESSION['prev_Istruzione'];
-	$_SESSION['IF_ID_PCpiu4']=$_SESSION['prev_IF_ID_PCpiu4'];
-	$_SESSION['IF_ID_IFscarta']=$_SESSION['prev_IF_ID_IFscarta'];
-	$_SESSION['ID_EX_WB']=$_SESSION['prev_ID_EX_WB'];
-	$_SESSION['ID_EX_M']=$_SESSION['prev_ID_EX_M'];
-	$_SESSION['ID_EX_EX']=$_SESSION['prev_ID_EX_EX'];
-	$_SESSION['ID_EX_PCpiu4']=$_SESSION['prev_ID_EX_PCpiu4'];
-	$_SESSION['ID_EX_Data1']=$_SESSION['prev_ID_EX_Data1'];
-	$_SESSION['ID_EX_Data2']=$_SESSION['prev_ID_EX_Data2'];
-	$_SESSION['ID_EX_imm']=$_SESSION['prev_ID_EX_imm'];
-	$_SESSION['ID_EX_RS1']=$_SESSION['prev_ID_EX_RS1'];
-	$_SESSION['ID_EX_RS2']=$_SESSION['prev_ID_EX_RS2'];
-	$_SESSION['ID_EX_RD']=$_SESSION['prev_ID_EX_RD'];
-	$_SESSION['ID_EX_campoOp']=$_SESSION['prev_ID_EX_campoOp'];
-	$_SESSION['ID_EX_funct3']=$_SESSION['prev_ID_EX_funct3'];
-	$_SESSION['ID_EX_funct7']=$_SESSION['prev_ID_EX_funct7'];
-	$_SESSION['EX_MEM_WB']=$_SESSION['prev_EX_MEM_WB'];
-	$_SESSION['EX_MEM_M']=$_SESSION['prev_EX_MEM_M'];
-	$_SESSION['EX_MEM_RIS']=$_SESSION['prev_EX_MEM_RIS'];
-	$_SESSION['EX_MEM_DataW']=$_SESSION['prev_EX_MEM_DataW'];
-	$_SESSION['EX_MEM_RegW']=$_SESSION['prev_EX_MEM_RegW'];
-	$_SESSION['MEM_WB_WB']=$_SESSION['prev_MEM_WB_WB'];
-	$_SESSION['MEM_WB_DataR']=$_SESSION['prev_MEM_WB_DataR'];
-	$_SESSION['MEM_WB_Data']=$_SESSION['prev_MEM_WB_Data'];
-	$_SESSION['MEM_WB_RegW']=$_SESSION['prev_MEM_WB_RegW'];
-	
-	$_SESSION['execTrail']=$_SESSION['prev_execTrail'];
-	$_SESSION['execStage']=$_SESSION['prev_execStage'];
-	$_SESSION['pipeTable']=$_SESSION['prev_pipeTable'];
-	$_SESSION['stallo']=$_SESSION['prev_stallo'];
+	return;
+}
+
+if ($_SESSION['data'][$_SESSION['index']]['clock']>=$_SESSION['maxCycle'])
+{
+    echo "<div align=center><font color=red size=3><b>OVER ".$_SESSION['maxCycle']." CLOCK CYCLES</b></font></div>";
+    exit();
 }
 
 //############################################
-//Dati da ripristinare
 
-//MEMORIA DELLE ISTRUZIONI 
-$MemIstr=$_SESSION['MemIstr']; //1000 elementi di 32 bit
-//REGISTRI
-$registri=$_SESSION['registri']; //32 elementi di 64 bit
-//MEMORIA DATI
-$MemDati=$_SESSION['MemDati']; //5000 elementi di 8 bit
+$agg=isset($_GET["agg"])?$_GET["agg"]:"forward";
+$agg=$_SESSION['data'][0]['sysHold']?"hold":$agg;
 
-//STATO IF
-$PC=$_SESSION['PC'];
+if ($agg=="back")
+{
+	$_SESSION['index']+=1;
+	$overBackLimit = (isset($_SESSION['data'][$_SESSION['index']]))?false:true;
+	$_SESSION['index'] = ($overBackLimit)?(count($_SESSION['data'])-1):$_SESSION['index'];
+	return;
+}
+if ($agg=="refresh" || $agg=="new" || $agg=="return" || $agg=="hold")
+{
+	return;
+}
+if ($agg=="forward" && $_SESSION['index']!=0)
+{
+	$_SESSION['index']-=1;
+	return;
+}
+if ($agg=="forward" && !$_SESSION['data'][0]['finito'])
+{
+	array_unshift( $_SESSION['data'] , $_SESSION['data'][0]) ;
+}
 
-//STATO ID
+//############################################
+
+//INSTRUCTION MEMORY 
+$memIstr=$_SESSION['memIstr'];
+//REGISTERS
+$registri=$_SESSION['data'][0]['registri'];
+//DATA MEMORY
+$memDati=$_SESSION['data'][0]['memDati'];
+
+//STAGE IF
+$tempPC=$_SESSION['PC'];
+//STAGE ID
 $ID_scarta=$_SESSION['ID_scarta'];
 $EX_scarta=$_SESSION['EX_scarta'];
 $IF_scarta=$_SESSION['IF_scarta'];
-$istruzione=$_SESSION['Istruzione'];
-$IF_ID_PCpiu4=$_SESSION['IF_ID_PCpiu4'];
-
-//STATO EX
+$istruzione=$_SESSION['istruzione'];
+$IF_ID_PC=$_SESSION['IF_ID_PC'];
+//STAGE EX
 $ID_EX_WB=$_SESSION['ID_EX_WB'];
 $ID_EX_M=$_SESSION['ID_EX_M'];
 $ID_EX_EX=$_SESSION['ID_EX_EX'];
-$ID_EX_PCpiu4=$_SESSION['ID_EX_PCpiu4'];
+$ID_EX_PC=$_SESSION['ID_EX_PC'];
 $ID_EX_Data1=$_SESSION['ID_EX_Data1'];
 $ID_EX_Data2=$_SESSION['ID_EX_Data2'];
 $ID_EX_imm=$_SESSION['ID_EX_imm'];
@@ -87,157 +68,29 @@ $ID_EX_RD=$_SESSION['ID_EX_RD'];
 $ID_EX_campoOp=$_SESSION['ID_EX_campoOp'];
 $ID_EX_funct3=$_SESSION['ID_EX_funct3'];
 $ID_EX_funct7=$_SESSION['ID_EX_funct7'];
-
-//STATO MEM
+//STAGE MEM
 $EX_MEM_WB=$_SESSION['EX_MEM_WB'];
 $EX_MEM_M=$_SESSION['EX_MEM_M'];
 $EX_MEM_RIS=$_SESSION['EX_MEM_RIS'];
 $EX_MEM_DataW=$_SESSION['EX_MEM_DataW'];
 $EX_MEM_RegW=$_SESSION['EX_MEM_RegW'];
-
-//STATO WB
+//STAGE WB
 $MEM_WB_WB=$_SESSION['MEM_WB_WB'];
 $MEM_WB_DataR=$_SESSION['MEM_WB_DataR'];
 $MEM_WB_Data=$_SESSION['MEM_WB_Data'];
 $MEM_WB_RegW=$_SESSION['MEM_WB_RegW'];
 
-//############################################
-//EXECUTION STATUS
-
-$a=$_SESSION['ifIstruzione'];
-$b=$_SESSION['idIstruzione'];
-$c=$_SESSION['exIstruzione'];
-$d=$_SESSION['memIstruzione'];
-$e=$_SESSION['wbIstruzione'];
-if ($a==1002)
-{
-    $a=2;
-}
-else if ($a==1001)
-{
-    $a=1;
-}
-else
-{
-    $a=0;
-}
-if ($b==1002)
-{
-    $b=2;
-}
-else if ($b==1001)
-{
-    $b=1;
-}
-else
-{
-    $b=0;
-}
-if ($c==1002)
-{
-    $c=2;
-}
-else if ($c==1001)
-{
-    $c=1;
-}
-else
-{
-    $c=0;
-}
-if ($d==1002)
-{
-    $d=2;
-}
-else if ($d==1001)
-{
-    $d=1;
-}
-else
-{
-    $d=0;
-}
-if ($e==1002)
-{
-    $e=2;
-}
-else if ($e==1001)
-{
-    $e=1;
-}
-else
-{
-    $e=0;
-}
-
-//STALLO
+//STALL
 $stallo=($_SESSION['stallo']>0)?$_SESSION['stallo']-1:$_SESSION['stallo'];
 
-//############################################
-//OUT OF CLOCK
-
-if ($_SESSION['clock']>1000)
-{
-    print "<div align=center><font color=red size=3><b>OVER 1000 CLOCK CYCLES</b></font></div>";
-    exit();
-}
-
-//############################################
-
-if ( $agg=="refresh" || $agg=="new" ||  $agg=="back" )
-{
-	if ($agg=="refresh")	{
-		$_SESSION['segDati']=isset($_POST["segDati"])?$_POST["segDati"]:"";
-		$_SESSION['segCtrl']=isset($_POST["segCtrl"])?$_POST["segCtrl"]:"";
-	}
-	
-	if( $agg=="back" ){
-		//RESTORE PREVIOUS SCHEMA DATA
-		list($ALUdato1,$ALUdato2,$AluOP,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW,$EX_MEM_WB,$EX_scarta,$ID_EX_Data1,$ID_EX_Data2,$ID_EX_EX,$ID_EX_M,$ID_EX_RD,$ID_EX_RS1,$ID_EX_RS2,$ID_EX_WB,$ID_EX_funct3,$ID_EX_funct7,$ID_EX_imm2,$ID_scarta,$IF_scarta,$MEM_WB_Data,$MEM_WB_DataR,$MEM_WB_RegW,$MEM_WB_WB,$Mux3Ctrl,$Mux4Ctrl,$Mux5Ctrl,$PC,$PCsrc,$RL1,$RL2,$WBdata,$aluCtrl,$bDato1,$bDato2,$branch,$branchCheck,$ctrl_EX,$ctrl_M,$ctrl_WB,$isBranch,$isJal,$isJalr,$istruzione,$newPC,$newPC1,$newPC2,$stallo,$temp_EX_MEM_DataW,$temp_EX_MEM_M,$temp_EX_MEM_RIS,$temp_EX_MEM_WB,$temp_ID_EX_Data1,$temp_ID_EX_Data2,$temp_ID_EX_EX,$temp_ID_EX_M,$temp_ID_EX_WB,$temp_ID_EX_imm,$temp_IF_ID_PCpiu4,$temp_Istruzione,$temp_MEM_WB_DataR,$temp_MEM_WB_WB,$temp_PC)=$_SESSION['prev_schemaData'];
-	}
-
-	require_once "schema.php";
-	exit();
-}
-
-//############################################
- 
-if(empty($_SESSION['MemIstrDim'])) 
-{
-	require_once "schema.php";
-	exit();
-}
-
-//############################################
-
-$_SESSION['prev_start'] = $_SESSION['start'];
-$_SESSION['prev_finito']=$_SESSION['finito'];
-
-if($a==2 && $b==2 && $c==2 && $d==2 && $e==2 && $_SESSION['start'])
-{
-	$_SESSION['finito']=true;
-	require_once "schema.php";
-	exit();
-}
-
-//############################################
-//SAVE PREVIOUS SCHEMA DATA
-
-$_SESSION['prev_schemaData'] = $_SESSION['schemaData'];
-
-//############################################
-
-if($_SESSION['loaded'] ) 
+if ($_SESSION['loaded'] && !$_SESSION['data'][0]['finito']) 
 {	
 	$_SESSION['start']=true;
 }
 
-//############################################
-
-if (!$_SESSION['finito'] && $_SESSION['start'])
+if (!$_SESSION['data'][0]['finito'] && $_SESSION['start'])
 {
-	$_SESSION['prev_clock']=$_SESSION['clock'];
-    $_SESSION['clock']=$_SESSION['clock']+1;
+    $_SESSION['data'][0]['clock']=$_SESSION['data'][0]['clock']+1;
 }
 
 //############################################
@@ -249,10 +102,15 @@ $isJal = (BinToGMP(substr($istruzione,25,7),1)==hexdec('6F'))?true:false;
 $isJalr = (BinToGMP(substr($istruzione,25,7),1)==hexdec(67))?true:false;
 
 //############################################
+//IS SYSCALL
 
-//Stato WB, salvataggio dato nel registro
-if (substr($MEM_WB_WB,1,1)=="1")
-{	//Scelta del valore da salvare
+$isSyscall = (BinToGMP(substr($istruzione,25,7),1)==hexdec(73))?true:false;
+
+//############################################
+//Stage WB
+
+if (substr($MEM_WB_WB,1,1)=="1") //MemToReg check
+{	
     $WBdata=$MEM_WB_DataR;
 }
 else
@@ -260,15 +118,15 @@ else
     $WBdata=$MEM_WB_Data;
 }
 
-if (substr($MEM_WB_WB,0,1)=="1")
-{	//Salvataggio (ma soltanto se RegWrite = 1)
+if (substr($MEM_WB_WB,0,1)=="1") //RegWrite check
+{	
     $registri[$MEM_WB_RegW]=$WBdata;
 }
 
 //############################################
-//Riferimenti alla memoria dati
+//Stage M
 
-//Caso di una Save in memoria (MemWrite = 1)
+//MemWrite check
 if (substr($EX_MEM_M,1,1)=="1")
 {
 	if (substr($EX_MEM_M,2,2)=="11") //Save DWord
@@ -285,25 +143,25 @@ if (substr($EX_MEM_M,1,1)=="1")
         $prova=$EX_MEM_RIS%8;
         if ($prova!=0)
         {
-            print "<div align=center><font color=red size=3><b>ERROR: MISALIGNED MEMORY ADDRESS!</b></font></div>";
+            echo "<div align=center><font color=red size=3><b>ERROR: MISALIGNED MEMORY ADDRESS!</b></font></div>";
             exit();
         }
 
         $EX_MEM_RIS=intval($EX_MEM_RIS);
-        if ($EX_MEM_RIS<=4992)
+        if ($EX_MEM_RIS<=($_SESSION['maxMem']-8))
         {
-            $MemDati[$EX_MEM_RIS]=$byte8;
-            $MemDati[$EX_MEM_RIS+1]=$byte7;
-            $MemDati[$EX_MEM_RIS+2]=$byte6;
-            $MemDati[$EX_MEM_RIS+3]=$byte5;
-			$MemDati[$EX_MEM_RIS+4]=$byte4;
-            $MemDati[$EX_MEM_RIS+5]=$byte3;
-            $MemDati[$EX_MEM_RIS+6]=$byte2;
-            $MemDati[$EX_MEM_RIS+7]=$byte1;
+            $memDati[$EX_MEM_RIS]=$byte8;
+            $memDati[$EX_MEM_RIS+1]=$byte7;
+            $memDati[$EX_MEM_RIS+2]=$byte6;
+            $memDati[$EX_MEM_RIS+3]=$byte5;
+			$memDati[$EX_MEM_RIS+4]=$byte4;
+            $memDati[$EX_MEM_RIS+5]=$byte3;
+            $memDati[$EX_MEM_RIS+6]=$byte2;
+            $memDati[$EX_MEM_RIS+7]=$byte1;
         }
 		else
 		{
-            print "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE!</b></font></div>";
+            echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
 			exit();
         }
     }
@@ -317,21 +175,21 @@ if (substr($EX_MEM_M,1,1)=="1")
         $prova=$EX_MEM_RIS%4;
         if ($prova!=0)
         {
-            print "<div align=center><font color=red size=3><b>ERROR: MISALIGNED MEMORY ADDRESS!</b></font></div>";
+            echo "<div align=center><font color=red size=3><b>ERROR: MISALIGNED MEMORY ADDRESS!</b></font></div>";
             exit();
         }
 
         $EX_MEM_RIS=intval($EX_MEM_RIS);
-        if ($EX_MEM_RIS<=4996)
+        if ($EX_MEM_RIS<=($_SESSION['maxMem']-4))
         {
-            $MemDati[$EX_MEM_RIS]=$byte4;
-            $MemDati[$EX_MEM_RIS+1]=$byte3;
-            $MemDati[$EX_MEM_RIS+2]=$byte2;
-            $MemDati[$EX_MEM_RIS+3]=$byte1;
+            $memDati[$EX_MEM_RIS]=$byte4;
+            $memDati[$EX_MEM_RIS+1]=$byte3;
+            $memDati[$EX_MEM_RIS+2]=$byte2;
+            $memDati[$EX_MEM_RIS+3]=$byte1;
         }
 		else
 		{
-            print "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE!</b></font></div>";
+            echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
 			exit();
         }
     }
@@ -343,19 +201,19 @@ if (substr($EX_MEM_M,1,1)=="1")
         $prova=$EX_MEM_RIS%2;
         if ($prova!=0)
         {
-            print "<div align=center><font color=red size=3><b>ERROR: MISALIGNED MEMORY ADDRESS!</b></font></div>";
+            echo "<div align=center><font color=red size=3><b>ERROR: MISALIGNED MEMORY ADDRESS!</b></font></div>";
             exit();
         }
 
         $EX_MEM_RIS=intval($EX_MEM_RIS);
-        if ($EX_MEM_RIS<=4998)
+        if ($EX_MEM_RIS<=($_SESSION['maxMem']-2))
         {
-            $MemDati[$EX_MEM_RIS]=$byte2;
-            $MemDati[$EX_MEM_RIS+1]=$byte1;
+            $memDati[$EX_MEM_RIS]=$byte2;
+            $memDati[$EX_MEM_RIS+1]=$byte1;
         }
 		else
 		{
-            print "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE!</b></font></div>";
+            echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
 			exit();
         }
     }
@@ -368,50 +226,49 @@ if (substr($EX_MEM_M,1,1)=="1")
             $dato=substr($dato,strlen($dato)-(8));
         }
 
-		if ($EX_MEM_RIS<=4999)
+		if ($EX_MEM_RIS<=($_SESSION['maxMem']-1))
         {
-			$MemDati[$EX_MEM_RIS]=$dato;
+			$memDati[$EX_MEM_RIS]=$dato;
 		}
 		else
 		{
-            print "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE!</b></font></div>";
+            echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
 			exit();
         }
     }
 
 }
 
-//Caso di una Load (MemRead = 1)
+//MemRead check
 if (substr($EX_MEM_M,0,1)=="1")
 {	
-	//var_dump($registri);
+	
 
 	if (substr($EX_MEM_M,2,2)=="11") //Load DWord
     {
         $prova=$EX_MEM_RIS%8;
         if ($prova!=0)
         {
-            print "<div align=center><font color=red size=3><b>ERROR: MISALIGNED MEMORY ADDRESS!</b></font></div>";
+            echo "<div align=center><font color=red size=3><b>ERROR: MISALIGNED MEMORY ADDRESS!</b></font></div>";
             exit();
         }
 
-        if ($EX_MEM_RIS<=4992)
+        if ($EX_MEM_RIS<=($_SESSION['maxMem']-8))
         {
-            $byte1=$MemDati[$EX_MEM_RIS];
-            $byte2=$MemDati[$EX_MEM_RIS+1];
-            $byte3=$MemDati[$EX_MEM_RIS+2];
-            $byte4=$MemDati[$EX_MEM_RIS+3];
-			$byte5=$MemDati[$EX_MEM_RIS+4];
-			$byte6=$MemDati[$EX_MEM_RIS+5];
-			$byte7=$MemDati[$EX_MEM_RIS+6];
-			$byte8=$MemDati[$EX_MEM_RIS+7];
+            $byte1=$memDati[$EX_MEM_RIS];
+            $byte2=$memDati[$EX_MEM_RIS+1];
+            $byte3=$memDati[$EX_MEM_RIS+2];
+            $byte4=$memDati[$EX_MEM_RIS+3];
+			$byte5=$memDati[$EX_MEM_RIS+4];
+			$byte6=$memDati[$EX_MEM_RIS+5];
+			$byte7=$memDati[$EX_MEM_RIS+6];
+			$byte8=$memDati[$EX_MEM_RIS+7];
             $temp_MEM_WB_DataR=$byte8.$byte7.$byte6.$byte5.$byte4.$byte3.$byte2.$byte1;
             $temp_MEM_WB_DataR=BinToGMP($temp_MEM_WB_DataR,0);
         }
         else
         {
-            print "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE!</b></font></div>";
-            //$temp_MEM_WB_DataR=1;
+            echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
 			exit();
         }
     }
@@ -420,23 +277,22 @@ if (substr($EX_MEM_M,0,1)=="1")
         $prova=$EX_MEM_RIS%4;
         if ($prova!=0)
         {
-            print "<div align=center><font color=red size=3><b>ERROR: MISALIGNED MEMORY ADDRESS!</b></font></div>";
+            echo "<div align=center><font color=red size=3><b>ERROR: MISALIGNED MEMORY ADDRESS!</b></font></div>";
             exit();
         }
 
-        if ($EX_MEM_RIS<=4996)
+        if ($EX_MEM_RIS<=($_SESSION['maxMem']-4))
         {
-            $byte1=$MemDati[$EX_MEM_RIS];
-            $byte2=$MemDati[$EX_MEM_RIS+1];
-            $byte3=$MemDati[$EX_MEM_RIS+2];
-            $byte4=$MemDati[$EX_MEM_RIS+3];
+            $byte1=$memDati[$EX_MEM_RIS];
+            $byte2=$memDati[$EX_MEM_RIS+1];
+            $byte3=$memDati[$EX_MEM_RIS+2];
+            $byte4=$memDati[$EX_MEM_RIS+3];
             $temp_MEM_WB_DataR=$byte4.$byte3.$byte2.$byte1;
             $temp_MEM_WB_DataR=BinToGMP($temp_MEM_WB_DataR,0);
         }
         else
         {
-			print "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE!</b></font></div>";
-            //$temp_MEM_WB_DataR=1;
+			echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
 			exit();
         }
     }
@@ -445,42 +301,40 @@ if (substr($EX_MEM_M,0,1)=="1")
         $prova=$EX_MEM_RIS%2;
         if ($prova!=0)
         {
-            print "<div align=center><font color=red size=3><b>ERROR: MISALIGNED MEMORY ADDRESS!</b></font></div>";
+            echo "<div align=center><font color=red size=3><b>ERROR: MISALIGNED MEMORY ADDRESS!</b></font></div>";
             exit();
         }
 
-        if ($EX_MEM_RIS<=4998)
+        if ($EX_MEM_RIS<=($_SESSION['maxMem']-2))
         {
-            $byte1=$MemDati[$EX_MEM_RIS];
-            $byte2=$MemDati[$EX_MEM_RIS+1];
+            $byte1=$memDati[$EX_MEM_RIS];
+            $byte2=$memDati[$EX_MEM_RIS+1];
             $temp_MEM_WB_DataR=$byte2.$byte1;
             $temp_MEM_WB_DataR=BinToGMP($temp_MEM_WB_DataR,0);
         }
         else
         {
-			print "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE!</b></font></div>";
-            //$temp_MEM_WB_DataR=1;
+			echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
 			exit();
         }
     }
     else if (substr($EX_MEM_M,2,2)=="00")
     {
-		if ($EX_MEM_RIS<=4999)
+		if ($EX_MEM_RIS<=($_SESSION['maxMem']-1))
         {
-			$temp_MEM_WB_DataR=$MemDati[$EX_MEM_RIS]; //Load Byte
+			$temp_MEM_WB_DataR=$memDati[$EX_MEM_RIS]; //Load Byte
 			$temp_MEM_WB_DataR=BinToGMP($temp_MEM_WB_DataR,0);
 		}
 		else
         {
-			print "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE!</b></font></div>";
-            //$temp_MEM_WB_DataR=1;
+			echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
 			exit();
         }
 	}
 }
 
 //############################################
-//TEMP OP FUNCT
+//TEMP OP - FUNCT
 
 $temp_ID_EX_campoOp=substr($istruzione,25,7);
 $temp_ID_EX_campoOp=BinToGMP($temp_ID_EX_campoOp,1);
@@ -494,41 +348,42 @@ $temp_ID_EX_funct7=BinToGMP($temp_ID_EX_funct7,1);
 
 $tipo=instrType($temp_ID_EX_campoOp);
 $temp_ID_EX_imm=0;
-if($tipo=='I') //I
+if ($tipo=='I') //I
 {
-	if( ($temp_ID_EX_campoOp==hexdec(13)) && ($temp_ID_EX_funct3==1 || $temp_ID_EX_funct3==5) )	{
+	if (($temp_ID_EX_campoOp==hexdec(13)) && ($temp_ID_EX_funct3==1 || $temp_ID_EX_funct3==5)) {
 		$temp_ID_EX_imm=substr($istruzione,7,5);
-		$temp_ID_EX_imm=str_repeat("0",59).$temp_ID_EX_imm;
+		$temp_ID_EX_imm=str_repeat('0',59).$temp_ID_EX_imm;
 	} else {
 		$temp_ID_EX_imm=substr($istruzione,0,12);
 		$temp_ID_EX_imm=str_repeat($temp_ID_EX_imm[0],52).$temp_ID_EX_imm;
 	}
 }
-if($tipo=='S') //S
+if ($tipo=='S') //S
 {
     $temp_ID_EX_imm=substr($istruzione,0,7).substr($istruzione,20,5);
     $temp_ID_EX_imm=str_repeat($temp_ID_EX_imm[0],52).$temp_ID_EX_imm;
 }
-if($tipo=='SB') //SB
+if ($tipo=='SB') //SB
 {
     $temp_ID_EX_imm=substr($istruzione,0,1).substr($istruzione,24,1).substr($istruzione,1,6).substr($istruzione,20,4);
     $temp_ID_EX_imm=str_repeat($temp_ID_EX_imm[0],52).$temp_ID_EX_imm;
 }
-if($tipo=='UJ') //UJ
+if ($tipo=='UJ') //UJ
 {
     $temp_ID_EX_imm=substr($istruzione,0,1).substr($istruzione,12,8).substr($istruzione,11,1).substr($istruzione,1,10);
-    $temp_ID_EX_imm=str_repeat('0',44).$temp_ID_EX_imm;
+	$temp_ID_EX_imm=str_repeat($temp_ID_EX_imm[0],44).$temp_ID_EX_imm;
 }
 //############################################
 
-$temp_IF_ID_PCpiu4=$PC+1; //Aggiornamento del PC per la istruzione corrente
+$ID_EX_PC=$IF_ID_PC; //PC to propagate
 
-$ID_EX_PCpiu4=$IF_ID_PCpiu4; //PC da propagare
+//Possible new PC 1, jump address
+$tempImm=$temp_ID_EX_imm;
+$tempImm=BinToGMP($tempImm,0);
 
-$newPC1=$temp_ID_EX_imm;
-$newPC1=BinToGMP($newPC1,1); //Possibile nuovo PC 1, intero
+$newPC1=($IF_ID_PC*4+$tempImm*2)/4;
 
-$newPC2=$temp_IF_ID_PCpiu4; //Posibile nuovo PC 2, PC + 4
+$newPC2=$tempPC+1; //Possible new PC 2, PC + 4
 
 //############################################
 //FORWARDING
@@ -564,11 +419,9 @@ $Mux5Ctrl=substr($ID_EX_EX,2,1);
 $ID_EX_imm2=BinToGMP($ID_EX_imm,0);
 $ALUdato2=EXMux5($Mux5Ctrl,$temp_EX_MEM_DataW,$ID_EX_imm2);
 
-$AluOP=substr($ID_EX_EX,0,2); //AluOP sono bit del registro ID/EX.M
+$ALUOp=substr($ID_EX_EX,0,2); //ALUOp from ID/EX.M registers
 
-$aluCtrl=UnitaCtrlAlu($AluOP,$ID_EX_funct7,$ID_EX_funct3,$ID_EX_campoOp);
-
-$_SESSION['prev_HILO']=$_SESSION['HILO'];
+$aluCtrl=UnitaCtrlAlu($ALUOp,$ID_EX_funct7,$ID_EX_funct3,$ID_EX_campoOp);
 
 $temp_EX_MEM_RIS=ALU($aluCtrl,$ALUdato1,$ALUdato2);
 
@@ -582,57 +435,55 @@ $temp_EX_MEM_M=$ID_EX_M;
 $temp_MEM_WB_RegW=$EX_MEM_RegW;
 
 //############################################
-//STALL
 
 //********************************************
-//HAZARD DETECTION
-//LOAD->R,I (M=>X), LOAD->SB (M=>D)
+//HAZARDS: 
+//LOAD->R,I (forwarding: M=>X)
+//LOAD->SB (forwarding: M=>D)
 
-$RL1=substr($istruzione,12,5); //Campo rs1 dell'istruzione
+$RL1=substr($istruzione,12,5); //rs1 instruction
 $RL1=BinToGMP($RL1,1);
 
-$RL2=substr($istruzione,7,5); //Campo rs2 dell'istruzione
+$RL2=substr($istruzione,7,5); //rs2 instruction
 $RL2=BinToGMP($RL2,1);
 
-$IsLW=substr($ID_EX_M,0,1); //Segnale di controllo MemRead
+$IsLW=substr($ID_EX_M,0,1); //MemRead
 
 if ($IsLW=="1")
 {
     if (($ID_EX_RD==$RL1 || $ID_EX_RD==$RL2) && $ID_EX_RD!=0)
     {
-		if($stallo==0) {
+		if ($stallo==0) {
 			$stallo++; 
-			if($isBranch) {
+			if ($isBranch) {
 				$stallo++; 
 			}
 		}
     }
 }
 
-$temp_ID_EX_Data1=$registri[$RL1]; //Dato letto 1, valore corispodente al registro rs1
-$temp_ID_EX_Data2=$registri[$RL2]; //Dato letto 2, valore corispodente al registro rs2
+$temp_ID_EX_Data1=$registri[$RL1]; //value of register rs1
+$temp_ID_EX_Data2=$registri[$RL2]; //value of register rs2
 
 //********************************************
-//stallo(invisibile per l'utente) [caso del branch]
-//Se uno dei due registri da confrontare  uguale a registro destinazione nello stato successivo (ex) stallo
-//R,I->SB (X=>D)
+//HAZARDS:
+//R,I->SB (forwarding: X=>D)
 
-$ctrl_EX=substr($ID_EX_WB,0,1); //Regwrite nello stato ex
+$ctrl_EX=substr($ID_EX_WB,0,1); //RegWrite stage ex
 if ($ctrl_EX=="1" && $isBranch)
 {
-	//var_dump($ID_EX_RD,$RL1,$RL2); exit;
+	
     if (($ID_EX_RD==$RL1 || $ID_EX_RD==$RL2) && $ID_EX_RD!=0) {
-		if($stallo==0) {
+		if ($stallo==0) {
 			$stallo++;
 		}
     }
 }
 
 //********************************************
-//forwarding (invisibile per l'utente) [caso del branch]
-//Se uno dei due registri da confrontare  uguale a registro destinazione nello stato mem propagare il nuovo valore
+//FORWARDING: ->SB
 
-$ctrl_MEM=substr($EX_MEM_WB,0,1); //Regwrite nello stato mem
+$ctrl_MEM=substr($EX_MEM_WB,0,1); //RegWrite stage mem
 $bDato1=$temp_ID_EX_Data1;
 $bDato2=$temp_ID_EX_Data2;
 if ($ctrl_MEM=="1")
@@ -659,10 +510,11 @@ if ($ctrl_MEM=="1")
 }
 
 //********************************************
-//IS JUMP CHECK
+//JUMP CHECK
+
 $branch=false;
 $branchCheck=false;
-if(!$_SESSION['IF_scarta'])
+if (!$_SESSION['IF_scarta'])
 {
 	if ($isBranch) {
 		$branch=true;
@@ -678,8 +530,8 @@ if(!$_SESSION['IF_scarta'])
 		$branchCheck=true;
 		$rd=substr($istruzione,20,5);
 		$rd=BinToGMP($rd,1);
-		if($rd!=0) {
-			$registri[$rd]=$PC;
+		if ($rd!=0) {
+			$registri[$rd]=$tempPC;
 		}
 	}
 	if ($isJalr) {
@@ -687,24 +539,61 @@ if(!$_SESSION['IF_scarta'])
 		$branchCheck=true;
 		$rs1=substr($istruzione,12,5);
 		$rs1=BinToGMP($rs1,1);
-		$newPC1=$registri[$rs1]+BinToGMP($temp_ID_EX_imm,0);
+		$newPC1=$registri[$rs1]+gmp_intval(gmp_div(BinToGMP($temp_ID_EX_imm,0),4));
 	}
 }
 
 //********************************************
-//Generazioni dei segnali di controllo
+//SYSCALL CHECK
+
+if (!$_SESSION['IF_scarta'])
+{
+	if ($isSyscall) {
+		if ($stallo==0) {
+			if (!$_SESSION['data'][0]['sysStall']) {
+				$_SESSION['data'][0]['sysStall']=true;
+				$stallo+=3;
+			}
+			else {
+				$_SESSION['data'][0]['sysStall']=false;
+				if (substr($istruzione,11,1)=="1"){ //Ebreak
+					$_SESSION['data'][0]['sysHold']=true;
+					$_SESSION['data'][0]['sysBreak']=true;
+				}
+				else { //Ecall
+					if ($registri[17]==1) {
+						$_SESSION['data'][0]['sysConsole']=$_SESSION['data'][0]['sysConsole'].gmp_strval($registri[10]).PHP_EOL;
+					}
+					else if ($registri[17]==5) {
+						$_SESSION['data'][0]['sysHold']=true;
+						$_SESSION['data'][0]['sysInput']=true;
+					}
+					else {
+						$_SESSION['data'][0]['sysHold']=true;
+						$_SESSION['data'][0]['sysConsole']='SYSCALL ERROR';
+					}
+				}
+				
+			}
+		}
+	}
+}
+
+//********************************************
+//Generate control signals
+
 $PCsrc=$branch&&$branchCheck;
-//var_dump($branch,$branchCheck,$PCsrc,$bDato1,$bDato2);
-$IF_scarta=($PCsrc&&(!$stallo)&&$_SESSION['branchFlush'])?1:0; //branch (not stalled)
-$ID_scarta=($stallo)?1:0; //stall,exception
+
+$IF_scarta=($PCsrc&&(!$stallo)&&$_SESSION['branchFlush'])?1:0; //branch(not stalled)
+$ID_scarta=($stallo)?1:0; //stall, exception
 $EX_scarta=0;  //exception
 
-$temp_PC=IDMux($PCsrc,false,$newPC1,$newPC2);
-$newPC=($stallo)?$PC:$temp_PC;
+$newPC=IDMux($PCsrc,false,$newPC1,$newPC2);
+$newPC=($stallo)?$tempPC:$newPC;
 
 list($ctrl_EX,$ctrl_M,$ctrl_WB)=UnitaDiCtrl_ctrl($istruzione);
 
-if($stallo) {
+if ($stallo) {
 	$temp_ID_EX_WB="00";
     $temp_ID_EX_M="0000";
     $temp_ID_EX_EX="000";
@@ -715,86 +604,81 @@ else {
     $temp_ID_EX_EX=$ctrl_EX;
 }
 
-$temp_Istruzione=($stallo)?$istruzione:(($PCsrc&&$_SESSION['branchFlush'])?str_repeat('0',32):$MemIstr[$PC]);
-$temp_IF_ID_PCpiu4=$PC+1;
+$tempIstruzione=($stallo)?$istruzione:(($PCsrc&&$_SESSION['branchFlush'])?str_repeat('0',32):$memIstr[$tempPC]);
 
-$_SESSION['prev_ifIstruzione']=$_SESSION['ifIstruzione'];
-$_SESSION['prev_idIstruzione']=$_SESSION['idIstruzione'];
-$_SESSION['prev_exIstruzione']=$_SESSION['exIstruzione'];
-$_SESSION['prev_memIstruzione']=$_SESSION['memIstruzione'];
-$_SESSION['prev_wbIstruzione']=$_SESSION['wbIstruzione'];
+if (!$_SESSION['data'][0]['finito']) {
+	$a=$_SESSION['data'][0]['ifIstruzione'];
+	$b=$_SESSION['data'][0]['idIstruzione'];
+	$c=$_SESSION['data'][0]['exIstruzione'];
+	$d=$_SESSION['data'][0]['memIstruzione'];
+	if (!$stallo)
+	{
+		if ($tempPC>=$_SESSION['memIstrDim']) {
+			$_SESSION['data'][0]['ifIstruzione']=1002;
+		}
+		else {
+			$_SESSION['data'][0]['ifIstruzione']=$tempPC;
+		}
 
-$a=$_SESSION['ifIstruzione'];
-$b=$_SESSION['idIstruzione'];
-$c=$_SESSION['exIstruzione'];
-$d=$_SESSION['memIstruzione'];
-if (!$stallo)
-{
-	if ($PC>=$_SESSION['MemIstrDim']) {
-		$_SESSION['ifIstruzione']=1002;
+		$_SESSION['data'][0]['idIstruzione']=$a;
 	}
-	else {
-		$_SESSION['ifIstruzione']=$PC;
+	else
+	{
+		$_SESSION['data'][0]['idIstruzione']=1001; //stall;
 	}
 
-	$_SESSION['idIstruzione']=$a;
-}
-else
-{
-	$_SESSION['idIstruzione']=1001; //stallo;
-}
+	if ($_SESSION['IF_scarta']) {
+		$_SESSION['data'][0]['idIstruzione']=1002;
+	}
 
-if($_SESSION['IF_scarta']) { //&& !$PCsrc) {
-	$_SESSION['idIstruzione']=1002;
-}
+	$_SESSION['data'][0]['exIstruzione']=$b;
+	$_SESSION['data'][0]['memIstruzione']=$c;
+	$_SESSION['data'][0]['wbIstruzione']=$d;
 
-$_SESSION['exIstruzione']=$b;
-$_SESSION['memIstruzione']=$c;
-$_SESSION['wbIstruzione']=$d;
 
-//SAVE PREVIOUS PIPE
-$_SESSION['prev_execTrail']=$_SESSION['execTrail'];
-$_SESSION['prev_execStage']=$_SESSION['execStage'];
-$_SESSION['prev_pipeTable']=$_SESSION['pipeTable'];
-
-//PIPE TABLE
-for ($i=count($_SESSION['execStage'])-1; $i>0; --$i) {
-	$_SESSION['execStage'][$i]=$_SESSION['execStage'][$i-1];
-}
-if($_SESSION['idIstruzione']!=1001) {
-	if($_SESSION['ifIstruzione']!=1002) {
-		$_SESSION['execTrail'][]=$MemIstr[$PC];
-		$_SESSION['execStage'][0]=count($_SESSION['execTrail'])-1;
+	//EXECUTION TABLE
+	for ($i=count($_SESSION['data'][0]['execStage'])-1; $i>0; --$i) {
+		$_SESSION['data'][0]['execStage'][$i]=$_SESSION['data'][0]['execStage'][$i-1];
+	}
+	if ($_SESSION['data'][0]['idIstruzione']!=1001) {
+		if ($_SESSION['data'][0]['ifIstruzione']!=1002) {
+			$_SESSION['data'][0]['execTrail'][]=$memIstr[$tempPC];
+			$_SESSION['data'][0]['execStage'][0]=count($_SESSION['data'][0]['execTrail'])-1;
+		} else {
+			$_SESSION['data'][0]['execStage'][0]="";
+		}
 	} else {
-		$_SESSION['execStage'][0]="";
+		$_SESSION['data'][0]['execStage'][1]="";
 	}
-} else {
-	$_SESSION['execStage'][1]="";
-}
 
-if($_SESSION['idIstruzione']==1002) { //jump flush
-	$_SESSION['execStage'][1]="";
-}
-
-$stage=array("F","D","X","M","W");
-for ($i=0; $i<count($_SESSION['execStage']); ++$i) {
-	if($_SESSION['execStage'][$i]!=="-") {
-		$_SESSION['pipeTable'][$_SESSION['clock']][$_SESSION['execStage'][$i]]=$stage[$i];
+	if ($_SESSION['data'][0]['idIstruzione']==1002) { //JUMP FLUSH
+		$_SESSION['data'][0]['execStage'][1]="";
 	}
-}
-//var_dump($_SESSION['execStage'],$_SESSION['execTrail'],$_SESSION['pipeTable']);
-//############################################
-//SAVE SCHEMA DATA
 
-$_SESSION['schemaData'] = array($ALUdato1,$ALUdato2,$AluOP,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW,$EX_MEM_WB,$EX_scarta,$ID_EX_Data1,$ID_EX_Data2,$ID_EX_EX,$ID_EX_M,$ID_EX_RD,$ID_EX_RS1,$ID_EX_RS2,$ID_EX_WB,$ID_EX_funct3,$ID_EX_funct7,$ID_EX_imm2,$ID_scarta,$IF_scarta,$MEM_WB_Data,$MEM_WB_DataR,$MEM_WB_RegW,$MEM_WB_WB,$Mux3Ctrl,$Mux4Ctrl,$Mux5Ctrl,$PC,$PCsrc,$RL1,$RL2,$WBdata,$aluCtrl,$bDato1,$bDato2,$branch,$branchCheck,$ctrl_EX,$ctrl_M,$ctrl_WB,$isBranch,$isJal,$isJalr,$istruzione,$newPC,$newPC1,$newPC2,$stallo,$temp_EX_MEM_DataW,$temp_EX_MEM_M,$temp_EX_MEM_RIS,$temp_EX_MEM_WB,$temp_ID_EX_Data1,$temp_ID_EX_Data2,$temp_ID_EX_EX,$temp_ID_EX_M,$temp_ID_EX_WB,$temp_ID_EX_imm,$temp_IF_ID_PCpiu4,$temp_Istruzione,isset($temp_MEM_WB_DataR)?$temp_MEM_WB_DataR:0,$temp_MEM_WB_WB,$temp_PC);
+	$stage=array("F","D","X","M","W");
+	for ($i=0; $i<count($_SESSION['data'][0]['execStage']); ++$i) {
+		if ($_SESSION['data'][0]['execStage'][$i]!=="-") {
+			$_SESSION['data'][0]['pipeTable'][$_SESSION['data'][0]['clock']][$_SESSION['data'][0]['execStage'][$i]]=$stage[$i];
+		}
+	}
+
+}
 
 //############################################
 //VISUALIZE PIPELINE
 
-require_once "schema.php";
+if (!$_SESSION['data'][0]['finito']) {
+	$_SESSION['data'][0]['schemaData'] = array($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RIS,$EX_MEM_RegW,$EX_MEM_WB,$EX_MEM_WB,$EX_scarta,$ID_EX_Data1,$ID_EX_Data1,$ID_EX_Data2,$ID_EX_Data2,$ID_EX_EX,$ID_EX_EX,$ID_EX_M,$ID_EX_M,$ID_EX_RD,$ID_EX_RS1,$ID_EX_RS2,$ID_EX_WB,$ID_EX_WB,$ID_EX_funct3,$ID_EX_funct7,$ID_EX_imm,$ID_EX_imm2,$ID_scarta,$IF_ID_PC,$IF_scarta,$MEM_WB_Data,$MEM_WB_DataR,$MEM_WB_DataR,$MEM_WB_RegW,$MEM_WB_WB,$MEM_WB_WB,$Mux3Ctrl,$Mux4Ctrl,$Mux5Ctrl,$PCsrc,$RL1,$RL2,$WBdata,$aluCtrl,$branch,$branchCheck,$ctrl_EX,$ctrl_M,$ctrl_WB,$isBranch,$isJal,$isJalr,$istruzione,$newPC,$newPC1,$newPC2,$stallo,$tempPC,$tempImm,$tempIstruzione);
+
+	//IS FINISHED
+	$_SESSION['data'][0]['finito'] = ($_SESSION['data'][0]['ifIstruzione']==1002) && ($_SESSION['data'][0]['idIstruzione']==1002) && ($_SESSION['data'][0]['exIstruzione']==1002) && ($_SESSION['data'][0]['memIstruzione']==1002) && ($_SESSION['data'][0]['wbIstruzione']==1002) && ($_SESSION['start']);
+	if ($_SESSION['data'][0]['finito']) {
+		return;
+	}
+}
 
 //############################################
-//SALVATAGGIO DATI TEMPORANEI
+//SAVE TEMP DATA
 
 $ID_EX_RS1=substr($istruzione,12,5);
 $ID_EX_RS1=BinToGMP($ID_EX_RS1,1);
@@ -810,10 +694,7 @@ $ID_EX_WB=$temp_ID_EX_WB;
 $ID_EX_M=$temp_ID_EX_M;
 $ID_EX_EX=$temp_ID_EX_EX;
 
-$PC=$newPC;
-
-$istruzione=$temp_Istruzione;
-$IF_ID_PCpiu4=$temp_IF_ID_PCpiu4;
+$IF_ID_PC=($stallo)?$IF_ID_PC:$tempPC;
 $ID_EX_imm=$temp_ID_EX_imm;
 $ID_EX_Data1=$temp_ID_EX_Data1;
 $ID_EX_Data2=$temp_ID_EX_Data2;
@@ -827,93 +708,49 @@ $MEM_WB_Data=$temp_MEM_WB_Data;
 $MEM_WB_DataR=isset($temp_MEM_WB_DataR)?$temp_MEM_WB_DataR:0;
 $MEM_WB_RegW=$temp_MEM_WB_RegW;
 
-//######################################
 
-$_SESSION['prev_MemIstr']=$_SESSION['MemIstr'];
-$_SESSION['prev_registri']=$_SESSION['registri'];
-$_SESSION['prev_MemDati']=$_SESSION['MemDati'];
-$_SESSION['prev_PC']=$_SESSION['PC'];
-$_SESSION['prev_ID_scarta']=$_SESSION['ID_scarta'];
-$_SESSION['prev_EX_scarta']=$_SESSION['EX_scarta'];
-$_SESSION['prev_IF_scarta']=$_SESSION['IF_scarta'];
-$_SESSION['prev_Istruzione']=$_SESSION['Istruzione'];
-$_SESSION['prev_IF_ID_PCpiu4']=$_SESSION['IF_ID_PCpiu4'];
-$_SESSION['prev_IF_ID_IFscarta']=$_SESSION['IF_ID_IFscarta'];
-$_SESSION['prev_ID_EX_WB']=$_SESSION['ID_EX_WB'];
-$_SESSION['prev_ID_EX_M']=$_SESSION['ID_EX_M'];
-$_SESSION['prev_ID_EX_EX']=$_SESSION['ID_EX_EX'];
-$_SESSION['prev_ID_EX_PCpiu4']=$_SESSION['ID_EX_PCpiu4'];
-$_SESSION['prev_ID_EX_Data1']=$_SESSION['ID_EX_Data1'];
-$_SESSION['prev_ID_EX_Data2']=$_SESSION['ID_EX_Data2'];
-$_SESSION['prev_ID_EX_imm']=$_SESSION['ID_EX_imm'];
-$_SESSION['prev_ID_EX_RS1']=$_SESSION['ID_EX_RS1'];
-$_SESSION['prev_ID_EX_RS2']=$_SESSION['ID_EX_RS2'];
-$_SESSION['prev_ID_EX_RD']=$_SESSION['ID_EX_RD'];
-$_SESSION['prev_ID_EX_campoOp']=$_SESSION['ID_EX_campoOp'];
-$_SESSION['prev_ID_EX_funct3']=$_SESSION['ID_EX_funct3'];
-$_SESSION['prev_ID_EX_funct7']=$_SESSION['ID_EX_funct7'];
-$_SESSION['prev_EX_MEM_WB']=$_SESSION['EX_MEM_WB'];
-$_SESSION['prev_EX_MEM_M']=$_SESSION['EX_MEM_M'];
-$_SESSION['prev_EX_MEM_RIS']=$_SESSION['EX_MEM_RIS'];
-$_SESSION['prev_EX_MEM_DataW']=$_SESSION['EX_MEM_DataW'];
-$_SESSION['prev_EX_MEM_RegW']=$_SESSION['EX_MEM_RegW'];
-$_SESSION['prev_MEM_WB_WB']=$_SESSION['MEM_WB_WB'];
-$_SESSION['prev_MEM_WB_DataR']=$_SESSION['MEM_WB_DataR'];
-$_SESSION['prev_MEM_WB_Data']=$_SESSION['MEM_WB_Data'];
-$_SESSION['prev_MEM_WB_RegW']=$_SESSION['MEM_WB_RegW'];
+if (!$_SESSION['data'][0]['finito']) {
+	//REGISTERS
+	$_SESSION['data'][0]['registri']=$registri;
+	//DATA MEMORY
+	$_SESSION['data'][0]['memDati']=$memDati;
+	
+	//STAGE IF
+	$_SESSION['PC']=$newPC;
+	//STAGE ID
+	$_SESSION['ID_scarta']=$ID_scarta;
+	$_SESSION['EX_scarta']=$EX_scarta;
+	$_SESSION['IF_scarta']=$IF_scarta;
+	$_SESSION['istruzione']=$tempIstruzione;
+	$_SESSION['IF_ID_PC']=$IF_ID_PC;
+	//STAGE EX
+	$_SESSION['ID_EX_WB']=$ID_EX_WB;
+	$_SESSION['ID_EX_M']=$ID_EX_M;
+	$_SESSION['ID_EX_EX']=$ID_EX_EX;
+	$_SESSION['ID_EX_PC']=$ID_EX_PC;
+	$_SESSION['ID_EX_Data1']=$ID_EX_Data1;
+	$_SESSION['ID_EX_Data2']=$ID_EX_Data2;
+	$_SESSION['ID_EX_imm']=$ID_EX_imm;
+	$_SESSION['ID_EX_RS1']=$ID_EX_RS1;
+	$_SESSION['ID_EX_RS2']=$ID_EX_RS2;
+	$_SESSION['ID_EX_RD']=$ID_EX_RD;
+	$_SESSION['ID_EX_campoOp']=$ID_EX_campoOp;
+	$_SESSION['ID_EX_funct3']=$ID_EX_funct3;
+	$_SESSION['ID_EX_funct7']=$ID_EX_funct7;
+	//STAGE MEM
+	$_SESSION['EX_MEM_WB']=$EX_MEM_WB;
+	$_SESSION['EX_MEM_M']=$EX_MEM_M;
+	$_SESSION['EX_MEM_RIS']=$EX_MEM_RIS;
+	$_SESSION['EX_MEM_DataW']=$EX_MEM_DataW;
+	$_SESSION['EX_MEM_RegW']=$EX_MEM_RegW;
+	//STAGE WB
+	$_SESSION['MEM_WB_WB']=$MEM_WB_WB;
+	$_SESSION['MEM_WB_DataR']=$MEM_WB_DataR;
+	$_SESSION['MEM_WB_Data']=$MEM_WB_Data;
+	$_SESSION['MEM_WB_RegW']=$MEM_WB_RegW;
 
-//######################################
-//SALVATAGGIO DATI PER IL PROSSIMO CICLO DI CLOCK
-
-//MEMORIA DELLE ISTRUZIONI 
-$_SESSION['MemIstr']=$MemIstr; //1000 elementi di 32 bit;
-//REGISTRI
-$_SESSION['registri']=$registri; //32 elementi di 32 bit;
-//MEMORIA DATI
-$_SESSION['MemDati']=$MemDati; //5000 elementi di 8 bit;
-
-//STATO IF
-$_SESSION['PC']=$PC;
-
-//STATO ID
-$_SESSION['ID_scarta']=$ID_scarta;
-$_SESSION['EX_scarta']=$EX_scarta;
-$_SESSION['IF_scarta']=$IF_scarta;
-$_SESSION['Istruzione']=$istruzione;
-$_SESSION['IF_ID_PCpiu4']=$IF_ID_PCpiu4;
-
-//STATO EX
-$_SESSION['ID_EX_WB']=$ID_EX_WB;
-$_SESSION['ID_EX_M']=$ID_EX_M;
-$_SESSION['ID_EX_EX']=$ID_EX_EX;
-$_SESSION['ID_EX_PCpiu4']=$ID_EX_PCpiu4;
-$_SESSION['ID_EX_Data1']=$ID_EX_Data1;
-$_SESSION['ID_EX_Data2']=$ID_EX_Data2;
-$_SESSION['ID_EX_imm']=$ID_EX_imm;
-$_SESSION['ID_EX_RS1']=$ID_EX_RS1;
-$_SESSION['ID_EX_RS2']=$ID_EX_RS2;
-$_SESSION['ID_EX_RD']=$ID_EX_RD;
-$_SESSION['ID_EX_campoOp']=$ID_EX_campoOp;
-$_SESSION['ID_EX_funct3']=$ID_EX_funct3;
-$_SESSION['ID_EX_funct7']=$ID_EX_funct7;
-
-//STATO MEM
-$_SESSION['EX_MEM_WB']=$EX_MEM_WB;
-$_SESSION['EX_MEM_M']=$EX_MEM_M;
-$_SESSION['EX_MEM_RIS']=$EX_MEM_RIS;
-$_SESSION['EX_MEM_DataW']=$EX_MEM_DataW;
-$_SESSION['EX_MEM_RegW']=$EX_MEM_RegW;
-
-//STATO WB
-$_SESSION['MEM_WB_WB']=$MEM_WB_WB;
-$_SESSION['MEM_WB_DataR']=$MEM_WB_DataR;
-$_SESSION['MEM_WB_Data']=$MEM_WB_Data;
-$_SESSION['MEM_WB_RegW']=$MEM_WB_RegW;
-
-//############################################
-		
-//SALVATAGGIO STALLO
-$_SESSION['prev_stallo']=$_SESSION['stallo'];
-$_SESSION['stallo']=$stallo;
+	//STALL
+	$_SESSION['stallo']=$stallo;
+}
 
 ?>

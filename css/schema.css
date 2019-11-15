@@ -1,0 +1,78 @@
+.istruzioni {
+	position:absolute; left:77px; top:320px; width:69px; height:150px;
+}
+.if_som {
+	position:absolute; left:84px; top:195px; width:40px; height:40px;
+}
+.if_mux {
+	position:absolute; left:93px; top:120px; width:30px; height:50px;
+}
+.and {
+	position:absolute; left:85px; top:30px; width:40px; height:40px;
+}
+.pc {
+	position:absolute; left:26px; top:366px; width:28px; height:50px;
+}
+.criticita {
+	position:absolute; left:230px; top:21px; width:78px; height:50px;
+}
+.controllo {
+	position:absolute; left:221px; top:85px; width:60px; height:100px;
+}
+.id_mux {
+	position:absolute; left:401px; top:132px; width:28px; height:40px;
+}
+.or {
+	position:absolute; left:400px; top:36px; width:40px; height:37px;
+}
+.registri {
+	position:absolute; left:310px; top:265px; width:90px; height:150px;
+}
+.uguale {
+	position:absolute; left:410px; top:316px; width:30px; height:46px;
+}
+.immgen {
+	position:absolute; left:253px; top:430px; width:50px; height:24px;
+}
+.sl1 {
+	position:absolute; left:250px; top:329px; width:40px; height:30px;
+}
+.id_som {
+	position:absolute; left:283px; top:199px; width:40px; height:40px;
+}
+.cause {
+	position:absolute; left:565px; top:165px; width:45px; height:20px;
+}
+.epc {
+	position:absolute; left:565px; top:190px; width:45px; height:20px;
+}
+.ex_mux3 {
+	position:absolute; left:560px; top:267px; width:30px; height:50px;
+}
+.ex_mux4 {
+	position:absolute; left:560px; top:386px; width:30px; height:46px;
+}
+.ex_mux1 {
+	position:absolute; left:611px; top:90px; width:30px; height:46px;
+}
+.ex_mux5 {
+	position:absolute; left:611px; top:386px; width:28px; height:42px;
+}
+.ex_mux2 {
+	position:absolute; left:672px; top:130px; width:30px; height:50px;
+}
+.alu {
+	position:absolute; left:662px; top:328px; width:50px; height:50px;
+}
+.controlloalu {
+	position:absolute; left:667px; top:426px; width:48px; height:60px;
+}
+.propagazione {
+	position:absolute; left:643px; top:505px; width:75px; height:50px;
+}
+.memdati {
+	position:absolute; left:825px; top:276px; width:60px; height:165px;
+}
+.wb_mux {
+	position:absolute; left:991px; top:380px; width:28px; height:50px;
+}

@@ -10,14 +10,14 @@ $_SESSION['branchFlush']=true;
     <title>WebRISC-V - RISC-V PIPELINED DATAPATH SIMULATION ONLINE</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 	<link rel="icon" href="img/content/favicon.ico" type="image/x-icon">
-    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
 </head>
 
 <frameset rows="112,*" frameborder="NO" border="0" framespacing="0">
     <frame src="src/header.php" name="Header" scrolling="NO" noresize >
     <frameset cols="340,*" frameborder="NO" border="0" framespacing="0">
-        <frame src="src/leftPanel.php" name="MemIstr" scrolling="yes">
-        <frame src="src/executeStep.php" name="Body" scrolling="yes" noresize>
+        <frame src="src/leftPanel.php" name="MemReg" scrolling="yes">
+        <frame src="src/executeStep.php" name="Layout" scrolling="yes" noresize>
     </frameset>
 </frameset>
 <noframes>
