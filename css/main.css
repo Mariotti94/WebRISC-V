@@ -52,12 +52,28 @@
     border-bottom: 1px solid black;
 }
 
-.minIstrWd {
-    min-width: 75px;
+.edInstrTd {
+    min-width: 80px;
+}
+
+.edMenuTd1 {
+	min-width: 230px;
+}
+
+.edMenuTd2{
+	min-width: 130px;
+}
+
+.edMenuTd3 {
+	min-width: 310px;
+}
+
+.edMenuTd4 {
+	min-width: 130px;
 }
 
 .pipeTd {
-    border:1px solid #666666;
+    border: 1px solid #666666;
     min-width: 20px;
     text-align: center;
 }

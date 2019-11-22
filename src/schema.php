@@ -10,6 +10,9 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_M,
 	<script language='JavaScript' type='text/JavaScript' src="../js/schema.js"></script>
     <script language='JavaScript' type='text/JavaScript'>
         window.onload = function() {
+			//PANEL NAME
+			if(top.frames[0].document.getElementById('mainLabel'))
+				top.frames[0].document.getElementById('mainLabel').innerHTML="<font size=2>SCHEMA LAYOUT</font>";
 			//RELOAD LEFT PANEL
             var rFrame=top.frames[1];
             if (rFrame)

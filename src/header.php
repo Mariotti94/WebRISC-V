@@ -240,8 +240,8 @@ session_start();
 </table>
 <table cellpadding="0" width="100%" cellspacing="0" border="0" background="../img/layout/bg_header2.gif">
     <tr>
-        <td width="340" align="center"><font size=2>MEMORY AND REGISTERS</font></td>
-        <td align="center"><font size=2>LAYOUT</font></td>
+        <td width="340" align="center"><font size=2>EXECUTION STATUS</font></td>
+        <td align="center" id="mainLabel"><font size=2>SCHEMA LAYOUT</font></td>
     </tr>
 </table>
 
