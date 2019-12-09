@@ -8,6 +8,8 @@ if (isset($_POST['asmName']) && $_POST['asmName']!="")
 $codice=$_POST['codice'];
 $_SESSION['codice']=trim($codice);
 
+$codice = preg_replace('/\h+/', ' ', $codice);
+$codice = preg_replace('/:/', ':'.PHP_EOL, $codice);
 $riga = array_map('trim', explode(PHP_EOL, $codice));
 $riga = array_values(array_filter($riga));
 

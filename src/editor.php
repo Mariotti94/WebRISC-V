@@ -227,7 +227,7 @@ session_start();
 										</table>
 									<td>
 									<td style="min-width: 530px;">
-										<textarea id="asmTxt" name="codice" class="form" style="border: 0px; margin: 0px; width: 100%;" rows="1000" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" onkeypress="javascript:textAreaName();textAreaKeypress();" onpaste="javascript:textAreaName();textAreaPaste();"><?php echo isset($_SESSION['codice'])?$_SESSION['codice']:'';?></textarea>
+										<textarea id="asmTxt" name="codice" style="border: 0px; margin: 0px; width: 100%;" rows="1000" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" onkeypress="javascript:textAreaName();textAreaKeypress();" onpaste="javascript:textAreaName();textAreaPaste();"><?php echo isset($_SESSION['codice'])?$_SESSION['codice']:'';?></textarea>
 									</td>
 								</tr>
 							</table>

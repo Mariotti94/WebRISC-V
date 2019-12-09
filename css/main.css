@@ -8,7 +8,7 @@
 
 .numRiga {
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-    font-size: 10px;
+    font-size: 11px;
     color: white;
 }
 
@@ -195,4 +195,9 @@ textarea:focus {
     top: 540px;
     background-color: wheat;
     border: 5px double #f7b217;
+}
+
+#asmTxt {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 11px;
 }
