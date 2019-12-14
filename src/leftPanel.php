@@ -74,7 +74,7 @@ if ($exec=="start")
 <table cellpadding="0" cellspacing="0" width="100%" border="0" align="center" id="counter">
 	<tr>
 		<td width="50%" style="padding: 4px 0px 4px 16px;" class="testoGrande" id="asmNameTd"><?php echo $_SESSION['asmName']; ?></td>
-		<td align="right" width="50%" style="padding: 4px 16px 4px 0px;" class="testoGrande"><?php 	echo 'CYCLE: <span id="cycleCount">'.$_SESSION['data'][$_SESSION['index']]['clock'].'</span>'; ?>
+		<td align="right" width="50%" style="padding: 4px 16px 4px 0px;" class="testoGrande"><?php echo 'CYCLE: <span id="cycleCount">'.(($_SESSION['data'][$_SESSION['index']]['clock']!=0 && !$_SESSION['data'][$_SESSION['index']]['finito'])?$_SESSION['data'][$_SESSION['index']]['clock']:'-').'</span>'; ?>
 </td>
 	</tr>
 	<tr>
@@ -114,14 +114,14 @@ if ($exec=="start")
     </tr>
     <?php 
 	}
-	if ($_SESSION['data'][$_SESSION['index']]['finito'] ) { ?>
+	if ($_SESSION['data'][$_SESSION['index']]['finito']) { ?>
 	<tr>
 		<td><img src="../img/layout/x.gif" width="2"></td>
     </tr>
         <tr>
             <td align="center" valign="middle" bgcolor="black" height="20" colspan="2">
                 <font size="2" face="arial" color="#00ff00"><b>
-                        EXECUTION COMPLETED IN <br><?php echo $_SESSION['data'][$_SESSION['index']]['clock'];?> CLOCK CYCLES</b>
+                        EXECUTION COMPLETED IN <br><?php echo $_SESSION['data'][$_SESSION['index']]['clock']-1;?> CLOCK CYCLES</b>
                 </font>
             </td>
         </tr>
