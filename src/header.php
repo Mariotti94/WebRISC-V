@@ -43,18 +43,22 @@ session_start();
     </script>
 	<meta name="robots" content="noindex" />
 </head>
-<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<table cellpadding="0" width="100%" cellspacing="0" border="0" height="96" bgcolor="#f7b217">
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="background: #f0f0f0;">
+<table cellpadding="0" width="100%" cellspacing="0" border="0" height="109" bgcolor="#f7b217">
     <tr>
-        <td width="137" valign="top"  >
+        <td width="137" valign="top">
 		<a href="../index.php" target="_parent"><img src="../img/content/img_logo.gif" border="0" width="137"></a>
-		<font face="Arial" size=1><br><b>VERSION <?php echo $_SESSION['version'];?></b>: Write your feedback to <a href="mailto:giorgi@unisi.it">Roberto Giorgi</a>.</font>
+		<div style="text-align: center; font-family: Arial; font-size: 10px;">
+				<b>VERSION <?php echo $_SESSION['version'];?></b>
+				<br>Write your feedback:
+				<br><a href="mailto:giorgi@unisi.it">Roberto Giorgi</a> || <a href="https://github.com/Mariotti94/WebRISC-V" target="_blank">GitHub</a>
+		</div>
 		</td>
         <td width="35%" align="left">
             <table cellpadding="0" width="100%" cellspacing="0" border="0" height="96">
-                <tr><td align="center" background="../img/layout/bg_header.gif" height="13">
-                        <font size=2>COMMANDS</font>
-                    </td></tr>
+                <tr>
+					<td align="center" style="border-width: 2px 2px 0px 2px; border-style: solid; border-color: #cccccc; line-height: 17px; font-size: 13px;">COMMANDS</td>
+				</tr>
                 <tr>
 					<td align="center" valign="middle" bgcolor="#ebebeb" style="border:2px solid #cccccc; height:100%;">
 					
@@ -135,9 +139,8 @@ session_start();
 		<td width="2" align="left"  ><img src="../img/layout/x.gif" border="0" width="2"></td>
 		<td width="30%" align="left">
 			<table cellpadding="0" width="100%" cellspacing="0" border="0" height="96">
-				<tr><td align="center" background="../img/layout/bg_header.gif" height="13">
-						<font size=2>EXECUTION OPTIONS</font>
-					</td>
+				<tr>
+					<td align="center" style="border-width: 2px 2px 0px 2px; border-style: solid; border-color: #cccccc; line-height: 17px; font-size: 13px;">EXECUTION OPTIONS</td>
 				</tr>
 				<tr>
 					<td align="center" valign="middle" bgcolor="#ebebeb" height="100%" style="border:2px solid #cccccc; height:100%;">
@@ -165,9 +168,8 @@ session_start();
         <td width="2" align="left"  ><img src="../img/layout/x.gif" border="0" width="2"></td>
         <td width="35%" align="left">
             <table cellpadding="0" width="100%" cellspacing="0" border="0" height="96">
-                <tr><td align="center" background="../img/layout/bg_header.gif" height="13">
-                        <font size=2>VISUALIZATION OPTIONS</font>
-                    </td>
+                <tr>
+					<td align="center" style="border-width: 2px 2px 0px 2px; border-style: solid; border-color: #cccccc; line-height: 17px; font-size: 13px;">VISUALIZATION OPTIONS</td>
 				</tr>
                 <tr>
 					<td align="center" valign="middle" bgcolor="#ebebeb" height="68" style="border:2px solid #cccccc;  height:100%;">
@@ -218,7 +220,7 @@ session_start();
                                     </table>
 									<table cellpadding="0" cellspacing="0" border="0" width="145" id="btn_refreshLayout">
                                         <tr>
-                                            <td align="center"><input type="submit" value="Refresh Layout" id="refreshLayout" class="form" style="width:145px; padding:2px; margin-bottom: -20px;"></td>
+                                            <td align="center"><input type="submit" value="Refresh Layout" id="refreshLayout" class="form" style="width: 145px; padding: 2px; margin-bottom: -20px;"></td>
                                         </tr>
                                     </table>
 									<script language='JavaScript' type='text/JavaScript'>
@@ -231,17 +233,17 @@ session_start();
                         </table>
                     </td>
 				</tr>
-                <tr><td   height="2"><img src="../img/layout/x.gif"></td></tr>
+                <tr><td height="2"><img src="../img/layout/x.gif"></td></tr>
             </table>
         </td>
 		
 		<td width="2" align="left"  ><img src="../img/layout/x.gif" border="0" width="2"></td>
     </tr>
 </table>
-<table cellpadding="0" width="100%" cellspacing="0" border="0" background="../img/layout/bg_header2.gif">
+<table cellpadding="0" width="100%" cellspacing="0" border="0" bgcolor="#f7b217" style="border-width: 2px 0px; border-style: solid; border-color: #cccccc;">
     <tr>
-        <td width="340" align="center"><font size=2>EXECUTION STATUS</font></td>
-        <td align="center" id="mainLabel"><font size=2>SCHEMA LAYOUT</font></td>
+        <td width="340" align="center" style="line-height: 17px; font-size: 13px; box-sizing: border-box; border-right: 1px solid #cccccc;">EXECUTION STATUS</td>
+        <td align="center" id="mainLabel" style="line-height: 17px; font-size: 13px; box-sizing: border-box; border-left: 1px solid #cccccc;">SCHEMA LAYOUT</td>
     </tr>
 </table>
 

@@ -9,7 +9,7 @@ session_start();
 		window.onload = function() {
 			//PANEL NAME
 			if(top.frames[0].document.getElementById('mainLabel'))
-				top.frames[0].document.getElementById('mainLabel').innerHTML="<font size=2>EDITOR</font>";
+				top.frames[0].document.getElementById('mainLabel').innerHTML="EDITOR";
 		};
         function textAreaName() {
 			if (top.frames[2].document.getElementById('asmName').value=='') 
@@ -31,7 +31,7 @@ session_start();
     </script>
 	<meta name="robots" content="noindex" />
 </head>
-<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="background: #f0f0f0;">
 
 <table width="70%" cellpadding="0" cellspacing="0" style="margin: auto;">
     <tr>
@@ -126,7 +126,7 @@ session_start();
 			<table cellpadding="0" cellspacing="0" align="center" style="margin-top: 10px; margin-bottom: 10px;">
 				<tr>
 					<td align="left" style="padding-left: 20px; padding-right: 20px;">
-						<table class="testo" style="border-collapse: collapse;">
+						<table class="testo" style="border-collapse: collapse; background: white;">
 							<tr class="row top bottom">
 								<td class="edInstrTd" align="center" colspan="3"><b>List of Instructions</b></td>
 							</tr>
@@ -209,7 +209,7 @@ session_start();
 						</table>
 					</td>
 					<td style="min-width: 580px; padding-right: 20px;">
-						<div class="bBot bLeft bTop" style="height: 420px; overflow-x: auto; overflow-y: auto;">
+						<div style="height: 420px; overflow-x: auto; overflow-y: auto; border: 1px solid black;">
 							<table cellpadding="0" cellspacing="0">
 								<tr>
 									<td style="float: left; min-width: 30px;" bgcolor="#cccccc">

@@ -1,6 +1,6 @@
 <?php
 //VERSION
-$_SESSION['version']="1.5";
+$_SESSION['version']="1.5.1";
 
 //LIMITS
 $_SESSION['maxCycle']=1000;

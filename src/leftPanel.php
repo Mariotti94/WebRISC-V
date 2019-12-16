@@ -17,13 +17,13 @@ session_start();
 			var backButton=top.frames[0].document.getElementById('backButton');
 			var stepButton=top.frames[0].document.getElementById('stepButton');
 			var allButton=top.frames[0].document.getElementById('allButton');
-			if (<?php echo (!$_SESSION['data'][$_SESSION['index']]['clock'])?'true':'false'; ?> ) {
+			if (<?php echo (!$_SESSION['data'][$_SESSION['index']]['clock'])?'true':'false'; ?>) {
 				backButton.getElementsByTagName('a')[0].setAttribute('class','link4disabled');
 			}
 			else {
 				backButton.getElementsByTagName('a')[0].setAttribute('class','link4');
 			}
-			if (<?php echo ($_SESSION['data'][$_SESSION['index']]['finito']||!$_SESSION['loaded'])?'true':'false'; ?> ) {
+			if (<?php echo ($_SESSION['data'][$_SESSION['index']]['finito']||!$_SESSION['loaded'])?'true':'false'; ?>) {
 				stepButton.getElementsByTagName('a')[0].setAttribute('class','link4disabled');
 				allButton.getElementsByTagName('a')[0].setAttribute('class','link4disabled');
 			}
@@ -54,7 +54,7 @@ session_start();
     </script>
 	<meta name="robots" content="noindex" />
 </head>
-<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" bgcolor="#D4D0C8">
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" bgcolor="#d4d0c8">
 <?php
 $destra=isset($_GET['dst'])?$_GET["dst"]:"";
 
@@ -74,7 +74,7 @@ if ($exec=="start")
 <table cellpadding="0" cellspacing="0" width="100%" border="0" align="center" id="counter">
 	<tr>
 		<td width="50%" style="padding: 4px 0px 4px 16px;" class="testoGrande" id="asmNameTd"><?php echo $_SESSION['asmName']; ?></td>
-		<td align="right" width="50%" style="padding: 4px 16px 4px 0px;" class="testoGrande"><?php echo 'CYCLE: <span id="cycleCount">'.(($_SESSION['data'][$_SESSION['index']]['clock']!=0 && !$_SESSION['data'][$_SESSION['index']]['finito'])?$_SESSION['data'][$_SESSION['index']]['clock']:'-').'</span>'; ?>
+		<td align="right" width="50%" style="padding: 4px 16px 4px 0px;" class="testoGrande"><?php if(!$_SESSION['data'][$_SESSION['index']]['finito']) echo 'current cycle: <span id="cycleCount">'.(($_SESSION['data'][$_SESSION['index']]['clock']!=0)?$_SESSION['data'][$_SESSION['index']]['clock']:'-').'</span>'; ?>
 </td>
 	</tr>
 	<tr>
@@ -120,8 +120,8 @@ if ($exec=="start")
     </tr>
         <tr>
             <td align="center" valign="middle" bgcolor="black" height="20" colspan="2">
-                <font size="2" face="arial" color="#00ff00"><b>
-                        EXECUTION COMPLETED IN <br><?php echo $_SESSION['data'][$_SESSION['index']]['clock']-1;?> CLOCK CYCLES</b>
+                <font size="2" face="arial" color="#00ff00">
+					<b>EXECUTION COMPLETED IN <br><?php echo $_SESSION['data'][$_SESSION['index']]['clock']-1;?> CLOCK CYCLES</b>
                 </font>
             </td>
         </tr>

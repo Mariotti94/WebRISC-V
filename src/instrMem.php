@@ -73,7 +73,7 @@ if ($dim!=0)
 
         ?>
         <br>
-        <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" >
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
             
 		<?php
 			$text1='<tr><td align="center" valign="middle" bgcolor=';

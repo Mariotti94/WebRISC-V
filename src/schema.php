@@ -12,7 +12,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_M,
         window.onload = function() {
 			//PANEL NAME
 			if(top.frames[0].document.getElementById('mainLabel'))
-				top.frames[0].document.getElementById('mainLabel').innerHTML="<font size=2>SCHEMA LAYOUT</font>";
+				top.frames[0].document.getElementById('mainLabel').innerHTML="SCHEMA LAYOUT";
 			//RELOAD LEFT PANEL
             var rFrame=top.frames[1];
             if (rFrame)

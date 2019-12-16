@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "src/init.php";
+require_once 'src/init.php';
 $_SESSION['codice']='';
 $_SESSION['branchFlush']=true;
 ?>
@@ -13,10 +13,10 @@ $_SESSION['branchFlush']=true;
     <link href="css/main.css" rel="stylesheet" type="text/css">
 </head>
 
-<frameset rows="112,*" frameborder="NO" border="0" framespacing="0">
-    <frame src="src/header.php" name="Header" scrolling="NO" noresize >
-    <frameset cols="340,*" frameborder="NO" border="0" framespacing="0">
-        <frame src="src/leftPanel.php" name="MemReg" scrolling="yes">
+<frameset rows="130,*" frameborder="no" border="0" framespacing="0">
+    <frame src="src/header.php" name="Header" scrolling="no" noresize>
+    <frameset cols="340,*" frameborder="no" border="0" framespacing="0">
+        <frame src="src/leftPanel.php" name="MemReg" scrolling="yes" noresize>
         <frame src="src/executeStep.php" name="Layout" scrolling="yes" noresize>
     </frameset>
 </frameset>
