@@ -1,5 +1,14 @@
 ## Changelog
 
+* **Version 1.6**
+  * Improved the Pipeline Schema
+	* Added selector for Forwarding Inside Pipeline [Activated || Deactivated]
+    * Changes to Pipeline Schema depending on the selection
+  * Implemented the full RV64I (excluding: fence) and RV64M instruction set
+    * Editor Instruction list with small descriptions on click
+  * Hexadecimal(0xNUMBER) recognition for immediates in Editor
+	* Other small updates for bugfixing
+
 * **Version 1.5**
 	* Multiple steps backwards now possible during execution
 	* Fixes to layout data visualization
@@ -14,7 +23,7 @@
 
 * **Version 1.2**
 	* Float to GMP numbers to remove approximation errors
-	* Jump Control Hazard Resolution Selector [Flush Instruction || Execute Delay Slot]
+	* Added selector for Jump Control Hazard Resolution [Flush Instruction || Execute Delay Slot]
 		* Examples in Load Program page change depending on the selection
 	* Implementation of SRAI
 

@@ -1,78 +1,144 @@
-.istruzioni {
-	position:absolute; left:77px; top:320px; width:69px; height:150px;
-}
-.if_som {
-	position:absolute; left:84px; top:195px; width:40px; height:40px;
-}
-.if_mux {
-	position:absolute; left:93px; top:120px; width:30px; height:50px;
+.alu {
+  position:absolute; left:767px; top:328px; width:40px; height:50px;
 }
 .and {
-	position:absolute; left:85px; top:30px; width:40px; height:40px;
+  position:absolute; left:85px; top:30px; width:40px; height:40px;
 }
-.pc {
-	position:absolute; left:26px; top:366px; width:28px; height:50px;
-}
-.criticita {
-	position:absolute; left:230px; top:21px; width:78px; height:50px;
-}
-.controllo {
-	position:absolute; left:221px; top:85px; width:60px; height:100px;
-}
-.id_mux {
-	position:absolute; left:401px; top:132px; width:28px; height:40px;
-}
-.or {
-	position:absolute; left:400px; top:36px; width:40px; height:37px;
-}
-.registri {
-	position:absolute; left:310px; top:265px; width:90px; height:150px;
-}
-.uguale {
-	position:absolute; left:410px; top:316px; width:30px; height:46px;
-}
-.immgen {
-	position:absolute; left:253px; top:430px; width:50px; height:24px;
-}
-.sl1 {
-	position:absolute; left:250px; top:329px; width:40px; height:30px;
-}
-.id_som {
-	position:absolute; left:283px; top:199px; width:40px; height:40px;
+.branch_cmp {
+  position:absolute; left:438px; top:188px; width:50px; height:50px;
 }
 .cause {
-	position:absolute; left:565px; top:165px; width:45px; height:20px;
+  position:absolute; left:615px; top:173px; width:45px; height:20px;
 }
-.epc {
-	position:absolute; left:565px; top:190px; width:45px; height:20px;
-}
-.ex_mux3 {
-	position:absolute; left:560px; top:267px; width:30px; height:50px;
-}
-.ex_mux4 {
-	position:absolute; left:560px; top:386px; width:30px; height:46px;
-}
-.ex_mux1 {
-	position:absolute; left:611px; top:90px; width:30px; height:46px;
-}
-.ex_mux5 {
-	position:absolute; left:611px; top:386px; width:28px; height:42px;
-}
-.ex_mux2 {
-	position:absolute; left:672px; top:130px; width:30px; height:50px;
-}
-.alu {
-	position:absolute; left:662px; top:328px; width:50px; height:50px;
+.controllo {
+  position:absolute; left:262px; top:85px; width:60px; height:60px;
 }
 .controlloalu {
-	position:absolute; left:667px; top:426px; width:48px; height:60px;
+  position:absolute; left:762px; top:426px; width:50px; height:50px;
 }
-.propagazione {
-	position:absolute; left:643px; top:505px; width:75px; height:50px;
+.criticita {
+  position:absolute; left:254px; top:16px; width:76px; height:55px;
+}
+.csr_label {
+  position:absolute; left:615px; top:162px; width:60px; font-size:10px;
+}
+.epc {
+  position:absolute; left:615px; top:192px; width:45px; height:20px;
+}
+.ex_mux1 {
+  position:absolute; left:662px; top:90px; width:28px; height:48px;
+}
+.ex_mux2 {
+  position:absolute; left:723px; top:130px; width:28px; height:48px;
+}
+.ex_mux3 {
+  position:absolute; left:612px; top:270px; width:28px; height:48px;
+}
+.ex_mux4 {
+  position:absolute; left:612px; top:384px; width:28px; height:48px;
+}
+.ex_mux5 {
+  position:absolute; left:713px; top:270px; width:28px; height:48px;
+}
+.ex_mux6 {
+  position:absolute; left:713px; top:384px; width:28px; height:48px;
+}
+.forward_alu {
+  position:absolute; left:733px; top:505px; width:77px; height:50px;
+}
+.forward_branch {
+  position:absolute; left:408px; top:530px; width:77px; height:40px;
+}
+.id_mux1 {
+  position:absolute; left:438px; top:128px; width:28px; height:48px;
+}
+.id_mux2 {
+  position:absolute; left:328px; top:183px; width:28px; height:48px;
+}
+.id_som1 {
+  position:absolute; left:277px; top:175px; width:30px; height:30px;
+}
+.id_som2 {
+  position:absolute; left:277px; top:210px; width:30px; height:30px;
+}
+.if_mux {
+  position:absolute; left:96px; top:120px; width:28px; height:48px;
+}
+.if_som {
+  position:absolute; left:84px; top:195px; width:40px; height:40px;
+}
+.immgen {
+  position:absolute; left:247px; top:425px; width:48px; height:24px;
+}
+.istruzioni {
+  position:absolute; left:79px; top:320px; width:60px; height:150px;
 }
 .memdati {
-	position:absolute; left:825px; top:276px; width:60px; height:165px;
+  position:absolute; left:916px; top:276px; width:60px; height:165px;
+}
+.or {
+  position:absolute; left:432px; top:42px; width:40px; height:24px;
+}
+.pc {
+  position:absolute; left:21px; top:250px; width:27px; height:220px;
+}
+.registri {
+  position:absolute; left:320px; top:265px; width:90px; height:150px;
+}
+.sl1 {
+  position:absolute; left:237px; top:329px; width:50px; height:30px;
 }
 .wb_mux {
-	position:absolute; left:991px; top:380px; width:28px; height:50px;
+  position:absolute; left:1083px; top:380px; width:28px; height:48px;
+}
+
+/* LATCHES */
+.if_id {
+  position:absolute; left:154px;
+}
+.if_id_latch {
+  top:208px;
+}
+.id_ex {
+  position:absolute; left:513px; top:93px;
+}
+.id_ex_latch {
+  top:93px;
+}
+.id_ex_wb {
+  top:100px;
+}
+.id_ex_mem {
+  top:135px;
+}
+.id_ex_ex {
+  top:170px;
+}
+.ex_mem {
+  position:absolute; left:827px;
+}
+.ex_mem_latch {
+  top:128px;
+}
+.ex_mem_wb {
+  top:135px; 
+}
+.ex_mem_mem {
+  top:170px; 
+}
+.mem_wb {
+  position:absolute; left:997px;
+}
+.mem_wb_latch {
+  top:160px;
+}
+.mem_wb_wb {
+  top:170px; 
+}
+
+/*MISC*/
+.disabled {
+  pointer-events: none;
+  background: repeating-linear-gradient( 45deg, #ccc, #ccc 10px, #bbb 10px, #bbb 20px );
+  border: #999 solid 1px;
 }

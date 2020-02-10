@@ -1,10 +1,10 @@
 <?php
 //VERSION
-$_SESSION['version']="1.5.1";
+$_SESSION['version']="1.6";
 
 //LIMITS
 $_SESSION['maxCycle']=1000;
-$_SESSION['maxMem']=5000;
+$_SESSION['maxMem']=4000;
 
 //STATUS
 unset($_SESSION['data']);
@@ -16,12 +16,12 @@ $_SESSION['start']=false;
 $_SESSION['data'][0]['finito']=false;
 
 //INSTRUCTION MEMORY
-//1000 32-bit elements
+//maxCycle 32-bit elements
 $i=0;
-while($i!=1000)
+while($i!=intval($_SESSION['maxCycle']))
 {
-    $memIstr[$i]=str_repeat('0',32);
-    $i=$i+1;
+  $memIstr[$i]=str_repeat('0',32);
+  $i=$i+1;
 }
 $_SESSION['memIstr']=$memIstr;
 $_SESSION['memIstrDim']=0;
@@ -31,8 +31,8 @@ $_SESSION['memIstrDim']=0;
 $i=0;
 while($i!=32)
 {
-    $registri[$i]='0';
-    $i=$i+1;
+  $registri[$i]='0';
+  $i=$i+1;
 }
 
 $registri[2]=strval($_SESSION['maxMem']);
@@ -41,13 +41,7 @@ $_SESSION['data'][0]['registri']=$registri;
 
 //DATA MEMORY
 //maxMem 8-bit elements
-$i=0;
-while($i!=strval($_SESSION['maxMem']))
-{
-    $memDati[$i]=str_repeat('0',8);
-    $i=$i+1;
-}
-$_SESSION['data'][0]['memDati']=$memDati;
+$_SESSION['data'][0]['memDati']=array();
 
 //STAGE IF
 $_SESSION['PC']=0;
@@ -113,5 +107,5 @@ $_SESSION['data'][0]['sysBreak']=false;
 $_SESSION['data'][0]['sysConsole']='';
 
 //DATA SCHEMA
-$_SESSION['data'][0]['schemaData']=array_fill(0, 63, NULL);
+$_SESSION['data'][0]['schemaData']=array_fill(0, 65, NULL);
 ?>
