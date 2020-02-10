@@ -1,4 +1,5 @@
-# WebRISC-V [<img width="125" src="https://github.com/Mariotti94/WebRISC-V/blob/master/docs/version.png?raw=true"/>](https://github.com/Mariotti94/WebRISC-V/blob/master/docs/CHANGELOG.md)
+# WebRISC-V
+[<img height="30" src="https://github.com/Mariotti94/WebRISC-V/blob/master/docs/version.png?raw=true"/>](https://github.com/Mariotti94/WebRISC-V/blob/master/docs/CHANGELOG.md)
 
 WebRISC-V is a web-based graphical pipelined datapath simulation environment built for the [RISC-V instruction set architecture](https://content.riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf).
 It is suitable for teaching how assembly level code is executed on the RISC-V pipelined architecture and for illustrating the Pipeline Architectural Elements.
@@ -7,9 +8,23 @@ It is suitable for teaching how assembly level code is executed on the RISC-V pi
 
 <img src="https://github.com/Mariotti94/WebRISC-V/blob/master/docs/intro.png?raw=true"/>
 
-- [WebRISC-V](#webrisc-v-)
+- [WebRISC-V](#webrisc-v)
   - [Features](#features)
   - [Local Installation](#local-installation)
+
+## Features
+
+* 5-stage Graphical Pipeline 64-bit Simulator
+  * Pipeline Schema taken from Patterson's 'Computer Organization and Design: RISC-V Edition' and enhanced
+  * Visualize every Architectural Element and the Data and Control paths
+  * Execute with or without the Forwarding and the Delay Slot
+  * Keep track of the execution in the Pipeline
+    * Instruction Memory | Data Memory | Registers
+  * Pipeline Table to show the execution trace
+  * Console to interact with the execution through implemented syscalls
+* Supported instructions are the full **RV64I** Base Instruction Set (excluding: fence) and **RV64M** Standard Multiplication Extension
+  * List of supported instruction with small descriptions of the underlying function visible on click
+  * RISC-V Assembly small examples available
 
 ## Local Installation
 
@@ -23,7 +38,7 @@ The reference Installation has been done on the Linux distro UBUNTU 18.04LTS
   sudo apt -y install php-pear php-fpm php-dev php-zip php-curl php-gd php-mysql php-mbstring php-xml php-xmlrpc php-gmp
   sudo ufw allow 'Apache'           (ufw may fail if you don't have ufw... just ignore it)
   a2enmod php7.2
-  sudo systemctl status apache2	    (alternatively you may want to run:
+  sudo systemctl status apache2     (alternatively you may want to run:
                                     sudo service apache2 start && sudo service apache2 status )
 
   --> you should see something like:
@@ -35,9 +50,9 @@ The reference Installation has been done on the Linux distro UBUNTU 18.04LTS
     Main PID: 4867 (apache2)
     Tasks: 52 (limit: 1101)
     CGroup: /system.slice/apache2.service
-           ├─4868 /usr/sbin/apache2 -k start
-           ├─4869 /usr/sbin/apache2 -k start
-           └─4870 /usr/sbin/apache2 -k start
+          ├─4868 /usr/sbin/apache2 -k start
+          ├─4869 /usr/sbin/apache2 -k start
+          └─4870 /usr/sbin/apache2 -k start
 ```
 
 * To test if the web server with PHP works, open your local web-broswer (e.g., firefox) and open this page: \
