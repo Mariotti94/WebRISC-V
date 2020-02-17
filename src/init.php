@@ -1,10 +1,14 @@
 <?php
 //VERSION
-$_SESSION['version']="1.6";
+$_SESSION['version']="1.7";
 
-//LIMITS
+//BOUNDS
 $_SESSION['maxCycle']=1000;
-$_SESSION['maxMem']=4000;
+$_SESSION['maxDynamicMem']=3072;  //byte amount, dword-aligned
+$_SESSION['maxStaticMem']=1024;   //byte amount, dword-aligned
+$_SESSION['maxTextMem']=1024;     //byte amount, word-aligned
+$_SESSION['maxWritableMem']=$_SESSION['maxDynamicMem']+$_SESSION['maxStaticMem'];
+$_SESSION['maxMem']=$_SESSION['maxWritableMem']+$_SESSION['maxTextMem'];
 
 //STATUS
 unset($_SESSION['data']);
@@ -17,14 +21,11 @@ $_SESSION['data'][0]['finito']=false;
 
 //INSTRUCTION MEMORY
 //maxCycle 32-bit elements
-$i=0;
-while($i!=intval($_SESSION['maxCycle']))
-{
+for($i=0; $i<($_SESSION['maxTextMem']/4); ++$i) {
   $memIstr[$i]=str_repeat('0',32);
-  $i=$i+1;
 }
 $_SESSION['memIstr']=$memIstr;
-$_SESSION['memIstrDim']=0;
+$_SESSION['memIstrUse']=0;
 
 //REGISTERS
 //32 64-bit elements
@@ -34,13 +35,16 @@ while($i!=32)
   $registri[$i]='0';
   $i=$i+1;
 }
-
-$registri[2]=strval($_SESSION['maxMem']);
-$registri[8]=strval($_SESSION['maxMem']);
+//sp: final address dynamic data segment (top of stack [grow down, last full])
+$registri[2]=strval($_SESSION['maxWritableMem']+$_SESSION['maxTextMem']);
+//gp: starting address static data segment
+$registri[3]=strval($_SESSION['maxTextMem']);
+$registri[8]=$registri[2]; //fp = sp
 $_SESSION['data'][0]['registri']=$registri;
 
 //DATA MEMORY
-//maxMem 8-bit elements
+//maxWritableMem 8-bit elements
+//not initialized to 0 for less server memory consumption
 $_SESSION['data'][0]['memDati']=array();
 
 //STAGE IF
@@ -100,6 +104,7 @@ $_SESSION['data'][0]['pipeTable']=array();
 $_SESSION['stallo']=0;
 
 //CONSOLE
+$_SESSION['data'][0]['sysCall']=false;
 $_SESSION['data'][0]['sysStall']=false;
 $_SESSION['data'][0]['sysHold']=false;
 $_SESSION['data'][0]['sysInput']=false;

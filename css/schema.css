@@ -11,7 +11,7 @@
   position:absolute; left:615px; top:173px; width:45px; height:20px;
 }
 .controllo {
-  position:absolute; left:262px; top:85px; width:60px; height:60px;
+  position:absolute; left:262px; top:85px; width:60px; height:58px;
 }
 .controlloalu {
   position:absolute; left:762px; top:426px; width:50px; height:50px;
@@ -121,10 +121,10 @@
   top:128px;
 }
 .ex_mem_wb {
-  top:135px; 
+  top:135px;
 }
 .ex_mem_mem {
-  top:170px; 
+  top:170px;
 }
 .mem_wb {
   position:absolute; left:997px;
@@ -133,7 +133,7 @@
   top:160px;
 }
 .mem_wb_wb {
-  top:170px; 
+  top:170px;
 }
 
 /*MISC*/

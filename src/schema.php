@@ -181,7 +181,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
   </table>
   <span style="position:absolute; left:630px; top:200px; font-size:20px;">...</span>
 
-  <?php if($_SESSION['forwarding']==1) 
+  <?php if($_SESSION['forwarding']==1)
   {
   ?>
     <table cellpadding="0" cellspacing="0" class="elemento ex_mux3">
@@ -191,7 +191,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
     <table cellpadding="0" cellspacing="0" class="elemento ex_mux4">
       <tr><td valign="middle" align="center"><font size="1">M<br>U<br>X</font></td></tr>
     </table>
-    
+
     <table cellpadding="0" cellspacing="0" class="elemento forward_alu">
       <tr>
         <td valign="middle" align="center">
@@ -199,11 +199,11 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
         </td>
       </tr>
     </table>
-    
+
     <table cellpadding="0" cellspacing="0" class="elemento forward_branch">
       <tr><td valign="middle" align="center"><font size="1">FORWARDING UNIT BRANCH</font></td></tr>
     </table>
-  <?php 
+  <?php
   }
   ?>
 
@@ -417,7 +417,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="EPC">
     </a>
   </div>
-  
+
   <div style="z-index:2" class="ex_mux1">
     <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=ex_mux1&dato=<?php echo isset($ID_EX_WB)?$ID_EX_WB:0;?>&ex_scarta=<?php echo isset($EX_scarta)?$EX_scarta:0;?>','','width=350,height=250');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="EXECUTE MULTIPLEXER 1">
@@ -460,7 +460,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
     </a>
   </div>
 
-  <?php if($_SESSION['forwarding']==1) 
+  <?php if($_SESSION['forwarding']==1)
   {
   ?>
     <div style="z-index:2" class="ex_mux3">
@@ -468,7 +468,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
       <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="EXECUTE MULTIPLEXER 3">
       </a>
     </div>
-    
+
     <div style="z-index:2" class="ex_mux4">
       <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=ex_mux4&DL1=<?php echo isset($ID_EX_Data2)?$ID_EX_Data2:0;?>&mem_wb=<?php echo isset($WBdata)?$WBdata:0;?>&ex_mem=<?php echo isset($EX_MEM_RIS)?$EX_MEM_RIS:0;?>&ctrl=<?php echo isset($Mux4Ctrl)?$Mux4Ctrl:0;?>&ris=<?php echo isset($temp_EX_MEM_DataW)?$temp_EX_MEM_DataW:0;?>','','width=400,height=250');">
       <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="EXECUTE MULTIPLEXER 4">

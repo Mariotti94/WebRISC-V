@@ -1,7 +1,5 @@
 <?php
-//#############################################################################
 //######################## FUNCTIONS: CONVERSIONS #############################
-//#############################################################################
 
 //#############################################################################
 //GMP string to binary number
@@ -12,19 +10,16 @@ function GMPToBin($str,$lunghezza,$istruzione)
   $str=gmp_strval(gmp_abs($str));
   $risultato='';
 
-  while($str!="1" && $str!="0")
-  {
+  while($str!="1" && $str!="0") {
     $i=gmp_strval(gmp_mod($str,"2"));
     $str=gmp_div_q(gmp_sub($str,$i),"2");
     $risultato=$i.$risultato;
 
   }
-  if ($str!="0")
-  {
+  if ($str!="0") {
     $risultato="1".$risultato;
   }
-  else
-  {
+  else {
     $risultato="0";
   }
 
@@ -36,8 +31,7 @@ function GMPToBin($str,$lunghezza,$istruzione)
       if (strlen($risultato)<$lunghezza)
       {
         $i=$lunghezza-strlen($risultato);
-        while($i!=0)
-        {
+        while($i!=0) {
           $risultato="0".$risultato;
           $i=$i-1;
         }
@@ -49,8 +43,7 @@ function GMPToBin($str,$lunghezza,$istruzione)
       if (strlen($risultato)<$lunghezza)
       {
         $i=$lunghezza-strlen($risultato);
-        while($i!=0)
-        {
+        while($i!=0) {
           $risultato="1".$risultato;
           $i=$i-1;
         }
@@ -62,8 +55,7 @@ function GMPToBin($str,$lunghezza,$istruzione)
     if (strlen($risultato)<$lunghezza)
     {
       $i=$lunghezza-strlen($risultato);
-      while($i!=0)
-      {
+      while($i!=0) {
         $risultato="0".$risultato;
         $i=$i-1;
       }
@@ -88,8 +80,7 @@ function BinToGMP($str,$istruzione)
       $j=0;
       $k="0";
       $l=0;
-      while($lunghezza!=$l)
-      {
+      while($lunghezza!=$l) {
         $i=substr($str,$lunghezza-1,1);
         $k=gmp_add($k,(gmp_mul($i,gmp_pow("2",strval($j)))));
         $j=$j+1;
@@ -102,8 +93,7 @@ function BinToGMP($str,$istruzione)
       $j=0;
       $k="0";
       $l=0;
-      while($lunghezza!=$l)
-      {
+      while($lunghezza!=$l) {
         $i=substr($str,$lunghezza-1,1);
         $k=gmp_add($k,(gmp_mul($i,gmp_pow("2",strval($j)))));
         $j=$j+1;
@@ -146,16 +136,14 @@ function twoComplement($str)
 }
 //#############################################################################
 
-//#############################################################################
 //################### FUNCTIONS: ARCHITECTURAL ELEMENTS #######################
-//#############################################################################
 
 //#############################################################################
 function ALU($controllo,$dato1,$dato2)
 {
   $dato1=strval($dato1);
   $dato2=strval($dato2);
-  
+
   switch ($controllo)
   {
     case "00000": //AND
@@ -252,7 +240,7 @@ function ALU($controllo,$dato1,$dato2)
       $risultato=str_repeat('0',$dato2).substr($risultato,0,-$dato2);
       $risultato=BinToGMP($risultato,0);
       break;
-      
+
     case "01111": //SRA
       $risultato=GMPToBin($dato1,64,0);
       $risultato=str_repeat($risultato[0],$dato2).substr($risultato,0,-$dato2);
@@ -284,7 +272,7 @@ function ALU($controllo,$dato1,$dato2)
       $risultato=str_repeat('0',32).substr($risultato,32,32);
       $risultato=BinToGMP($risultato,0);
       break;
-      
+
     case "11111": //SRAW
       $risultato=GMPToBin($dato1,64,0);
       $risultato=str_repeat($risultato[0],$dato2).substr($risultato,0,-$dato2);
@@ -379,7 +367,7 @@ function EXMux5($ctrl,$dato1,$dato2)
     case '01':
       $function_ret=$dato2;
       break;
-      
+
     case '10':
       $function_ret=0;
       break;
@@ -404,7 +392,7 @@ function EXMux6($ctrl,$dato1,$dato2)
     case '01':
       $function_ret=$dato2;
       break;
-      
+
     case '10':
       $function_ret=4;
       break;
@@ -439,7 +427,7 @@ function ctrlUnit($instruction)
       $mem="00000";
       $wb="10";
       break;
-    
+
     //type I
     case hexdec(13):
       $ex="100001";
@@ -471,11 +459,11 @@ function ctrlUnit($instruction)
         case hexdec(1): //lh
           $mem="10010";
           break;
-          
+
         case hexdec(2): //lw
           $mem="10100";
           break;
-          
+
         case hexdec(3): //ld
           $mem="10110";
           break;
@@ -491,7 +479,7 @@ function ctrlUnit($instruction)
         case hexdec(6): //lwu
           $mem="10101";
           break;
-          
+
         default:
           $mem="00000";
           break;
@@ -519,31 +507,31 @@ function ctrlUnit($instruction)
         case hexdec(3): //sd
           $mem="01110";
           break;
-          
+
         default:
           $mem="00000";
           break;
       }
       break;
-      
+
     case hexdec(67): //jalr
       $ex="000110";
       $mem="00000";
       $wb="10";
       break;
-  
+
     case hexdec('6F'): //jal
       $ex="000110";
       $mem="00000";
       $wb="10";
-      break;  
+      break;
 
     case hexdec(17): //auipc
       $ex="000101";
       $mem="00000";
       $wb="10";
       break;
-  
+
     case hexdec(37): //lui
       $ex="001001";
       $mem="00000";
@@ -564,6 +552,7 @@ function ctrlUnit($instruction)
 //#############################################################################
 function ctrlAlu($ctrl,$funct7,$funct3,$op)
 {
+  $funct6=BinToGMP(substr(GMPToBin($funct7,7,1),0,6),1);
   $function_ret="";
   switch ($ctrl)
   {
@@ -633,7 +622,7 @@ function ctrlAlu($ctrl,$funct7,$funct3,$op)
               $function_ret="11010";
             break;
 
-          case hexdec(7): 
+          case hexdec(7):
             if ($funct7==hexdec(0)) //and
               $function_ret="00000";
             if ($funct7==hexdec(1)) //remu
@@ -670,7 +659,7 @@ function ctrlAlu($ctrl,$funct7,$funct3,$op)
             if ($funct7==hexdec(1)) //divuw
               $function_ret="10001";
             if ($funct7==hexdec(20)) //sraw
-              $function_ret="11111"; 
+              $function_ret="11111";
             break;
 
           case hexdec(6):
@@ -691,7 +680,7 @@ function ctrlAlu($ctrl,$funct7,$funct3,$op)
           case hexdec(0): //addi
             $function_ret="00010";
             break;
-            
+
           case hexdec(1): //slli
             $function_ret="01101";
             break;
@@ -709,9 +698,9 @@ function ctrlAlu($ctrl,$funct7,$funct3,$op)
             break;
 
           case hexdec(5):
-            if ($funct7==hexdec(0))
+            if ($funct6==hexdec(0))
               $function_ret="01110"; //srli
-            if ($funct7==hexdec(20))
+            if ($funct6==hexdec(20))
               $function_ret="01111"; //srai
             break;
 
@@ -731,7 +720,7 @@ function ctrlAlu($ctrl,$funct7,$funct3,$op)
           case hexdec(0): //addiw
             $function_ret="10010";
             break;
-            
+
           case hexdec(1): //slliw
             $function_ret="11101";
             break;
@@ -751,9 +740,7 @@ function ctrlAlu($ctrl,$funct7,$funct3,$op)
 }
 //#############################################################################
 
-//#############################################################################
 //################## FUNCTIONS: ENCODING AND DECODING #########################
-//#############################################################################
 
 //#############################################################################
 //Instruction string to binary
@@ -761,7 +748,7 @@ function decodeIstr($istr)
 {
   $cmd=strtok($istr,' ');
   $a=substr($istr,strlen($istr)-(strlen($istr)-strlen($cmd)));
-  $cmd=strtolower(trim($cmd));
+  $cmd=trim($cmd);
 
   switch ($cmd)
   {
@@ -1893,7 +1880,7 @@ function decodeIstr($istr)
       $tipo='I';
       $op=hexdec('1B');
       $funct3=hexdec(1);
-      $funct6=hexdec(0);
+      $funct7=hexdec(0);
       if (strlen($a)==0)
       {
         $rd='ERR';
@@ -1932,7 +1919,7 @@ function decodeIstr($istr)
           $imm='ERR';
         }
       }
-      $imm=($imm!='ERR')?BinToGMP(GMPToBin($funct6,6,1).GMPToBin($imm,6,1),1):$imm;
+      $imm=($imm!='ERR')?BinToGMP(GMPToBin($funct7,7,1).GMPToBin($imm,5,1),1):$imm;
       break;
 
     case 'srli':
@@ -1985,7 +1972,7 @@ function decodeIstr($istr)
       $tipo='I';
       $op=hexdec('1B');
       $funct3=hexdec(5);
-      $funct6=hexdec(0);
+      $funct7=hexdec(0);
       if (strlen($a)==0)
       {
         $rd='ERR';
@@ -2024,7 +2011,7 @@ function decodeIstr($istr)
           $imm='ERR';
         }
       }
-      $imm=($imm!='ERR')?BinToGMP(GMPToBin($funct6,6,1).GMPToBin($imm,6,1),1):$imm;
+      $imm=($imm!='ERR')?BinToGMP(GMPToBin($funct7,7,1).GMPToBin($imm,5,1),1):$imm;
       break;
 
     case 'srai':
@@ -2077,7 +2064,7 @@ function decodeIstr($istr)
       $tipo='I';
       $op=hexdec('1B');
       $funct3=hexdec(5);
-      $funct6=hexdec(20);
+      $funct7=hexdec(20);
       if (strlen($a)==0)
       {
         $rd='ERR';
@@ -2116,9 +2103,9 @@ function decodeIstr($istr)
           $imm='ERR';
         }
       }
-      $imm=($imm!='ERR')?BinToGMP(GMPToBin($funct6,6,1).GMPToBin($imm,6,1),1):$imm;
+      $imm=($imm!='ERR')?BinToGMP(GMPToBin($funct7,7,1).GMPToBin($imm,5,1),1):$imm;
       break;
-      
+
     case 'lb':
       $tipo='I';
       $op=hexdec(3);
@@ -2182,7 +2169,7 @@ function decodeIstr($istr)
       $rs1=strtok($a,'\)');
       $rs1=trim($rs1);
       break;
-      
+
     case 'lw':
       $tipo='I';
       $op=hexdec(3);
@@ -2278,7 +2265,7 @@ function decodeIstr($istr)
       $rs1=strtok($a,'\)');
       $rs1=trim($rs1);
       break;
-      
+
     case 'lhu':
       $tipo='I';
       $op=hexdec(3);
@@ -2310,7 +2297,7 @@ function decodeIstr($istr)
       $rs1=strtok($a,'\)');
       $rs1=trim($rs1);
       break;
-      
+
     case 'lwu':
       $tipo='I';
       $op=hexdec(3);
@@ -2437,7 +2424,7 @@ function decodeIstr($istr)
       }
       $rs1=strtok($a,'\)');
       $rs1=trim($rs1);
-      break;      
+      break;
 
     case 'sd':
       $tipo='S';
@@ -2470,7 +2457,7 @@ function decodeIstr($istr)
       $rs1=strtok($a,'\)');
       $rs1=trim($rs1);
       break;
-      
+
     case 'beq':
       $tipo='SB';
       $op=hexdec(63);
@@ -2889,7 +2876,7 @@ function decodeIstr($istr)
       $rs1=strtok($a,'\)');
       $rs1=trim($rs1);
       break;
-      
+
     case 'ecall':
       $tipo='I';
       $op=hexdec(73);
@@ -2898,7 +2885,7 @@ function decodeIstr($istr)
       $rs1='x0';
       $imm=0;
       break;
-      
+
     case 'ebreak':
       $tipo='I';
       $op=hexdec(73);
@@ -2907,7 +2894,7 @@ function decodeIstr($istr)
       $rs1='x0';
       $imm=1;
       break;
-      
+
     case 'nop':
       $tipo='I';
       $op=hexdec(13);
@@ -2915,6 +2902,19 @@ function decodeIstr($istr)
       $rd='x0';
       $rs1='x0';
       $imm=0;
+      break;
+
+    case 'ret':
+      $tipo='I';
+      $op=hexdec(67);
+      $funct3=hexdec(0);
+      $rd='x0';
+      $rs1='ra';
+      $imm=0;
+      break;
+
+    case 'la':
+      $tipo='MULTI';
       break;
 
     case 'auipc':
@@ -2989,7 +2989,6 @@ function decodeIstr($istr)
       break;
   }
 
-
   if ($tipo=='R')
   {
     $op=intval($op);
@@ -3011,7 +3010,6 @@ function decodeIstr($istr)
       $function_ret=GMPToBin($funct7,7,1).GMPToBin($rs2,5,1).GMPToBin($rs1,5,1).GMPToBin($funct3,3,1).GMPToBin($rd,5,1).GMPToBin($op,7,1);
     }
   }
-
   if ($tipo=='I')
   {
     $op=intval($op);
@@ -3030,7 +3028,6 @@ function decodeIstr($istr)
       $function_ret=GMPToBin($imm,12,0).GMPToBin($rs1,5,1).GMPToBin($funct3,3,1).GMPToBin($rd,5,1).GMPToBin($op,7,1);
     }
   }
-
   if ($tipo=='S')
   {
     $op=intval($op);
@@ -3051,7 +3048,6 @@ function decodeIstr($istr)
       $function_ret=substr($imm_bin,0,7).GMPToBin($rs2,5,1).GMPToBin($rs1,5,1).GMPToBin($funct3,3,1).substr($imm_bin,7,5).GMPToBin($op,7,1);
     }
   }
-
   if ($tipo=='SB')
   {
     $op=intval($op);
@@ -3072,7 +3068,6 @@ function decodeIstr($istr)
 
     }
   }
-
   if ($tipo=='U')
   {
     $op=intval($op);
@@ -3088,7 +3083,6 @@ function decodeIstr($istr)
       $function_ret=GMPToBin($imm,20,1).GMPToBin($rd,5,1).GMPToBin($op,7,1);
     }
   }
-
   if ($tipo=='UJ')
   {
     $op=intval($op);
@@ -3102,8 +3096,64 @@ function decodeIstr($istr)
     {
       $rd=intval($rd);
       $target=':'.$target; //target label to decode later
-      $function_ret=GMPToBin($rd,5,1).GMPToBin($op,7,1).$target; 
+      $function_ret=GMPToBin($rd,5,1).GMPToBin($op,7,1).$target;
     }
+  }
+  if ($tipo=='MULTI')
+  {
+    $function_ret='MULTI';
+  }
+
+  return $function_ret;
+}
+//#############################################################################
+
+//#############################################################################
+//MultiInstruction to Instruction strings to binary
+function decodeMultiIstr($istr,$pc,$tabRil)
+{
+  $cmd=strtok($istr,' ');
+  $a=substr($istr,strlen($istr)-(strlen($istr)-strlen($cmd)));
+  $cmd=trim($cmd);
+
+  switch ($cmd)
+  {
+    case 'la':
+      if (strlen($a)==0) {
+        $function_ret=array('ERR','instr');
+        break;
+      }
+      $rd=strtok($a,',');
+      $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
+      $rd=trim($rd);
+      if (strlen($a)==0) {
+        $function_ret=array('ERR','instr');
+        break;
+      }
+      $symbol=trim(strtok($a,PHP_EOL));
+
+      $rd=decRegister($rd);
+      if ($rd==='ERR') {
+        $function_ret=array('ERR','instr');
+        break;
+      }
+      $symbol_addr=cLabel($symbol,$tabRil);
+      if ($symbol_addr==='ERR') {
+        $function_ret=array('ERR','label',$symbol);
+        break;
+      }
+      $delta=$symbol_addr-$pc;
+      $binDelta=GMPToBin($delta,32,0);
+      $auipc_addr=BinToGMP(substr($binDelta,0,20),0)+BinToGMP(substr($binDelta,20,1),0);
+      $addi_addr=BinToGMP(substr($binDelta,20,12),0);
+      $auipc=GMPToBin($auipc_addr,20,1).GMPToBin($rd,5,1).GMPToBin(hexdec(17),7,1);
+      $addi=GMPToBin($addi_addr,12,0).GMPToBin($rd,5,1).GMPToBin(hexdec(0),3,1).GMPToBin($rd,5,1).GMPToBin(hexdec(13),7,1);
+      $function_ret=array($auipc,$addi);
+      break;
+
+    default:
+      $function_ret=array('ERR','instr');
+      break;
   }
 
   return $function_ret;
@@ -3119,127 +3169,127 @@ function decRegister($reg)
     case 'x0':
       $function_ret=0;
       break;
-      
+
     case 'x1':
       $function_ret=1;
       break;
-      
+
     case 'x2':
       $function_ret=2;
       break;
-      
+
     case 'x3':
       $function_ret=3;
       break;
-      
+
     case 'x4':
       $function_ret=4;
       break;
-      
+
     case 'x5':
       $function_ret=5;
       break;
-      
+
     case 'x6':
       $function_ret=6;
       break;
-      
+
     case 'x7':
       $function_ret=7;
       break;
-      
+
     case 'x8':
       $function_ret=8;
       break;
-      
+
     case 'x9':
       $function_ret=9;
       break;
-      
+
     case 'x10':
       $function_ret=10;
       break;
-      
+
     case 'x11':
       $function_ret=11;
       break;
-      
+
     case 'x12':
       $function_ret=12;
       break;
-      
+
     case 'x13':
       $function_ret=13;
       break;
-      
+
     case 'x14':
       $function_ret=14;
       break;
-      
+
     case 'x15':
       $function_ret=15;
       break;
-      
+
     case 'x16':
       $function_ret=16;
       break;
-      
+
     case 'x17':
       $function_ret=17;
       break;
-      
+
     case 'x18':
       $function_ret=18;
       break;
-      
+
     case 'x19':
       $function_ret=19;
       break;
-      
+
     case 'x20':
       $function_ret=20;
       break;
-      
+
     case 'x21':
       $function_ret=21;
       break;
-      
+
     case 'x22':
       $function_ret=22;
       break;
-      
+
     case 'x23':
       $function_ret=23;
       break;
-      
+
     case 'x24':
       $function_ret=24;
       break;
-      
+
     case 'x25':
       $function_ret=25;
       break;
-      
+
     case 'x26':
       $function_ret=26;
       break;
-      
+
     case 'x27':
       $function_ret=27;
       break;
-      
+
     case 'x28':
       $function_ret=28;
       break;
-      
+
     case 'x29':
       $function_ret=29;
       break;
-      
+
     case 'x30':
       $function_ret=30;
       break;
-      
+
     case 'x31':
       $function_ret=31;
       break;
@@ -3371,7 +3421,7 @@ function decRegister($reg)
     case 'tp':
       $function_ret=4;
       break;
-      
+
     case 'zero':
       $function_ret=0;
       break;
@@ -3386,12 +3436,13 @@ function decRegister($reg)
 //#############################################################################
 
 //#############################################################################
-//Label string to address
-function cLabel($label,$tabRil,$dimTabRil)
+//Label to Label Address
+function cLabel($label,$tabRil)
 {
   $i=0;
+  $length=count($tabRil);
   $function_ret='ERR';
-  while($i<$dimTabRil)
+  while($i<$length)
   {
     $a1=$tabRil[$i];
     $b1=(strpos($a1,'|',1) ? strpos($a1,'|',1)+1 : 0);
@@ -3557,9 +3608,7 @@ function codRegister($reg)
 //Identify instruction name
 function instrName($op,$funct3,$funct7,$rs2)
 {
-  $op=intval($op);
-  $funct3=intval($funct3);
-  $funct7=intval($funct7);
+  $funct6=BinToGMP(substr(GMPToBin($funct7,7,1),0,6),1);
   $function_ret='';
 
   if ($op==hexdec(33))
@@ -3574,7 +3623,7 @@ function instrName($op,$funct3,$funct7,$rs2)
         if ($funct7==hexdec(1))
           $function_ret='Mul';
         break;
-        
+
       case hexdec(1):
         if ($funct7==hexdec(0))
           $function_ret='Sll';
@@ -3595,7 +3644,7 @@ function instrName($op,$funct3,$funct7,$rs2)
         if ($funct7==hexdec(1))
           $function_ret='Mulhu';
         break;
-        
+
       case hexdec(4):
         if ($funct7==hexdec(0))
           $function_ret='Xor';
@@ -3611,7 +3660,7 @@ function instrName($op,$funct3,$funct7,$rs2)
         if ($funct7==hexdec(20))
           $function_ret='Sra';
         break;
-        
+
       case hexdec(6):
         if ($funct7==hexdec(0))
           $function_ret='Or';
@@ -3728,9 +3777,9 @@ function instrName($op,$funct3,$funct7,$rs2)
         $function_ret='Xori';
         break;
       case hexdec(5):
-        if ($funct7==hexdec(0))
+        if ($funct6==hexdec(0))
           $function_ret="Srli";
-        if ($funct7==hexdec(20))
+        if ($funct6==hexdec(20))
           $function_ret='Srai';
         break;
       case hexdec(6):
@@ -3885,6 +3934,61 @@ function instrType($op)
 
   return $type;
 }
-//#############################################################
+//#########################################################################
 
+//################### FUNCTIONS: DATA VISUALIZATION #######################
+
+//#########################################################################
+function generateTextH2L($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0) {
+  $text='<tr>';
+  $text=$text.'<td rowspan="3" width="40" style="word-break: break-all;" align="center" bgcolor="white">'.BinToGMP($byte7.$byte6.$byte5.$byte4.$byte3.$byte2.$byte1.$byte0,0).'</td>';
+  $text=$text.'<td width="40" style="word-break: break-all;" align="center" bgcolor="white">'.BinToGMP($byte7.$byte6.$byte5.$byte4,0).'</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte7.'<br>( '.BinToGMP($byte7,0).' )</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte6.'<br>( '.BinToGMP($byte6,0).' )</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte5.'<br>( '.BinToGMP($byte5,0).' )</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte4.'<br>( '.BinToGMP($byte4,0).' )</td>';
+  $text=$text.'<td width="30" align="center" bgcolor="#333333" class="indice">'.($memIndex+4).'</td>';
+  $text=$text.'</tr>';
+  $text=$text.'<tr>';
+  $text=$text.'<td colspan="6"><img src="../img/layout/x.gif" height="'.$height.'"></td>';
+  $text=$text.'</tr>';
+  $text=$text.'<tr>';
+  $text=$text.'<td width="40" style="word-break: break-all;" align="center" bgcolor="white">'.BinToGMP($byte3.$byte2.$byte1.$byte0,0).'</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte3.'<br>( '.BinToGMP($byte3,0).' )</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte2.'<br>( '.BinToGMP($byte2,0).' )</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte1.'<br>( '.BinToGMP($byte1,0).' )</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte0.'<br>( '.BinToGMP($byte0,0).' )</td>';
+  $text=$text.'<td width="30" align="center" bgcolor="#333333" class="indice">'.$memIndex.'</td>';
+  $text=$text.'</tr>';
+  $text=$text.'<tr>';
+  $text=$text.'<td colspan="6"><img src="../img/layout/x.gif" height="'.$height.'"></td>';
+  $text=$text.'</tr>';
+  return $text;
+}
+function generateTextL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0) {
+  $text='<tr>';
+  $text=$text.'<td rowspan="3" width="40" style="word-break: break-all;" align="center" bgcolor="white">'.BinToGMP($byte7.$byte6.$byte5.$byte4.$byte3.$byte2.$byte1.$byte0,0).'</td>';
+  $text=$text.'<td width="40" style="word-break: break-all;" align="center" bgcolor="white">'.BinToGMP($byte3.$byte2.$byte1.$byte0,0).'</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte3.'<br>( '.BinToGMP($byte3,0).' )</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte2.'<br>( '.BinToGMP($byte2,0).' )</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte1.'<br>( '.BinToGMP($byte1,0).' )</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte0.'<br>( '.BinToGMP($byte0,0).' )</td>';
+  $text=$text.'<td width="30" align="center" bgcolor="#333333" class="indice">'.$memIndex.'</td>';
+  $text=$text.'</tr>';
+  $text=$text.'<tr>';
+  $text=$text.'<td colspan="6"><img src="../img/layout/x.gif" height="'.$height.'"></td>';
+  $text=$text.'</tr>';
+  $text=$text.'<tr>';
+  $text=$text.'<td width="40" style="word-break: break-all;" align="center" bgcolor="white">'.BinToGMP($byte7.$byte6.$byte5.$byte4,0).'</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte7.'<br>( '.BinToGMP($byte7,0).' )</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte6.'<br>( '.BinToGMP($byte6,0).' )</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte5.'<br>( '.BinToGMP($byte5,0).' )</td>';
+  $text=$text.'<td width="50" align="center" bgcolor="white">'.$byte4.'<br>( '.BinToGMP($byte4,0).' )</td>';
+  $text=$text.'<td width="30" align="center" bgcolor="#333333" class="indice">'.($memIndex+4).'</td>';
+  $text=$text.'</tr>';
+  $text=$text.'<tr>';
+  $text=$text.'<td colspan="6"><img src="../img/layout/x.gif" height="'.$height.'"></td>';
+  $text=$text.'</tr>';
+  return $text;
+}
 ?>

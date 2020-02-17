@@ -17,6 +17,7 @@ $sysman = "VALID SYSCALLS MANUAL".PHP_EOL;
 $sysman = $sysman."Syscall code in a7, Argument in a0".PHP_EOL;
 $sysman = $sysman."SYSCALL CODES:".PHP_EOL;
 $sysman = $sysman."Print Int = 1".PHP_EOL;
+$sysman = $sysman."Print String = 4".PHP_EOL;
 $sysman = $sysman."Read Int= 5".PHP_EOL;
 ?>
 <html>
@@ -47,7 +48,7 @@ $sysman = $sysman."Read Int= 5".PHP_EOL;
     </form>
   </div>
   <?php } ?>
-  
+
   <?php if ($_SESSION['data'][0]['sysBreak']) { ?>
   <div style="margin: 5px;">
     <form action="" method="post">

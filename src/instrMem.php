@@ -1,11 +1,11 @@
 <?php
 require_once 'functions.php';
 $mem=$_SESSION['memIstr'];
-$dim=$_SESSION['memIstrDim'];
+$dim=$_SESSION['memIstrUse'];
 $dim=intval($dim);
 
 if ($dim!=0)
-{  
+{
   echo '<div id="memIstr"></div>';
   $index=0;
   while($index<$dim)
@@ -80,7 +80,7 @@ if ($dim!=0)
     ?>
     <br>
     <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
-      
+
     <?php
       $text1='<tr><td align="center" valign="middle" bgcolor=';
       $text2='> <font size="2" face="arial" color="black">';
@@ -120,7 +120,7 @@ if ($dim!=0)
         $message='INSTRUCTION IN WB STAGE';
         echo $text1.$color.$id.$text2.$message.$text3;
       }
-      
+
     ?>
       <tr>
         <td width="40%" align="center" valign="middle" bgcolor="white">
@@ -302,10 +302,8 @@ if ($dim!=0)
 else
 {
   ?>
-  <br>
-  <br>
   <div align="center" class="testoGrande">
-    Instruction Memory is EMPTY
+    <b style="font-size:14px; display:block; margin:30px 0px 15px 0px;">EMPTY</b>
     <form action="editor.php" method="post" target="Layout" style="margin: 5px;">
       <input type="submit" value="Click HERE to load a program" name="load" class="form" style="padding: 1px 5px;">
     </form>

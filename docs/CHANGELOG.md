@@ -1,13 +1,19 @@
 ## Changelog
 
+* **Version 1.7**
+  * Implemented .data Directives
+    * Upgraded Memory model
+    * Additional ECALL Syscall
+    * Editor page Directive list
+    * Implementation of pseudoinstruction LLA
+
 * **Version 1.6**
   * Upgraded the Pipeline Schema
   * Added selector for Forwarding Inside Pipeline [Activated || Deactivated]
     * Changes to Pipeline Schema depending on the selection
   * Implemented the full RV64I (excluding: fence) and RV64M instruction set
-    * Editor Instruction list with small descriptions on click
+    * Editor page Instruction list with small descriptions on click
   * Hexadecimal(0xNUMBER) recognition for immediates in Editor
-  * Other small updates for bugfixing
 
 * **Version 1.5**
   * Multiple steps backwards now possible during execution

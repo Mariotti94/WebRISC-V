@@ -14,7 +14,7 @@ session_start();
 <?php
   require_once 'functions.php';
   $clock=($_SESSION['data'][$_SESSION['index']]['finito'])?$_SESSION['data'][$_SESSION['index']]['clock']-1:$_SESSION['data'][$_SESSION['index']]['clock'];
-  
+
   for ($i=0; $i<count($_SESSION['data'][$_SESSION['index']]['execTrail']); ++$i) {
     $a=$_SESSION['data'][$_SESSION['index']]['execTrail'][$i];
     $op=substr($a,25,7);
@@ -24,7 +24,7 @@ session_start();
 
     $tipo=instrType(BinToGMP($op,1));
     $oper=instrName(BinToGMP($op,1),BinToGMP($funct3,1),BinToGMP($funct7,1),BinToGMP($rs2,1));
-    
+
     $istruzione='';
 
     if ($tipo=="R")
@@ -81,8 +81,8 @@ session_start();
       $imm=substr($a,0,1).substr($a,12,8).substr($a,11,1).substr($a,1,10).'0';
       $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".BinToGMP($imm,0)*2;
     }
-    
-  
+
+
     if ($i==0) {
       echo "<tr>";
       echo "<td align='center' colspan='".($clock+1)."' style='padding-bottom: 10px;'>EXECUTION TABLE</td>";
@@ -98,7 +98,7 @@ session_start();
       }
       echo "</tr>";
     }
-      
+
     echo "<tr class='alternating'>";
     echo "<td class='pipeTd' style='min-width:125px;'>".$istruzione."</td>";
     for ($j=1; $j<=$clock; ++$j) {
@@ -113,7 +113,7 @@ session_start();
     }
     echo "</tr>";
   }
-  
+
   if (count($_SESSION['data'][$_SESSION['index']]['execTrail'])==0) {
     echo "<tr>";
     echo "<td align='center' style='padding-bottom: 10px;'>EXECUTION TABLE</td>";
@@ -122,7 +122,7 @@ session_start();
     echo "<td align='center' style='background-color: white; border: 1px solid;'>EMPTY</td>";
     echo "</tr>";
   }
-    
+
 ?>
 </table>
 </body>

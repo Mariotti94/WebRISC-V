@@ -33,7 +33,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "cause": //CAUSE
             ?>
             <div align="center" class="testoGrande"><b>SCAUSE</b></div>
@@ -47,7 +47,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "if_som": //IF ADDER
             $PC=$_GET["newPC"];
             $PCpiu4=$_GET["PCpiu4"];
@@ -74,7 +74,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "id_som1": //ID ADDER 1
             $ifidPC=$_GET["ifidPC"];
             $immsl=$_GET["immsl"];
@@ -134,7 +134,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "pc": //PC
             $newPC=$_GET["newPC"];
             $PC=$_GET["PC"];
@@ -163,7 +163,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "istruzioni": //INSTRUCTION MEMORY
             $PC=$_GET["PC"];
             $istruzione=$_GET["istr"];
@@ -200,7 +200,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "if_mux": //IF MUX
             $newPC=$_GET["newPC"];
             $PCpiu4=$_GET["PCpiu4"];
@@ -211,8 +211,8 @@ session_start();
             <div align="center" class="testoGrande"><b>INSTRUCTION FETCH MULTIPLEXER</b></div>
             <hr size="1" width="60%" noshade>
             <div align="center" class="testoGrande">
-              This multiplexer selects the new program counter value based on the two control signals. 
-              <br>The first control signal decides whether a jump should happen or not. 
+              This multiplexer selects the new program counter value based on the two control signals.
+              <br>The first control signal decides whether a jump should happen or not.
               <br>The second control signal tells if there was an exception.
               <table>
               <tr><td class="testoGrande">
@@ -264,7 +264,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "and": //AND
             $ctrl1=$_GET["ctrl1"];
             $ctrl2=$_GET["ctrl2"];
@@ -303,7 +303,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "criticita": //HAZARD DETECTION UNIT
             $RL1=$_GET["rl1"];
             $RL2=$_GET["rl2"];
@@ -352,7 +352,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "controllo": //CONTROL UNIT
             $istr=$_GET["istr"];
             $salta=$_GET["salta"];
@@ -369,7 +369,7 @@ session_start();
             <div align="center" class="testoGrande"><b>CONTROL UNIT</b></div>
             <hr size="1" width="60%" noshade>
             <div align="center" class="testoGrande">
-              This unit is a combinational network, which generates the control signals for all stages 
+              This unit is a combinational network, which generates the control signals for all stages
               according to the values of the OP and FUNCT3 fields.
             </div>
             <br>
@@ -409,7 +409,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "or": //OR
             $stallo=$_GET["stallo"];
             $id_scarta=$_GET["id_scarta"];
@@ -446,7 +446,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "id_mux1": //ID MULTIPLEXER 1
             $wb=$_GET["wb"];
             $mem=$_GET["mem"];
@@ -459,7 +459,7 @@ session_start();
             <div align="center" class="testoGrande"><b>ID MULTIPLEXER 1</b></div>
             <hr size="1" width="60%" noshade>
             <div align="center" class="testoGrande">
-              This multiplexer should forward the control signals in ID/EX registers or, 
+              This multiplexer should forward the control signals in ID/EX registers or,
               in case of stall or flush, force all signals to zero.
             </div>
             <br>
@@ -497,7 +497,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "branch_cmp": //BRANCH COMPARATOR
             $data1=$_GET["data1"];
             $data2=$_GET["data2"];
@@ -512,13 +512,13 @@ session_start();
             <div align="center" class="testoGrande"><b>BRANCH COMPARATOR</b></div>
             <hr size="1" width="60%" noshade>
             <div align="center" class="testoGrande">
-              This comparator, if the instruction is a branch, selects the operands to 
-              compare based on the control signals from the forwarding unit and verifies 
+              This comparator, if the instruction is a branch, selects the operands to
+              compare based on the control signals from the forwarding unit and verifies
               them according to the type of branch [seen from FUNCT3].
               If the instruction is not a branch, the output is always 1.
             </div>
             <br>
-            
+
             <table width="100%" cellpadding="0" cellspacing="0" align="center">
               <tr>
                 <td colspan="3" align="center" class="testo" style="padding-bottom: 10px;">
@@ -552,14 +552,14 @@ session_start();
                 </td>
               </tr>
             </table>
-            
+
             <form action="javascript:window.close()" method="post">
               <hr size="1" width="60%" noshade>
               <input type="submit" value="Close This Window" class="form">
             </form>
             <?php
             break;
-            
+
           case "immgen": //IMMEDIATE GENERATOR
             $esteso=$_GET["esteso"];
             $dato=$_GET["dato"];
@@ -598,7 +598,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "sl1": //SHIFT LEFT 1
             $input=$_GET["input"];
             $output=$_GET["output"];
@@ -636,7 +636,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "registri": //REGISTER FILE
             $RL1=$_GET["RL1"];
             $RL2=$_GET["RL2"];
@@ -668,7 +668,7 @@ session_start();
                   MEM/WB.RegisterRD = <?php echo $RW;?><br><br>
                   WB.Data = <?php echo $WBdata;?><br>
                 </td>
-                <td align="center" class="testo" width="33%">  
+                <td align="center" class="testo" width="33%">
                   <table width="90" height="150" cellpadding="0" cellspacing="0" class="elemento">
                     <tr>
                       <td valign="top" align="center">
@@ -698,7 +698,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "ex_mux1": //EX MULTIPLEXER 1
             $ex_scarta=$_GET["ex_scarta"];
             $dato=$_GET["dato"];
@@ -738,7 +738,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "ex_mux2": //EX MULTIPLEXER 2
             $ex_scarta=$_GET["ex_scarta"];
             $dato=$_GET["dato"];
@@ -777,7 +777,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "ex_mux3": //EX MULTIPLEXER 3
             $DL1=$_GET["DL1"];
             $mem_wb=$_GET["mem_wb"];
@@ -822,7 +822,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "ex_mux4": //EX MULTIPLEXER 4
             $DL1=$_GET["DL1"];
             $mem_wb=$_GET["mem_wb"];
@@ -867,7 +867,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "ex_mux5": //EX MULTIPLEXER 5
             $op1=$_GET["op1"];
             $op2=$_GET["op2"];
@@ -910,7 +910,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "ex_mux6": //EX MULTIPLEXER 6
             $op1=$_GET["op1"];
             $op2=$_GET["op2"];
@@ -920,7 +920,7 @@ session_start();
             <div align="center" class="testoGrande"><b>EXECUTE MULTIPLEXER 6</b></div>
             <hr size="1" width="60%" noshade>
             <div align="center" class="testoGrande">
-              This MUX allows to choose whether the ALU second operand should be 
+              This MUX allows to choose whether the ALU second operand should be
               the previous MUX result, the immediate value or 4.
             </div>
             <br>
@@ -993,7 +993,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "alu": //ALU
             $valore1=$_GET["valore1"];
             $valore2=$_GET["valore2"];
@@ -1031,7 +1031,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "forward_alu": //FORWARDING UNIT
             $rs1=$_GET["rs1"];
             $rs2=$_GET["rs2"];
@@ -1094,7 +1094,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "forward_branch": //FORWARDING UNIT
             $rs1=$_GET["rs1"];
             $rs2=$_GET["rs2"];
@@ -1155,7 +1155,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "controlloalu": //ALU CONTROL UNIT
             $ctrl=$_GET["ctrl"];
             $funct=$_GET["funct"];
@@ -1189,7 +1189,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "wb_mux": //WB MULTIPLEXER
             $DL=$_GET["DL"];
             $DC=$_GET["DC"];
@@ -1230,7 +1230,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "memdati": //DATA MEMORY
             $memW=$_GET["memW"];
             $memR=$_GET["memR"];
@@ -1299,7 +1299,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "ifid": //IF/ID LATCH
             ?>
             <div align="center" class="testoGrande"><b>IF/ID LATCH</b></div>
@@ -1313,7 +1313,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "idex": //ID/EX LATCH
             ?>
             <div align="center" class="testoGrande"><b>ID/EX LATCH</b></div>
@@ -1327,7 +1327,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "exmem": //EX/MEM LATCH
             ?>
             <div align="center" class="testoGrande"><b>EX/MEM LATCH</b></div>
@@ -1341,7 +1341,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "memwb": //MEM/WB LATCH
             ?>
             <div align="center" class="testoGrande"><b>MEM/WB LATCH</b></div>
@@ -1355,7 +1355,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "idexwb": //ID/EX.WB REGISTER
             $dataIn=$_GET["dataIn"];
             $dataOut=$_GET["dataOut"];
@@ -1395,7 +1395,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "idexmem": //ID/EX.MEM REGISTER
             $dataIn=$_GET["dataIn"];
             $dataOut=$_GET["dataOut"];
@@ -1435,7 +1435,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "idexex": //ID/EX.EX REGISTER
             $dataIn=$_GET["dataIn"];
             $dataOut=$_GET["dataOut"];
@@ -1475,7 +1475,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "exmemwb": //EX/MEM.WB REGISTER
             $dataIn=$_GET["dataIn"];
             $dataOut=$_GET["dataOut"];
@@ -1515,7 +1515,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "exmemmem": //EX/MEM.MEM REGISTER
             $dataIn=$_GET["dataIn"];
             $dataOut=$_GET["dataOut"];
@@ -1555,7 +1555,7 @@ session_start();
             </form>
             <?php
             break;
-            
+
           case "memwbwb": //MEM/WB.WB REGISTER
             $dataIn=$_GET["dataIn"];
             $dataOut=$_GET["dataOut"];

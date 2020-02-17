@@ -86,10 +86,10 @@ else {
       </table>
     </td>
   </tr>
-  
-  <?php  
-  if ($_SESSION['data'][0]['sysHold']) { 
-    for($i=0; $i<3; ++$i) { 
+
+  <?php
+  if ($_SESSION['data'][$_SESSION['index']]['sysCall']) {
+    for($i=0; $i<3; ++$i) {
   ?>
   <tr>
     <td><img src="../img/layout/x.gif" width="2"></td>
@@ -97,8 +97,10 @@ else {
   <?php } ?>
     <tr>
       <td align="center" valign="middle" colspan="2">
-        <span style="padding:2px 5px; border:1px solid red; color:red; font-size: 15px;" id="consoleAlert">CONSOLE INTERACTION ALERT</span>
-        <script language='JavaScript' type='text/JavaScript'>window.open('console.php','','width=600,height=400');</script>
+        <div style="margin:0px 30px; line-height:20px; border:1px solid red; color:red; font-size: 15px;" id="consoleAlert">CONSOLE INTERACTION</div>
+        <?php if($_SESSION['data'][0]['sysHold']) {?>
+        <div style="margin:0px 30px; margin-top:5px; line-height:20px; border:1px solid red; color:red; font-size: 15px;">INPUT REQUIRED</div>
+        <?php }?>
       </td>
     </tr>
   <?php } ?>
@@ -107,7 +109,7 @@ else {
   <tr>
     <td><img src="../img/layout/x.gif" width="2"></td>
   </tr>
-  <?php 
+  <?php
   }
   if ($_SESSION['data'][$_SESSION['index']]['finito']) { ?>
   <tr>
@@ -178,10 +180,10 @@ else {
       }
     ?>
     </td>
-  </tr>  
-    
+  </tr>
+
 </table>
-  
+
 <table cellpadding="0" cellspacing="0" width="100%" border="0" align="center" bgcolor="#7b869a" id="destraTop">
 
   <tr>
@@ -198,7 +200,7 @@ else {
             <td width="5"><img src="../img/layout/bg_destra_active1.gif"></td>
             <td valign="middle" align="center" background="../img/layout/bg_destra_active3.gif">
               <a href="leftPanel.php" class="link3"><b>Instruction<br>Memory</b></a></td>
-            <td width="19"><img src="../img/layout/bg_destra_active2.gif"></td>
+            <td width="19" style="background: #7b869a;"><img src="../img/layout/bg_destra_active2.gif"></td>
           </tr>
         </table>
       <?php }
@@ -224,8 +226,8 @@ else {
           <tr>
             <td width="5"><img src="../img/layout/bg_destra_active1.gif"></td>
             <td valign="middle" align="center" background="../img/layout/bg_destra_active3.gif">
-              <a href="leftPanel.php?dst=dati&tipo=tutto" class="link3"><b>Data<br>Memory</b></a></td>
-            <td width="19"><img src="../img/layout/bg_destra_active2.gif"></td>
+              <a href="leftPanel.php?dst=dati" class="link3"><b>Data<br>Memory</b></a></td>
+            <td width="19" style="background: #7b869a;"><img src="../img/layout/bg_destra_active2.gif"></td>
           </tr>
         </table>
       <?php }
@@ -235,7 +237,7 @@ else {
         <table cellpadding="0" cellspacing="0" border="0" align="center">
           <tr>
             <td valign="middle" align="center">
-              <a href="leftPanel.php?dst=dati&tipo=tutto" class="link">Data<br>Memory</a></td>
+              <a href="leftPanel.php?dst=dati" class="link">Data<br>Memory</a></td>
           </tr>
         </table>
       <?php } ?>
@@ -252,7 +254,7 @@ else {
             <td width="5"><img src="../img/layout/bg_destra_active1.gif"></td>
             <td align="center" background="../img/layout/bg_destra_active3.gif">
               <a href="leftPanel.php?dst=registri" class="link3"><b>Registers</b></a></td>
-            <td width="19"><img src="../img/layout/bg_destra_active2.gif"></td>
+            <td width="19" style="background: #7b869a;"><img src="../img/layout/bg_destra_active2.gif"></td>
           </tr>
         </table>
       <?php }

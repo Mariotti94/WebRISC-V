@@ -6,6 +6,12 @@ session_start();
   <title>WebRISC-V - RISC-V PIPELINED DATAPATH SIMULATION ONLINE</title>
   <link href="../css/main.css" rel="stylesheet" type="text/css">
   <?php
+  if (isset($_POST['btnMemDatiShow'])) {
+    if ($_POST['selectMemDatiShow']=="high_to_low")
+      $_SESSION['memDatiShow']=0;
+    if ($_POST['selectMemDatiShow']=="low_to_high")
+      $_SESSION['memDatiShow']=1;
+  }
   if (isset($_POST['btnBranchRes'])) {
     require_once 'init.php';
     $_SESSION['codice']='';
@@ -43,6 +49,18 @@ session_start();
     </script>
     <?php
   }
+  if (isset($_POST['btnMemDatiShow'])) {
+    ?>
+    <script language='JavaScript' type='text/JavaScript'>
+      window.onload = function() {
+        //RELOAD PANELS
+        var rFrame=top.frames[1];
+        if (rFrame)
+          rFrame.document.location.reload();
+      };
+    </script>
+    <?php
+  }
   ?>
   <script language='JavaScript' type='text/JavaScript'>
     function toggleHover() {
@@ -75,8 +93,8 @@ session_start();
           <td align="center" style="border-width: 2px 2px 0px 2px; border-style: solid; border-color: #cccccc; line-height: 17px; font-size: 13px;">COMMANDS</td>
         </tr>
         <tr>
-          <td align="center" valign="middle" bgcolor="#ebebeb" style="border:2px solid #cccccc; height:100%;">
-          
+          <td align="center" valign="middle" bgcolor="#ebebeb" style="border:2px solid #cccccc; height:100%; padding:0px 2px;">
+
             <table cellpadding="0" width="100%" cellspacing="0" border="0">
               <tr>
                 <td align="center" width="50%">
@@ -84,7 +102,7 @@ session_start();
                     <tr>
                       <td align="center" style="height: 13px;"><a href="editor.php" target="Layout" class="link4">Load Program</a></td></tr>
                   </table>
-                  
+
                   <table cellpadding="0" cellspacing="0" border="0">
                     <tr>
                       <td align="center"><img src="../img/layout/x.gif" height="3"></td>
@@ -96,7 +114,7 @@ session_start();
                       <td align="center" style="height: 13px;"><a href="executeStep.php?agg=new" target="_blank" class="link4">Pipeline in New Window</a></td>
                     </tr>
                   </table>
-                  
+
                   <table cellpadding="0" cellspacing="0" border="0">
                     <tr>
                       <td align="center"><img src="../img/layout/x.gif" height="3"></td>
@@ -109,7 +127,7 @@ session_start();
                     </tr>
                   </table>
                 </td>
-                
+
                 <td align="center" width="50%">
                   <table cellpadding="0" cellspacing="2" border="0" width="145" class="form" id="allButton">
                     <tr>
@@ -128,7 +146,7 @@ session_start();
                       <td align="center" style="height: 13px;"><a href="executeStep.php" target="Layout" class="link4"><span style='position:relative; top:3px; font-size:20px; margin:-12px 2px -12px -10px; display: inline-block;'>&#8680;</span>Step Forward</a></td>
                     </tr>
                   </table>
-                  
+
                   <table cellpadding="0" cellspacing="0" border="0">
                     <tr>
                       <td align="center"><img src="../img/layout/x.gif" height="3"></td>
@@ -148,7 +166,7 @@ session_start();
         <tr><td height="2"><img src="../img/layout/x.gif"></td></tr>
       </table>
     </td>
-    
+
     <td width="2" align="left"  ><img src="../img/layout/x.gif" border="0" width="2"></td>
     <td width="34%" align="left">
       <table cellpadding="0" width="100%" cellspacing="0" border="0" height="96">
@@ -156,7 +174,7 @@ session_start();
           <td align="center" style="border-width: 2px 2px 0px 2px; border-style: solid; border-color: #cccccc; line-height: 17px; font-size: 13px;">EXECUTION OPTIONS</td>
         </tr>
         <tr>
-          <td align="center" valign="middle" bgcolor="#ebebeb" height="100%" style="border:2px solid #cccccc; height:100%;">
+          <td align="center" valign="middle" bgcolor="#ebebeb" height="100%" style="border:2px solid #cccccc; height:100%; padding:0px 2px;">
             <table width="90%">
             <tr>
               <td align="center">
@@ -188,7 +206,7 @@ session_start();
         <tr><td height="2"><img src="../img/layout/x.gif"></td></tr>
       </table>
     </td>
-    
+
     <td width="2" align="left"  ><img src="../img/layout/x.gif" border="0" width="2"></td>
     <td width="33%" align="left">
       <table cellpadding="0" width="100%" cellspacing="0" border="0" height="96">
@@ -196,14 +214,14 @@ session_start();
           <td align="center" style="border-width: 2px 2px 0px 2px; border-style: solid; border-color: #cccccc; line-height: 17px; font-size: 13px;">VISUALIZATION OPTIONS</td>
         </tr>
         <tr>
-          <td align="center" valign="middle" bgcolor="#ebebeb" height="68" style="border:2px solid #cccccc;  height:100%;">
+          <td align="center" valign="middle" bgcolor="#ebebeb" height="68" style="border:2px solid #cccccc;  height:100%; padding:0px 2px;">
             <table cellpadding="0" width="100%" cellspacing="0" border="0">
               <tr>
-                <td align="center" width="50%" id="popupToggleTd">
+                <td align="center" id="popupToggleTd">
                   <table>
                     <tr>
                       <td><input type="checkbox" id="toggleHover" name="toggleHover" onclick="javascript:top.frames[0].toggleHover()"></td>
-                      <td class="testo" width="90" align="left">Popup Elements on Hover</td>
+                      <td class="testo" align="left">Popup<br>Elements<br>on Hover</td>
                     </tr>
                   </table>
                 </td>
@@ -220,15 +238,15 @@ session_start();
                     document.head.appendChild(styleSheet);
                   }
                 </script>
-                <td align="center" width="50%">
+                <td align="center">
                   <form action="executeStep.php?agg=refresh" method="post" target="Layout" id="btn_refreshLayoutForm">
-                  <table cellpadding="0" cellspacing="0" border="0" width="200">
+                  <table cellpadding="0" cellspacing="0" border="0">
                     <tr>
                       <td align="center">
                         <table>
                           <tr>
                             <td><input type="checkbox" name="segDati" onclick="javascript:top.frames[0].document.getElementById('refreshLayout').click();" <?php echo $_SESSION['segDati'];?>></td>
-                            <td class="testo">Show<br>Data Path</td>
+                            <td class="testo">Show<br>Data&nbsp;Path</td>
                           </tr>
                         </table>
                       </td>
@@ -236,7 +254,7 @@ session_start();
                         <table>
                           <tr>
                             <td><input type="checkbox" name="segCtrl" onclick="javascript:top.frames[0].document.getElementById('refreshLayout').click();" <?php echo $_SESSION['segCtrl'];?>></td>
-                            <td class="testo">Show<br>Control Path</td>
+                            <td class="testo">Show<br>Control&nbsp;Path</td>
                           </tr>
                         </table>
                       </td>
@@ -253,6 +271,17 @@ session_start();
                   </script>
                   </form>
                 </td>
+                <td align="center">
+                <p class="testo">Data Memory</p>
+                <form action="" method="post" style="margin:0px;">
+                  <select name="selectMemDatiShow" class="form" style="width:140px;" onchange="javascript:document.getElementById('btn_MemDatiShow').click();">
+                    <option value="high_to_low" <?php if ($_SESSION['memDatiShow']==0) {?> selected <?php } ?>>Upper to Lower bytes</option>
+                    <option value="low_to_high" <?php if ($_SESSION['memDatiShow']==1) {?> selected <?php } ?>>Lower to Upper bytes</option>
+                  </select>
+                  <input type="submit" value="Select" name="btnMemDatiShow" class="form" style="width:60px; padding:1px;" id="btn_MemDatiShow">
+                  <script language='JavaScript' type='text/JavaScript'>document.getElementById('btn_MemDatiShow').style.display='none';</script>
+                </form>
+                </td>
               </tr>
             </table>
           </td>
@@ -260,7 +289,7 @@ session_start();
         <tr><td height="2"><img src="../img/layout/x.gif"></td></tr>
       </table>
     </td>
-    
+
     <td width="2" align="left"  ><img src="../img/layout/x.gif" border="0" width="2"></td>
   </tr>
   <tr>

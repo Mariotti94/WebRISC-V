@@ -50,7 +50,7 @@ if ($_SESSION['branchRes']==0) {
       $_SESSION['asmName']=$cosa.'.s';
       header('Location: editor.php');
       break;
-      
+
     case "memory":
       $codice='';
       $codice=$codice.'####################################'.PHP_EOL;
@@ -58,15 +58,15 @@ if ($_SESSION['branchRes']==0) {
       $codice=$codice.'# into another vector'.PHP_EOL;
       $codice=$codice.'# Addresses of the two vectors'.PHP_EOL;
       $codice=$codice.'####################################'.PHP_EOL;
-      $codice=$codice.'addi s0, x0, 4'.PHP_EOL;
-      $codice=$codice.'addi s1, x0, 44'.PHP_EOL;
+      $codice=$codice.'addi s0, sp, -4'.PHP_EOL;
+      $codice=$codice.'addi s1, sp, -44'.PHP_EOL;
       $codice=$codice.'# Initializing with some values'.PHP_EOL;
       $codice=$codice.'addi t0, x0, 10'.PHP_EOL;
       $codice=$codice.'addi t1, x0, 1'.PHP_EOL;
       $codice=$codice.'add s2, s0, x0'.PHP_EOL;
       $codice=$codice.'Inserimento:'.PHP_EOL;
       $codice=$codice.'beq t0, t1, FineInserimento'.PHP_EOL;
-      $codice=$codice.'addi s2, s2, 4'.PHP_EOL;
+      $codice=$codice.'addi s2, s2, -4'.PHP_EOL;
       $codice=$codice.'sw t1, 0(s2)'.PHP_EOL;
       $codice=$codice.'addi t1, t1, 1'.PHP_EOL;
       $codice=$codice.'j Inserimento'.PHP_EOL;
@@ -77,9 +77,9 @@ if ($_SESSION['branchRes']==0) {
       $codice=$codice.'# Procedure stars here'.PHP_EOL;
       $codice=$codice.'Copia:'.PHP_EOL;
       $codice=$codice.'beq t0, t1, FineProgramma'.PHP_EOL;
-      $codice=$codice.'addi s2, s2, 4'.PHP_EOL;
+      $codice=$codice.'addi s2, s2, -4'.PHP_EOL;
       $codice=$codice.'lw t2, 0(s2)'.PHP_EOL;
-      $codice=$codice.'addi s3, s3, 4'.PHP_EOL;
+      $codice=$codice.'addi s3, s3, -4'.PHP_EOL;
       $codice=$codice.'sw t2, 0(s3)'.PHP_EOL;
       $codice=$codice.'addi t1, t1, 1'.PHP_EOL;
       $codice=$codice.'j Copia'.PHP_EOL;
@@ -88,7 +88,7 @@ if ($_SESSION['branchRes']==0) {
       $_SESSION['asmName']=$cosa.'.s';
       header('Location: editor.php');
       break;
-      
+
     case "factorial":
       $codice='';
       $codice=$codice.'####################################'.PHP_EOL;
@@ -131,7 +131,7 @@ if ($_SESSION['branchRes']==0) {
       $_SESSION['asmName']=$cosa.'.s';
       header('Location: editor.php');
       break;
-      
+
     case "hazard":
       $codice='';
       $codice=$codice.'####################################'.PHP_EOL;
@@ -150,9 +150,9 @@ if ($_SESSION['branchRes']==0) {
       $codice=$codice.'add t3, t0, t2';
       $_SESSION['codice']=$codice;
       $_SESSION['asmName']=$cosa.'.s';
-      header('Location: editor.php');    
+      header('Location: editor.php');
       break;
-      
+
     case "stall":
       $codice='';
       $codice=$codice.'####################################'.PHP_EOL;
@@ -165,7 +165,7 @@ if ($_SESSION['branchRes']==0) {
       $codice=$codice.'# a data hazard.'.PHP_EOL;
       $codice=$codice.'####################################'.PHP_EOL;
       $codice=$codice.'addi t0, x0, 10'.PHP_EOL;
-      $codice=$codice.'addi  sp, x0, 0'.PHP_EOL;
+      $codice=$codice.'addi  sp, sp, -4'.PHP_EOL;
       $codice=$codice.'sw t0, 0(sp)'.PHP_EOL;
       $codice=$codice.'add t1, t0, t0'.PHP_EOL;
       $codice=$codice.'lw t0, 0(sp)'.PHP_EOL;
@@ -175,22 +175,33 @@ if ($_SESSION['branchRes']==0) {
       $_SESSION['asmName']=$cosa.'.s';
       header('Location: editor.php');
       break;
-      
+
     case "syscall":
       $codice='';
       $codice=$codice.'####################################'.PHP_EOL;
-      $codice=$codice.'# This programs demonstrates'.PHP_EOL;
-      $codice=$codice.'# the behavior of syscalls.'.PHP_EOL;
+      $codice=$codice.'# This programs demonstrates the'.PHP_EOL;
+      $codice=$codice.'# behavior of syscalls and how to load'.PHP_EOL;
+      $codice=$codice.'# and use data from the Data Segment.'.PHP_EOL;
       $codice=$codice.'####################################'.PHP_EOL;
-      $codice=$codice.'addi a7, x0, 5 # read int syscall code'.PHP_EOL;
+      $codice=$codice.'.data'.PHP_EOL;
+      $codice=$codice.'number: .word 10'.PHP_EOL;
+      $codice=$codice.'test_string: .asciz "Test of Data Segment and Syscalls:"'.PHP_EOL;
+      $codice=$codice.'.text'.PHP_EOL;
+      $codice=$codice.'la a0, test_string  # load string address'.PHP_EOL;
+      $codice=$codice.'addi a7, x0, 4       # print string syscall code'.PHP_EOL;
       $codice=$codice.'ecall'.PHP_EOL;
-      $codice=$codice.'addi a7, x0, 1  # print int syscall code'.PHP_EOL;
+      $codice=$codice.'la t0, number       # load number address'.PHP_EOL;
+      $codice=$codice.'lw t1, 0(t0)'.PHP_EOL;
+      $codice=$codice.'addi a7, x0, 5       # read int syscall code'.PHP_EOL;
+      $codice=$codice.'ecall'.PHP_EOL;
+      $codice=$codice.'add a0, a0, t1'.PHP_EOL;
+      $codice=$codice.'addi a7, x0, 1       # print int syscall code'.PHP_EOL;
       $codice=$codice.'ecall'.PHP_EOL;
       $_SESSION['codice']=$codice;
       $_SESSION['asmName']=$cosa.'.s';
       header('Location: editor.php');
       break;
-      
+
     default:
       $_SESSION['codice']='';
       $_SESSION['asmName']='not loaded';
@@ -248,7 +259,7 @@ if ($_SESSION['branchRes']==1) {
       $_SESSION['asmName']=$cosa.'.s';
       header('Location: editor.php');
       break;
-      
+
     case "memory":
       $codice='';
       $codice=$codice.'####################################'.PHP_EOL;
@@ -256,8 +267,8 @@ if ($_SESSION['branchRes']==1) {
       $codice=$codice.'# into another vector'.PHP_EOL;
       $codice=$codice.'# Addresses of the two vectors'.PHP_EOL;
       $codice=$codice.'####################################'.PHP_EOL;
-      $codice=$codice.'addi s0, x0, 4'.PHP_EOL;
-      $codice=$codice.'addi s1, x0, 44'.PHP_EOL;
+      $codice=$codice.'addi s0, sp, -4'.PHP_EOL;
+      $codice=$codice.'addi s1, sp, -44'.PHP_EOL;
       $codice=$codice.'# Initializing with some values'.PHP_EOL;
       $codice=$codice.'addi t0, x0, 10'.PHP_EOL;
       $codice=$codice.'addi t1, x0, 1'.PHP_EOL;
@@ -265,7 +276,7 @@ if ($_SESSION['branchRes']==1) {
       $codice=$codice.'Inserimento:'.PHP_EOL;
       $codice=$codice.'beq t0, t1, FineInserimento'.PHP_EOL;
       $codice=$codice.'nop'.PHP_EOL;
-      $codice=$codice.'addi s2, s2, 4'.PHP_EOL;
+      $codice=$codice.'addi s2, s2, -4'.PHP_EOL;
       $codice=$codice.'sw t1, 0(s2)'.PHP_EOL;
       $codice=$codice.'addi t1, t1, 1'.PHP_EOL;
       $codice=$codice.'j Inserimento'.PHP_EOL;
@@ -278,9 +289,9 @@ if ($_SESSION['branchRes']==1) {
       $codice=$codice.'Copia:'.PHP_EOL;
       $codice=$codice.'beq t0, t1, FineProgramma'.PHP_EOL;
       $codice=$codice.'nop'.PHP_EOL;
-      $codice=$codice.'addi s2, s2, 4'.PHP_EOL;
+      $codice=$codice.'addi s2, s2, -4'.PHP_EOL;
       $codice=$codice.'lw t2, 0(s2)'.PHP_EOL;
-      $codice=$codice.'addi s3, s3, 4'.PHP_EOL;
+      $codice=$codice.'addi s3, s3, -4'.PHP_EOL;
       $codice=$codice.'addi t1, t1, 1'.PHP_EOL;
       $codice=$codice.'j Copia'.PHP_EOL;
       $codice=$codice.'sw t2, 0(s3)'.PHP_EOL;
@@ -289,7 +300,7 @@ if ($_SESSION['branchRes']==1) {
       $_SESSION['asmName']=$cosa.'.s';
       header('Location: editor.php');
       break;
-      
+
     case "factorial":
       $codice='';
       $codice=$codice.'####################################'.PHP_EOL;
@@ -333,7 +344,7 @@ if ($_SESSION['branchRes']==1) {
       $_SESSION['asmName']=$cosa.'.s';
       header('Location: editor.php');
       break;
-      
+
     case "hazard":
       $codice='';
       $codice=$codice.'####################################'.PHP_EOL;
@@ -352,9 +363,9 @@ if ($_SESSION['branchRes']==1) {
       $codice=$codice.'add t3, t0, t2';
       $_SESSION['codice']=$codice;
       $_SESSION['asmName']=$cosa.'.s';
-      header('Location: editor.php');    
+      header('Location: editor.php');
       break;
-      
+
     case "stall":
       $codice='';
       $codice=$codice.'####################################'.PHP_EOL;
@@ -367,7 +378,7 @@ if ($_SESSION['branchRes']==1) {
       $codice=$codice.'# a data hazard.'.PHP_EOL;
       $codice=$codice.'####################################'.PHP_EOL;
       $codice=$codice.'addi t0, x0, 10'.PHP_EOL;
-      $codice=$codice.'addi  sp, x0, 0'.PHP_EOL;
+      $codice=$codice.'addi  sp, sp, -4'.PHP_EOL;
       $codice=$codice.'sw t0, 0(sp)'.PHP_EOL;
       $codice=$codice.'add t1, t0, t0'.PHP_EOL;
       $codice=$codice.'lw t0, 0(sp)'.PHP_EOL;
@@ -377,16 +388,27 @@ if ($_SESSION['branchRes']==1) {
       $_SESSION['asmName']=$cosa.'.s';
       header('Location: editor.php');
       break;
-      
+
     case "syscall":
       $codice='';
       $codice=$codice.'####################################'.PHP_EOL;
-      $codice=$codice.'# This programs demonstrates'.PHP_EOL;
-      $codice=$codice.'# the behavior of syscalls.'.PHP_EOL;
+      $codice=$codice.'# This programs demonstrates the'.PHP_EOL;
+      $codice=$codice.'# behavior of syscalls and how to load'.PHP_EOL;
+      $codice=$codice.'# and use data from the Data Segment.'.PHP_EOL;
       $codice=$codice.'####################################'.PHP_EOL;
-      $codice=$codice.'addi a7, x0, 5 # read int syscall code'.PHP_EOL;
+      $codice=$codice.'.data'.PHP_EOL;
+      $codice=$codice.'number: .word 10'.PHP_EOL;
+      $codice=$codice.'test_string: .asciz "Test of Data Segment and Syscalls:"'.PHP_EOL;
+      $codice=$codice.'.text'.PHP_EOL;
+      $codice=$codice.'la a0, test_string  # load string address'.PHP_EOL;
+      $codice=$codice.'addi a7, x0, 4       # print string syscall code'.PHP_EOL;
       $codice=$codice.'ecall'.PHP_EOL;
-      $codice=$codice.'addi a7, x0, 1  # print int syscall code'.PHP_EOL;
+      $codice=$codice.'la t0, number       # load number address'.PHP_EOL;
+      $codice=$codice.'lw t1, 0(t0)'.PHP_EOL;
+      $codice=$codice.'addi a7, x0, 5       # read int syscall code'.PHP_EOL;
+      $codice=$codice.'ecall'.PHP_EOL;
+      $codice=$codice.'add a0, a0, t1'.PHP_EOL;
+      $codice=$codice.'addi a7, x0, 1       # print int syscall code'.PHP_EOL;
       $codice=$codice.'ecall'.PHP_EOL;
       $_SESSION['codice']=$codice;
       $_SESSION['asmName']=$cosa.'.s';

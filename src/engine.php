@@ -1,8 +1,8 @@
 <?php
 //############################################
-//LIMIT CHECK
+//BOUNDS CHECK
 
-if (empty($_SESSION['memIstrDim'])) {
+if (empty($_SESSION['memIstrUse'])) {
   return;
 }
 if ($_SESSION['data'][$_SESSION['index']]['clock']>=$_SESSION['maxCycle']) {
@@ -41,13 +41,14 @@ if ($agg=="forward" && $_SESSION['index']!=0) {
   return;
 }
 if ($agg=="forward" && !$_SESSION['data'][0]['finito']) {
-  array_unshift( $_SESSION['data'], $_SESSION['data'][0]) ;
+  array_unshift($_SESSION['data'], $_SESSION['data'][0]) ;
+  $_SESSION['data'][0]['sysCall']=false;
 }
 
 //############################################
 //GET SESSION DATA
 
-//INSTRUCTION MEMORY 
+//INSTRUCTION MEMORY
 $memIstr=$_SESSION['memIstr'];
 //REGISTERS
 $registri=$_SESSION['data'][0]['registri'];
@@ -91,7 +92,7 @@ $MEM_WB_RegW=$_SESSION['MEM_WB_RegW'];
 //STALL
 $stallo=($_SESSION['stallo']>0)?$_SESSION['stallo']-1:$_SESSION['stallo'];
 
-if ($_SESSION['loaded'] && !$_SESSION['data'][0]['finito']) {  
+if ($_SESSION['loaded'] && !$_SESSION['data'][0]['finito']) {
   $_SESSION['start']=true;
 }
 
@@ -148,7 +149,7 @@ if (substr($EX_MEM_M,1,1)=="1") //MemWrite EX/MEM
     }
 
     $EX_MEM_RIS=intval($EX_MEM_RIS);
-    if ($EX_MEM_RIS<=($_SESSION['maxMem']-8)) {
+    if ( ($EX_MEM_RIS<=($_SESSION['maxMem']-8)) && ($EX_MEM_RIS>=($_SESSION['maxMem']-$_SESSION['maxWritableMem'])) ) {
       $memDati[$EX_MEM_RIS]=$byte7;
       $memDati[$EX_MEM_RIS+1]=$byte6;
       $memDati[$EX_MEM_RIS+2]=$byte5;
@@ -159,7 +160,7 @@ if (substr($EX_MEM_M,1,1)=="1") //MemWrite EX/MEM
       $memDati[$EX_MEM_RIS+7]=$byte0;
     }
     else {
-      echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
+      echo "<div align=center><font color=red size=3><b>ERROR:<br>OUT OF WRITABLE MEMORY RANGE => [".$_SESSION['maxMem']." - ".($_SESSION['maxMem']-$_SESSION['maxWritableMem'])."]!</b></font></div>";
       exit();
     }
   }
@@ -177,14 +178,14 @@ if (substr($EX_MEM_M,1,1)=="1") //MemWrite EX/MEM
     }
 
     $EX_MEM_RIS=intval($EX_MEM_RIS);
-    if ($EX_MEM_RIS<=($_SESSION['maxMem']-4)) {
+    if ( ($EX_MEM_RIS<=($_SESSION['maxMem']-4))  && ($EX_MEM_RIS>=($_SESSION['maxMem']-$_SESSION['maxWritableMem'])) ) {
       $memDati[$EX_MEM_RIS]=$byte3;
       $memDati[$EX_MEM_RIS+1]=$byte2;
       $memDati[$EX_MEM_RIS+2]=$byte1;
       $memDati[$EX_MEM_RIS+3]=$byte0;
     }
     else {
-      echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
+      echo "<div align=center><font color=red size=3><b>ERROR:<br>OUT OF WRITABLE MEMORY RANGE => [".$_SESSION['maxMem']." - ".($_SESSION['maxMem']-$_SESSION['maxWritableMem'])."]!</b></font></div>";
       exit();
     }
   }
@@ -200,28 +201,28 @@ if (substr($EX_MEM_M,1,1)=="1") //MemWrite EX/MEM
     }
 
     $EX_MEM_RIS=intval($EX_MEM_RIS);
-    if ($EX_MEM_RIS<=($_SESSION['maxMem']-2)) {
+    if ( ($EX_MEM_RIS<=($_SESSION['maxMem']-2))  && ($EX_MEM_RIS>=($_SESSION['maxMem']-$_SESSION['maxWritableMem'])) ) {
       $memDati[$EX_MEM_RIS]=$byte1;
       $memDati[$EX_MEM_RIS+1]=$byte0;
     }
     else {
-      echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
+      echo "<div align=center><font color=red size=3><b>ERROR:<br>OUT OF WRITABLE MEMORY RANGE => [".$_SESSION['maxMem']." - ".($_SESSION['maxMem']-$_SESSION['maxWritableMem'])."]!</b></font></div>";
       exit();
     }
   }
   else if (substr($EX_MEM_M,2,2)=="00") //Save Byte
   {
-    $dato=GMPToBin($EX_MEM_DataW,8,0); 
+    $dato=GMPToBin($EX_MEM_DataW,8,0);
     $lungh=strlen($dato);
     if ($lungh>8) {
       $dato=substr($dato,strlen($dato)-(8));
     }
 
-    if ($EX_MEM_RIS<=($_SESSION['maxMem']-1)) {
+    if ( ($EX_MEM_RIS<=($_SESSION['maxMem']-1))  && ($EX_MEM_RIS>=($_SESSION['maxMem']-$_SESSION['maxWritableMem'])) ) {
       $memDati[$EX_MEM_RIS]=$dato;
     }
     else {
-      echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
+      echo "<div align=center><font color=red size=3><b>ERROR:<br>OUT OF WRITABLE MEMORY RANGE => [".$_SESSION['maxMem']." - ".($_SESSION['maxMem']-$_SESSION['maxWritableMem'])."]!</b></font></div>";
       exit();
     }
   }
@@ -237,7 +238,7 @@ if (substr($EX_MEM_M,0,1)=="1") //MemRead EX/MEM
       exit();
     }
 
-    if ($EX_MEM_RIS<=($_SESSION['maxMem']-8)) {
+    if ( ($EX_MEM_RIS<=($_SESSION['maxMem']-8)) && ($EX_MEM_RIS>=($_SESSION['maxMem']-$_SESSION['maxWritableMem'])) ) {
       $byte7=isset($memDati[$EX_MEM_RIS+7])?$memDati[$EX_MEM_RIS+7]:str_repeat('0',8);
       $byte6=isset($memDati[$EX_MEM_RIS+6])?$memDati[$EX_MEM_RIS+6]:str_repeat('0',8);
       $byte5=isset($memDati[$EX_MEM_RIS+5])?$memDati[$EX_MEM_RIS+5]:str_repeat('0',8);
@@ -250,7 +251,7 @@ if (substr($EX_MEM_M,0,1)=="1") //MemRead EX/MEM
       $temp_MEM_WB_DataR=BinToGMP($temp_MEM_WB_DataR,0);
     }
     else {
-      echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
+      echo "<div align=center><font color=red size=3><b>ERROR:<br>OUT OF WRITABLE MEMORY RANGE => [".$_SESSION['maxMem']." - ".($_SESSION['maxMem']-$_SESSION['maxWritableMem'])."]!</b></font></div>";
       exit();
     }
   }
@@ -262,7 +263,7 @@ if (substr($EX_MEM_M,0,1)=="1") //MemRead EX/MEM
       exit();
     }
 
-    if ($EX_MEM_RIS<=($_SESSION['maxMem']-4))
+    if ( ($EX_MEM_RIS<=($_SESSION['maxMem']-4)) && ($EX_MEM_RIS>=($_SESSION['maxMem']-$_SESSION['maxWritableMem'])) )
     {
       $byte3=isset($memDati[$EX_MEM_RIS+3])?$memDati[$EX_MEM_RIS+3]:str_repeat('0',8);
       $byte2=isset($memDati[$EX_MEM_RIS+2])?$memDati[$EX_MEM_RIS+2]:str_repeat('0',8);
@@ -278,7 +279,7 @@ if (substr($EX_MEM_M,0,1)=="1") //MemRead EX/MEM
     }
     else
     {
-      echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
+      echo "<div align=center><font color=red size=3><b>ERROR:<br>OUT OF WRITABLE MEMORY RANGE => [".$_SESSION['maxMem']." - ".($_SESSION['maxMem']-$_SESSION['maxWritableMem'])."]!</b></font></div>";
       exit();
     }
   }
@@ -290,7 +291,7 @@ if (substr($EX_MEM_M,0,1)=="1") //MemRead EX/MEM
       exit();
     }
 
-    if ($EX_MEM_RIS<=($_SESSION['maxMem']-2))
+    if ( ($EX_MEM_RIS<=($_SESSION['maxMem']-2))  && ($EX_MEM_RIS>=($_SESSION['maxMem']-$_SESSION['maxWritableMem'])) )
     {
       $byte1=isset($memDati[$EX_MEM_RIS+1])?$memDati[$EX_MEM_RIS+1]:str_repeat('0',8);
       $byte0=isset($memDati[$EX_MEM_RIS])?$memDati[$EX_MEM_RIS]:str_repeat('0',8);
@@ -304,13 +305,13 @@ if (substr($EX_MEM_M,0,1)=="1") //MemRead EX/MEM
     }
     else
     {
-      echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
+      echo "<div align=center><font color=red size=3><b>ERROR:<br>OUT OF WRITABLE MEMORY RANGE => [".$_SESSION['maxMem']." - ".($_SESSION['maxMem']-$_SESSION['maxWritableMem'])."]!</b></font></div>";
       exit();
     }
   }
   else if (substr($EX_MEM_M,2,2)=="00") //Load Byte
   {
-    if ($EX_MEM_RIS<=($_SESSION['maxMem']-1))
+    if ( ($EX_MEM_RIS<=($_SESSION['maxMem']-1))  && ($EX_MEM_RIS>=($_SESSION['maxMem']-$_SESSION['maxWritableMem'])) )
     {
       $temp_MEM_WB_DataR=isset($memDati[$EX_MEM_RIS])?$memDati[$EX_MEM_RIS]:str_repeat('0',8);
       if (substr($EX_MEM_M,4,1)=="0") {
@@ -322,7 +323,7 @@ if (substr($EX_MEM_M,0,1)=="1") //MemRead EX/MEM
     }
     else
     {
-      echo "<div align=center><font color=red size=3><b>ERROR: OUT OF MEMORY RANGE [".$_SESSION['maxMem']."]!</b></font></div>";
+      echo "<div align=center><font color=red size=3><b>ERROR:<br>OUT OF WRITABLE MEMORY RANGE => [".$_SESSION['maxMem']." - ".($_SESSION['maxMem']-$_SESSION['maxWritableMem'])."]!</b></font></div>";
       exit();
     }
   }
@@ -390,14 +391,14 @@ if ($tipo=='UJ') {
 //hazard: LOAD->SB (forward: M=>D)
 
 if (substr($ID_EX_M,0,1)=="1") //MemRead ID/EX
-{ 
+{
   if (($ID_EX_RD==$RL1 || $ID_EX_RD==$RL2) && $ID_EX_RD!=0) //ignore x0
   {
     if ($stallo==0)
     {
-      $stallo++; 
+      $stallo++;
       if ($isBranch || $_SESSION['forwarding']==0) {
-        $stallo++; 
+        $stallo++;
       }
     }
   }
@@ -415,7 +416,7 @@ if (substr($ID_EX_WB,0,1)=="1") //RegWrite ID/EX
       if ($stallo==0) {
         $stallo++;
         if ($_SESSION['forwarding']==0) {
-          $stallo++; 
+          $stallo++;
         }
       }
     }
@@ -447,9 +448,9 @@ $MuxBranchCmp2="00";
 if($_SESSION['forwarding']==1)
 {
   if (substr($EX_MEM_WB,0,1)=="1") //RegWrite EX/MEM
-  { 
+  {
     if ($EX_MEM_RegW==$RL1 && $EX_MEM_RegW!=0) //ignore x0
-    { 
+    {
       if (substr($EX_MEM_WB,1,1)=="0") { //MemToReg EX/MEM
         $bDato1=$EX_MEM_RIS;
         $MuxBranchCmp1="01";
@@ -459,7 +460,7 @@ if($_SESSION['forwarding']==1)
         $MuxBranchCmp1="10";
       }
     }
-    
+
     if ($EX_MEM_RegW==$RL2 && $EX_MEM_RegW!=0) //ignore x0
     {
       if (substr($EX_MEM_WB,1,1)=="0") {
@@ -528,10 +529,20 @@ if (!$_SESSION['IF_scarta'])
         }
         else //Ecall
         {
-          if ($registri[17]==1) {
-            $_SESSION['data'][0]['sysConsole']=$_SESSION['data'][0]['sysConsole'].gmp_strval($registri[10]).PHP_EOL;
+          $_SESSION['data'][0]['sysCall']=true;
+          if ($registri[17]=='1') {
+            $_SESSION['data'][0]['sysConsole']=$_SESSION['data'][0]['sysConsole'].$registri[10].PHP_EOL;
           }
-          else if ($registri[17]==5) {
+          else if ($registri[17]=='4') {
+            $print_str='';
+            $byte=$registri[10];
+            while ($byte<($_SESSION['maxTextMem']+$_SESSION['maxStaticMem']) && isset($_SESSION['data'][0]['memDati'][$byte]) && $_SESSION['data'][0]['memDati'][$byte]!=str_repeat('0',8)) {
+              $print_str=$print_str.chr(BinToGMP($_SESSION['data'][0]['memDati'][$byte],0));
+              ++$byte;
+            }
+            $_SESSION['data'][0]['sysConsole']=$_SESSION['data'][0]['sysConsole'].$print_str.PHP_EOL;
+          }
+          else if ($registri[17]=='5') {
             $_SESSION['data'][0]['sysHold']=true;
             $_SESSION['data'][0]['sysInput']=true;
           }
@@ -649,7 +660,7 @@ if (!$_SESSION['data'][0]['finito'])
   $d=$_SESSION['data'][0]['memIstruzione'];
   if (!$stallo)
   {
-    if (($tempPC/4)>=$_SESSION['memIstrDim']) {
+    if (($tempPC/4)>=$_SESSION['memIstrUse']) {
       $_SESSION['data'][0]['ifIstruzione']=1002;
     }
     else {
@@ -753,7 +764,7 @@ if (!$_SESSION['data'][0]['finito']) {
   $_SESSION['data'][0]['registri']=$registri;
   //DATA MEMORY
   $_SESSION['data'][0]['memDati']=$memDati;
-  
+
   //STAGE IF
   $_SESSION['PC']=$newPC;
   //STAGE ID
