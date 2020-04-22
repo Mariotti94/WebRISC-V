@@ -35,7 +35,7 @@ The reference Installation has been done on the Linux distro UBUNTU 18.04LTS
 * To install the web-server with the PHP language included issue the following commands:
 ```
   sudo apt -y update && sudo apt -y install apache2 php libapache2-mod-php
-  sudo apt -y install php-pear php-fpm php-dev php-zip php-curl php-gd php-mysql php-mbstring php-xml php-xmlrpc php-gmp
+  sudo apt -y install php-gmp
   sudo ufw allow 'Apache'           (ufw may fail if you don't have ufw... just ignore it)
   a2enmod php7.2
   sudo systemctl status apache2     (alternatively you may want to run:
