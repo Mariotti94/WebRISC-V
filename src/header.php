@@ -80,7 +80,7 @@ session_start();
 <table cellpadding="0" width="100%" cellspacing="0" border="0" height="109" bgcolor="#f7b217">
   <tr>
     <td valign="top" style="width:137px; height:109px;">
-    <a href="../index.php" target="_parent"><img src="../img/content/img_logo.gif" border="0" width="137"></a>
+    <a href="../index.php" target="_parent"><img src="../img/content/logo.gif" border="0" width="137"></a>
     <div style="text-align: center; font-family: Arial; font-size: 10px;">
         <b>VERSION <?php echo $_SESSION['version'];?></b>
         <br>Write your feedback:

@@ -301,14 +301,14 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
     if($_SESSION['forwarding']==0) {
       ?>
       <div style="position:absolute; left:0px; top:2px; width:1px; height:1px; z-index:-2; pointer-events:none;">
-        <img src="../img/content/segnali_dati_no_forwarding.gif">
+        <img src="../img/content/data_signals_no_forwarding.gif">
       </div>
       <?php
     }
     else {
       ?>
       <div style="position:absolute; left:0px; top:2px; width:1px; height:1px; z-index:-2; pointer-events:none;">
-        <img src="../img/content/segnali_dati_forwarding.gif">
+        <img src="../img/content/data_signals_forwarding.gif">
       </div>
       <?php
     }
@@ -319,14 +319,14 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
     if($_SESSION['forwarding']==0) {
       ?>
       <div style="position:absolute; left:0px; top:2px; width:1px; height:1px; z-index:-1; pointer-events:none;">
-        <img src="../img/content/segnali_controllo_no_forwarding.gif">
+        <img src="../img/content/control_signals_no_forwarding.gif">
       </div>
       <?php
     }
     else {
       ?>
       <div style="position:absolute; left:0px; top:2px; width:1px; height:1px; z-index:-1; pointer-events:none;">
-        <img src="../img/content/segnali_controllo_forwarding.gif">
+        <img src="../img/content/control_signals_forwarding.gif">
       </div>
       <?php
     }
@@ -365,7 +365,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
   </div>
 
   <div style="z-index:2" class="criticita">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=criticita&rl1=<?php echo isset($RL1)?$RL1:0;?>&rl2=<?php echo isset($RL2)?$RL2:0;?>&stallo=<?php echo isset($stallo)?(($stallo)?1:0):0;?>&mem=<?php echo isset($ID_EX_M)?$ID_EX_M:0;?>&wb=<?php echo isset($EX_MEM_WB)?$EX_MEM_WB:0;?>&rd=<?php echo isset($ID_EX_RD)?$ID_EX_RD:0;?>','','width=400,height=270');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=criticita&rl1=<?php echo isset($RL1)?$RL1:0;?>&rl2=<?php echo isset($RL2)?$RL2:0;?>&stallo=<?php echo isset($stallo)?(($stallo)?1:0):0;?>&mem=<?php echo isset($ID_EX_M)?$ID_EX_M:0;?>&wb=<?php echo isset($EX_MEM_WB)?$EX_MEM_WB:0;?>&id_rd=<?php echo isset($ID_EX_RD)?$ID_EX_RD:0;?>&ex_rd=<?php echo isset($EX_MEM_RegW)?$EX_MEM_RegW:0;?>','','width=400,height=270');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="HAZARD DETECTION UNIT">
     </a>
   </div>

@@ -436,6 +436,28 @@ if ($_SESSION['forwarding']==0)
   }
 }
 
+//********************************************
+//hazard: R,I->* (forward: X,M=>X)
+
+if ($_SESSION['forwarding']==0)
+{
+  if (substr($ID_EX_WB,0,1)=="1") //RegWrite ID/EX
+  {
+    if (($ID_EX_RD==$RL1 || $ID_EX_RD==$RL2) && $ID_EX_RD!=0) //ignore x0
+    {
+      if ($stallo==0) {
+        $stallo+=2;
+      }
+    }
+    if (($EX_MEM_RegW==$RL1 || $EX_MEM_RegW==$RL2) && $EX_MEM_RegW!=0) //ignore x0
+    {
+      if ($stallo==0) {
+        $stallo++;
+      }
+    }
+  }
+}
+
 //############################################
 //FORWARDING
 

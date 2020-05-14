@@ -312,14 +312,14 @@ session_start();
             $mem=substr($mem,0,1);
             $wb=$_GET["wb"];
             $wb=substr($wb,0,1);
-            $rd=$_GET["rd"];
+            $id_rd=$_GET["id_rd"];
+            $ex_rd=$_GET["ex_rd"];
             ?>
             <div align="center" class="testoGrande"><b>HAZARD DETECTION UNIT</b></div>
             <hr size="1" width="60%" noshade>
             <div align="center" class="testoGrande">
-              This unit detects hazard conditions and produces control signals accordingly.
-              In the case of 'lw' instruction (ID/EX.RegisterRD = IF/ID.RegisterRS1 <font color=blue>OR</font> ID/EX.RegisterRD = IF/ID.RegisterRS2 <font color=blue>AND</font>
-              ID/EX.MemRead = 1) a 'nop' must be inserted in the pipeline.
+              This unit detects hazard conditions and produces control signals accordingly.<br>
+              Example: In the case of previous 'lw' instruction using the same destination register as the current 'add' instruction input register (ID/EX.RegisterRD = IF/ID.RegisterRS1 <font color=blue>OR</font> ID/EX.RegisterRD = IF/ID.RegisterRS2 <font color=blue>AND</font> ID/EX.MemRead = 1) <?php if($_SESSION['forwarding']==0) {?>two<?php } else {?>one<?php }?> 'nop' must be inserted in the pipeline.
             </div>
             <br>
             <table width="100%" cellpadding="0" cellspacing="0"  align="center">
@@ -328,7 +328,8 @@ session_start();
                   <font color=red>Stall = <?php echo $stallo;?></font><br>
                   IF/ID.RegisterRS1 = <?php echo $RL1;?><br>
                   IF/ID.RegisterRS2 = <?php echo $RL2;?><br>
-                  ID/EX.RegisterRD = <?php echo $rd;?>
+                  ID/EX.RegisterRD = <?php echo $id_rd;?><?php if($_SESSION['forwarding']==0) {?><br>
+                  EX/MEM.RegisterRD = <?php echo $ex_rd;?><?php }?>
                 </td>
                 <td align="center">
                   <table width="80" height="80" cellpadding="0" cellspacing="0" class="elemento">

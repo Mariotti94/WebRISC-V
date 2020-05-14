@@ -307,15 +307,15 @@ if($_SESSION['memDatiShow']==0)
       ?>
       <table cellpadding="0" cellspacing="0" border="0" class="registro" style='margin-top: 5px;'>
         <tr>
-          <td width="65" valign="top" align="right">
-            <div style="height: 20px; margin-top: 14px;">SP: <?php echo strval($_SESSION['maxWritableMem']+$_SESSION['maxTextMem']);?> &#8594;</div>
-            <div style="height: 20px; margin-top: 122px;">GP: <?php echo strval($_SESSION['maxTextMem']);?> &#8594;</div>
-            <div style="height: 20px; margin-top: 31px;">0 &#8594;</div>
-          </td>
           <td width="130" align="center" style="padding: 15px 5px 15px 2px;">
             <div style="border: 1px solid black; margin-top: 5px; height: 95px;"><div style="margin-top: 6px;">Stack &#8595;</div><div style="margin-top: 60px;">Dynamic Data &#8593;</div></div>
             <div style="border: 1px solid black; margin-top: -1px; height: 50px;"><div style="margin-top: 33px;">Static Data</div></div>
             <div style="border: 1px solid black; margin-top: -1px; height: 50px;"><div style="margin-top: 33px;">Text</div></div>
+          </td>
+          <td width="65" valign="top" align="left">
+            <div style="height: 20px; margin-top: 14px;">&#8592; SP: <?php echo strval($_SESSION['maxWritableMem']+$_SESSION['maxTextMem']);?></div>
+            <div style="height: 20px; margin-top: 122px;">&#8592; GP: <?php echo strval($_SESSION['maxTextMem']);?></div>
+            <div style="height: 20px; margin-top: 31px;">&#8592; 0</div>
           </td>
         </tr>
       </table>
@@ -471,15 +471,15 @@ else
       ?>
       <table cellpadding="0" cellspacing="0" border="0" class="registro" style='margin-top: 5px;'>
         <tr>
-          <td width="65" valign="top" align="right">
-            <div style="height: 20px; margin-top: 19px;">0 &#8594;</div>
-            <div style="height: 20px; margin-top: 32px;">GP: <?php echo strval($_SESSION['maxTextMem']);?> &#8594;</div>
-            <div style="height: 20px; margin-top: 120px;">SP: <?php echo strval($_SESSION['maxWritableMem']+$_SESSION['maxTextMem']);?> &#8594;</div>
-          </td>
           <td width="130" align="center" style="padding: 15px 5px 15px 2px;">
             <div style="border: 1px solid black; margin-top: 5px; height: 50px;"><div style="margin-top: 5px;">Text</div></div>
             <div style="border: 1px solid black; margin-top: -1px; height: 50px;"><div style="margin-top: 6px;">Static Data</div></div>
             <div style="border: 1px solid black; margin-top: -1px; height: 95px;"><div style="margin-top: 6px;">Dynamic Data &#8595;</div><div style="margin-top: 60px;">Stack &#8593;</div></div>
+          </td>
+          <td width="65" valign="top" align="left">
+            <div style="height: 20px; margin-top: 19px;">&#8592; 0</div>
+            <div style="height: 20px; margin-top: 32px;">&#8592; GP: <?php echo strval($_SESSION['maxTextMem']);?></div>
+            <div style="height: 20px; margin-top: 120px;">&#8592; SP: <?php echo strval($_SESSION['maxWritableMem']+$_SESSION['maxTextMem']);?></div>
           </td>
         </tr>
       </table>

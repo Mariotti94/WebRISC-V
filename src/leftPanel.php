@@ -187,7 +187,7 @@ else {
 <table cellpadding="0" cellspacing="0" width="100%" border="0" align="center" bgcolor="#7b869a" id="destraTop">
 
   <tr>
-    <td background="../img/layout/bg_destra_sin.gif"><img src="../img/layout/x.gif"></td>
+    <td background="../img/layout/bg_left.gif"><img src="../img/layout/x.gif"></td>
     <td align="center" width="33%">
       <?php if ($destra=="")
       {
@@ -197,10 +197,10 @@ else {
         ?>
         <table cellpadding="0" cellspacing="0" width="100%" border="0" align="center" bgcolor="#d4d0c8">
           <tr>
-            <td width="5"><img src="../img/layout/bg_destra_active1.gif"></td>
-            <td valign="middle" align="center" background="../img/layout/bg_destra_active3.gif">
+            <td width="5"><img src="../img/layout/bg_active1.gif"></td>
+            <td valign="middle" align="center" background="../img/layout/bg_active3.gif">
               <a href="leftPanel.php" class="link3"><b>Instruction<br>Memory</b></a></td>
-            <td width="19" style="background: #7b869a;"><img src="../img/layout/bg_destra_active2.gif"></td>
+            <td width="19" style="background: #7b869a;"><img src="../img/layout/bg_active2.gif"></td>
           </tr>
         </table>
       <?php }
@@ -224,10 +224,10 @@ else {
         ?>
         <table cellpadding="0" cellspacing="0" width="100%" border="0" align="center" bgcolor="#d4d0c8">
           <tr>
-            <td width="5"><img src="../img/layout/bg_destra_active1.gif"></td>
-            <td valign="middle" align="center" background="../img/layout/bg_destra_active3.gif">
+            <td width="5"><img src="../img/layout/bg_active1.gif"></td>
+            <td valign="middle" align="center" background="../img/layout/bg_active3.gif">
               <a href="leftPanel.php?dst=dati" class="link3"><b>Data<br>Memory</b></a></td>
-            <td width="19" style="background: #7b869a;"><img src="../img/layout/bg_destra_active2.gif"></td>
+            <td width="19" style="background: #7b869a;"><img src="../img/layout/bg_active2.gif"></td>
           </tr>
         </table>
       <?php }
@@ -251,10 +251,10 @@ else {
         ?>
         <table cellpadding="0" cellspacing="0" width="100%" border="0" align="center" bgcolor="#d4d0c8">
           <tr>
-            <td width="5"><img src="../img/layout/bg_destra_active1.gif"></td>
-            <td align="center" background="../img/layout/bg_destra_active3.gif">
+            <td width="5"><img src="../img/layout/bg_active1.gif"></td>
+            <td align="center" background="../img/layout/bg_active3.gif">
               <a href="leftPanel.php?dst=registri" class="link3"><b>Registers</b></a></td>
-            <td width="19" style="background: #7b869a;"><img src="../img/layout/bg_destra_active2.gif"></td>
+            <td width="19" style="background: #7b869a;"><img src="../img/layout/bg_active2.gif"></td>
           </tr>
         </table>
       <?php }
