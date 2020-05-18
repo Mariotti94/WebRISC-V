@@ -847,9 +847,9 @@ function decodeIstr($istr)
         break;
       }
       $imm=trim(strtok($a,PHP_EOL));
-      if(!is_numeric($imm)) {
-        if(substr($imm,0,2)=="0x") {
-          if(ctype_xdigit(substr($imm,2))) {
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
             $imm=hexdec(substr($imm,2));
           }
           else {
@@ -891,9 +891,9 @@ function decodeIstr($istr)
         break;
       }
       $imm=trim(strtok($a,PHP_EOL));
-      if(!is_numeric($imm)) {
-        if(substr($imm,0,2)=="0x") {
-          if(ctype_xdigit(substr($imm,2))) {
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
             $imm=hexdec(substr($imm,2));
           }
           else {
@@ -1463,9 +1463,9 @@ function decodeIstr($istr)
         break;
       }
       $imm=trim(strtok($a,PHP_EOL));
-      if(!is_numeric($imm)) {
-        if(substr($imm,0,2)=="0x") {
-          if(ctype_xdigit(substr($imm,2))) {
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
             $imm=hexdec(substr($imm,2));
           }
           else {
@@ -1540,9 +1540,9 @@ function decodeIstr($istr)
         break;
       }
       $imm=trim(strtok($a,PHP_EOL));
-      if(!is_numeric($imm)) {
-        if(substr($imm,0,2)=="0x") {
-          if(ctype_xdigit(substr($imm,2))) {
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
             $imm=hexdec(substr($imm,2));
           }
           else {
@@ -1617,9 +1617,9 @@ function decodeIstr($istr)
         break;
       }
       $imm=trim(strtok($a,PHP_EOL));
-      if(!is_numeric($imm)) {
-        if(substr($imm,0,2)=="0x") {
-          if(ctype_xdigit(substr($imm,2))) {
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
             $imm=hexdec(substr($imm,2));
           }
           else {
@@ -1860,9 +1860,9 @@ function decodeIstr($istr)
         break;
       }
       $imm=trim(strtok($a,PHP_EOL));
-      if(!is_numeric($imm)) {
-        if(substr($imm,0,2)=="0x") {
-          if(ctype_xdigit(substr($imm,2))) {
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
             $imm=hexdec(substr($imm,2));
           }
           else {
@@ -1906,9 +1906,9 @@ function decodeIstr($istr)
         break;
       }
       $imm=trim(strtok($a,PHP_EOL));
-      if(!is_numeric($imm)) {
-        if(substr($imm,0,2)=="0x") {
-          if(ctype_xdigit(substr($imm,2))) {
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
             $imm=hexdec(substr($imm,2));
           }
           else {
@@ -1952,9 +1952,9 @@ function decodeIstr($istr)
         break;
       }
       $imm=trim(strtok($a,PHP_EOL));
-      if(!is_numeric($imm)) {
-        if(substr($imm,0,2)=="0x") {
-          if(ctype_xdigit(substr($imm,2))) {
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
             $imm=hexdec(substr($imm,2));
           }
           else {
@@ -1998,9 +1998,9 @@ function decodeIstr($istr)
         break;
       }
       $imm=trim(strtok($a,PHP_EOL));
-      if(!is_numeric($imm)) {
-        if(substr($imm,0,2)=="0x") {
-          if(ctype_xdigit(substr($imm,2))) {
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
             $imm=hexdec(substr($imm,2));
           }
           else {
@@ -2044,9 +2044,9 @@ function decodeIstr($istr)
         break;
       }
       $imm=trim(strtok($a,PHP_EOL));
-      if(!is_numeric($imm)) {
-        if(substr($imm,0,2)=="0x") {
-          if(ctype_xdigit(substr($imm,2))) {
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
             $imm=hexdec(substr($imm,2));
           }
           else {
@@ -2090,9 +2090,9 @@ function decodeIstr($istr)
         break;
       }
       $imm=trim(strtok($a,PHP_EOL));
-      if(!is_numeric($imm)) {
-        if(substr($imm,0,2)=="0x") {
-          if(ctype_xdigit(substr($imm,2))) {
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
             $imm=hexdec(substr($imm,2));
           }
           else {
@@ -2712,9 +2712,9 @@ function decodeIstr($istr)
         break;
       }
       $imm=trim(strtok($a,PHP_EOL));
-      if(!is_numeric($imm)) {
-        if(substr($imm,0,2)=="0x") {
-          if(ctype_xdigit(substr($imm,2))) {
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
             $imm=hexdec(substr($imm,2));
           }
           else {
@@ -2789,9 +2789,9 @@ function decodeIstr($istr)
         break;
       }
       $imm=trim(strtok($a,PHP_EOL));
-      if(!is_numeric($imm)) {
-        if(substr($imm,0,2)=="0x") {
-          if(ctype_xdigit(substr($imm,2))) {
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
             $imm=hexdec(substr($imm,2));
           }
           else {
@@ -2895,6 +2895,29 @@ function decodeIstr($istr)
       $imm=1;
       break;
 
+    case 'mv':
+      $tipo='I';
+      $op=hexdec(13);
+      $funct3=hexdec(0);
+      $imm=0;
+      if (strlen($a)==0)
+      {
+        $rd='ERR';
+        $rs1='ERR';
+        break;
+      }
+      $rd=strtok($a,',');
+      $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
+      $rd=trim($rd);
+      if (strlen($a)==0)
+      {
+        $rs1='ERR';
+        break;
+      }
+      $rs1=strtok($a,PHP_EOL);
+      $rs1=trim($rs1);
+      break;
+
     case 'nop':
       $tipo='I';
       $op=hexdec(13);
@@ -2935,9 +2958,9 @@ function decodeIstr($istr)
         break;
       }
       $imm=trim(strtok($a,PHP_EOL));
-      if(!is_numeric($imm)) {
-        if(substr($imm,0,2)=="0x") {
-          if(ctype_xdigit(substr($imm,2))) {
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
             $imm=hexdec(substr($imm,2));
           }
           else {
@@ -2968,9 +2991,9 @@ function decodeIstr($istr)
         break;
       }
       $imm=trim(strtok($a,PHP_EOL));
-      if(!is_numeric($imm)) {
-        if(substr($imm,0,2)=="0x") {
-          if(ctype_xdigit(substr($imm,2))) {
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
             $imm=hexdec(substr($imm,2));
           }
           else {
@@ -3044,7 +3067,7 @@ function decodeIstr($istr)
       $rs1=intval($rs1);
       $rs2=intval($rs2);
       $imm=intval($imm);
-      $imm_bin=GMPToBin($imm,12,1);
+      $imm_bin=GMPToBin($imm,12,0);
       $function_ret=substr($imm_bin,0,7).GMPToBin($rs2,5,1).GMPToBin($rs1,5,1).GMPToBin($funct3,3,1).substr($imm_bin,7,5).GMPToBin($op,7,1);
     }
   }
@@ -3617,62 +3640,62 @@ function instrName($op,$funct3,$funct7,$rs2)
     {
       case hexdec(0):
         if ($funct7==hexdec(0))
-          $function_ret='Add';
+          $function_ret='add';
         if ($funct7==hexdec(20))
-          $function_ret='Sub';
+          $function_ret='sub';
         if ($funct7==hexdec(1))
-          $function_ret='Mul';
+          $function_ret='mul';
         break;
 
       case hexdec(1):
         if ($funct7==hexdec(0))
-          $function_ret='Sll';
+          $function_ret='sll';
         if ($funct7==hexdec(1))
-          $function_ret='Mulh';
+          $function_ret='mulh';
         break;
 
       case hexdec(2):
         if ($funct7==hexdec(0))
-          $function_ret='Slt';
+          $function_ret='slt';
         if ($funct7==hexdec(1))
-          $function_ret='Mulhsu';
+          $function_ret='mulhsu';
         break;
 
       case hexdec(3):
         if ($funct7==hexdec(0))
-          $function_ret='Sltu';
+          $function_ret='sltu';
         if ($funct7==hexdec(1))
-          $function_ret='Mulhu';
+          $function_ret='mulhu';
         break;
 
       case hexdec(4):
         if ($funct7==hexdec(0))
-          $function_ret='Xor';
+          $function_ret='xor';
         if ($funct7==hexdec(1))
-          $function_ret='Div';
+          $function_ret='div';
         break;
 
       case hexdec(5):
         if ($funct7==hexdec(0))
-          $function_ret='Srl';
+          $function_ret='srl';
         if ($funct7==hexdec(1))
-          $function_ret='Divu';
+          $function_ret='divu';
         if ($funct7==hexdec(20))
-          $function_ret='Sra';
+          $function_ret='sra';
         break;
 
       case hexdec(6):
         if ($funct7==hexdec(0))
-          $function_ret='Or';
+          $function_ret='or';
         if ($funct7==hexdec(1))
-          $function_ret='Rem';
+          $function_ret='rem';
         break;
 
       case hexdec(7):
         if ($funct7==hexdec(0))
-          $function_ret='And';
+          $function_ret='and';
         if ($funct7==hexdec(1))
-          $function_ret='Remu';
+          $function_ret='remu';
         break;
 
       default:
@@ -3686,40 +3709,40 @@ function instrName($op,$funct3,$funct7,$rs2)
     {
       case hexdec(0):
         if ($funct7==hexdec(0))
-          $function_ret='Addw';
+          $function_ret='addw';
         if ($funct7==hexdec(20))
-          $function_ret='Subw';
+          $function_ret='subw';
         if ($funct7==hexdec(1))
-          $function_ret='Mulw';
+          $function_ret='mulw';
         break;
 
       case hexdec(1):
         if ($funct7==hexdec(0))
-          $function_ret='Sllw';
+          $function_ret='sllw';
         break;
 
       case hexdec(4):
         if ($funct7==hexdec(1))
-          $function_ret='Divw';
+          $function_ret='divw';
         break;
 
       case hexdec(5):
         if ($funct7==hexdec(0))
-          $function_ret='Srlw';
+          $function_ret='srlw';
         if ($funct7==hexdec(1))
-          $function_ret='Divuw';
+          $function_ret='divuw';
         if ($funct7==hexdec(20))
-          $function_ret='Sraw';
+          $function_ret='sraw';
         break;
 
       case hexdec(6):
         if ($funct7==hexdec(1))
-          $function_ret='Remw';
+          $function_ret='remw';
         break;
 
       case hexdec(7):
         if ($funct7==hexdec(1))
-          $function_ret='Remuw';
+          $function_ret='remuw';
         break;
 
       default:
@@ -3732,25 +3755,25 @@ function instrName($op,$funct3,$funct7,$rs2)
     switch ($funct3)
     {
       case hexdec(0):
-        $function_ret='Lb';
+        $function_ret='lb';
         break;
       case hexdec(1):
-        $function_ret='Lh';
+        $function_ret='lh';
         break;
       case hexdec(2):
-        $function_ret='Lw';
+        $function_ret='lw';
         break;
       case hexdec(3):
-        $function_ret='Ld';
+        $function_ret='ld';
         break;
       case hexdec(4):
-        $function_ret='Lbu';
+        $function_ret='lbu';
         break;
       case hexdec(5):
-        $function_ret='Lhu';
+        $function_ret='lhu';
         break;
       case hexdec(6):
-        $function_ret='Lwu';
+        $function_ret='lwu';
         break;
       default:
         $function_ret='';
@@ -3762,31 +3785,31 @@ function instrName($op,$funct3,$funct7,$rs2)
     switch ($funct3)
     {
       case hexdec(0):
-        $function_ret='Addi';
+        $function_ret='addi';
         break;
       case hexdec(1):
-        $function_ret='Slli';
+        $function_ret='slli';
         break;
       case hexdec(2):
-        $function_ret='Slti';
+        $function_ret='slti';
         break;
       case hexdec(3):
-        $function_ret='Sltiu';
+        $function_ret='sltiu';
         break;
       case hexdec(4):
-        $function_ret='Xori';
+        $function_ret='xori';
         break;
       case hexdec(5):
         if ($funct6==hexdec(0))
-          $function_ret="Srli";
+          $function_ret="srli";
         if ($funct6==hexdec(20))
-          $function_ret='Srai';
+          $function_ret='srai';
         break;
       case hexdec(6):
-        $function_ret='Ori';
+        $function_ret='ori';
         break;
       case hexdec(7):
-        $function_ret='Andi';
+        $function_ret='andi';
         break;
       default:
         $function_ret='';
@@ -3798,16 +3821,16 @@ function instrName($op,$funct3,$funct7,$rs2)
     switch ($funct3)
     {
       case hexdec(0):
-        $function_ret='Addiw';
+        $function_ret='addiw';
         break;
       case hexdec(1):
-        $function_ret='Slliw';
+        $function_ret='slliw';
         break;
       case hexdec(5):
         if ($funct7==hexdec(0))
-          $function_ret="Srliw";
+          $function_ret="srliw";
         if ($funct7==hexdec(20))
-          $function_ret='Sraiw';
+          $function_ret='sraiw';
         break;
       default:
         $function_ret='';
@@ -3819,7 +3842,7 @@ function instrName($op,$funct3,$funct7,$rs2)
     switch ($funct3)
     {
       case hexdec(0):
-        $function_ret='Jalr';
+        $function_ret='jalr';
         break;
       default:
         $function_ret='';
@@ -3831,16 +3854,16 @@ function instrName($op,$funct3,$funct7,$rs2)
     switch ($funct3)
     {
       case hexdec(0):
-        $function_ret='Sb';
+        $function_ret='sb';
         break;
       case hexdec(1):
-        $function_ret='Sh';
+        $function_ret='sh';
         break;
       case hexdec(2):
-        $function_ret='Sw';
+        $function_ret='sw';
         break;
       case hexdec(3):
-        $function_ret='Sd';
+        $function_ret='sd';
         break;
       default:
         $function_ret='';
@@ -3852,22 +3875,22 @@ function instrName($op,$funct3,$funct7,$rs2)
     switch ($funct3)
     {
       case hexdec(0):
-        $function_ret='Beq';
+        $function_ret='beq';
         break;
       case hexdec(1):
-        $function_ret='Bne';
+        $function_ret='bne';
         break;
       case hexdec(4):
-        $function_ret='Blt';
+        $function_ret='blt';
         break;
       case hexdec(5):
-        $function_ret='Bge';
+        $function_ret='bge';
         break;
       case hexdec(6):
-        $function_ret='Bltu';
+        $function_ret='bltu';
         break;
       case hexdec(7):
-        $function_ret='Bgeu';
+        $function_ret='bgeu';
         break;
       default:
         $function_ret='';
@@ -3876,24 +3899,24 @@ function instrName($op,$funct3,$funct7,$rs2)
   }
   else if ($op==hexdec('6F'))
   {
-    $function_ret='Jal';
+    $function_ret='jal';
   }
   else if ($op==hexdec(73))
   {
     if ($rs2==0)
-      $function_ret='Ecall';
+      $function_ret='ecall';
     else if ($rs2==1)
-      $function_ret='Ebreak';
+      $function_ret='ebreak';
     else
       $function_ret='';
   }
   else if ($op==hexdec(17))
   {
-    $function_ret='Auipc';
+    $function_ret='auipc';
   }
   else if ($op==hexdec(37))
   {
-    $function_ret='Lui';
+    $function_ret='lui';
   }
 
   return $function_ret;

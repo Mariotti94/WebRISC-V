@@ -121,7 +121,7 @@ else {
 
 if (substr($MEM_WB_WB,0,1)=="1") //RegWrite MEM/WB
 {
-  if($MEM_WB_RegW!=0) { //ignore x0
+  if ($MEM_WB_RegW!=0) { //ignore x0
     $registri[$MEM_WB_RegW]=$WBdata;
   }
 }
@@ -346,7 +346,7 @@ $temp_ID_EX_Data1=$registri[$RL1]; //rs1 val
 $temp_ID_EX_Data2=$registri[$RL2]; //rs2 val
 $bDato1=$temp_ID_EX_Data1;
 $bDato2=$temp_ID_EX_Data2;
-if(!isset($temp_MEM_WB_DataR)) {
+if (!isset($temp_MEM_WB_DataR)) {
   $temp_MEM_WB_DataR=0;
 }
 
@@ -467,7 +467,7 @@ if ($_SESSION['forwarding']==0)
 $MuxBranchCmp1="00";
 $MuxBranchCmp2="00";
 
-if($_SESSION['forwarding']==1)
+if ($_SESSION['forwarding']==1)
 {
   if (substr($EX_MEM_WB,0,1)=="1") //RegWrite EX/MEM
   {
@@ -504,9 +504,9 @@ if($_SESSION['forwarding']==1)
 $Mux3Ctrl="00";
 $Mux4Ctrl="00";
 
-if($_SESSION['forwarding']==1)
+if ($_SESSION['forwarding']==1)
 {
-  if($ID_EX_RS1!=0) //ignore x0
+  if ($ID_EX_RS1!=0) //ignore x0
   {
     if ($EX_MEM_RegW==$ID_EX_RS1 && substr($EX_MEM_WB,0,1)=="1") {
       $Mux3Ctrl="10";
@@ -516,7 +516,7 @@ if($_SESSION['forwarding']==1)
     }
   }
 
-  if($ID_EX_RS2!=0) //ignore x0
+  if ($ID_EX_RS2!=0) //ignore x0
   {
     if ($EX_MEM_RegW==$ID_EX_RS2 && substr($EX_MEM_WB,0,1)=="1") {
       $Mux4Ctrl="10";

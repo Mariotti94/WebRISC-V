@@ -15,7 +15,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
   <script language='JavaScript' type='text/JavaScript'>
     window.onload = function() {
       //PANEL NAME
-      if(top.frames[0].document.getElementById('mainLabel'))
+      if (top.frames[0].document.getElementById('mainLabel'))
         top.frames[0].document.getElementById('mainLabel').innerHTML="SCHEMA LAYOUT";
       //RELOAD LEFT PANEL
       var rFrame=top.frames[1];
@@ -181,7 +181,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
   </table>
   <span style="position:absolute; left:630px; top:200px; font-size:20px;">...</span>
 
-  <?php if($_SESSION['forwarding']==1)
+  <?php if ($_SESSION['forwarding']==1)
   {
   ?>
     <table cellpadding="0" cellspacing="0" class="elemento ex_mux3">
@@ -298,7 +298,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
   // DATA SIGNALS
   if ($_SESSION['segDati']!="")
   {
-    if($_SESSION['forwarding']==0) {
+    if ($_SESSION['forwarding']==0) {
       ?>
       <div style="position:absolute; left:0px; top:2px; width:1px; height:1px; z-index:-2; pointer-events:none;">
         <img src="../img/content/data_signals_no_forwarding.gif">
@@ -316,7 +316,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
   //CONTROL SIGNALS
   if ($_SESSION['segCtrl']!="")
   {
-    if($_SESSION['forwarding']==0) {
+    if ($_SESSION['forwarding']==0) {
       ?>
       <div style="position:absolute; left:0px; top:2px; width:1px; height:1px; z-index:-1; pointer-events:none;">
         <img src="../img/content/control_signals_no_forwarding.gif">
@@ -460,7 +460,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
     </a>
   </div>
 
-  <?php if($_SESSION['forwarding']==1)
+  <?php if ($_SESSION['forwarding']==1)
   {
   ?>
     <div style="z-index:2" class="ex_mux3">

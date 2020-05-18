@@ -110,7 +110,7 @@ $height=0;
         Display the dword at address
         <select name="parola" class="form">
           <?php
-          if($_SESSION['memDatiShow']==0)
+          if ($_SESSION['memDatiShow']==0)
           {
             $memIndex=($_SESSION['maxMem']-8);
             while($memIndex>=($_SESSION['maxMem']-$_SESSION['maxWritableMem'])) {
@@ -160,7 +160,7 @@ $tipo=isset($_GET["tipo"])?$_GET["tipo"]:"";
 $chunkAmount=intval(($_SESSION['maxWritableMem']/8)/4);
 $chunkAmount=($chunkAmount>128)?$chunkAmount:128;
 
-if($_SESSION['memDatiShow']==0)
+if ($_SESSION['memDatiShow']==0)
 {
   switch ($tipo)
   {
@@ -182,7 +182,7 @@ if($_SESSION['memDatiShow']==0)
         $chunkText=$chunkText.generateTextH2L($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex-8;
         $chunkIndex++;
-        if($chunkIndex>=$chunkAmount) {
+        if ($chunkIndex>=$chunkAmount) {
           echo $chunkText;
           $chunkText='';
           $chunkIndex=0;
@@ -210,7 +210,7 @@ if($_SESSION['memDatiShow']==0)
         $chunkText=$chunkText.generateTextH2L($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex-8;
         $chunkIndex++;
-        if($chunkIndex>=$chunkAmount) {
+        if ($chunkIndex>=$chunkAmount) {
           echo $chunkText;
           $chunkText='';
           $chunkIndex=0;
@@ -238,7 +238,7 @@ if($_SESSION['memDatiShow']==0)
         $chunkText=$chunkText.generateTextH2L($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex-8;
         $chunkIndex++;
-        if($chunkIndex>=$chunkAmount) {
+        if ($chunkIndex>=$chunkAmount) {
           echo $chunkText;
           $chunkText='';
           $chunkIndex=0;
@@ -292,7 +292,7 @@ if($_SESSION['memDatiShow']==0)
         $chunkText=$chunkText.generateTextH2L($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex-8;
         $chunkIndex++;
-        if($chunkIndex>=$chunkAmount) {
+        if ($chunkIndex>=$chunkAmount) {
           echo $chunkText;
           $chunkText='';
           $chunkIndex=0;
@@ -346,7 +346,7 @@ else
         $chunkText=$chunkText.generateTextL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex+8;
         $chunkIndex++;
-        if($chunkIndex>=$chunkAmount) {
+        if ($chunkIndex>=$chunkAmount) {
           echo $chunkText;
           $chunkText='';
           $chunkIndex=0;
@@ -374,7 +374,7 @@ else
         $chunkText=$chunkText.generateTextL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex+8;
         $chunkIndex++;
-        if($chunkIndex>=$chunkAmount) {
+        if ($chunkIndex>=$chunkAmount) {
           echo $chunkText;
           $chunkText='';
           $chunkIndex=0;
@@ -402,7 +402,7 @@ else
         $chunkText=$chunkText.generateTextL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex+8;
         $chunkIndex++;
-        if($chunkIndex>=$chunkAmount) {
+        if ($chunkIndex>=$chunkAmount) {
           echo $chunkText;
           $chunkText='';
           $chunkIndex=0;
@@ -456,7 +456,7 @@ else
         $chunkText=$chunkText.generateTextL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex+8;
         $chunkIndex++;
-        if($chunkIndex>=$chunkAmount) {
+        if ($chunkIndex>=$chunkAmount) {
           echo $chunkText;
           $chunkText='';
           $chunkIndex=0;

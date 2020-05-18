@@ -20,7 +20,7 @@ $_SESSION['forwarding']=1;
       return check;
     };
     function resizeFit() {
-      if(top.frames[0].document.querySelector('table').offsetWidth > window.innerWidth) {
+      if (top.frames[0].document.querySelector('table').offsetWidth > window.innerWidth) {
         top.document.querySelector('frameset').setAttribute('rows','147,*');
       }
       else {

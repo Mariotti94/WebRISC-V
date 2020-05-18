@@ -21,28 +21,28 @@ for ($i=0, $codiceCnt=count($codice); $i < $codiceCnt; ++$i)
   $delete=false;
   for ($j = 0, $stringLen=strlen($codice[$i]); $j < $stringLen; ++$j)
   {
-    if($delete) {
+    if ($delete) {
       $codice[$i]=substr_replace($codice[$i], ' ', $j, strlen($codice[$i][$j]));
       continue;
     }
 
-    if($codice[$i][$j]=='#')
+    if ($codice[$i][$j]=='#')
     {
-      if($enable) {
+      if ($enable) {
         $codice[$i]=substr_replace($codice[$i], ' ', $j, strlen('#'));
         $delete=true;
         continue;
       }
     }
 
-    if($codice[$i][$j]=='"') {
+    if ($codice[$i][$j]=='"') {
       $enable=!$enable;
       continue;
     }
 
-    if($codice[$i][$j]==':')
+    if ($codice[$i][$j]==':')
     {
-      if($enable) {
+      if ($enable) {
           $codice[$i]=substr_replace($codice[$i], ':'.PHP_EOL, $j, strlen(':'));
           ++$stringLen;
       }
@@ -61,18 +61,18 @@ $segData=array();
 $segText=array();
 for ($i=0; $i<$codiceCnt; ++$i)
 {
-  if(strtolower($codice[$i])=='.data') {
+  if (strtolower($codice[$i])=='.data') {
     $currSeg='.data';
     continue;
   }
-  if(strtolower($codice[$i])=='.text') {
+  if (strtolower($codice[$i])=='.text') {
     $currSeg='.text';
     continue;
   }
-  if($currSeg=='.data') {
+  if ($currSeg=='.data') {
     array_push($segData,$codice[$i]);
   }
-  if($currSeg=='.text') {
+  if ($currSeg=='.text') {
     array_push($segText,strtolower($codice[$i]));
   }
 }
@@ -109,7 +109,7 @@ for ($i=0; $i<$segDataCnt; ++$i)
     $directive=explode(PHP_EOL,$directive);
     $directive[0]=strtolower($directive[0]);
 
-    if(count($directive)==1)
+    if (count($directive)==1)
     {
       if ($ERR=='') {
         $ERR='ERROR:<br>No arguments in directive => '.$directive[0];
@@ -117,7 +117,7 @@ for ($i=0; $i<$segDataCnt; ++$i)
       break;
     }
 
-    if($directive[0] == '.byte' || $directive[0] == '.dword' || $directive[0] == '.half' || $directive[0] == '.word') {
+    if ($directive[0] == '.byte' || $directive[0] == '.dword' || $directive[0] == '.half' || $directive[0] == '.word') {
       $args=$directive[1];
       $args=str_replace(',',' ',$args);
       $args=explode(' ', $args);
@@ -127,7 +127,7 @@ for ($i=0; $i<$segDataCnt; ++$i)
       $directiveCnt=count($directive);
     }
 
-    if ($directive[0] == '.ascii' || $directive[0] == '.asciz')
+    if ($directive[0] == '.ascii' || $directive[0] == '.asciz' || $directive[0] == '.string')
     {
       $directive[1]=str_replace("\"",'',$directive[1]);
     }
@@ -142,7 +142,7 @@ for ($i=0; $i<$segDataCnt; ++$i)
           }
         }
       }
-      if($ERR!='') {
+      if ($ERR!='') {
         break;
       }
     }
@@ -158,7 +158,7 @@ for ($i=0; $i<$segDataCnt; ++$i)
       }
     }
 
-    if($directive[0] == '.align')
+    if ($directive[0] == '.align')
     {
       if ($directive[1] == 0) {
         continue;
@@ -167,7 +167,7 @@ for ($i=0; $i<$segDataCnt; ++$i)
       $byteCnt=($byteCnt-($byteCnt%$num))+$num;
 
       //BOUND CHECK
-      if($byteCnt>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem']))
+      if ($byteCnt>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem']))
       {
         if ($ERR=='') {
           $ERR='ERROR:<br>Out of Static Data Segment Memory';
@@ -175,20 +175,20 @@ for ($i=0; $i<$segDataCnt; ++$i)
         break;
       }
     }
-    else if($directive[0] == '.ascii')
+    else if ($directive[0] == '.ascii')
     {
       $str=$directive[1];
       $arrStr=str_split($str);
 
       //BOUND CHECK
-      if(($byteCnt+count($arrStr))>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem'])) {
+      if (($byteCnt+count($arrStr))>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem'])) {
         if ($ERR=='') {
           $ERR='ERROR:<br>Out of Static Data Segment Memory';
         }
         break;
       }
 
-      if($pushRelTab !== NULL) {
+      if ($pushRelTab !== NULL) {
         array_push($relTabData,$byteCnt.'|'.$pushRelTab);
         $pushRelTab=NULL;
       }
@@ -199,21 +199,21 @@ for ($i=0; $i<$segDataCnt; ++$i)
         ++$byteCnt;
       }
     }
-    else if($directive[0] == '.asciz')
+    else if ($directive[0] == '.asciz' || $directive[0] == '.string')
     {
       $str=$directive[1];
       $arrStr=str_split($str);
       array_push($arrStr,"\0");
 
       //BOUND CHECK
-      if(($byteCnt+count($arrStr))>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem'])) {
+      if (($byteCnt+count($arrStr))>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem'])) {
         if ($ERR=='') {
           $ERR='ERROR:<br>Out of Static Data Segment Memory';
         }
         break;
       }
 
-      if($pushRelTab !== NULL) {
+      if ($pushRelTab !== NULL) {
         array_push($relTabData,$byteCnt.'|'.$pushRelTab);
         $pushRelTab=NULL;
       }
@@ -224,17 +224,17 @@ for ($i=0; $i<$segDataCnt; ++$i)
         ++$byteCnt;
       }
     }
-    else if($directive[0] == '.byte')
+    else if ($directive[0] == '.byte')
     {
       //BOUND CHECK
-      if(($byteCnt+1)>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem'])) {
+      if (($byteCnt+1)>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem'])) {
         if ($ERR=='') {
           $ERR='ERROR:<br>Out of Static Data Segment Memory';
         }
         break;
       }
 
-      if($pushRelTab !== NULL) {
+      if ($pushRelTab !== NULL) {
         array_push($relTabData,$byteCnt.'|'.$pushRelTab);
         $pushRelTab=NULL;
       }
@@ -245,20 +245,20 @@ for ($i=0; $i<$segDataCnt; ++$i)
         ++$byteCnt;
       }
     }
-    else if($directive[0] == '.dword')
+    else if ($directive[0] == '.dword')
     {
       //BOUND CHECK
-      if(($byteCnt+8)>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem'])) {
+      if (($byteCnt+8)>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem'])) {
         if ($ERR=='') {
           $ERR='ERROR:<br>Out of Static Data Segment Memory';
         }
         break;
       }
 
-      if($pushRelTab !== NULL)
+      if ($pushRelTab !== NULL)
       {
         //align to boundary
-        if($byteCnt%8!=0) {
+        if ($byteCnt%8!=0) {
           $byteCnt=($byteCnt-($byteCnt%8))+8;
         }
         array_push($relTabData,$byteCnt.'|'.$pushRelTab);
@@ -286,20 +286,20 @@ for ($i=0; $i<$segDataCnt; ++$i)
         $byteCnt+=8;
       }
     }
-    else if($directive[0] == '.half')
+    else if ($directive[0] == '.half')
     {
       //BOUND CHECK
-      if(($byteCnt+2)>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem'])) {
+      if (($byteCnt+2)>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem'])) {
         if ($ERR=='') {
           $ERR='ERROR:<br>Out of Static Data Segment Memory';
         }
         break;
       }
 
-      if($pushRelTab !== NULL)
+      if ($pushRelTab !== NULL)
       {
         //align to boundary
-        if($byteCnt%2!=0) {
+        if ($byteCnt%2!=0) {
           $byteCnt=($byteCnt-($byteCnt%2))+2;
         }
         array_push($relTabData,$byteCnt.'|'.$pushRelTab);
@@ -315,20 +315,20 @@ for ($i=0; $i<$segDataCnt; ++$i)
         $byteCnt+=2;
       }
     }
-    else if($directive[0] == '.word')
+    else if ($directive[0] == '.word')
     {
       //BOUND CHECK
-      if(($byteCnt+4)>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem'])) {
+      if (($byteCnt+4)>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem'])) {
         if ($ERR=='') {
           $ERR='ERROR:<br>Out of Static Data Segment Memory';
         }
         break;
       }
 
-      if($pushRelTab !== NULL)
+      if ($pushRelTab !== NULL)
       {
         //align to boundary
-        if($byteCnt%4!=0) {
+        if ($byteCnt%4!=0) {
           $byteCnt=($byteCnt-($byteCnt%4))+4;
         }
         array_push($relTabData,$byteCnt.'|'.$pushRelTab);
@@ -348,17 +348,17 @@ for ($i=0; $i<$segDataCnt; ++$i)
         $byteCnt+=4;
       }
     }
-    else if($directive[0] == '.space')
+    else if ($directive[0] == '.space')
     {
       //BOUND CHECK
-      if(($byteCnt+$directive[1])>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem'])) {
+      if (($byteCnt+$directive[1])>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem'])) {
         if ($ERR=='') {
           $ERR='ERROR:<br>Out of Static Data Segment Memory';
         }
         break;
       }
 
-      if($pushRelTab !== NULL) {
+      if ($pushRelTab !== NULL) {
         array_push($relTabData,$byteCnt.'|'.$pushRelTab);
         $pushRelTab=NULL;
       }
@@ -399,7 +399,7 @@ for ($i=0; $i<$segTextCnt; ++$i)
       else
       {
         $arrInstr=decodeMultiIstr($segText[$i],$instrCnt*4,$relTabData);
-        if($arrInstr[0]!='ERR')
+        if ($arrInstr[0]!='ERR')
         {
           foreach ($arrInstr as $instr) {
             $temp_segText[$instrCnt]=$instr;
@@ -408,13 +408,13 @@ for ($i=0; $i<$segTextCnt; ++$i)
         }
         else
         {
-          if($arrInstr[1]=='instr')
+          if ($arrInstr[1]=='instr')
           {
             if ($ERR=='') {
               $ERR='ERROR:<br>Instruction not decodable => '.$segText[$i];
             }
           }
-          else if($arrInstr[1]=='label')
+          else if ($arrInstr[1]=='label')
           {
             if ($ERR=='') {
               $ERR='ERROR:<br>Label does not exist: '.$arrInstr[2];

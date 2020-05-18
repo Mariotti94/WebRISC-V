@@ -69,7 +69,7 @@ else {
 <table cellpadding="0" cellspacing="0" width="100%" border="0" align="center" id="counter">
   <tr>
     <td width="50%" style="padding: 4px 0px 4px 16px;" class="testoGrande" id="asmNameTd"><?php echo $_SESSION['asmName']; ?></td>
-    <td align="right" width="50%" style="padding: 4px 16px 4px 0px;" class="testoGrande"><?php if(!$_SESSION['data'][$_SESSION['index']]['finito']) echo 'current cycle: <span id="cycleCount">'.(($_SESSION['data'][$_SESSION['index']]['clock']!=0)?$_SESSION['data'][$_SESSION['index']]['clock']:'-').'</span>'; ?>
+    <td align="right" width="50%" style="padding: 4px 16px 4px 0px;" class="testoGrande"><?php if (!$_SESSION['data'][$_SESSION['index']]['finito']) echo 'current cycle: <span id="cycleCount">'.(($_SESSION['data'][$_SESSION['index']]['clock']!=0)?$_SESSION['data'][$_SESSION['index']]['clock']:'-').'</span>'; ?>
 </td>
   </tr>
   <tr>
@@ -98,7 +98,7 @@ else {
     <tr>
       <td align="center" valign="middle" colspan="2">
         <div style="margin:0px 30px; line-height:20px; border:1px solid red; color:red; font-size: 15px;" id="consoleAlert">CONSOLE INTERACTION</div>
-        <?php if($_SESSION['data'][0]['sysHold']) {?>
+        <?php if ($_SESSION['data'][0]['sysHold']) {?>
         <div style="margin:0px 30px; margin-top:5px; line-height:20px; border:1px solid red; color:red; font-size: 15px;">INPUT REQUIRED</div>
         <?php }?>
       </td>

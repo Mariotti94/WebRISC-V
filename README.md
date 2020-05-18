@@ -8,11 +8,35 @@ It is suitable for teaching how assembly level code is executed on the RISC-V pi
 
 <img src="https://github.com/Mariotti94/WebRISC-V/blob/master/docs/intro.png?raw=true"/>
 
+## Publication
+
+If you would like to cite WebRISC-V, please use this reference:
+
+```
+@InProceedings{Giorgi19-wcae,
+  author = {Giorgi, Roberto and Mariotti, Gianfranco},
+  title = {{WebRISC-V}: a Web-Based Education-Oriented  RISC-V Pipeline Simulation Environment},
+  booktitle = "ACM Workshop on Computer Architecture Education (WCAE-19)",
+  address = "Phoenix, AX, (USA)",
+  pages = "1-6",
+  rkey = "",
+  surl = "",
+  month = "jun",
+  year = "2019",
+  url = "http://www.dii.unisi.it/~giorgi/papers/Giorgi19-wcae.pdf",
+  doi = "10.1145/3338698.3338894",
+  isbn= "978-1-4503-6842-1/19/06",
+  dxdo="http://doi.acm.org/",
+  scopus="2-s2.0-8507127341"
+}
+```
+
+## Table of Contents
 - [WebRISC-V](#webrisc-v)
   - [Features](#features)
   - [Local Installation](#local-installation)
 
-## Features
+### Features
 
 * 5-stage Graphical Pipeline 64-bit Simulator
   * Pipeline Schema taken from Patterson's 'Computer Organization and Design: RISC-V Edition' and enhanced
@@ -26,7 +50,7 @@ It is suitable for teaching how assembly level code is executed on the RISC-V pi
   * List of supported instruction with small descriptions of the underlying function visible on click
   * RISC-V Assembly small examples available
 
-## Local Installation
+### Local Installation
 
 You can install WebRISC-V on a local server.
 The reference Installation has been done on the Linux distro UBUNTU 18.04LTS

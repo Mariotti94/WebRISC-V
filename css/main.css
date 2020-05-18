@@ -12,8 +12,9 @@
 }
 
 .edInstr {
-  min-width: 90px;
-  height: 15px;
+  min-width: 93px;
+  min-height: 15px;
+  height: 100%;
   cursor: default;
 }
 

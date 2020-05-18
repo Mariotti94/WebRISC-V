@@ -128,11 +128,10 @@ if ($dim!=0)
             <b>Address <?php echo $index*4;?> (0x<?php echo dechex($index*4);?>)</b><br>
             <?php echo $tipo;?>-type Instruction:<br>
           </font>
-          <font size="3" face="arial">
+          <font face="arial" style="font-size: 16px; display: block; margin-top: 1px; margin-bottom: -1px;">
             <b><?php echo $istruzione;?></b>
           </font>
-          <br>
-          <font size="2" face="arial">
+          <font face="arial" style="font-size: 14px;">
             <b><?php echo $a;?></b>
           </font>
         </td>
