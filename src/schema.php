@@ -38,6 +38,19 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
   <meta name="robots" content="noindex">
 </head>
 <body id="schemaBody">
+  <table cellpadding="0" cellspacing="0" style="position: absolute; left: 1px; top: 0px; width: 1196px; height: 20px; font-family: monospace; font-weight: bold; background: white; border: 1px solid;">
+    <tr>
+      <td id="ifLabel" align="center" style="width: 16%; border-right: 1px solid;">-</td>
+      <td style="min-width: 1px;"></td>
+      <td id="idLabel" align="center" style="width: 29%; border-left: 1px solid; border-right: 1px solid;">-</td>
+      <td style="min-width: 1px;"></td>
+      <td id="exLabel" align="center" style="width: 27%; border-left: 1px solid; border-right: 1px solid;">-</td>
+      <td style="min-width: 1px;"></td>
+      <td  id="memLabel"align="center" style="width: 14%; border-left: 1px solid; border-right: 1px solid;">-</td>
+      <td style="min-width: 1px;"></td>
+      <td id="wbLabel" align="center" style="width: 14%; border-left: 1px solid;">-</td>
+    </tr>
+  </table>
 
   <table cellpadding="0" cellspacing="0" class="elemento and">
     <tr><td valign="middle" align="center"><font size="1">AND</font></td></tr>
@@ -300,14 +313,14 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
   {
     if ($_SESSION['forwarding']==0) {
       ?>
-      <div style="position:absolute; left:0px; top:2px; width:1px; height:1px; z-index:-2; pointer-events:none;">
+      <div class="datapath">
         <img src="../img/content/data_signals_no_forwarding.gif">
       </div>
       <?php
     }
     else {
       ?>
-      <div style="position:absolute; left:0px; top:2px; width:1px; height:1px; z-index:-2; pointer-events:none;">
+      <div class="datapath">
         <img src="../img/content/data_signals_forwarding.gif">
       </div>
       <?php
@@ -318,14 +331,14 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
   {
     if ($_SESSION['forwarding']==0) {
       ?>
-      <div style="position:absolute; left:0px; top:2px; width:1px; height:1px; z-index:-1; pointer-events:none;">
+      <div class="ctrlpath">
         <img src="../img/content/control_signals_no_forwarding.gif">
       </div>
       <?php
     }
     else {
       ?>
-      <div style="position:absolute; left:0px; top:2px; width:1px; height:1px; z-index:-1; pointer-events:none;">
+      <div class="ctrlpath">
         <img src="../img/content/control_signals_forwarding.gif">
       </div>
       <?php
@@ -582,7 +595,6 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="MEM/WB.WB REGISTER">
     </a>
   </div>
-
 </body>
 </html>
 

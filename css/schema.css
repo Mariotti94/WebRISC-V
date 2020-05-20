@@ -1,144 +1,293 @@
 .alu {
-  position:absolute; left:767px; top:328px; width:40px; height:50px;
+  position: absolute;
+  left: 777px;
+  top: 353px;
+  width: 40px;
+  height: 50px;
 }
 .and {
-  position:absolute; left:85px; top:30px; width:40px; height:40px;
+  position: absolute;
+  left: 95px;
+  top: 55px;
+  width: 40px;
+  height: 40px;
 }
 .branch_cmp {
-  position:absolute; left:438px; top:188px; width:50px; height:50px;
+  position: absolute;
+  left: 448px;
+  top: 213px;
+  width: 50px;
+  height: 50px;
 }
 .cause {
-  position:absolute; left:615px; top:173px; width:45px; height:20px;
+  position: absolute;
+  left: 625px;
+  top: 198px;
+  width: 45px;
+  height: 20px;
 }
 .controllo {
-  position:absolute; left:262px; top:85px; width:60px; height:58px;
+  position: absolute;
+  left: 272px;
+  top: 110px;
+  width: 60px;
+  height: 58px;
 }
 .controlloalu {
-  position:absolute; left:762px; top:426px; width:50px; height:50px;
+  position: absolute;
+  left: 772px;
+  top: 451px;
+  width: 50px;
+  height: 50px;
 }
 .criticita {
-  position:absolute; left:259px; top:16px; width:71px; height:55px;
+  position: absolute;
+  left: 269px;
+  top: 41px;
+  width: 71px;
+  height: 55px;
 }
 .csr_label {
-  position:absolute; left:615px; top:162px; width:60px; font-size:10px;
+  position: absolute;
+  left: 625px;
+  top: 187px;
+  width: 60px;
+  font-size: 10px;
 }
 .epc {
-  position:absolute; left:615px; top:192px; width:45px; height:20px;
+  position: absolute;
+  left: 625px;
+  top: 217px;
+  width: 45px;
+  height: 20px;
 }
 .ex_mux1 {
-  position:absolute; left:662px; top:90px; width:28px; height:48px;
+  position: absolute;
+  left: 672px;
+  top: 115px;
+  width: 28px;
+  height: 48px;
 }
 .ex_mux2 {
-  position:absolute; left:723px; top:130px; width:28px; height:48px;
+  position: absolute;
+  left: 733px;
+  top: 155px;
+  width: 28px;
+  height: 48px;
 }
 .ex_mux3 {
-  position:absolute; left:612px; top:270px; width:28px; height:48px;
+  position: absolute;
+  left: 622px;
+  top: 295px;
+  width: 28px;
+  height: 48px;
 }
 .ex_mux4 {
-  position:absolute; left:612px; top:384px; width:28px; height:48px;
+  position: absolute;
+  left: 622px;
+  top: 409px;
+  width: 28px;
+  height: 48px;
 }
 .ex_mux5 {
-  position:absolute; left:713px; top:270px; width:28px; height:48px;
+  position: absolute;
+  left: 723px;
+  top: 295px;
+  width: 28px;
+  height: 48px;
 }
 .ex_mux6 {
-  position:absolute; left:713px; top:384px; width:28px; height:48px;
+  position: absolute;
+  left: 723px;
+  top: 409px;
+  width: 28px;
+  height: 48px;
 }
 .forward_alu {
-  position:absolute; left:733px; top:505px; width:77px; height:50px;
+  position: absolute;
+  left: 743px;
+  top: 530px;
+  width: 77px;
+  height: 50px;
 }
 .forward_branch {
-  position:absolute; left:408px; top:530px; width:77px; height:40px;
+  position: absolute;
+  left: 418px;
+  top: 555px;
+  width: 77px;
+  height: 40px;
 }
 .id_mux1 {
-  position:absolute; left:438px; top:128px; width:28px; height:48px;
+  position: absolute;
+  left: 448px;
+  top: 153px;
+  width: 28px;
+  height: 48px;
 }
 .id_mux2 {
-  position:absolute; left:328px; top:183px; width:28px; height:48px;
+  position: absolute;
+  left: 338px;
+  top: 208px;
+  width: 28px;
+  height: 48px;
 }
 .id_som1 {
-  position:absolute; left:277px; top:175px; width:30px; height:30px;
+  position: absolute;
+  left: 287px;
+  top: 200px;
+  width: 30px;
+  height: 30px;
 }
 .id_som2 {
-  position:absolute; left:277px; top:210px; width:30px; height:30px;
+  position: absolute;
+  left: 287px;
+  top: 235px;
+  width: 30px;
+  height: 30px;
 }
 .if_mux {
-  position:absolute; left:96px; top:120px; width:28px; height:48px;
+  position: absolute;
+  left: 106px;
+  top: 145px;
+  width: 28px;
+  height: 48px;
 }
 .if_som {
-  position:absolute; left:84px; top:195px; width:40px; height:40px;
+  position: absolute;
+  left: 94px;
+  top: 220px;
+  width: 40px;
+  height: 40px;
 }
 .immgen {
-  position:absolute; left:247px; top:425px; width:48px; height:24px;
+  position: absolute;
+  left: 257px;
+  top: 450px;
+  width: 48px;
+  height: 24px;
 }
 .istruzioni {
-  position:absolute; left:79px; top:320px; width:60px; height:150px;
+  position: absolute;
+  left: 89px;
+  top: 345px;
+  width: 60px;
+  height: 150px;
 }
 .memdati {
-  position:absolute; left:916px; top:276px; width:60px; height:165px;
+  position: absolute;
+  left: 926px;
+  top: 301px;
+  width: 60px;
+  height: 165px;
 }
 .or {
-  position:absolute; left:432px; top:42px; width:40px; height:24px;
+  position: absolute;
+  left: 442px;
+  top: 67px;
+  width: 40px;
+  height: 24px;
 }
 .pc {
-  position:absolute; left:21px; top:250px; width:27px; height:220px;
+  position: absolute;
+  left: 31px;
+  top: 275px;
+  width: 27px;
+  height: 220px;
 }
 .registri {
-  position:absolute; left:320px; top:265px; width:90px; height:150px;
+  position: absolute;
+  left: 330px;
+  top: 290px;
+  width: 90px;
+  height: 150px;
 }
 .sl1 {
-  position:absolute; left:237px; top:329px; width:50px; height:30px;
+  position: absolute;
+  left: 247px;
+  top: 354px;
+  width: 50px;
+  height: 30px;
 }
 .wb_mux {
-  position:absolute; left:1083px; top:380px; width:28px; height:48px;
+  position: absolute;
+  left: 1093px;
+  top: 405px;
+  width: 28px;
+  height: 48px;
 }
 
 /* LATCHES */
 .if_id {
-  position:absolute; left:154px;
+  position: absolute;
+  left: 164px;
 }
 .if_id_latch {
-  top:208px;
+  top: 233px;
 }
 .id_ex {
-  position:absolute; left:513px; top:93px;
+  position: absolute;
+  left: 523px;
+  top: 118px;
 }
 .id_ex_latch {
-  top:93px;
+  top: 118px;
 }
 .id_ex_wb {
-  top:100px;
+  top: 125px;
 }
 .id_ex_mem {
-  top:135px;
+  top: 160px;
 }
 .id_ex_ex {
-  top:170px;
+  top: 195px;
 }
 .ex_mem {
-  position:absolute; left:827px;
+  position: absolute;
+  left: 837px;
 }
 .ex_mem_latch {
-  top:128px;
+  top: 153px;
 }
 .ex_mem_wb {
-  top:135px;
+  top: 160px;
 }
 .ex_mem_mem {
-  top:170px;
+  top: 195px;
 }
 .mem_wb {
-  position:absolute; left:997px;
+  position: absolute;
+  left: 1007px;
 }
 .mem_wb_latch {
-  top:160px;
+  top: 185px;
 }
 .mem_wb_wb {
-  top:170px;
+  top: 195px;
+}
+
+/*PATHS*/
+.datapath {
+  position: absolute;
+  left: 10px;
+  top: 27px;
+  width: 1px;
+  height: 1px;
+  z-index: -2;
+  pointer-events: none;
+}
+.ctrlpath {
+  position: absolute;
+  left: 10px;
+  top: 27px;
+  width: 1px;
+  height: 1px;
+  z-index: -1;
+  pointer-events: none;
 }
 
 /*MISC*/
 .disabled {
   pointer-events: none;
-  background: repeating-linear-gradient( 45deg, #ccc, #ccc 10px, #bbb 10px, #bbb 20px );
+  background: repeating-linear-gradient(45deg, #ccc, #ccc 10px, #bbb 10px, #bbb 20px);
   border: #999 solid 1px;
 }

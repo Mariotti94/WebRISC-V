@@ -13,12 +13,12 @@ if (isset($_POST['btnBreak'])){
   echo "<script language='JavaScript' type='text/JavaScript'>window.close();</script>";
 }
 
-$sysman = "VALID SYSCALLS MANUAL".PHP_EOL;
+$sysman = "SUPPORTED SYSTEM CALLS".PHP_EOL;
 $sysman = $sysman."Syscall code in a7, Argument in a0".PHP_EOL;
-$sysman = $sysman."SYSCALL CODES:".PHP_EOL;
-$sysman = $sysman."Print Int = 1".PHP_EOL;
+$sysman = $sysman."ECALL CODES:".PHP_EOL;
+$sysman = $sysman."Print Int    = 1".PHP_EOL;
 $sysman = $sysman."Print String = 4".PHP_EOL;
-$sysman = $sysman."Read Int= 5".PHP_EOL;
+$sysman = $sysman."Read Int     = 5".PHP_EOL;
 ?>
 <html>
 <head>

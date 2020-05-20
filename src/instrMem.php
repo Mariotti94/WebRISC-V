@@ -82,43 +82,52 @@ if ($dim!=0)
     <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
 
     <?php
-      $text1='<tr><td align="center" valign="middle" bgcolor=';
+      $text1='<tr bgcolor="white"><td align="center" valign="middle" style="border-style: solid; border-width: 1px 0px; background: ';
       $text2='> <font size="2" face="arial" color="black">';
       $text3='</font> </td></tr>';
       if ($_SESSION['data'][$_SESSION['index']]['ifIstruzione']==$index) {
-        $color='pink';
-        $id=' id="ifStage"';
+        $color='#ffc0cbdf';
+        $id=';" id="ifStage"';
         $message='INSTRUCTION IN IF STAGE';
         $message=($_SESSION['data'][$_SESSION['index']]['idIstruzione']==1001)?$message.'<b style="position: absolute; font-size: 20px; margin-left: 2px;">*</b>':$message;
         echo $text1.$color.$id.$text2.$message.$text3;
 
+        echo "<script language='JavaScript' type='text/JavaScript'>top.frames[2].document.getElementById('ifLabel').innerText='".$istruzione."'; top.frames[2].document.getElementById('ifLabel').style.background='".$color."';</script>";
       }
       if ($_SESSION['data'][$_SESSION['index']]['idIstruzione']==$index) {
-        $color='red';
-        $id=' id="idStage"';
+        $color='#ff0000af';
+        $id=';" id="idStage"';
         $message='INSTRUCTION IN ID STAGE';
         $message=($_SESSION['data'][$_SESSION['index']]['exIstruzione']==1001)?$message.'<b style="position: absolute; font-size: 20px; margin-left: 2px;">*</b>':$message;
         echo $text1.$color.$id.$text2.$message.$text3;
+
+        echo "<script language='JavaScript' type='text/JavaScript'>top.frames[2].document.getElementById('idLabel').innerText='".$istruzione."'; top.frames[2].document.getElementById('idLabel').style.background='".$color."';</script>";
       }
       if ($_SESSION['data'][$_SESSION['index']]['exIstruzione']==$index) {
-        $color='yellow';
-        $id=' id="exStage"';
+        $color='#ffff00af';
+        $id=';" id="exStage"';
         $message='INSTRUCTION IN EX STAGE';
         $message=($_SESSION['data'][$_SESSION['index']]['memIstruzione']==1001)?$message.'<b style="position: absolute; font-size: 20px; margin-left: 2px;">*</b>':$message;
         echo $text1.$color.$id.$text2.$message.$text3;
+
+        echo "<script language='JavaScript' type='text/JavaScript'>top.frames[2].document.getElementById('exLabel').innerText='".$istruzione."'; top.frames[2].document.getElementById('exLabel').style.background='".$color."';</script>";
       }
       if ($_SESSION['data'][$_SESSION['index']]['memIstruzione']==$index) {
-        $color='blue';
-        $id=' id="memStage"';
+        $color='#0000ff9f';
+        $id=';" id="memStage"';
         $message='INSTRUCTION IN MEM STAGE';
         $message=($_SESSION['data'][$_SESSION['index']]['wbIstruzione']==1001)?$message.'<b style="position: absolute; font-size: 20px; margin-left: 2px;">*</b>':$message;
         echo $text1.$color.$id.$text2.$message.$text3;
+
+        echo "<script language='JavaScript' type='text/JavaScript'>top.frames[2].document.getElementById('memLabel').innerText='".$istruzione."'; top.frames[2].document.getElementById('memLabel').style.background='".$color."';</script>";
       }
       if ($_SESSION['data'][$_SESSION['index']]['wbIstruzione']==$index) {
-        $color='green';
-        $id=' id="wbStage"';
+        $color='#008000af';
+        $id=';" id="wbStage"';
         $message='INSTRUCTION IN WB STAGE';
         echo $text1.$color.$id.$text2.$message.$text3;
+
+        echo "<script language='JavaScript' type='text/JavaScript'>top.frames[2].document.getElementById('wbLabel').innerText='".$istruzione."'; top.frames[2].document.getElementById('wbLabel').style.background='".$color."';</script>";
       }
 
     ?>

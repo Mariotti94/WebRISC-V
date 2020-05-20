@@ -282,6 +282,32 @@ session_start();
                 <td class="bBot bRight"></td>
               </tr>
             </table>
+            <table class="testo" style="margin: auto; margin-top: 10px; height: 100%; border-collapse: collapse; background-color: white; font-size: 9px;">
+              <tr>
+                <th class="edInstr bLeft bTop bRight" align="center" colspan="5"><b>Supported System Calls</b></th>
+              </tr>
+              <tr>
+                <td rowspan="3" class="edScall bLeft bBot bTop" style="min-width: 200px; border-right: 1px dashed #999;">
+                    Syscall code in a7, Argument in a0
+                </td>
+                <td rowspan="3" class="edScall bBot bTop" style="min-width: 100px;">
+                  <b>ECALL CODES:</b>
+                </td>
+                <td class="edScall bRight bTop" style="min-width: 100px;">
+                  Print Int    = 1
+                </td>
+              </tr>
+              <tr>
+                <td class="edScall bRight">
+                  Print String = 4
+                </td>
+              </tr>
+              <tr>
+                <td class="edScall bBot bRight">
+                  Read Int     = 5
+                </td>
+              </tr>
+            </table>
           </td>
           <td style="min-width: 580px; padding-right: 20px;">
             <div style="height: 420px; overflow-x: auto; overflow-y: auto; border: 1px solid black;">

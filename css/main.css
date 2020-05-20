@@ -17,6 +17,11 @@
   height: 100%;
   cursor: default;
 }
+.edScall {
+  min-height: 15px;
+  height: 100%;
+  cursor: default;
+}
 
 .edMenuTd1 {
   min-width: 246px;
