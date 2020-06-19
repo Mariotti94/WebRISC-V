@@ -192,7 +192,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
   <table cellpadding="0" cellspacing="0" class="elemento epc">
     <tr><td valign="middle" align="center"><font size="1">SEPC</font></td></tr>
   </table>
-  <span style="position:absolute; left:630px; top:200px; font-size:20px;">...</span>
+  <span style="position:absolute; left:640px; top:225px; font-size:20px;">...</span>
 
   <?php if ($_SESSION['forwarding']==1)
   {
