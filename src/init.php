@@ -112,5 +112,5 @@ $_SESSION['data'][0]['sysBreak']=false;
 $_SESSION['data'][0]['sysConsole']='';
 
 //DATA SCHEMA
-$_SESSION['data'][0]['schemaData']=array_fill(0, 65, NULL);
+$_SESSION['data'][0]['schemaData']=array_fill(0, 64, NULL);
 ?>

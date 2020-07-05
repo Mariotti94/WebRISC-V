@@ -650,10 +650,11 @@ $tempImm=BinToGMP($temp_ID_EX_imm,0);
 $tempIstruzione=($stallo)?$istruzione:(($PCsrc&&($_SESSION['branchRes']==0))?str_repeat('0',32):$memIstr[$tempPC/4]);
 $branchAddr=($IF_ID_PC+BinToGMP($temp_ID_EX_imm,0)*2);
 $jalrAddr=$temp_ID_EX_Data1+gmp_intval(BinToGMP($temp_ID_EX_imm,0));
-$newPC1=($isJalr)?$jalrAddr:$branchAddr;
-$newPC2=$tempPC+4;
-$newPC=IDMux($PCsrc,false,$newPC1,$newPC2);
+$jumpAddr=($isJalr)?$jalrAddr:$branchAddr;
+$newPC=IDMux($PCsrc,false,$jumpAddr,($tempPC+4));
+
 $newPC=($stallo)?$tempPC:$newPC;
+$tempPC=($stallo)?$IF_ID_PC:$tempPC;
 
 $IF_scarta=($PCsrc&&(!$stallo)&&($_SESSION['branchRes']==0))?1:0; //branch (ignore stall)
 $ID_scarta=($stallo)?1:0; //stall, exception
@@ -740,7 +741,7 @@ if (!$_SESSION['data'][0]['finito'])
 
 if (!$_SESSION['data'][0]['finito'])
 {
-  $_SESSION['data'][0]['schemaData'] = array($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW,$EX_MEM_WB,$EX_scarta,$ID_EX_Data1,$ID_EX_Data2,$ID_EX_EX,$ID_EX_M,$ID_EX_PC,$ID_EX_RD,$ID_EX_RS1,$ID_EX_RS2,$ID_EX_WB,$ID_EX_campoOp,$ID_EX_funct3,$ID_EX_funct7,$ID_EX_immVal,$ID_scarta,$IF_ID_PC,$IF_scarta,$MEM_WB_Data,$MEM_WB_DataR,$MEM_WB_RegW,$MEM_WB_WB,$Mux3Ctrl,$Mux4Ctrl,$Mux5Ctrl,$Mux6Ctrl,$MuxBranchCmp1,$MuxBranchCmp2,$PCsrc,$RL1,$RL2,$WBdata,$aluCtrl,$jump,$branchAddr,$branchCmp,$ctrl_EX,$ctrl_M,$ctrl_WB,$isBranch,$isJalr,$istruzione,$jalrAddr,$newPC,$newPC1,$newPC2,$stallo,$tempImm,$tempIstruzione,$tempPC,$temp_ALUdato1,$temp_EX_MEM_DataW,$temp_EX_MEM_RIS,$temp_ID_EX_Data1,$temp_ID_EX_Data2,$temp_ID_EX_funct3,$temp_ID_EX_imm,$temp_MEM_WB_DataR);
+  $_SESSION['data'][0]['schemaData'] = array($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW,$EX_MEM_WB,$EX_scarta,$ID_EX_Data1,$ID_EX_Data2,$ID_EX_EX,$ID_EX_M,$ID_EX_PC,$ID_EX_RD,$ID_EX_RS1,$ID_EX_RS2,$ID_EX_WB,$ID_EX_campoOp,$ID_EX_funct3,$ID_EX_funct7,$ID_EX_immVal,$ID_scarta,$IF_ID_PC,$IF_scarta,$MEM_WB_Data,$MEM_WB_DataR,$MEM_WB_RegW,$MEM_WB_WB,$Mux3Ctrl,$Mux4Ctrl,$Mux5Ctrl,$Mux6Ctrl,$MuxBranchCmp1,$MuxBranchCmp2,$PCsrc,$RL1,$RL2,$WBdata,$aluCtrl,$jump,$branchAddr,$branchCmp,$ctrl_EX,$ctrl_M,$ctrl_WB,$isBranch,$isJalr,$istruzione,$jalrAddr,$newPC,$jumpAddr,$stallo,$tempImm,$tempIstruzione,$tempPC,$temp_ALUdato1,$temp_EX_MEM_DataW,$temp_EX_MEM_RIS,$temp_ID_EX_Data1,$temp_ID_EX_Data2,$temp_ID_EX_funct3,$temp_ID_EX_imm,$temp_MEM_WB_DataR);
 
   //END
   $_SESSION['data'][0]['finito'] = ($_SESSION['data'][0]['ifIstruzione']==1002) && ($_SESSION['data'][0]['idIstruzione']==1002) && ($_SESSION['data'][0]['exIstruzione']==1002) && ($_SESSION['data'][0]['memIstruzione']==1002) && ($_SESSION['data'][0]['wbIstruzione']==1002) && ($_SESSION['start']);
@@ -767,7 +768,7 @@ $ID_EX_M=$temp_ID_EX_M;
 $ID_EX_EX=$temp_ID_EX_EX;
 $ID_EX_PC=$IF_ID_PC;
 
-$IF_ID_PC=($stallo)?$IF_ID_PC:$tempPC;
+$IF_ID_PC=$tempPC;
 $ID_EX_imm=$temp_ID_EX_imm;
 $ID_EX_Data1=$temp_ID_EX_Data1;
 $ID_EX_Data2=$temp_ID_EX_Data2;

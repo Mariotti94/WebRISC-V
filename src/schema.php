@@ -1,5 +1,5 @@
 <?php
-list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW,$EX_MEM_WB,$EX_scarta,$ID_EX_Data1,$ID_EX_Data2,$ID_EX_EX,$ID_EX_M,$ID_EX_PC,$ID_EX_RD,$ID_EX_RS1,$ID_EX_RS2,$ID_EX_WB,$ID_EX_campoOp,$ID_EX_funct3,$ID_EX_funct7,$ID_EX_immVal,$ID_scarta,$IF_ID_PC,$IF_scarta,$MEM_WB_Data,$MEM_WB_DataR,$MEM_WB_RegW,$MEM_WB_WB,$Mux3Ctrl,$Mux4Ctrl,$Mux5Ctrl,$Mux6Ctrl,$MuxBranchCmp1,$MuxBranchCmp2,$PCsrc,$RL1,$RL2,$WBdata,$aluCtrl,$jump,$branchAddr,$branchCmp,$ctrl_EX,$ctrl_M,$ctrl_WB,$isBranch,$isJalr,$istruzione,$jalrAddr,$newPC,$newPC1,$newPC2,$stallo,$tempImm,$tempIstruzione,$tempPC,$temp_ALUdato1,$temp_EX_MEM_DataW,$temp_EX_MEM_RIS,$temp_ID_EX_Data1,$temp_ID_EX_Data2,$temp_ID_EX_funct3,$temp_ID_EX_imm,$temp_MEM_WB_DataR) = $_SESSION['data'][$_SESSION['index']]['schemaData'];
+list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW,$EX_MEM_WB,$EX_scarta,$ID_EX_Data1,$ID_EX_Data2,$ID_EX_EX,$ID_EX_M,$ID_EX_PC,$ID_EX_RD,$ID_EX_RS1,$ID_EX_RS2,$ID_EX_WB,$ID_EX_campoOp,$ID_EX_funct3,$ID_EX_funct7,$ID_EX_immVal,$ID_scarta,$IF_ID_PC,$IF_scarta,$MEM_WB_Data,$MEM_WB_DataR,$MEM_WB_RegW,$MEM_WB_WB,$Mux3Ctrl,$Mux4Ctrl,$Mux5Ctrl,$Mux6Ctrl,$MuxBranchCmp1,$MuxBranchCmp2,$PCsrc,$RL1,$RL2,$WBdata,$aluCtrl,$jump,$branchAddr,$branchCmp,$ctrl_EX,$ctrl_M,$ctrl_WB,$isBranch,$isJalr,$istruzione,$jalrAddr,$newPC,$jumpAddr,$stallo,$tempImm,$tempIstruzione,$tempPC,$temp_ALUdato1,$temp_EX_MEM_DataW,$temp_EX_MEM_RIS,$temp_ID_EX_Data1,$temp_ID_EX_Data2,$temp_ID_EX_funct3,$temp_ID_EX_imm,$temp_MEM_WB_DataR) = $_SESSION['data'][$_SESSION['index']]['schemaData'];
 ?>
 <html>
 <head>
@@ -360,7 +360,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
   </div>
 
   <div style="z-index:2" class="if_mux">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=if_mux&newPC=<?php echo isset($newPC)?$newPC:0;?>&PCpiu4=<?php echo isset($newPC2)?$newPC2:0;?>&salto=<?php echo isset($newPC1)?$newPC1:0;?>&ctrl1=<?php echo isset($PCsrc)?(int)$PCsrc:0;?>&ctrl2=<?php echo 0;?>','','width=400,height=340');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=if_mux&newPC=<?php echo isset($newPC)?$newPC:0;?>&PCpiu4=<?php echo isset($tempPC)?($tempPC+4):0;?>&salto=<?php echo isset($jumpAddr)?$jumpAddr:0;?>&ctrl1=<?php echo isset($PCsrc)?(int)$PCsrc:0;?>&ctrl2=<?php echo 0;?>','','width=400,height=340');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="INSTRUCTION FETCH MULTIPLEXER">
     </a>
   </div>
@@ -450,7 +450,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
   </div>
 
   <div style="z-index:2" class="id_mux2">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=id_mux2&op1=<?php echo isset($branchAddr)?$branchAddr:0;?>&op2=<?php echo isset($jalrAddr)?$jalrAddr:0;?>&ris=<?php echo isset($newPC1)?$newPC1:0;?>&ctrl=<?php echo isset($isJalr)?(int)$isJalr:0;?>','','width=380,height=240');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=id_mux2&op1=<?php echo isset($branchAddr)?$branchAddr:0;?>&op2=<?php echo isset($jalrAddr)?$jalrAddr:0;?>&ris=<?php echo isset($jumpAddr)?$jumpAddr:0;?>&ctrl=<?php echo isset($isJalr)?(int)$isJalr:0;?>','','width=380,height=240');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="EXECUTE MULTIPLEXER 5">
     </a>
   </div>
