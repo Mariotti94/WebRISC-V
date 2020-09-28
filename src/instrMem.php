@@ -1,4 +1,5 @@
 <?php
+if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 require_once 'functions.php';
 $mem=$_SESSION['memIstr'];
 $dim=$_SESSION['memIstrUse'];

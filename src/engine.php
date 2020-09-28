@@ -1,4 +1,5 @@
 <?php
+if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 //############################################
 //BOUNDS CHECK
 

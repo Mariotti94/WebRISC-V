@@ -1,5 +1,6 @@
 <?php
 session_start();
+if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 if (isset($_POST['btnReadInt'])){
   $_SESSION['data'][0]['sysHold']=false;
   $_SESSION['data'][0]['sysInput']=false;

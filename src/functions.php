@@ -74,7 +74,7 @@ function BinToGMP($str,$istruzione)
   $lunghezza=strlen($str);
   if ($lunghezza!=0)
   {
-    if ($str[0]=='1' && $lunghezza!=1 && $istruzione!=1)
+    if ( (isset($str[0])?$str[0]:'0')=='1' && $lunghezza!=1 && $istruzione!=1)
     {
       $str=twoComplement($str);
       $j=0;

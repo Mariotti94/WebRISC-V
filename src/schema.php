@@ -1,4 +1,5 @@
 <?php
+if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW,$EX_MEM_WB,$EX_scarta,$ID_EX_Data1,$ID_EX_Data2,$ID_EX_EX,$ID_EX_M,$ID_EX_PC,$ID_EX_RD,$ID_EX_RS1,$ID_EX_RS2,$ID_EX_WB,$ID_EX_campoOp,$ID_EX_funct3,$ID_EX_funct7,$ID_EX_immVal,$ID_scarta,$IF_ID_PC,$IF_scarta,$MEM_WB_Data,$MEM_WB_DataR,$MEM_WB_RegW,$MEM_WB_WB,$Mux3Ctrl,$Mux4Ctrl,$Mux5Ctrl,$Mux6Ctrl,$MuxBranchCmp1,$MuxBranchCmp2,$PCsrc,$RL1,$RL2,$WBdata,$aluCtrl,$jump,$branchAddr,$branchCmp,$ctrl_EX,$ctrl_M,$ctrl_WB,$isBranch,$isJalr,$istruzione,$jalrAddr,$newPC,$jumpAddr,$stallo,$tempImm,$tempIstruzione,$tempPC,$temp_ALUdato1,$temp_EX_MEM_DataW,$temp_EX_MEM_RIS,$temp_ID_EX_Data1,$temp_ID_EX_Data2,$temp_ID_EX_funct3,$temp_ID_EX_imm,$temp_MEM_WB_DataR) = $_SESSION['data'][$_SESSION['index']]['schemaData'];
 ?>
 <html>

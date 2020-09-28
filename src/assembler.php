@@ -1,5 +1,6 @@
 <?php
 session_start();
+if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 require_once 'functions.php';
 require 'init.php';
 
@@ -8,7 +9,7 @@ if (isset($_POST['asmName']) && $_POST['asmName']!='')
 
 $ERR='';
 
-$codice=$_POST['codice'];
+$codice=isset($_POST['codice'])?$_POST['codice']:'';
 $_SESSION['codice']=trim($codice);
 
 $codice = preg_replace('/\h+/',' ',$codice);        //fix whitespace

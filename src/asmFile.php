@@ -1,5 +1,6 @@
 <?php
 session_start();
+if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 $_SESSION['inserted']=true;
 if ($_POST['btn_submit']=="Insert in Textbox")
   $cosa=$_POST["programma"];

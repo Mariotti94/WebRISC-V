@@ -1,5 +1,6 @@
 <?php
 session_start();
+if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 require_once 'functions.php';
 require_once 'engine.php';
 $agg=isset($_GET["agg"])?$_GET["agg"]:"";
