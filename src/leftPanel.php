@@ -18,7 +18,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
       var backButton=top.frames[0].document.getElementById('backButton');
       var stepButton=top.frames[0].document.getElementById('stepButton');
       var allButton=top.frames[0].document.getElementById('allButton');
-      if (<?php echo (!$_SESSION['data'][$_SESSION['index']]['clock'])?'true':'false'; ?>) {
+      if (<?php echo (!$_SESSION['data'][$_SESSION['index']]['clock'] || ($_SESSION['maxBackSteps']>=0 && $_SESSION['index']==$_SESSION['maxBackSteps']))?'true':'false'; ?>) {
         backButton.getElementsByTagName('a')[0].setAttribute('class','link4disabled');
       }
       else {
