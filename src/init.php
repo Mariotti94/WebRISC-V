@@ -1,14 +1,15 @@
 <?php
 //VERSION
-$_SESSION['version']="1.7.1";
+$_SESSION['version']="1.7.2";
 
 //BOUNDS
-$_SESSION['maxCycle']=1000;
+$_SESSION['maxCycle']=2000;
 $_SESSION['maxDynamicMem']=3072;  //byte amount, dword-aligned
 $_SESSION['maxStaticMem']=1024;   //byte amount, dword-aligned
 $_SESSION['maxTextMem']=1024;     //byte amount, word-aligned
 $_SESSION['maxWritableMem']=$_SESSION['maxDynamicMem']+$_SESSION['maxStaticMem'];
 $_SESSION['maxMem']=$_SESSION['maxWritableMem']+$_SESSION['maxTextMem'];
+$_SESSION['maxBackSteps']=50;     //if less than 0 bound disabled
 
 //STATUS
 unset($_SESSION['data']);

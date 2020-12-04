@@ -41,9 +41,15 @@ if ($agg=="forward" && $_SESSION['index']!=0) {
   $_SESSION['index']-=1;
   return;
 }
-if ($agg=="forward" && !$_SESSION['data'][0]['finito']) {
-  array_unshift($_SESSION['data'], $_SESSION['data'][0]) ;
+if ($agg=="forward" && !$_SESSION['data'][0]['finito'])
+{
+  array_unshift($_SESSION['data'], $_SESSION['data'][0]);
   $_SESSION['data'][0]['sysCall']=false;
+
+  //limit backstep amount
+  if($_SESSION['maxBackSteps']>=0 && (count($_SESSION['data'])-1)>$_SESSION['maxBackSteps']) {
+    array_pop($_SESSION['data']);
+  }
 }
 
 //############################################
