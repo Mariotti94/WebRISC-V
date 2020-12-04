@@ -161,48 +161,49 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
                 <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">lhu rd, offset(rs1)<span class="tooltiptext">x[rd] = M[x[rs1] + sign_extend(offset)][15:0]</span></div></td>
                 <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">sraiw rd, rs1, shamt<span class="tooltiptext">x[rd] = sign_extend((x[rs1] >>[replicates sign bit] shamt{imm[4:0]})[31:0])</span></div></td>
                 <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">divu rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] /[unsigned] x[rs2]</span></div></td>
-                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">j label<span class="tooltiptext">pc = label_address<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>jal x0, label_address<br>&#8594; {label_address = pc + sign_extend(offset &lt;&lt; 1)}</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">li rd, imm<span class="tooltiptext">x[rd] = imm<p style="margin: 0px; margin-top: 5px;">&#8226; Can be encoded with a myriad of sequences<br>&#8226; Encoded as: serie of addi and slli {inefficient sequence}</span></div></td>
               </tr>
               <tr>
                 <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">addiw rd, rs1, imm<span class="tooltiptext">x[rd] = sign_extend((x[rs1] + sign_extend(imm))[31:0])</span></div></td>
                 <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">lw rd, offset(rs1)<span class="tooltiptext">x[rd] = sign_extend(M[x[rs1] + sign_extend(offset)][31:0])</span></div></td>
                 <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">sraw rd, rs1, rs2<span class="tooltiptext">x[rd] = sign_extend((x[rs1] >>[replicates sign bit] x[rs2][4:0])[31:0])</span></div></td>
                 <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">divuw rd, rs1, rs2<span class="tooltiptext">x[rd] = sign_extend(x[rs1][31:0] /[unsigned] x[rs2][31:0])</span></div></td>
-                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">jr rs1<span class="tooltiptext">pc = x[rs1]<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>jalr x0, 0(rs1)</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">j label<span class="tooltiptext">pc = label_address<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>jal x0, label_address<br>&#8594; {label_address = pc + sign_extend(offset &lt;&lt; 1)}</span></div></td>
               </tr>
               <tr>
                 <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">addw rd, rs1, rs2<span class="tooltiptext">x[rd] = sign_extend((x[rs1] + x[rs2])[31:0])</span></div></td>
                 <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">lwu rd, offset(rs1)<span class="tooltiptext">x[rd] = M[x[rs1] + sign_extend(offset)][31:0]</span></div></td>
                 <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">srl rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] >> x[rs2][5:0]</span></div></td>
                 <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">divw rd, rs1, rs2<span class="tooltiptext">x[rd] = sign_extend(x[rs1][31:0] /[signed] x[rs2][31:0])</span></div></td>
-                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">mv rd, rs1<span class="tooltiptext">x[rd] = x[rs1]<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>addi rd, rs1, 0</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">jr rs1<span class="tooltiptext">pc = x[rs1]<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>jalr x0, 0(rs1)</span></div></td>
               </tr>
               <tr>
                 <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">and rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] &amp; x[rs2]</span></div></td>
                 <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">lui rd, imm<span class="tooltiptext">x[rd] = sign_extend(imm[31:12] &lt;&lt; 12)</span></div></td>
                 <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">srli rd, rs1, shamt<span class="tooltiptext">x[rd] = x[rs1] >> shamt{imm[5:0]}</span></div></td>
                 <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">mul rd, rs1, rs2<span class="tooltiptext">x[rd] = (x[rs1] * x[rs2])[63:0]</span></div></td>
-                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">nop<span class="tooltiptext">Do nothing<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>addi x0, x0, 0</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">mv rd, rs1<span class="tooltiptext">x[rd] = x[rs1]<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>addi rd, rs1, 0</span></div></td>
               </tr>
               <tr>
                 <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">andi rd, rs1, imm<span class="tooltiptext">x[rd] = x[rs1] &amp; sign_extend(imm)</span></div></td>
                 <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">or rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] | x[rs2]</span></div></td>
                 <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">srliw rd, rs1, shamt<span class="tooltiptext">x[rd] = sign_extend((x[rs1] >> shamt{imm[4:0]})[31:0])</span></div></td>
                 <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">mulh rd, rs1, rs2<span class="tooltiptext">x[rd] = (x[rs1] * x[rs2])[127:64]</span></div></td>
-                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">ret<span class="tooltiptext">pc = x[ra]<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>jalr x0, 0(ra)</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">nop<span class="tooltiptext">Do nothing<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>addi x0, x0, 0</span></div></td>
               </tr>
               <tr>
                 <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">auipc rd, imm<span class="tooltiptext">x[rd] = pc + sign_extend(imm[31:12] &lt;&lt; 12)</span></div></td>
                 <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">ori rd, rs1, imm<span class="tooltiptext">x[rd] = x[rs1] | sign_extend(imm)</span></div></td>
                 <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">srlw rd, rs1, rs2<span class="tooltiptext">x[rd] = sign_extend((x[rs1] >> x[rs2][4:0])[31:0])</span></div></td>
                 <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">mulhsu rd, rs1, rs2<span class="tooltiptext">x[rd] = (x[rs1][signed] * x[rs2][unsigned])[127:64]</span></div></td>
-                <td class="bRight bBot" rowspan="15"></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">ret<span class="tooltiptext">pc = x[ra]<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>jalr x0, 0(ra)</span></div></td>
               </tr>
               <tr>
                 <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">beq rs1, rs2, label<span class="tooltiptext">if (rs1 == rs2) pc = label_address<br>&#8594; {label_address = pc + sign_extend(offset &lt;&lt; 1)}</span></div></td>
                 <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">sb rs2, offset(rs1)<span class="tooltiptext">M[x[rs1] + sign_extend(offset)] = x[rs2][7:0]</span></div></td>
                 <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">sub rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] - x[rs2]</span></div></td>
                 <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">mulhu rd, rs1, rs2<span class="tooltiptext">x[rd] = (x[rs1] *[unsigned] x[rs2])[127:64]</span></div></td>
+                <td class="bRight bBot" rowspan="14"></td>
               </tr>
               <tr>
                 <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">bge rs1, rs2, label<span class="tooltiptext">if (rs1 >= rs2) pc = label_address<br>&#8594; {label_address = pc + sign_extend(offset &lt;&lt; 1)}</span></div></td>

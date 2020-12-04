@@ -2940,6 +2940,10 @@ function decodeIstr($istr)
       $tipo='MULTI';
       break;
 
+    case 'li':
+      $tipo='MULTI';
+      break;
+
     case 'auipc':
       $tipo='U';
       $op=hexdec(17);
@@ -3172,6 +3176,70 @@ function decodeMultiIstr($istr,$pc,$tabRil)
       $auipc=GMPToBin($auipc_addr,20,1).GMPToBin($rd,5,1).GMPToBin(hexdec(17),7,1);
       $addi=GMPToBin($addi_addr,12,0).GMPToBin($rd,5,1).GMPToBin(hexdec(0),3,1).GMPToBin($rd,5,1).GMPToBin(hexdec(13),7,1);
       $function_ret=array($auipc,$addi);
+      break;
+
+    case 'li':
+      if (strlen($a)==0)
+      {
+        $function_ret=array('ERR','instr');
+        break;
+      }
+      $rd=strtok($a,',');
+      $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
+      $rd=trim($rd);
+      if (strlen($a)==0)
+      {
+        $function_ret=array('ERR','instr');
+        break;
+      }
+      $imm=trim(strtok($a,PHP_EOL));
+      if (!is_numeric($imm)) {
+        if (substr($imm,0,2)=="0x") {
+          if (ctype_xdigit(substr($imm,2))) {
+            $imm=hexdec(substr($imm,2));
+          }
+          else {
+            $function_ret=array('ERR','instr');
+          }
+        }
+        else {
+          $function_ret=array('ERR','instr');
+        }
+      }
+
+      $rd=decRegister($rd);
+      if ($rd==='ERR') {
+        $function_ret=array('ERR','instr');
+        break;
+      }
+
+      $binImm=GMPToBin($imm,64,0);
+      $addi_param=GMPToBin($rd,5,1).GMPToBin(hexdec(0),3,1).GMPToBin($rd,5,1).GMPToBin(hexdec(13),7,1);
+      $slli_param=GMPToBin($rd,5,1).GMPToBin(hexdec(1),3,1).GMPToBin($rd,5,1).GMPToBin(hexdec(13),7,1);
+
+      $binTempVal=array();
+      $i=0;
+      while ($i<64) {
+          $step=($i==0)?9:11;
+          $str=substr($binImm,0,$step);
+          array_push($binTempVal,$str);
+          $binImm=substr($binImm,$step);
+          $i+=$step;
+      }
+      //var_dump($binTempVal);exit;
+      $function_ret=array();
+      $shift_trigger=false;
+      $cntBinTempVal=count($binTempVal);
+      for ($i=0; $i<$cntBinTempVal; $i++)
+      {
+        if ($binTempVal[$i]!=0) {
+          array_push($function_ret,GMPToBin(BinToGMP($binTempVal[$i],1),12,0).$addi_param);
+          $shift_trigger=true;
+        }
+        if ($shift_trigger && $i!=($cntBinTempVal-1)) {
+          array_push($function_ret,GMPToBin(11,12,0).$slli_param);
+        }
+      }
       break;
 
     default:
