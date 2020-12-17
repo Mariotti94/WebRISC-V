@@ -32,6 +32,9 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
     ?>
     <script language='JavaScript' type='text/JavaScript'>
       window.onload = function() {
+        if (top.frames[2].document.getElementById('editorBody')) {
+          switchCmd();
+        }
         //RELOAD PANELS
         var rFrame=top.frames[2];
         if (rFrame)
@@ -54,6 +57,9 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
     ?>
     <script language='JavaScript' type='text/JavaScript'>
       window.onload = function() {
+        if (top.frames[2].document.getElementById('editorBody')) {
+          switchCmd();
+        }
         //RELOAD PANELS
         var rFrame=top.frames[1];
         if (rFrame)
@@ -64,6 +70,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
   }
   ?>
   <script language='JavaScript' type='text/JavaScript'>
+    //SET/UNSET POPUPS
     function toggleHover() {
       if (top.frames[2].document.getElementById('schemaBody')) {
         if (top.frames[0].document.getElementById('toggleHover') && top.frames[0].document.getElementById('toggleHover').checked) {
@@ -72,6 +79,22 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
         else {
           top.frames[2].popup_unset();
         }
+      }
+    };
+    //SWITCH CMD SET WINDOW
+    function switchCmd() {
+      if (document.getElementById('schemaCmd').style.display=='') {
+        document.getElementById('schemaCmd').style.display='none';
+        document.getElementById('editorCmd').style.display='';
+        document.getElementById('popupToggleTd').style.display='none';
+        document.getElementById('btn_refreshLayoutForm').style.display='none';
+        document.getElementById('mainLabel').innerHTML="EDITOR";
+      } else {
+        document.getElementById('editorCmd').style.display='none';
+        document.getElementById('schemaCmd').style.display='';
+        document.getElementById('popupToggleTd').style.display='';
+        document.getElementById('btn_refreshLayoutForm').style.display='';
+        document.getElementById('mainLabel').innerHTML="SCHEMA LAYOUT";
       }
     };
   </script>
@@ -96,12 +119,12 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
         <tr>
           <td align="center" valign="middle" bgcolor="#ebebeb" style="border:2px solid #cccccc; height:100%; padding:0px 2px;">
 
-            <table cellpadding="0" width="100%" cellspacing="0" border="0">
+            <table id="schemaCmd" cellpadding="0" width="100%" cellspacing="0" border="0">
               <tr>
                 <td align="center" width="50%">
                   <table cellpadding="0" cellspacing="2" border="0" width="145" class="form">
                     <tr>
-                      <td align="center" style="height: 13px;"><a href="editor.php" target="Layout" class="link4">Load Program</a></td></tr>
+                      <td align="center" style="height: 13px;"><a href="editor.php" target="Layout" class="link4" onclick="javascript: window.switchCmd();">Load Program</a></td></tr>
                   </table>
 
                   <table cellpadding="0" cellspacing="0" border="0">
@@ -157,6 +180,67 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
                   <table cellpadding="0" cellspacing="2" border="0" width="145" class="form" id="backButton">
                     <tr>
                       <td align="center" style="height: 13px;"><a href="executeStep.php?agg=back" target="Layout" class="link4"><span style='position:relative; top:3px; font-size:20px; margin:-12px 2px -12px -10px; display: inline-block;'>&#8678;</span>Step Back</a></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+
+            <table id="editorCmd" style="display:none;" cellpadding="0" width="100%" cellspacing="0" border="0">
+              <tr>
+                <td align="center" width="50%">
+                  <table cellpadding="0" cellspacing="2" border="0" width="145" class="form">
+                    <tr>
+                      <td align="center" style="height: 13px;">
+                        <p style="margin-bottom: 2px;">Example List:</p>
+                        <select name="programma" class="form" style="width: 139px;" onchange="javascript: top.frames[2].document.getElementById('programSel').value=this.value; top.frames[2].document.getElementById('btn_insert').click(); this.value='';">
+                          <option value="" selected>-----</option>
+                          <option value="calculator">Simple Calculator</option>
+                          <option value="memory">Memory References</option>
+                          <option value="factorial">Factorial</option>
+                          <option value="hazard">Data Hazard Example</option>
+                          <option value="stall">Stall Example</option>
+                          <option value="syscall">Syscall and Data Example</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td align="center"><img src="../img/layout/x.gif" height="3"></td>
+                    </tr>
+                  </table>
+
+                  <table cellpadding="0" cellspacing="2" border="0" width="145" class="form">
+                    <tr>
+                      <td align="center" style="height: 13px;">
+                        <span class="link4" onclick="javascript:top.frames[2].document.getElementById('clearBtn').click();">Clear Textbox</span>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+
+                <td align="center" width="50%">
+                  <table cellpadding="0" cellspacing="2" border="0" width="145" class="form" id="allButton">
+                    <tr>
+                      <td align="center" style="height: 13px;">
+                        <span class="link4" onclick="javascript: top.frames[2].document.getElementById('loadMemBtn').click(); window.switchCmd();">Load into Memory</span>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td align="center"><img src="../img/layout/x.gif" height="3"></td>
+                    </tr>
+                  </table>
+
+                  <table cellpadding="0" cellspacing="2" border="0" width="145" class="form" id="stepButton">
+                    <tr>
+                      <td align="center" style="height: 13px;">
+                        <span class="link4" onclick="javascript: top.frames[2].document.getElementById('retPipeBtn').click(); window.switchCmd();">Return to pipeline</span>
+                      </td>
                     </tr>
                   </table>
                 </td>

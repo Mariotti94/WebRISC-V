@@ -59,6 +59,7 @@
   border: 1px solid #666666;
   min-width: 20px;
   text-align: center;
+  padding: 0px;
 }
 
 .registro {
@@ -170,6 +171,18 @@ input.form {
   cursor: pointer;
 }
 input.form:hover {
+  color: red;
+}
+
+span.link4 {
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  color: black;
+  text-decoration: none;
+  user-select: none;
+  cursor: pointer;
+}
+span.link4:hover {
   color: red;
 }
 
