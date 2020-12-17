@@ -7,11 +7,6 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
   <title>WebRISC-V - RISC-V PIPELINED DATAPATH SIMULATION ONLINE</title>
   <link href="../css/main.css" rel="stylesheet" type="text/css">
   <script language='JavaScript' type='text/JavaScript'>
-    window.onload = function() {
-      //PANEL NAME
-      if (top.frames[0].document.getElementById('mainLabel'))
-        top.frames[0].document.getElementById('mainLabel').innerHTML="EDITOR";
-    };
     function textAreaName() {
       if (top.frames[2].document.getElementById('asmName').value=='')
         top.frames[2].document.getElementById('asmName').value='handwritten.s';
@@ -43,7 +38,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
   </script>
   <meta name="robots" content="noindex">
 </head>
-<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="background: #f0f0f0;">
+<body id="editorBody" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="background: #f0f0f0;">
 
 <table width="80%" cellpadding="0" cellspacing="0" style="margin: auto;">
   <tr>
@@ -62,7 +57,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
       </div>
 
       <form action="asmFile.php" name="prova" method="post" style="margin: 0px;">
-      <table cellpadding="0" cellspacing="0" align="center" style="margin-top: 10px;">
+      <table cellpadding="0" cellspacing="0" align="center" style="margin-top: 10px; display: none;">
         <tr style="height: 30px;">
           <td class="edMenuTd1" align="left">
             <table>
@@ -71,7 +66,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
                   Examples List:
                 </td>
                 <td align="center">
-                    <select name="programma" class="form" style="width: 150px;" onchange="javascript:document.getElementById('btn_insert').click();">
+                    <select id="programSel" name="programma" class="form" style="width: 150px;" onchange="javascript:document.getElementById('btn_insert').click();">
                       <option value="" selected>-----</option>
                       <option value="calculator">Simple Calculator</option>
                       <option value="memory">Memory References</option>
@@ -95,7 +90,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
                 </td>
                 <script language='JavaScript' type='text/JavaScript'>document.getElementById('btn_insertTd').style.display='none';</script>
                 <td align="center" class="testo">
-                  <input type="submit" value="Clear Textbox" class="form" name="btn_submit" style="width: 120px; padding: 1px;">
+                  <input id="clearBtn" type="submit" value="Clear Textbox" class="form" name="btn_submit" style="width: 120px; padding: 1px;">
                 </td>
               </tr>
             </table>
@@ -108,7 +103,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
       </form>
 
       <form action="assembler.php" method="post" target="MemReg" style="margin: 0px;">
-      <table cellpadding="0" cellspacing="0" align="center" style="margin-top: -30px;">
+      <table cellpadding="0" cellspacing="0" align="center" style="margin-top: -30px; display: none;">
         <tr style="height: 30px;">
           <td class="edMenuTd1">
             <!-- has to be empty -->
@@ -117,7 +112,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             <table>
               <tr>
                 <td align="center">
-                  <input type="submit" value="Load into Memory" class="form" style="width: 120px; padding: 1px;" onclick="javascript:top.frames[2].document.getElementById('anlzPipe').click();">
+                  <input id="loadMemBtn" type="submit" value="Load into Memory" class="form" style="width: 120px; padding: 1px;" onclick="javascript:top.frames[2].document.getElementById('retPipeBtn').click();">
                 </td>
               </tr>
             </table>
@@ -130,7 +125,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             <table>
               <tr>
                 <td align="center">
-                  <a href="executeStep.php?agg=return" target="Layout" class="link4 form" style="display: block; width: 116px; padding: 1px;" id="anlzPipe">Return to pipeline</a>
+                  <a id="retPipeBtn" href="executeStep.php?agg=return" target="Layout" class="link4 form" style="display: block; width: 116px; padding: 1px;">Return to pipeline</a>
                 </td>
               </tr>
             </table>

@@ -1,6 +1,6 @@
 <?php
 //VERSION
-$_SESSION['version']="1.7.2";
+$_SESSION['version']="1.7.4";
 
 //BOUNDS
 $_SESSION['maxCycle']=2000;
@@ -98,7 +98,7 @@ $_SESSION['segCtrl']='checked';
 
 //EXECUTION TABLE
 $_SESSION['data'][0]['execTrail']=array();
-$_SESSION['data'][0]['execStage']=array_fill(0, 5, "-");
+$_SESSION['data'][0]['execStage']=array_fill(0, 5, "");
 $_SESSION['data'][0]['pipeTable']=array();
 
 //STALL

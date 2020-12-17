@@ -665,7 +665,7 @@ $tempPC=($stallo)?$IF_ID_PC:$tempPC;
 
 $IF_scarta=($PCsrc&&(!$stallo)&&($_SESSION['branchRes']==0))?1:0; //branch (ignore stall)
 $ID_scarta=($stallo)?1:0; //stall, exception
-$EX_scarta=0;  //exception
+$EX_scarta=0; //exception
 
 list($ctrl_EX,$ctrl_M,$ctrl_WB)=ctrlUnit($istruzione);
 if ($stallo) {
@@ -718,7 +718,7 @@ if (!$_SESSION['data'][0]['finito'])
   if ($_SESSION['data'][0]['idIstruzione']!=1001)
   {
     if ($_SESSION['data'][0]['ifIstruzione']!=1002) {
-      $_SESSION['data'][0]['execTrail'][]=$memIstr[$tempPC/4];
+      $_SESSION['data'][0]['execTrail'][]=$tempPC/4;
       $_SESSION['data'][0]['execStage'][0]=count($_SESSION['data'][0]['execTrail'])-1;
     }
     else {
@@ -737,7 +737,7 @@ if (!$_SESSION['data'][0]['finito'])
   $stage=array("F","D","X","M","W");
   for ($i=0; $i<count($_SESSION['data'][0]['execStage']); ++$i)
   {
-    if ($_SESSION['data'][0]['execStage'][$i]!=="-") {
+    if ($_SESSION['data'][0]['execStage'][$i]!=="") {
       $_SESSION['data'][0]['pipeTable'][$_SESSION['data'][0]['clock']][$_SESSION['data'][0]['execStage'][$i]]=$stage[$i];
     }
   }
