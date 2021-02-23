@@ -248,18 +248,30 @@ function ALU($controllo,$dato1,$dato2)
       break;
 
     case "10010": //ADDW
+      $dato1=GMPToBin($dato1,64,0);
+      $dato1=BinToGMP(str_repeat($dato1[32],32).substr($dato1,32,32),0);
+      $dato2=GMPToBin($dato2,64,0);
+      $dato2=BinToGMP(str_repeat($dato2[32],32).substr($dato2,32,32),0);
       $risultato=GMPToBin(gmp_add($dato1,$dato2),64,0);
       $risultato=str_repeat('0',32).substr($risultato,32,32);
       $risultato=BinToGMP($risultato,0);
       break;
 
     case "10110": //SUBW
+      $dato1=GMPToBin($dato1,64,0);
+      $dato1=BinToGMP(str_repeat($dato1[32],32).substr($dato1,32,32),0);
+      $dato2=GMPToBin($dato2,64,0);
+      $dato2=BinToGMP(str_repeat($dato2[32],32).substr($dato2,32,32),0);
       $risultato=GMPToBin(gmp_sub($dato1,$dato2),64,0);
       $risultato=str_repeat('0',32).substr($risultato,32,32);
       $risultato=BinToGMP($risultato,0);
       break;
 
     case "11101": //SLLW
+      $dato1=GMPToBin($dato1,64,0);
+      $dato1=BinToGMP(str_repeat($dato1[32],32).substr($dato1,32,32),0);
+      $dato2=GMPToBin($dato2,64,0);
+      $dato2=BinToGMP(str_repeat($dato2[32],32).substr($dato2,32,32),0);
       $risultato=GMPToBin($dato1,64,0);
       $risultato=substr($risultato,$dato2).str_repeat('0',$dato2);
       $risultato=str_repeat('0',32).substr($risultato,32,32);
@@ -267,6 +279,10 @@ function ALU($controllo,$dato1,$dato2)
       break;
 
     case "11110": //SRLW
+      $dato1=GMPToBin($dato1,64,0);
+      $dato1=BinToGMP(str_repeat($dato1[32],32).substr($dato1,32,32),0);
+      $dato2=GMPToBin($dato2,64,0);
+      $dato2=BinToGMP(str_repeat($dato2[32],32).substr($dato2,32,32),0);
       $risultato=GMPToBin($dato1,64,0);
       $risultato=str_repeat('0',$dato2).substr($risultato,0,-$dato2);
       $risultato=str_repeat('0',32).substr($risultato,32,32);
@@ -274,10 +290,66 @@ function ALU($controllo,$dato1,$dato2)
       break;
 
     case "11111": //SRAW
+      $dato1=GMPToBin($dato1,64,0);
+      $dato1=BinToGMP(str_repeat($dato1[32],32).substr($dato1,32,32),0);
+      $dato2=GMPToBin($dato2,64,0);
+      $dato2=BinToGMP(str_repeat($dato2[32],32).substr($dato2,32,32),0);
       $risultato=GMPToBin($dato1,64,0);
       $risultato=str_repeat($risultato[0],$dato2).substr($risultato,0,-$dato2);
       $risultato=str_repeat('0',32).substr($risultato,32,32);
       $risultato=BinToGMP($risultato,0);
+      break;
+
+    case "10011": //MULW
+      $dato1=GMPToBin($dato1,64,0);
+      $dato1=BinToGMP(str_repeat($dato1[32],32).substr($dato1,32,32),0);
+      $dato2=GMPToBin($dato2,64,0);
+      $dato2=BinToGMP(str_repeat($dato2[32],32).substr($dato2,32,32),0);
+      $HILO=gmp_strval(gmp_mul($dato1,$dato2));
+      $HILO_bin=GMPToBin($HILO,64,0);
+      $risultato=BinToGMP(substr($HILO_bin,32,32),0);
+      break;
+
+    case "10000": //DIVW
+      $dato1=GMPToBin($dato1,64,0);
+      $dato1=BinToGMP(str_repeat($dato1[32],32).substr($dato1,32,32),0);
+      $dato2=GMPToBin($dato2,64,0);
+      $dato2=BinToGMP(str_repeat($dato2[32],32).substr($dato2,32,32),0);
+      $HI_val=gmp_strval(gmp_mod($dato1,$dato2));
+      $LO_val=gmp_strval(gmp_div_q(gmp_sub($dato1,$HI_val),$dato2));
+      $risultato=$LO_val;
+      break;
+
+    case "10001": //DIVUW
+      $dato1=GMPToBin($dato1,64,0);
+      $dato1=BinToGMP(str_repeat($dato1[32],32).substr($dato1,32,32),0);
+      $dato2=GMPToBin($dato2,64,0);
+      $dato2=BinToGMP(str_repeat($dato2[32],32).substr($dato2,32,32),0);
+      $dato1=BinToGMP(GMPToBin($dato1,64,0),1);
+      $dato2=BinToGMP(GMPToBin($dato2,64,0),1);
+      $HI_val=gmp_strval(gmp_mod($dato1,$dato2));
+      $LO_val=gmp_strval(gmp_div_q(gmp_sub($dato1,$HI_val),$dato2));
+      $risultato=$LO_val;
+      break;
+
+    case "10100": //REMW
+      $dato1=GMPToBin($dato1,64,0);
+      $dato1=BinToGMP(str_repeat($dato1[32],32).substr($dato1,32,32),0);
+      $dato2=GMPToBin($dato2,64,0);
+      $dato2=BinToGMP(str_repeat($dato2[32],32).substr($dato2,32,32),0);
+      $HI_val=gmp_strval(gmp_mod($dato1,$dato2));
+      $risultato=$HI_val;
+      break;
+
+    case "10101": //REMUW
+      $dato1=GMPToBin($dato1,64,0);
+      $dato1=BinToGMP(str_repeat($dato1[32],32).substr($dato1,32,32),0);
+      $dato2=GMPToBin($dato2,64,0);
+      $dato2=BinToGMP(str_repeat($dato2[32],32).substr($dato2,32,32),0);
+      $dato1=BinToGMP(GMPToBin($dato1,64,0),1);
+      $dato2=BinToGMP(GMPToBin($dato2,64,0),1);
+      $HI_val=gmp_strval(gmp_mod($dato1,$dato2));
+      $risultato=$HI_val;
       break;
 
     default:
