@@ -108,7 +108,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
     <div style="text-align: center; font-family: Arial; font-size: 10px;">
         <b>VERSION <?php echo $_SESSION['version'];?></b>
         <br>Write your feedback:
-        <br><a href="mailto:giorgi@unisi.it">Roberto Giorgi</a> || <a href="https://github.com/Mariotti94/WebRISC-V" target="_blank">GitHub</a>
+        <br><a href="mailto:wrv-admin@webriscv.dii.unisi.it">Email</a> || <a href="https://github.com/Mariotti94/WebRISC-V" target="_blank">GitHub</a>
     </div>
     </td>
     <td width="33%" align="left">

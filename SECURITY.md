@@ -2,7 +2,7 @@
 
 ## Report a Vulnerability
 
-To report security issues or vulnerabilities send an email to [giorgi@unisi.it](mailto:giorgi@unisi.it).
+To report security issues or vulnerabilities send an email to [wrv-admin@webriscv.dii.unisi.it](mailto:wrv-admin@webriscv.dii.unisi.it).
 
 If the issue is confirmed, we will release a patch as soon as possible.
 
