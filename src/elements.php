@@ -1,6 +1,8 @@
 <?php
 session_start();
 if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
+require_once 'functions.php';
+sanitizeArray($_GET);
 ?>
 <html>
 <head>
@@ -50,8 +52,8 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "if_som": //IF ADDER
-            $PC=$_GET["newPC"];
-            $PCpiu4=$_GET["PCpiu4"];
+            $PC=isset($_GET["newPC"])?$_GET["newPC"]:"";
+            $PCpiu4=isset($_GET["PCpiu4"])?$_GET["PCpiu4"]:"";
             ?>
             <div align="center" class="testoGrande"><b>ADDER</b></div>
             <hr size="1" width="60%" noshade>
@@ -77,9 +79,9 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "id_som1": //ID ADDER 1
-            $ifidPC=$_GET["ifidPC"];
-            $immsl=$_GET["immsl"];
-            $output=$_GET["output"];
+            $ifidPC=isset($_GET["ifidPC"])?$_GET["ifidPC"]:"";
+            $immsl=isset($_GET["immsl"])?$_GET["immsl"]:"";
+            $output=isset($_GET["output"])?$_GET["output"]:"";
             ?>
             <div align="center" class="testoGrande"><b>ADDER</b></div>
             <hr size="1" width="60%" noshade>
@@ -107,9 +109,9 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "id_som2": //ID ADDER 2
-            $imm=$_GET["imm"];
-            $rs1=$_GET["rs1"];
-            $output=$_GET["output"];
+            $imm=isset($_GET["imm"])?$_GET["imm"]:"";
+            $rs1=isset($_GET["rs1"])?$_GET["rs1"]:"";
+            $output=isset($_GET["output"])?$_GET["output"]:"";
             ?>
             <div align="center" class="testoGrande"><b>ADDER</b></div>
             <hr size="1" width="60%" noshade>
@@ -137,9 +139,9 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "pc": //PC
-            $newPC=$_GET["newPC"];
-            $PC=$_GET["PC"];
-            $stallo=$_GET["ctrl"];
+            $newPC=isset($_GET["newPC"])?$_GET["newPC"]:"";
+            $PC=isset($_GET["PC"])?$_GET["PC"]:"";
+            $stallo=isset($_GET["ctrl"])?$_GET["ctrl"]:"";
             ?>
             <div align="center" class="testoGrande"><b>PROGRAM COUNTER (PC) REGISTER</b></div>
             <hr size="1" width="60%" noshade>
@@ -166,8 +168,8 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "istruzioni": //INSTRUCTION MEMORY
-            $PC=$_GET["PC"];
-            $istruzione=$_GET["istr"];
+            $PC=isset($_GET["PC"])?$_GET["PC"]:"";
+            $istruzione=isset($_GET["istr"])?$_GET["istr"]:"";
             ?>
             <div align="center" class="testoGrande"><b>INSTRUCTION MEMORY</b></div>
             <hr size="1" width="60%" noshade>
@@ -203,11 +205,11 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "if_mux": //IF MUX
-            $newPC=$_GET["newPC"];
-            $PCpiu4=$_GET["PCpiu4"];
-            $salto=$_GET["salto"];
-            $ctrl1=$_GET["ctrl1"];
-            $ctrl2=$_GET["ctrl2"];
+            $newPC=isset($_GET["newPC"])?$_GET["newPC"]:"";
+            $PCpiu4=isset($_GET["PCpiu4"])?$_GET["PCpiu4"]:"";
+            $salto=isset($_GET["salto"])?$_GET["salto"]:"";
+            $ctrl1=isset($_GET["ctrl1"])?$_GET["ctrl1"]:"";
+            $ctrl2=isset($_GET["ctrl2"])?$_GET["ctrl2"]:"";
             ?>
             <div align="center" class="testoGrande"><b>INSTRUCTION FETCH MULTIPLEXER</b></div>
             <hr size="1" width="60%" noshade>
@@ -267,9 +269,9 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "and": //AND
-            $ctrl1=$_GET["ctrl1"];
-            $ctrl2=$_GET["ctrl2"];
-            $ris=$_GET["ris"];
+            $ctrl1=isset($_GET["ctrl1"])?$_GET["ctrl1"]:"";
+            $ctrl2=isset($_GET["ctrl2"])?$_GET["ctrl2"]:"";
+            $ris=isset($_GET["ris"])?$_GET["ris"]:"";
             ?>
             <div align="center" class="testoGrande"><b>LOGIC AND</b></div>
             <hr size="1" width="60%" noshade>
@@ -306,15 +308,15 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "criticita": //HAZARD DETECTION UNIT
-            $RL1=$_GET["rl1"];
-            $RL2=$_GET["rl2"];
-            $stallo=$_GET["stallo"];
-            $mem=$_GET["mem"];
+            $RL1=isset($_GET["rl1"])?$_GET["rl1"]:"";
+            $RL2=isset($_GET["rl2"])?$_GET["rl2"]:"";
+            $stallo=isset($_GET["stallo"])?$_GET["stallo"]:"";
+            $mem=isset($_GET["mem"])?$_GET["mem"]:"";
             $mem=substr($mem,0,1);
-            $wb=$_GET["wb"];
+            $wb=isset($_GET["wb"])?$_GET["wb"]:"";
             $wb=substr($wb,0,1);
-            $id_rd=$_GET["id_rd"];
-            $ex_rd=$_GET["ex_rd"];
+            $id_rd=isset($_GET["id_rd"])?$_GET["id_rd"]:"";
+            $ex_rd=isset($_GET["ex_rd"])?$_GET["ex_rd"]:"";
             ?>
             <div align="center" class="testoGrande"><b>HAZARD DETECTION UNIT</b></div>
             <hr size="1" width="60%" noshade>
@@ -356,17 +358,17 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "controllo": //CONTROL UNIT
-            $istr=$_GET["istr"];
-            $salta=$_GET["salta"];
-            $ecc=$_GET["ecc"];
-            $wb=$_GET["wb"];
-            $mem=$_GET["mem"];
-            $ex=$_GET["ex"];
-            $if_scarta=$_GET["if_scarta"];
-            $id_scarta=$_GET["id_scarta"];
-            $ex_scarta=$_GET["ex_scarta"];
-            $isbranch=$_GET["isbranch"];
-            $isjalr=$_GET["isjalr"];
+            $istr=isset($_GET["istr"])?$_GET["istr"]:"";
+            $salta=isset($_GET["salta"])?$_GET["salta"]:"";
+            $ecc=isset($_GET["ecc"])?$_GET["ecc"]:"";
+            $wb=isset($_GET["wb"])?$_GET["wb"]:"";
+            $mem=isset($_GET["mem"])?$_GET["mem"]:"";
+            $ex=isset($_GET["ex"])?$_GET["ex"]:"";
+            $if_scarta=isset($_GET["if_scarta"])?$_GET["if_scarta"]:"";
+            $id_scarta=isset($_GET["id_scarta"])?$_GET["id_scarta"]:"";
+            $ex_scarta=isset($_GET["ex_scarta"])?$_GET["ex_scarta"]:"";
+            $isbranch=isset($_GET["isbranch"])?$_GET["isbranch"]:"";
+            $isjalr=isset($_GET["isjalr"])?$_GET["isjalr"]:"";
             ?>
             <div align="center" class="testoGrande"><b>CONTROL UNIT</b></div>
             <hr size="1" width="60%" noshade>
@@ -413,8 +415,8 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "or": //OR
-            $stallo=$_GET["stallo"];
-            $id_scarta=$_GET["id_scarta"];
+            $stallo=isset($_GET["stallo"])?$_GET["stallo"]:"";
+            $id_scarta=isset($_GET["id_scarta"])?$_GET["id_scarta"]:"";
             ?>
             <div align="center" class="testoGrande"><b>LOGIC OR</b></div>
             <hr size="1" width="60%" noshade>
@@ -450,13 +452,13 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "id_mux1": //ID MULTIPLEXER 1
-            $wb=$_GET["wb"];
-            $mem=$_GET["mem"];
-            $ex=$_GET["ex"];
-            $wb2=$_GET["wb2"];
-            $mem2=$_GET["mem2"];
-            $ex2=$_GET["ex2"];
-            $ctrl=$_GET["ctrl"];
+            $wb=isset($_GET["wb"])?$_GET["wb"]:"";
+            $mem=isset($_GET["mem"])?$_GET["mem"]:"";
+            $ex=isset($_GET["ex"])?$_GET["ex"]:"";
+            $wb2=isset($_GET["wb2"])?$_GET["wb2"]:"";
+            $mem2=isset($_GET["mem2"])?$_GET["mem2"]:"";
+            $ex2=isset($_GET["ex2"])?$_GET["ex2"]:"";
+            $ctrl=isset($_GET["ctrl"])?$_GET["ctrl"]:"";
             ?>
             <div align="center" class="testoGrande"><b>ID MULTIPLEXER 1</b></div>
             <hr size="1" width="60%" noshade>
@@ -501,15 +503,15 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "branch_cmp": //BRANCH COMPARATOR
-            $data1=$_GET["data1"];
-            $data2=$_GET["data2"];
-            $aludata=$_GET["aludata"];
-            $memdata=$_GET["memdata"];
-            $isbranch=$_GET["isbranch"];
-            $funct3=$_GET["funct3"];
-            $mux1=$_GET["mux1"];
-            $mux2=$_GET["mux2"];
-            $out=$_GET["out"];
+            $data1=isset($_GET["data1"])?$_GET["data1"]:"";
+            $data2=isset($_GET["data2"])?$_GET["data2"]:"";
+            $aludata=isset($_GET["aludata"])?$_GET["aludata"]:"";
+            $memdata=isset($_GET["memdata"])?$_GET["memdata"]:"";
+            $isbranch=isset($_GET["isbranch"])?$_GET["isbranch"]:"";
+            $funct3=isset($_GET["funct3"])?$_GET["funct3"]:"";
+            $mux1=isset($_GET["mux1"])?$_GET["mux1"]:"";
+            $mux2=isset($_GET["mux2"])?$_GET["mux2"]:"";
+            $out=isset($_GET["out"])?$_GET["out"]:"";
             ?>
             <div align="center" class="testoGrande"><b>BRANCH COMPARATOR</b></div>
             <hr size="1" width="60%" noshade>
@@ -563,8 +565,8 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "immgen": //IMMEDIATE GENERATOR
-            $esteso=$_GET["esteso"];
-            $dato=$_GET["dato"];
+            $esteso=isset($_GET["esteso"])?$_GET["esteso"]:"";
+            $dato=isset($_GET["dato"])?$_GET["dato"]:"";
             ?>
             <div align="center" class="testoGrande"><b>IMMEDIATE GENERATOR</b></div>
             <hr size="1" width="60%" noshade>
@@ -602,8 +604,8 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "sl1": //SHIFT LEFT 1
-            $input=$_GET["input"];
-            $output=$_GET["output"];
+            $input=isset($_GET["input"])?$_GET["input"]:"";
+            $output=isset($_GET["output"])?$_GET["output"]:"";
             ?>
             <div align="center" class="testoGrande"><b>SHIFT LEFT 1</b></div>
             <hr size="1" width="60%" noshade>
@@ -640,13 +642,13 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "registri": //REGISTER FILE
-            $RL1=$_GET["RL1"];
-            $RL2=$_GET["RL2"];
-            $DL1=$_GET["DL1"];
-            $DL2=$_GET["DL2"];
-            $RW=$_GET["RW"];
-            $WBdata=$_GET["WBdata"];
-            $RegWrite=$_GET["RegWrite"];
+            $RL1=isset($_GET["RL1"])?$_GET["RL1"]:"";
+            $RL2=isset($_GET["RL2"])?$_GET["RL2"]:"";
+            $DL1=isset($_GET["DL1"])?$_GET["DL1"]:"";
+            $DL2=isset($_GET["DL2"])?$_GET["DL2"]:"";
+            $RW=isset($_GET["RW"])?$_GET["RW"]:"";
+            $WBdata=isset($_GET["WBdata"])?$_GET["WBdata"]:"";
+            $RegWrite=isset($_GET["RegWrite"])?$_GET["RegWrite"]:"";
             ?>
             <div align="center" class="testoGrande"><b>REGISTERS</b></div>
             <hr size="1" width="60%" noshade>
@@ -702,8 +704,8 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "ex_mux1": //EX MULTIPLEXER 1
-            $ex_scarta=$_GET["ex_scarta"];
-            $dato=$_GET["dato"];
+            $ex_scarta=isset($_GET["ex_scarta"])?$_GET["ex_scarta"]:"";
+            $dato=isset($_GET["dato"])?$_GET["dato"]:"";
             ?>
             <div align="center" class="testoGrande"><b>EXECUTE MULTIPLEXER 1</b></div>
             <hr size="1" width="60%" noshade>
@@ -742,8 +744,8 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "ex_mux2": //EX MULTIPLEXER 2
-            $ex_scarta=$_GET["ex_scarta"];
-            $dato=$_GET["dato"];
+            $ex_scarta=isset($_GET["ex_scarta"])?$_GET["ex_scarta"]:"";
+            $dato=isset($_GET["dato"])?$_GET["dato"]:"";
             ?>
             <div align="center" class="testoGrande"><b>EXECUTE MULTIPLEXER 2</b></div>
             <hr size="1" width="60%" noshade>
@@ -781,11 +783,11 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "ex_mux3": //EX MULTIPLEXER 3
-            $DL1=$_GET["DL1"];
-            $mem_wb=$_GET["mem_wb"];
-            $ex_mem=$_GET["ex_mem"];
-            $ctrl=$_GET["ctrl"];
-            $ris=$_GET["ris"];
+            $DL1=isset($_GET["DL1"])?$_GET["DL1"]:"";
+            $mem_wb=isset($_GET["mem_wb"])?$_GET["mem_wb"]:"";
+            $ex_mem=isset($_GET["ex_mem"])?$_GET["ex_mem"]:"";
+            $ctrl=isset($_GET["ctrl"])?$_GET["ctrl"]:"";
+            $ris=isset($_GET["ris"])?$_GET["ris"]:"";
             ?>
             <div align="center" class="testoGrande"><b>EXECUTE MULTIPLEXER 3</b></div>
             <hr size="1" width="60%" noshade>
@@ -826,11 +828,11 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "ex_mux4": //EX MULTIPLEXER 4
-            $DL1=$_GET["DL1"];
-            $mem_wb=$_GET["mem_wb"];
-            $ex_mem=$_GET["ex_mem"];
-            $ctrl=$_GET["ctrl"];
-            $ris=$_GET["ris"];
+            $DL1=isset($_GET["DL1"])?$_GET["DL1"]:"";
+            $mem_wb=isset($_GET["mem_wb"])?$_GET["mem_wb"]:"";
+            $ex_mem=isset($_GET["ex_mem"])?$_GET["ex_mem"]:"";
+            $ctrl=isset($_GET["ctrl"])?$_GET["ctrl"]:"";
+            $ris=isset($_GET["ris"])?$_GET["ris"]:"";
             ?>
             <div align="center" class="testoGrande"><b>EXECUTE MULTIPLEXER 4</b></div>
             <hr size="1" width="60%" noshade>
@@ -871,10 +873,10 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "ex_mux5": //EX MULTIPLEXER 5
-            $op1=$_GET["op1"];
-            $op2=$_GET["op2"];
-            $ris=$_GET["ris"];
-            $ctrl=$_GET["ctrl"];
+            $op1=isset($_GET["op1"])?$_GET["op1"]:"";
+            $op2=isset($_GET["op2"])?$_GET["op2"]:"";
+            $ris=isset($_GET["ris"])?$_GET["ris"]:"";
+            $ctrl=isset($_GET["ctrl"])?$_GET["ctrl"]:"";
             ?>
             <div align="center" class="testoGrande"><b>EXECUTE MULTIPLEXER 5</b></div>
             <hr size="1" width="60%" noshade>
@@ -914,10 +916,10 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "ex_mux6": //EX MULTIPLEXER 6
-            $op1=$_GET["op1"];
-            $op2=$_GET["op2"];
-            $ris=$_GET["ris"];
-            $ctrl=$_GET["ctrl"];
+            $op1=isset($_GET["op1"])?$_GET["op1"]:"";
+            $op2=isset($_GET["op2"])?$_GET["op2"]:"";
+            $ris=isset($_GET["ris"])?$_GET["ris"]:"";
+            $ctrl=isset($_GET["ctrl"])?$_GET["ctrl"]:"";
             ?>
             <div align="center" class="testoGrande"><b>EXECUTE MULTIPLEXER 6</b></div>
             <hr size="1" width="60%" noshade>
@@ -957,10 +959,10 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "id_mux2": //ID MULTIPLEXER 2
-            $op1=$_GET["op1"];
-            $op2=$_GET["op2"];
-            $ris=$_GET["ris"];
-            $ctrl=$_GET["ctrl"];
+            $op1=isset($_GET["op1"])?$_GET["op1"]:"";
+            $op2=isset($_GET["op2"])?$_GET["op2"]:"";
+            $ris=isset($_GET["ris"])?$_GET["ris"]:"";
+            $ctrl=isset($_GET["ctrl"])?$_GET["ctrl"]:"";
             ?>
             <div align="center" class="testoGrande"><b>ID MULTIPLEXER 2</b></div>
             <hr size="1" width="60%" noshade>
@@ -997,10 +999,10 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "alu": //ALU
-            $valore1=$_GET["valore1"];
-            $valore2=$_GET["valore2"];
-            $ris=$_GET["ris"];
-            $ctrl=$_GET["ctrl"];
+            $valore1=isset($_GET["valore1"])?$_GET["valore1"]:"";
+            $valore2=isset($_GET["valore2"])?$_GET["valore2"]:"";
+            $ris=isset($_GET["ris"])?$_GET["ris"]:"";
+            $ctrl=isset($_GET["ctrl"])?$_GET["ctrl"]:"";
             ?>
             <div align="center" class="testoGrande"><b>ARITHMETIC LOGIC UNIT</b></div>
             <hr size="1" width="60%" noshade>
@@ -1035,14 +1037,14 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "forward_alu": //FORWARDING UNIT
-            $rs1=$_GET["rs1"];
-            $rs2=$_GET["rs2"];
-            $mux1=$_GET["mux1"];
-            $mux2=$_GET["mux2"];
-            $regW1=$_GET["regW1"];
-            $regW2=$_GET["regW2"];
-            $mem1=$_GET["mem1"];
-            $mem2=$_GET["mem2"];
+            $rs1=isset($_GET["rs1"])?$_GET["rs1"]:"";
+            $rs2=isset($_GET["rs2"])?$_GET["rs2"]:"";
+            $mux1=isset($_GET["mux1"])?$_GET["mux1"]:"";
+            $mux2=isset($_GET["mux2"])?$_GET["mux2"]:"";
+            $regW1=isset($_GET["regW1"])?$_GET["regW1"]:"";
+            $regW2=isset($_GET["regW2"])?$_GET["regW2"]:"";
+            $mem1=isset($_GET["mem1"])?$_GET["mem1"]:"";
+            $mem2=isset($_GET["mem2"])?$_GET["mem2"]:"";
             ?>
             <div align="center" class="testoGrande"><b>FORWARDING UNIT ALU</b></div>
             <hr size="1" width="60%" noshade>
@@ -1098,13 +1100,13 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "forward_branch": //FORWARDING UNIT
-            $rs1=$_GET["rs1"];
-            $rs2=$_GET["rs2"];
-            $rd=$_GET["rd"];
-            $regwr=$_GET["regwr"];
-            $memreg=$_GET["memreg"];
-            $mux1=$_GET["mux1"];
-            $mux2=$_GET["mux2"];
+            $rs1=isset($_GET["rs1"])?$_GET["rs1"]:"";
+            $rs2=isset($_GET["rs2"])?$_GET["rs2"]:"";
+            $rd=isset($_GET["rd"])?$_GET["rd"]:"";
+            $regwr=isset($_GET["regwr"])?$_GET["regwr"]:"";
+            $memreg=isset($_GET["memreg"])?$_GET["memreg"]:"";
+            $mux1=isset($_GET["mux1"])?$_GET["mux1"]:"";
+            $mux2=isset($_GET["mux2"])?$_GET["mux2"]:"";
             ?>
             <div align="center" class="testoGrande"><b>FORWARDING UNIT BRANCH</b></div>
             <hr size="1" width="60%" noshade>
@@ -1159,9 +1161,9 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "controlloalu": //ALU CONTROL UNIT
-            $ctrl=$_GET["ctrl"];
-            $funct=$_GET["funct"];
-            $aluOp=$_GET["aluOp"];
+            $ctrl=isset($_GET["ctrl"])?$_GET["ctrl"]:"";
+            $funct=isset($_GET["funct"])?$_GET["funct"]:"";
+            $aluOp=isset($_GET["aluOp"])?$_GET["aluOp"]:"";
             ?>
             <div align="center" class="testoGrande"><b>ALU CONTROL UNIT</b></div>
             <hr size="1" width="60%" noshade>
@@ -1193,10 +1195,10 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "wb_mux": //WB MULTIPLEXER
-            $DL=$_GET["DL"];
-            $DC=$_GET["DC"];
-            $ctrl=$_GET["ctrl"];
-            $WBdata=$_GET["WBdata"];
+            $DL=isset($_GET["DL"])?$_GET["DL"]:"";
+            $DC=isset($_GET["DC"])?$_GET["DC"]:"";
+            $ctrl=isset($_GET["ctrl"])?$_GET["ctrl"]:"";
+            $WBdata=isset($_GET["WBdata"])?$_GET["WBdata"]:"";
             ?>
             <div align="center" class="testoGrande"><b>WRITE BACK MULTIPLEXER </b></div>
             <hr size="1" width="60%" noshade>
@@ -1234,11 +1236,11 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "memdati": //DATA MEMORY
-            $memW=$_GET["memW"];
-            $memR=$_GET["memR"];
-            $ind=$_GET["ind"];
-            $DS=$_GET["DS"];
-            $DL=$_GET["DL"];
+            $memW=isset($_GET["memW"])?$_GET["memW"]:"";
+            $memR=isset($_GET["memR"])?$_GET["memR"]:"";
+            $ind=isset($_GET["ind"])?$_GET["ind"]:"";
+            $DS=isset($_GET["DS"])?$_GET["DS"]:"";
+            $DL=isset($_GET["DL"])?$_GET["DL"]:"";
             ?>
             <div align="center" class="testoGrande"><b>DATA MEMORY</b></div>
             <hr size="1" width="60%" noshade>
@@ -1359,8 +1361,8 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "idexwb": //ID/EX.WB REGISTER
-            $dataIn=$_GET["dataIn"];
-            $dataOut=$_GET["dataOut"];
+            $dataIn=isset($_GET["dataIn"])?$_GET["dataIn"]:"";
+            $dataOut=isset($_GET["dataOut"])?$_GET["dataOut"]:"";
             ?>
             <div align="center" class="testoGrande"><b>ID/EX.WB REGISTER</b></div>
             <hr size="1" width="60%" noshade>
@@ -1399,8 +1401,8 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "idexmem": //ID/EX.MEM REGISTER
-            $dataIn=$_GET["dataIn"];
-            $dataOut=$_GET["dataOut"];
+            $dataIn=isset($_GET["dataIn"])?$_GET["dataIn"]:"";
+            $dataOut=isset($_GET["dataOut"])?$_GET["dataOut"]:"";
             ?>
             <div align="center" class="testoGrande"><b>ID/EX.MEM REGISTER</b></div>
             <hr size="1" width="60%" noshade>
@@ -1439,8 +1441,8 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "idexex": //ID/EX.EX REGISTER
-            $dataIn=$_GET["dataIn"];
-            $dataOut=$_GET["dataOut"];
+            $dataIn=isset($_GET["dataIn"])?$_GET["dataIn"]:"";
+            $dataOut=isset($_GET["dataOut"])?$_GET["dataOut"]:"";
             ?>
             <div align="center" class="testoGrande"><b>ID/EX.EX REGISTER</b></div>
             <hr size="1" width="60%" noshade>
@@ -1479,8 +1481,8 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "exmemwb": //EX/MEM.WB REGISTER
-            $dataIn=$_GET["dataIn"];
-            $dataOut=$_GET["dataOut"];
+            $dataIn=isset($_GET["dataIn"])?$_GET["dataIn"]:"";
+            $dataOut=isset($_GET["dataOut"])?$_GET["dataOut"]:"";
             ?>
             <div align="center" class="testoGrande"><b>EX/MEM.WB REGISTER</b></div>
             <hr size="1" width="60%" noshade>
@@ -1519,8 +1521,8 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "exmemmem": //EX/MEM.MEM REGISTER
-            $dataIn=$_GET["dataIn"];
-            $dataOut=$_GET["dataOut"];
+            $dataIn=isset($_GET["dataIn"])?$_GET["dataIn"]:"";
+            $dataOut=isset($_GET["dataOut"])?$_GET["dataOut"]:"";
             ?>
             <div align="center" class="testoGrande"><b>EX/MEM.MEM REGISTER</b></div>
             <hr size="1" width="60%" noshade>
@@ -1559,8 +1561,8 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             break;
 
           case "memwbwb": //MEM/WB.WB REGISTER
-            $dataIn=$_GET["dataIn"];
-            $dataOut=$_GET["dataOut"];
+            $dataIn=isset($_GET["dataIn"])?$_GET["dataIn"]:"";
+            $dataOut=isset($_GET["dataOut"])?$_GET["dataOut"]:"";
             ?>
             <div align="center" class="testoGrande"><b>MEM/WB.WB REGISTER</b></div>
             <hr size="1" width="60%" noshade>

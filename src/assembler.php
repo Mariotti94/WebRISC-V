@@ -2,6 +2,7 @@
 session_start();
 if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 require_once 'functions.php';
+sanitizeArray($_POST);
 require 'init.php';
 
 if (isset($_POST['asmName']) && $_POST['asmName']!='')

@@ -4225,4 +4225,21 @@ function generateTextL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$b
   $text=$text.'</tr>';
   return $text;
 }
+//#########################################################################
+
+//###################### FUNCTIONS: SANITIZATION ##########################
+
+//#########################################################################
+function sanitizeArray(&$input)
+{
+  require_once '../libs/htmlpurifier-4.13.0-standalone/HTMLPurifier.standalone.php';
+  $config = HTMLPurifier_Config::createDefault();
+  $purifier = new HTMLPurifier($config);
+
+  foreach ($input as &$value) {
+    $value = $purifier->purify($value);
+  }
+  unset($value);
+  unset($input);
+}
 ?>
