@@ -35,6 +35,8 @@ If you would like to cite WebRISC-V, please use this reference:
 - [WebRISC-V](#webrisc-v)
   - [Features](#features)
   - [Local Installation](#local-installation)
+    - [Option 1: Apache](#option-1-apache)
+    - [Option 2: Docker](#option-2-docker)
 
 ### Features
 
@@ -53,17 +55,18 @@ If you would like to cite WebRISC-V, please use this reference:
 ### Local Installation
 
 You can install WebRISC-V on a local server.
-The reference Installation has been done on the Linux distro UBUNTU 18.04LTS
-(it works also on the Ubuntu shell in Windows-10).
+The reference Installation has been done on the Linux distro Ubuntu 18.04 LTS
+(it works also on the Ubuntu WSL in Windows 10).
 
-* To install the web-server with the PHP language included issue the following commands:
+#### Option 1: Apache
+
+* To install the web-server Apache with the PHP interpreter issue the following commands:
 ```
-  sudo apt -y update && sudo apt -y install apache2 php libapache2-mod-php
+  sudo apt -y update
+  sudo apt -y install apache2 php libapache2-mod-php
   sudo apt -y install php-gmp
-  sudo ufw allow 'Apache'           (ufw may fail if you don't have ufw... just ignore it)
-  a2enmod php7.2
-  sudo systemctl status apache2     (alternatively you may want to run:
-                                    sudo service apache2 start && sudo service apache2 status )
+  sudo ufw allow "Apache"           (ufw may fail if you don't have ufw... just ignore it)
+  sudo systemctl status apache2
 
   --> you should see something like:
     apache2.service - The Apache HTTP Server
@@ -78,21 +81,37 @@ The reference Installation has been done on the Linux distro UBUNTU 18.04LTS
           ├─4869 /usr/sbin/apache2 -k start
           └─4870 /usr/sbin/apache2 -k start
 ```
-
-* To test if the web server with PHP works, open your local web-broswer (e.g., firefox) and open this page: \
-[http://localhost](http://localhost)
-
-At this point you should see: "Apache2 Ubuntu Default Page"
-
 * To install the WebRISC-V software:
 ```
-  cd /var/www/html
-  sudo wget http://www.dii.unisi.it/~giorgi/WebRISC-V.tgz
-  sudo tar xf WebRISC-V.tgz
-  chmod -R 655 .
-  chown www-data:www-data .
+  wget https://github.com/Mariotti94/WebRISC-V/archive/refs/heads/master.zip -O WebRISC-V-master.zip
+  unzip WebRISC-V-master.zip
+  sudo rm /var/www/html/*
+  sudo mv WebRISC-V-master/www/* /var/www/html/
 ```
-* in the browser open: \
-[http://localhost/WebRISC-V](http://localhost/WebRISC-V)
+* In the browser now you can open WebRISC-V: \
+[http://localhost](http://localhost)
 
-And here it is ready for use.
+#### Option 2: Docker
+
+* To install docker and docker-compose issue the following commands:
+```
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg lsb-release
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+```
+* To install the WebRISC-V docker container:
+```
+  wget https://github.com/Mariotti94/WebRISC-V/archive/refs/heads/master.zip -O WebRISC-V-master.zip
+  unzip WebRISC-V-master.zip
+  cd WebRISC-V-master
+  sudo docker-compose up -d --build
+```
+* In the browser now you can open WebRISC-V: \
+[http://localhost](http://localhost)

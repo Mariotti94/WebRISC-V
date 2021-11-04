@@ -78,10 +78,10 @@ else {
       <table width="100%" cellpadding="0" cellspacing="0">
       <tr>
       <td align="center" width="50%" style="padding: 0px 3px 0px 6px;">
-      <a style="font-size: 14px; display: block; border: 1px solid black; padding: 2px 5px;" class="link4"  href="javascript:void(0);" onclick="javascript:window.open('pipeTable.php','','width=600,height=400');">EXECUTION TABLE</a>
+      <a class="link5" style="padding: 2px 5px;" href="javascript:void(0);" onclick="javascript:window.open('pipeTable.php','','width=600,height=400');">EXECUTION TABLE</a>
       </td>
       <td align="center" width="50%" style="padding: 0px 6px 0px 3px;">
-      <a style="font-size: 14px;  display: block; border: 1px solid black; padding: 2px 37px 2px 38px; " class="link4"  href="javascript:void(0);" onclick="javascript:window.open('console.php','','width=600,height=400');">CONSOLE</a>
+      <a class="link5" style="padding: 2px 37px 2px 38px;" href="javascript:void(0);" onclick="javascript:window.open('console.php','','width=600,height=400');">CONSOLE</a>
       </td>
       </tr>
       </table>

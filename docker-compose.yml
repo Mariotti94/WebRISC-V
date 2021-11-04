@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+ app:
+  container_name: webriscv_app
+  build: ./
+  ports:
+   - "80:80"
+  volumes:
+   - ./www:/var/www/html
+

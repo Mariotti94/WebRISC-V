@@ -147,6 +147,8 @@ a.link3:hover {
 }
 
 a.link4 {
+  display: block;
+  width: 100%;
   font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
   font-size: 10px;
   color: black;
@@ -165,6 +167,19 @@ a.link4disabled {
   cursor: default;
   pointer-events: none;
   user-select: none;
+}
+
+a.link5 {
+  display: block;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: black;
+  text-decoration: none;
+  user-select: none;
+  border: 1px solid black;
+}
+a.link5:hover {
+  color: red;
 }
 
 input.form {
