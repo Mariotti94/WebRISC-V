@@ -395,7 +395,7 @@ if ($tipo=='UJ') {
 
 //********************************************
 //hazard: LOAD->R,I (forward: M=>X)
-//hazard: LOAD->SB (forward: M=>D)
+//hazard: LOAD->SB (forward: M,W=>D)
 
 if (substr($ID_EX_M,0,1)=="1") //MemRead ID/EX
 {
@@ -405,6 +405,20 @@ if (substr($ID_EX_M,0,1)=="1") //MemRead ID/EX
     {
       $stallo++;
       if ($isBranch || $_SESSION['forwarding']==0) {
+        $stallo++;
+      }
+    }
+  }
+}
+
+if (substr($EX_MEM_M,0,1)=="1") //MemRead EX/MEM
+{
+  if ($isBranch && $_SESSION['forwarding']==1)
+  {
+    if (($EX_MEM_RegW==$RL1 || $EX_MEM_RegW==$RL2) && $EX_MEM_RegW!=0) //ignore x0
+    {
+      if ($stallo==0)
+      {
         $stallo++;
       }
     }
@@ -456,6 +470,10 @@ if ($_SESSION['forwarding']==0)
         $stallo+=2;
       }
     }
+  }
+
+  if (substr($EX_MEM_WB,0,1)=="1") //RegWrite EX/MEM
+  {
     if (($EX_MEM_RegW==$RL1 || $EX_MEM_RegW==$RL2) && $EX_MEM_RegW!=0) //ignore x0
     {
       if ($stallo==0) {
@@ -546,7 +564,7 @@ if (!$_SESSION['IF_scarta'])
       if (!$_SESSION['data'][0]['sysStall'])
       {
         $_SESSION['data'][0]['sysStall']=true;
-        $stallo+=3;
+        $stallo+=2;
       }
       else
       {

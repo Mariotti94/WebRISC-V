@@ -268,7 +268,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
   echo "</div>";
 
   echo "<script language='JavaScript' type='text/JavaScript'>document.getElementById('loadingAlert').style.display='none';</script>";
-  echo '<select id="togglePipe" style="position: absolute; top: 5px; width: 115px; font-size: 7pt" onchange="javascript: window.togglePipe();"><option value="normal" selected>FULL LOOPS</option><option value="squashed">SQUASHED LOOPS</option></select>';
+  echo '<select id="togglePipe" style="position: absolute; top: 35px; left: 10px; width: 115px; font-size: 7pt" onchange="javascript: window.togglePipe();"><option value="normal" selected>FULL LOOPS</option><option value="squashed">SQUASHED LOOPS</option></select>';
 ?>
 </body>
 </html>

@@ -36,6 +36,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
   <meta name="robots" content="noindex">
 </head>
 <body id="schemaBody">
+<div>
   <table cellpadding="0" cellspacing="0" style="position: absolute; left: 1px; top: 0px; width: 1196px; height: 20px; font-family: monospace; font-weight: bold; background: white; border: 1px solid;">
     <tr>
       <td id="ifLabel" align="center" style="width: 16%; border-right: 1px solid;">-</td>
@@ -376,7 +377,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
   </div>
 
   <div style="z-index:2" class="criticita">
-    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=criticita&rl1=<?php echo isset($RL1)?$RL1:0;?>&rl2=<?php echo isset($RL2)?$RL2:0;?>&stallo=<?php echo isset($stallo)?(($stallo)?1:0):0;?>&mem=<?php echo isset($ID_EX_M)?$ID_EX_M:0;?>&wb=<?php echo isset($EX_MEM_WB)?$EX_MEM_WB:0;?>&id_rd=<?php echo isset($ID_EX_RD)?$ID_EX_RD:0;?>&ex_rd=<?php echo isset($EX_MEM_RegW)?$EX_MEM_RegW:0;?>','','width=400,height=270');">
+    <a href="javascript:void(0);" onclick="javascript:window.open('elements.php?el=criticita&rl1=<?php echo isset($RL1)?$RL1:0;?>&rl2=<?php echo isset($RL2)?$RL2:0;?>&stallo=<?php echo isset($stallo)?(($stallo)?1:0):0;?>&id_mem=<?php echo isset($ID_EX_M)?$ID_EX_M:0;?>&ex_mem=<?php echo isset($EX_MEM_M)?$EX_MEM_M:0;?>&wb=<?php echo isset($EX_MEM_WB)?$EX_MEM_WB:0;?>&id_rd=<?php echo isset($ID_EX_RD)?$ID_EX_RD:0;?>&ex_rd=<?php echo isset($EX_MEM_RegW)?$EX_MEM_RegW:0;?>','','width=400,height=270');">
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="HAZARD DETECTION UNIT">
     </a>
   </div>
@@ -593,6 +594,7 @@ list($ALUOp,$ALUdato1,$ALUdato2,$EX_MEM_DataW,$EX_MEM_M,$EX_MEM_RIS,$EX_MEM_RegW
     <img src="../img/layout/x.gif" width="100%" height="100%" border="0" alt="MEM/WB.WB REGISTER">
     </a>
   </div>
+</div>
 </body>
 </html>
 

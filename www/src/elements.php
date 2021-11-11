@@ -311,8 +311,10 @@ sanitizeArray($_GET);
             $RL1=isset($_GET["rl1"])?$_GET["rl1"]:"";
             $RL2=isset($_GET["rl2"])?$_GET["rl2"]:"";
             $stallo=isset($_GET["stallo"])?$_GET["stallo"]:"";
-            $mem=isset($_GET["mem"])?$_GET["mem"]:"";
-            $mem=substr($mem,0,1);
+            $id_mem=isset($_GET["id_mem"])?$_GET["id_mem"]:"";
+            $id_mem=substr($id_mem,0,1);
+            $ex_mem=isset($_GET["ex_mem"])?$_GET["ex_mem"]:"";
+            $ex_mem=substr($ex_mem,0,1);
             $wb=isset($_GET["wb"])?$_GET["wb"]:"";
             $wb=substr($wb,0,1);
             $id_rd=isset($_GET["id_rd"])?$_GET["id_rd"]:"";
@@ -331,8 +333,8 @@ sanitizeArray($_GET);
                   <font color=red>Stall = <?php echo $stallo;?></font><br>
                   IF/ID.RegisterRS1 = <?php echo $RL1;?><br>
                   IF/ID.RegisterRS2 = <?php echo $RL2;?><br>
-                  ID/EX.RegisterRD = <?php echo $id_rd;?><?php if ($_SESSION['forwarding']==0) {?><br>
-                  EX/MEM.RegisterRD = <?php echo $ex_rd;?><?php }?>
+                  ID/EX.RegisterRD = <?php echo $id_rd;?><br>
+                  EX/MEM.RegisterRD = <?php echo $ex_rd;?>
                 </td>
                 <td align="center">
                   <table width="80" height="80" cellpadding="0" cellspacing="0" class="elemento">
@@ -345,7 +347,8 @@ sanitizeArray($_GET);
                 </td>
                 <td align="left" valign="middle" class="testo">
                   <font color=red>Stall = <?php echo $stallo;?></font><br><br>
-                  <font color=red>ID/EX.MemRead = <?php echo $mem;?></font><br>
+                  <font color=red>ID/EX.MemRead = <?php echo $id_mem;?></font><br>
+                  <?php if ($_SESSION['forwarding']==1) {?><font color=red>EX/MEM.MemRead = <?php echo $ex_mem;?></font><br><?php }?>
                   <?php if ($_SESSION['forwarding']==0) {?><font color=red>EX/MEM.RegWrite = <?php echo $wb;?></font><br><?php }?>
                 </td>
               </tr>
@@ -551,7 +554,7 @@ sanitizeArray($_GET);
                   Read_Data1 = <?php echo $data1;?><br><br>
                   Read_Data2 = <?php echo $data2;?><?php if ($_SESSION['forwarding']==1) {?><br><br>
                   EX/MEM.AluData = <?php echo $aludata;?><br><br>
-                  EX/MEM.MemData = <?php echo $memdata;?>
+                  MEM/WB.MemData = <?php echo $memdata;?>
                   <?php }?>
                 </td>
               </tr>
