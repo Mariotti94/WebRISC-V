@@ -53,8 +53,8 @@ for ($i=0, $codiceCnt=count($codice); $i < $codiceCnt; ++$i)
   }
 }
 $codice = explode(PHP_EOL,implode(PHP_EOL,$codice));
-$codice = array_map('trim',$codice);                //trim rows
-$codice = array_values(array_filter($codice));      //remove empty rows
+$codice = array_map('trim',$codice);
+$codice = array_values(array_filter($codice, 'strlen'));
 $codiceCnt=count($codice);
 
 //subdivide array to segments
@@ -124,8 +124,8 @@ for ($i=0; $i<$segDataCnt; ++$i)
       $args=str_replace(',',' ',$args);
       $args=explode(' ', $args);
       $args=array_map('trim', $args);
-      $args=array_values(array_filter($args));
-      $directive=array_merge(array($directive[0]),$args);
+      $args=array_values(array_filter($args, 'strlen'));
+      $directive=array_merge(array($directive[0]), $args);
       $directiveCnt=count($directive);
     }
 
