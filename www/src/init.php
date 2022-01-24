@@ -1,6 +1,13 @@
 <?php
+/**
+ * WebRISC-V
+ *
+ * @copyright Copyright (c) 2019, Roberto Giorgi and Gianfranco Mariotti, University of Siena, Italy
+ * @license   BSD-3-Clause
+ */
+
 //VERSION
-$_SESSION['version']="1.7.7";
+$_SESSION['version']="1.8.0";
 
 //BOUNDS
 $_SESSION['maxCycle']=2000;
@@ -22,6 +29,7 @@ $_SESSION['data'][0]['finito']=false;
 
 //INSTRUCTION MEMORY
 //maxCycle 32-bit elements
+//binary values
 for($i=0; $i<($_SESSION['maxTextMem']/4); ++$i) {
   $memIstr[$i]=str_repeat('0',32);
 }
@@ -29,7 +37,8 @@ $_SESSION['memIstr']=$memIstr;
 $_SESSION['memIstrUse']=0;
 
 //REGISTERS
-//32 64-bit elements
+//32 XLEN-bit elements
+//decimal values
 $i=0;
 while($i!=32)
 {
@@ -69,7 +78,7 @@ $_SESSION['ID_EX_EX']='000';
 $_SESSION['ID_EX_PC']='0';
 $_SESSION['ID_EX_Data1']=0;
 $_SESSION['ID_EX_Data2']=0;
-$_SESSION['ID_EX_imm']=str_repeat('0',64);
+$_SESSION['ID_EX_imm']=str_repeat('0',$_SESSION['XLEN']);
 $_SESSION['ID_EX_RS1']='0';
 $_SESSION['ID_EX_RS2']='0';
 $_SESSION['ID_EX_RD']='0';

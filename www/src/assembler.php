@@ -1,4 +1,11 @@
 <?php
+/**
+ * WebRISC-V
+ *
+ * @copyright Copyright (c) 2019, Roberto Giorgi and Gianfranco Mariotti, University of Siena, Italy
+ * @license   BSD-3-Clause
+ */
+
 session_start();
 if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 require_once 'functions.php';
@@ -119,7 +126,7 @@ for ($i=0; $i<$segDataCnt; ++$i)
       break;
     }
 
-    if ($directive[0] == '.byte' || $directive[0] == '.dword' || $directive[0] == '.half' || $directive[0] == '.word') {
+    if ($directive[0] == '.byte' || ($directive[0] == '.dword' && $_SESSION['XLEN']==64) || $directive[0] == '.half' || $directive[0] == '.word') {
       $args=$directive[1];
       $args=str_replace(',',' ',$args);
       $args=explode(' ', $args);
@@ -247,7 +254,7 @@ for ($i=0; $i<$segDataCnt; ++$i)
         ++$byteCnt;
       }
     }
-    else if ($directive[0] == '.dword')
+    else if ($directive[0] == '.dword' && $_SESSION['XLEN'] == 64)
     {
       //BOUND CHECK
       if (($byteCnt+8)>($_SESSION['maxTextMem']+$_SESSION['maxStaticMem'])) {
@@ -390,7 +397,7 @@ for ($i=0; $i<$segTextCnt; ++$i)
   $a=strpos($segText[$i],':',1) ? (strpos($segText[$i],':',1)+1) : 0; //a!=0 -> label
   if ($a==0)
   {
-    $a=decodeIstr($segText[$i]);
+    $a=decodeIstr($segText[$i],$_SESSION['XLEN']);
     if ($a!='ERR')
     {
       if ($a!='MULTI')

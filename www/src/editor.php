@@ -1,4 +1,11 @@
 <?php
+/**
+ * WebRISC-V
+ *
+ * @copyright Copyright (c) 2019, Roberto Giorgi and Gianfranco Mariotti, University of Siena, Italy
+ * @license   BSD-3-Clause
+ */
+
 session_start();
 if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 ?>
@@ -47,9 +54,9 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
       <div align="center" class="testo" style="margin: 10px auto 0px auto; width: 600px;">
         The purpose of this site is to allow students to check the operating of a RISC-V processor having a 5-stage pipeline.
         <p style="margin: 10px 0px 5px 0px;">The programs that can be tested must:</p>
-        &#8226; Have no more than <?php echo $_SESSION['maxTextMem']/4; ?> Instructions (<?php echo $_SESSION['maxTextMem']/1024; ?>kB Text Segment)<br>
-        &#8226; Execute in no more than <?php echo $_SESSION['maxCycle']; ?> Cycles<br>
-        &#8226;	Use no more than <?php echo $_SESSION['maxWritableMem']/1024; ?>kB of Data Memory (<?php echo $_SESSION['maxDynamicMem']/1024; ?>kB Dynamic Data Segment + <?php echo $_SESSION['maxStaticMem']/1024; ?>kB Static Data Segment)
+        &#8226; Have no more than <?php echo $_SESSION['maxTextMem']/4;?> Instructions (<?php echo $_SESSION['maxTextMem']/1024;?>kB Text Segment)<br>
+        &#8226; Execute in no more than <?php echo $_SESSION['maxCycle'];?> Cycles<br>
+        &#8226;	Use no more than <?php echo $_SESSION['maxWritableMem']/1024;?>kB of Data Memory (<?php echo $_SESSION['maxDynamicMem']/1024;?>kB Dynamic Data Segment + <?php echo $_SESSION['maxStaticMem']/1024;?>kB Static Data Segment)
       </div>
 
       <div align="center" style="margin-top: 20px;">
@@ -135,6 +142,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
       <table cellpadding="0" cellspacing="0" align="center" style="margin-top: 10px; margin-bottom: 20px;">
         <tr>
           <td align="left" style="padding-left: 20px; padding-right: 40px;">
+            <?php if ($_SESSION['XLEN']==64) {?>
             <table class="testo" style="height: 100%; border-collapse: collapse; background-color: white; font-size: 9px;">
               <tr>
                 <th class="edInstr bLeft bTop bRight" align="center" colspan="5"><b>List of .text Instructions</b></th>
@@ -259,7 +267,6 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
                 <td class="edInstr bBot"><div class="tooltip" onclick="javascript:tooltipText(this);">sra rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] >>[replicates sign bit] x[rs2][5:0]</span></div></td>
               </tr>
             </table>
-
             <table class="testo" style="margin-top: 10px; height: 100%; border-collapse: collapse; background-color: white; font-size: 9px;">
               <tr>
                 <th class="edInstr bLeft bTop bRight" align="center" colspan="5"><b>List of .data Directives</b></th>
@@ -279,18 +286,139 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
                 <td class="bBot bRight"></td>
               </tr>
             </table>
+            <?php } else {?>
+            <table class="testo" style="height: 100%; border-collapse: collapse; background-color: white; font-size: 9px;">
+              <tr>
+                <th class="edInstr bLeft bTop bRight" align="center" colspan="5"><b>List of .text Instructions</b></th>
+              </tr>
+              <tr>
+                <th class="edInstr bLeft bTop bRight" align="center" colspan="3"><b>RV32I</b></th>
+                <th class="edInstr bTop bRight" align="center"><b>RV32M</b></th>
+                <th class="edInstr bTop bRight" align="center"><b>pseudo</b></th>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft bTop"><div class="tooltip" onclick="javascript:tooltipText(this);">add rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] + x[rs2]</span></div></td>
+                <td class="edInstr bTop"><div class="tooltip" onclick="javascript:tooltipText(this);">lh rd, offset(rs1)<span class="tooltiptext">x[rd] = sign_extend(M[x[rs1] + sign_extend(offset)][15:0])</span></div></td>
+                <td class="edInstr bTop bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">srai rd, rs1, shamt<span class="tooltiptext">x[rd] = x[rs1] &gt;&gt;[replicates sign bit] shamt{imm[4:0]}</span></div></td>
+                <td class="edInstr bTop bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">div rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] /[signed] x[rs2]</span></div></td>
+                <td class="edInstr bTop bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">la rd, symbol<span class="tooltiptext">x[rd] = symbol_address<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>• auipc rd, delta[31 : 12] + delta[11]<br>• addi rd, rd, delta[11:0]<br>→ {delta = symbol_address − pc}</span></div></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">addi rd, rs1, imm<span class="tooltiptext">x[rd] = x[rs1] + sign_extend(imm)</span></div></td>
+                <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">lhu rd, offset(rs1)<span class="tooltiptext">x[rd] = M[x[rs1] + sign_extend(offset)][15:0]</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">srl rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] &gt;&gt; x[rs2][5:0]</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">divu rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] /[unsigned] x[rs2]</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">li rd, imm<span class="tooltiptext">x[rd] = imm<p style="margin: 0px; margin-top: 5px;">• Can be encoded with a myriad of sequences<br>• Encoded as: serie of addi and slli {inefficient sequence}</p></span></div></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">and rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] &amp; x[rs2]</span></div></td>
+                <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">lw rd, offset(rs1)<span class="tooltiptext">x[rd] = sign_extend(M[x[rs1] + sign_extend(offset)][31:0])</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">srli rd, rs1, shamt<span class="tooltiptext">x[rd] = x[rs1] &gt;&gt; shamt{imm[4:0]}</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">mul rd, rs1, rs2<span class="tooltiptext">x[rd] = (x[rs1] * x[rs2])[63:0]</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">j label<span class="tooltiptext">pc = label_address<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>jal x0, label_address<br>→ {label_address = pc + sign_extend(offset &lt;&lt; 1)}</span></div></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">andi rd, rs1, imm<span class="tooltiptext">x[rd] = x[rs1] &amp; sign_extend(imm)</span></div></td>
+                <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">lwu rd, offset(rs1)<span class="tooltiptext">x[rd] = M[x[rs1] + sign_extend(offset)][31:0]</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">sub rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] - x[rs2]</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">mulh rd, rs1, rs2<span class="tooltiptext">x[rd] = (x[rs1] * x[rs2])[127:64]</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">jr rs1<span class="tooltiptext">pc = x[rs1]<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>jalr x0, 0(rs1)</span></div></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">auipc rd, imm<span class="tooltiptext">x[rd] = pc + sign_extend(imm[31:12] &lt;&lt; 12)</span></div></td>
+                <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">lui rd, imm<span class="tooltiptext">x[rd] = sign_extend(imm[31:12] &lt;&lt; 12)</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">xor rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] ^ x[rs2]</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">mulhsu rd, rs1, rs2<span class="tooltiptext">x[rd] = (x[rs1][signed] * x[rs2][unsigned])[127:64]</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">mv rd, rs1<span class="tooltiptext">x[rd] = x[rs1]<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>addi rd, rs1, 0</span></div></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">beq rs1, rs2, label<span class="tooltiptext">if (rs1 == rs2) pc = label_address<br>→ {label_address = pc + sign_extend(offset &lt;&lt; 1)}</span></div></td>
+                <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">or rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] | x[rs2]</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">xori rd, rs1, imm<span class="tooltiptext">x[rd] = x[rs1] ^ sign_extend(imm)</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">mulhu rd, rs1, rs2<span class="tooltiptext">x[rd] = (x[rs1] *[unsigned] x[rs2])[127:64]</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">nop<span class="tooltiptext">Do nothing<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>addi x0, x0, 0</span></div></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">bge rs1, rs2, label<span class="tooltiptext">if (rs1 &gt;= rs2) pc = label_address<br>→ {label_address = pc + sign_extend(offset &lt;&lt; 1)}</span></div></td>
+                <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">ori rd, rs1, imm<span class="tooltiptext">x[rd] = x[rs1] | sign_extend(imm)</span></div></td>
+                <td class="bRight bBot" style="border-left: 1px dashed #999!important;" rowspan="11"></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">rem rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] % x[rs2]</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">ret<span class="tooltiptext">pc = x[ra]<p style="margin: 0px; margin-top: 5px;">Encoded as:</p>jalr x0, 0(ra)</span></div></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">bgeu rs1, rs2, label<span class="tooltiptext">if (rs1 &gt;=[unsigned] rs2) pc = label_address<br>→ {label_address = pc + sign_extend(offset &lt;&lt; 1)}</span></div></td>
+                <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">sb rs2, offset(rs1)<span class="tooltiptext">M[x[rs1] + sign_extend(offset)] = x[rs2][7:0]</span></div></td>
+                <td class="edInstr bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">remu rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] %[unsigned] x[rs2]</span></div></td>
+                <td class="bRight bBot" rowspan="10"></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">blt rs1, rs2, label<span class="tooltiptext">if (rs1 &lt; rs2) pc = label_address<br>→ {label_address = pc + sign_extend(offset &lt;&lt; 1)}</span></div></td>
+                <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">sh rs2, offset(rs1)<span class="tooltiptext">M[x[rs1] + sign_extend(offset)] = x[rs2][15:0]</span></div></td>
+                <td class="bright bBot" rowspan="9"></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">bltu rs1, rs2, label<span class="tooltiptext">if (rs1 &lt;[unsigned] rs2) pc = label_address<br>→ {label_address = pc + sign_extend(offset &lt;&lt; 1)}</span></div></td>
+                <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">sw rs2, offset(rs1)<span class="tooltiptext">M[x[rs1] + sign_extend(offset)] = x[rs2][31:0]</span></div></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">bne rs1, rs2, label<span class="tooltiptext">if (rs1 != rs2) pc = label_address<br>→ {label_address = pc + sign_extend(offset &lt;&lt; 1)}</span></div></td>
+                <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">sll rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] &lt;&lt; x[rs2][5:0]</span></div></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">ebreak<span class="tooltiptext">RaiseException(Breakpoint)</span></div></td>
+                <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">slli rd, rs1, shamt<span class="tooltiptext">x[rd] = sign_extend((x[rs1] &lt;&lt; shamt{imm[4:0]})[31:0])</span></div></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">ecall<span class="tooltiptext">RaiseException(EnvironmentCall)</span></div></td>
+                <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">slt rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] &lt; x[rs2]</span></div></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">jal rd, label<span class="tooltiptext">x[rd] = pc+4; pc = label_address<br>→ {label_address = pc + sign_extend(offset &lt;&lt; 1)}</span></div></td>
+                <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">slti rd, rs1, imm<span class="tooltiptext">x[rd] = x[rs1] &lt; sign_extend(imm)</span></div></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">jalr rd, offset(rs1)<span class="tooltiptext">x[rd] = pc+4; pc=x[rs1]+sign_extend(offset);</span></div></td>
+                <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">sltiu rd, rs1, imm<span class="tooltiptext">x[rd] = x[rs1] &lt;[unsigned] sign_extend(imm)</span></div></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft"><div class="tooltip" onclick="javascript:tooltipText(this);">lb rd, offset(rs1)<span class="tooltiptext">x[rd] = sign_extend(M[x[rs1] + sign_extend(offset)][7:0])</span></div></td>
+                <td class="edInstr"><div class="tooltip" onclick="javascript:tooltipText(this);">sltu rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] &lt;[unsigned] x[rs2]</span></div></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft bBot"><div class="tooltip" onclick="javascript:tooltipText(this);">lbu rd, offset(rs1)<span class="tooltiptext">x[rd] = M[x[rs1] + sign_extend(offset)][7:0]</span></div></td>
+                <td class="edInstr bBot"><div class="tooltip" onclick="javascript:tooltipText(this);">sra rd, rs1, rs2<span class="tooltiptext">x[rd] = x[rs1] &gt;&gt;[replicates sign bit] x[rs2][5:0]</span></div></td>
+              </tr>
+            </table>
+            <table class="testo" style="margin: auto; margin-top: 10px; height: 100%; border-collapse: collapse; background-color: white; font-size: 9px;">
+              <tr>
+                <th class="edInstr bLeft bTop bRight" align="center" colspan="4"><b>List of .data Directives</b></th>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft bTop"><div class="tooltip" onclick="javascript:tooltipText(this);">.align 2<span class="tooltiptext">Align next data item on specified byte boundary (0=byte, 1=half, 2=word, 3=double)</span></div></td>
+                <td class="edInstr bTop"><div class="tooltip" onclick="javascript:tooltipText(this);">.ascii "string"<span class="tooltiptext">Store the string in the Data segment but do not add null terminator</span></div></td>
+                <td class="edInstr bTop"><div class="tooltip" onclick="javascript:tooltipText(this);">.asciz "string"<span class="tooltiptext">Store the string in the Data segment and add null terminator</span></td>
+                <td class="edInstr bTop bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">.byte 1, 2, 3<span class="tooltiptext">Store the listed value(s) as 8 bit bytes</span></td>
+              </tr>
+              <tr>
+                <td class="edInstr bLeft bBot"><div class="tooltip" onclick="javascript:tooltipText(this);">.half 1, 2, 3<span class="tooltiptext">Store the listed value(s) as 16 bit halfwords on halfword boundary</span></td>
+                <td class="edInstr bBot"><div class="tooltip" onclick="javascript:tooltipText(this);">.space 16<span class="tooltiptext">Reserve the next specified number of bytes in Data segment</span></td>
+                <td class="edInstr bBot"><div class="tooltip" onclick="javascript:tooltipText(this);">.string "string"<span class="tooltiptext">Alias of .asciz</span></td>
+                <td class="edInstr bBot bRight"><div class="tooltip" onclick="javascript:tooltipText(this);">.word 1, 2, 3<span class="tooltiptext">Store the listed value(s) as 32 bit words on word boundary</span></td>
+              </tr>
+            </table>
+            <?php }?>
             <table class="testo" style="margin: auto; margin-top: 10px; height: 100%; border-collapse: collapse; background-color: white; font-size: 9px;">
               <tr>
                 <th class="edInstr bLeft bTop bRight" align="center" colspan="5"><b>Supported System Calls</b></th>
               </tr>
               <tr>
-                <td rowspan="3" class="edScall bLeft bBot bTop" style="min-width: 200px; border-right: 1px dashed #999;">
+                <td rowspan="3" class="edScall bLeft bBot bTop" style="min-width: 188px; border-right: 1px dashed #999;">
                     Syscall code in a7, Argument in a0
                 </td>
-                <td rowspan="3" class="edScall bBot bTop" style="min-width: 100px;">
+                <td rowspan="3" class="edScall bBot bTop" style="min-width: 94px;">
                   <b>ECALL CODES:</b>
                 </td>
-                <td class="edScall bRight bTop" style="min-width: 100px;">
+                <td class="edScall bRight bTop" style="min-width: 94px;">
                   Print Int    = 1
                 </td>
               </tr>

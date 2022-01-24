@@ -1,4 +1,11 @@
 <?php
+/**
+ * WebRISC-V
+ *
+ * @copyright Copyright (c) 2019, Roberto Giorgi and Gianfranco Mariotti, University of Siena, Italy
+ * @license   BSD-3-Clause
+ */
+
 session_start();
 if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 ?>
@@ -18,13 +25,13 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
       var backButton=top.frames[0].document.getElementById('backButton');
       var stepButton=top.frames[0].document.getElementById('stepButton');
       var allButton=top.frames[0].document.getElementById('allButton');
-      if (<?php echo (!$_SESSION['data'][$_SESSION['index']]['clock'] || ($_SESSION['maxBackSteps']>=0 && $_SESSION['index']==$_SESSION['maxBackSteps']))?'true':'false'; ?>) {
+      if (<?php echo (!$_SESSION['data'][$_SESSION['index']]['clock'] || ($_SESSION['maxBackSteps']>=0 && $_SESSION['index']==$_SESSION['maxBackSteps']))?'true':'false';?>) {
         backButton.getElementsByTagName('a')[0].setAttribute('class','link4disabled');
       }
       else {
         backButton.getElementsByTagName('a')[0].setAttribute('class','link4');
       }
-      if (<?php echo ($_SESSION['data'][$_SESSION['index']]['finito']||!$_SESSION['loaded'])?'true':'false'; ?>) {
+      if (<?php echo ($_SESSION['data'][$_SESSION['index']]['finito']||!$_SESSION['loaded'])?'true':'false';?>) {
         stepButton.getElementsByTagName('a')[0].setAttribute('class','link4disabled');
         allButton.getElementsByTagName('a')[0].setAttribute('class','link4disabled');
       }
@@ -69,8 +76,8 @@ else {
 ?>
 <table cellpadding="0" cellspacing="0" width="100%" border="0" align="center" id="counter">
   <tr>
-    <td width="50%" style="padding: 4px 0px 4px 16px;" class="testoGrande" id="asmNameTd"><?php echo $_SESSION['asmName']; ?></td>
-    <td align="right" width="50%" style="padding: 4px 16px 4px 0px;" class="testoGrande"><?php if (!$_SESSION['data'][$_SESSION['index']]['finito']) echo 'current cycle: <span id="cycleCount">'.(($_SESSION['data'][$_SESSION['index']]['clock']!=0)?$_SESSION['data'][$_SESSION['index']]['clock']:'-').'</span>'; ?>
+    <td width="50%" style="padding: 4px 0px 4px 16px;" class="testoGrande" id="asmNameTd"><?php echo $_SESSION['asmName'];?></td>
+    <td align="right" width="50%" style="padding: 4px 16px 4px 0px;" class="testoGrande"><?php if (!$_SESSION['data'][$_SESSION['index']]['finito']) echo 'current cycle: <span id="cycleCount">'.(($_SESSION['data'][$_SESSION['index']]['clock']!=0)?$_SESSION['data'][$_SESSION['index']]['clock']:'-').'</span>';?>
 </td>
   </tr>
   <tr>

@@ -1,4 +1,11 @@
 <?php
+/**
+ * WebRISC-V
+ *
+ * @copyright Copyright (c) 2019, Roberto Giorgi and Gianfranco Mariotti, University of Siena, Italy
+ * @license   BSD-3-Clause
+ */
+
 if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 require_once 'functions.php';
 $mem=$_SESSION['memIstr'];
@@ -40,14 +47,21 @@ if ($dim!=0)
       }
       else
       {
-        if (BinToGMP($op,1)==hexdec(13) && (BinToGMP($funct3,1)==1 || BinToGMP($funct3,1)==5) )
-          $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".codRegister(BinToGMP($rs1,1)).", ".BinToGMP(substr($a,6,6),1);
+        if (BinToGMP($op,1)==hexdec(13) && (BinToGMP($funct3,1)==1 || BinToGMP($funct3,1)==5)) {
+          if ($_SESSION['XLEN']==64) {
+            $imm=str_repeat('0',5).substr($a,6,6);
+            $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".codRegister(BinToGMP($rs1,1)).", ".BinToGMP($imm,1);
+          }
+          else {
+            $imm=str_repeat('0',7).substr($a,7,5);
+            $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".codRegister(BinToGMP($rs1,1)).", ".BinToGMP($imm,1);
+          }
+        }
         else if (BinToGMP($op,1)!=hexdec(73) )
           $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".codRegister(BinToGMP($rs1,1)).", ".BinToGMP($imm,0);
         else
           $istruzione=$oper;
       }
-
     }
     else if ($tipo=="S")
     {
@@ -77,7 +91,6 @@ if ($dim!=0)
       $address=($index*4+BinToGMP($imm,0)*2);
       $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".$address;
     }
-
     ?>
     <br>
     <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">

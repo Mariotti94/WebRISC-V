@@ -1,3 +1,10 @@
+/**
+ * WebRISC-V
+ *
+ * @copyright Copyright (c) 2019, Roberto Giorgi and Gianfranco Mariotti, University of Siena, Italy
+ * @license   BSD-3-Clause
+ */
+
 function popup_close() {
 	var root = (top.frames[2]) ? top.frames[2].document : document;
     var popup = root.getElementById('popup');

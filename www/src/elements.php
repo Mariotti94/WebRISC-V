@@ -1,4 +1,11 @@
 <?php
+/**
+ * WebRISC-V
+ *
+ * @copyright Copyright (c) 2019, Roberto Giorgi and Gianfranco Mariotti, University of Siena, Italy
+ * @license   BSD-3-Clause
+ */
+
 session_start();
 if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 require_once 'functions.php';
@@ -28,7 +35,7 @@ sanitizeArray($_GET);
             <div align="center" class="testoGrande"><b>SEPC</b></div>
             <hr size="1" width="60%" noshade>
             <div align="center" class="testoGrande">
-              This register holds the Supervisor level EPC value.
+              This register holds the Supervisor level exception PC.
             </div>
             <form action="javascript:window.close()" method="post">
               <hr size="1" width="60%" noshade>
@@ -42,7 +49,7 @@ sanitizeArray($_GET);
             <div align="center" class="testoGrande"><b>SCAUSE</b></div>
             <hr size="1" width="60%" noshade>
             <div align="center" class="testoGrande">
-              This register holds the Supervisor level exception CAUSE.
+              This register holds the Supervisor level trap cause.
             </div>
             <form action="javascript:window.close()" method="post">
               <hr size="1" width="60%" noshade>
@@ -229,7 +236,6 @@ sanitizeArray($_GET);
               </td></tr>
               </table>
             </div>
-            <br>
             <table width="100%" cellpadding="0" cellspacing="0"  align="center">
               <tr>
                 <td align="right" class="testo" width="33%">
@@ -296,6 +302,7 @@ sanitizeArray($_GET);
                   <table width="40" height="40" cellpadding="0" cellspacing="0" class="elemento">
                     <tr><td valign="middle" align="center"><font size="1">AND</font></td></tr>
                   </table>
+                  <br>
                   <font color="red">PCsrc = <?php echo $ris;?></font>
                 </td>
               </tr>
@@ -443,6 +450,7 @@ sanitizeArray($_GET);
                   <table width="40" height="40" cellpadding="0" cellspacing="0" class="elemento">
                     <tr><td valign="middle" align="center"><font size="1">OR</font></td></tr>
                   </table>
+                  <br>
                   <font color="red">Result = <?php echo $stallo;?></font>
                 </td>
               </tr>
@@ -574,8 +582,8 @@ sanitizeArray($_GET);
             <div align="center" class="testoGrande"><b>IMMEDIATE GENERATOR</b></div>
             <hr size="1" width="60%" noshade>
             <div align="center" class="testoGrande">
-              From the 32-bit instruction a 64-bit immediate should be generated,
-              since the ALU processes 64-bit data.
+              From the 32-bit instruction a <?php echo $_SESSION['XLEN'];?>-bit immediate should be generated,
+              since the ALU processes <?php echo $_SESSION['XLEN'];?>-bit data.
             </div>
             <br>
             <table width="100%" cellpadding="0" cellspacing="0"  align="center" style="table-layout: fixed;">
@@ -595,7 +603,7 @@ sanitizeArray($_GET);
                   </table>
                 </td>
                 <td align="left" valign="middle" class="testo" width="33%">
-                  Generated Immediate =<br><?php echo substr($esteso,0,16).'<br>'.substr($esteso,16,16).'<br>'.substr($esteso,32,16).'<br>'.substr($esteso,48,16);?>
+                  Generated Immediate =<br><?php if ($_SESSION['XLEN']==64) { echo substr($esteso,0,16).'<br>'.substr($esteso,16,16).'<br>'.substr($esteso,32,16).'<br>'.substr($esteso,48,16); } else { echo substr($esteso,0,16).'<br>'.substr($esteso,16,16); }?>
                 </td>
               </tr>
             </table>
@@ -620,7 +628,7 @@ sanitizeArray($_GET);
               <tr>
                 <td align="right" class="testo" width="33%">
                   <div style="float:right" align="left">
-                    Immediate =<br><?php echo substr($input,0,16).'<br>'.substr($input,16,16).'<br>'.substr($input,32,16).'<br>'.substr($input,48,16);?>
+                    Immediate =<br><?php if ($_SESSION['XLEN']==64) { echo substr($input,0,16).'<br>'.substr($input,16,16).'<br>'.substr($input,32,16).'<br>'.substr($input,48,16); } else { echo substr($input,0,16).'<br>'.substr($input,16,16); }?>
                   </div>
                 </td>
                 <td align="center" class="testo" width="33%">
@@ -633,7 +641,7 @@ sanitizeArray($_GET);
                   </table>
                 </td>
                 <td align="left" valign="middle" class="testo" width="33%">
-                  Shifted Immediate =<br><?php echo substr($output,0,16).'<br>'.substr($output,16,16).'<br>'.substr($output,32,16).'<br>'.substr($output,48,16);?>
+                  Shifted Immediate =<br><?php if ($_SESSION['XLEN']==64) { echo substr($output,0,16).'<br>'.substr($output,16,16).'<br>'.substr($output,32,16).'<br>'.substr($output,48,16); } else { echo substr($output,0,16).'<br>'.substr($output,16,16); }?>
                 </td>
               </tr>
             </table>
@@ -656,7 +664,7 @@ sanitizeArray($_GET);
             <div align="center" class="testoGrande"><b>REGISTERS</b></div>
             <hr size="1" width="60%" noshade>
             <div align="center" class="testoGrande">
-              This are is the register file: 32 64-bit registers. In the first half of
+              This are is the register file: 32 <?php echo $_SESSION['XLEN'];?>-bit registers. In the first half of
               a clock cycle, the values coming from the Write-back stage should be written.
               In the second half of a clock cycle, the values specified by the values <b>rs1</b>
               and <b>rs2</b> are read.
@@ -802,13 +810,13 @@ sanitizeArray($_GET);
             <br>
             <table width="100%" cellpadding="0" cellspacing="0"  align="center">
               <tr>
-                <td align="right" class="testo" width="33%" valign="top">
+                <td align="right" class="testo" width="38%" valign="top">
                   <br>
                   ID/EX.ReadData1 = <?php echo $DL1;?><br>
                   WB.Data = <?php echo $mem_wb;?><br>
                   EX/MEM.Data = <?php echo $ex_mem;?><br>
                 </td>
-                <td align="center" class="testo" width="33%">
+                <td align="center" class="testo" width="24%">
                   <table width="30" height="60" cellpadding="0" cellspacing="0" class="elemento">
                     <tr>
                       <td><div style="font-size: 8px;color:#666666;">00<br>01<br>10</div></td>
@@ -817,7 +825,7 @@ sanitizeArray($_GET);
                   <br>
                   <font color="red" size="1">Control = <?php echo $ctrl;?></font>
                 </td>
-                <td align="left" valign="top" class="testo" width="33%">
+                <td align="left" valign="top" class="testo" width="38%">
                   <br><br>
                   Temp ALU Operand 1 = <?php echo $ris;?>
                 </td>
@@ -847,13 +855,13 @@ sanitizeArray($_GET);
             <br>
             <table width="100%" cellpadding="0" cellspacing="0"  align="center">
               <tr>
-                <td align="right" class="testo" width="33%" valign="top">
+                <td align="right" class="testo" width="38%" valign="top">
                   <br>
                   ID/EX.ReadData2 = <?php echo $DL1;?><br>
                   WB.Data = <?php echo $mem_wb;?><br>
                   EX/MEM.Data = <?php echo $ex_mem;?><br>
                 </td>
-                <td align="center" class="testo" width="33%">
+                <td align="center" class="testo" width="24%">
                   <table width="30" height="60" cellpadding="0" cellspacing="0" class="elemento">
                     <tr>
                       <td><div style="font-size: 8px;color:#666666;">00<br>01<br>10</div></td>
@@ -862,7 +870,7 @@ sanitizeArray($_GET);
                   <br>
                   <font color="red" size="1">Control = <?php echo $ctrl;?></font>
                 </td>
-                <td align="left" valign="top" class="testo" width="33%">
+                <td align="left" valign="top" class="testo" width="38%">
                   <br><br>
                   Temp ALU Operand 2 = <?php echo $ris;?>
                 </td>

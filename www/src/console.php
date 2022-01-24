@@ -1,4 +1,11 @@
 <?php
+/**
+ * WebRISC-V
+ *
+ * @copyright Copyright (c) 2019, Roberto Giorgi and Gianfranco Mariotti, University of Siena, Italy
+ * @license   BSD-3-Clause
+ */
+
 session_start();
 if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 if (isset($_POST['btnReadInt'])){
@@ -32,11 +39,11 @@ $sysman = $sysman."Read Int     = 5".PHP_EOL;
 
 <div>
   <div>
-    <pre style="width: 301px; text-align:center; margin:0px; padding: 5px 10px; background: white; border: 2px dashed;"><?php echo $sysman; ?></pre>
+    <pre style="width: 301px; text-align:center; margin:0px; padding: 5px 10px; background: white; border: 2px dashed;"><?php echo $sysman;?></pre>
     <br>
     <div style="width: 315px; padding: 5px; background: white; border: 1px solid;">
       CONSOLE
-      <pre style="min-height:90px; margin:0px; padding: 5px 10px; background: black; color: white;"><?php echo ($_SESSION['data'][$_SESSION['index']]['sysConsole']!='') ? $_SESSION['data'][$_SESSION['index']]['sysConsole'] : 'EMPTY'; ?></pre>
+      <pre style="min-height:90px; margin:0px; padding: 5px 10px; background: black; color: white;"><?php echo ($_SESSION['data'][$_SESSION['index']]['sysConsole']!='') ? $_SESSION['data'][$_SESSION['index']]['sysConsole'] : 'EMPTY';?></pre>
     </div>
   </div>
 

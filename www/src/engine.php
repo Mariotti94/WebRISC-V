@@ -1,4 +1,11 @@
 <?php
+/**
+ * WebRISC-V
+ *
+ * @copyright Copyright (c) 2019, Roberto Giorgi and Gianfranco Mariotti, University of Siena, Italy
+ * @license   BSD-3-Clause
+ */
+
 if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 //############################################
 //BOUNDS CHECK
@@ -365,8 +372,14 @@ $temp_ID_EX_imm=0;
 if ($tipo=='I')
 {
   if (($temp_ID_EX_op==hexdec(13)) && ($temp_ID_EX_funct3==1 || $temp_ID_EX_funct3==5)) {
-    $temp_ID_EX_imm=substr($istruzione,6,6);
-    $temp_ID_EX_imm=str_repeat('0',58).$temp_ID_EX_imm;
+    if ($_SESSION['XLEN']==64) {
+      $temp_ID_EX_imm=substr($istruzione,6,6);
+      $temp_ID_EX_imm=str_repeat('0',58).$temp_ID_EX_imm;
+    }
+    else {
+      $temp_ID_EX_imm=substr($istruzione,7,5);
+      $temp_ID_EX_imm=str_repeat('0',59).$temp_ID_EX_imm;
+    }
   }
   else {
     $temp_ID_EX_imm=substr($istruzione,0,12);
@@ -626,13 +639,13 @@ if (!$_SESSION['IF_scarta'])
       $branchCmp = ($bDato1>=$bDato2)?true:false;
     }
     else if ($temp_ID_EX_funct3 == hexdec(6)) { //bltu
-      $temp_bDato1=BinToGMP(GMPToBin($bDato1,64,0),1);
-      $temp_bDato2=BinToGMP(GMPToBin($bDato2,64,0),1);
+      $temp_bDato1=BinToGMP(GMPToBin($bDato1,$_SESSION['XLEN'],0),1);
+      $temp_bDato2=BinToGMP(GMPToBin($bDato2,$_SESSION['XLEN'],0),1);
       $branchCmp = (gmp_cmp($temp_bDato1,$temp_bDato2)<0)?true:false;
     }
     else if ($temp_ID_EX_funct3 == hexdec(7)) { //bgeu
-      $temp_bDato1=BinToGMP(GMPToBin($bDato1,64,0),1);
-      $temp_bDato2=BinToGMP(GMPToBin($bDato2,64,0),1);
+      $temp_bDato1=BinToGMP(GMPToBin($bDato1,$_SESSION['XLEN'],0),1);
+      $temp_bDato2=BinToGMP(GMPToBin($bDato2,$_SESSION['XLEN'],0),1);
       $branchCmp = (gmp_cmp($temp_bDato1,$temp_bDato2)>=0)?true:false;
     }
   }

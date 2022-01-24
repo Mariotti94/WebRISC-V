@@ -1,4 +1,11 @@
 <?php
+/**
+ * WebRISC-V
+ *
+ * @copyright Copyright (c) 2019, Roberto Giorgi and Gianfranco Mariotti, University of Siena, Italy
+ * @license   BSD-3-Clause
+ */
+
 session_start();
 if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 ?>
@@ -28,7 +35,14 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
     if ($_POST['selectForwarding']=="forwarding_true")
       $_SESSION['forwarding']=1;
   }
-  if (isset($_POST['btnBranchRes']) || isset($_POST['btnForwarding'])) {
+  if (isset($_POST['btnArch'])) {
+    require_once 'init.php';
+    if ($_POST['selectArch']=="rv64im")
+      $_SESSION['XLEN']=64;
+    if ($_POST['selectArch']=="rv32im")
+      $_SESSION['XLEN']=32;
+  }
+  if (isset($_POST['btnBranchRes']) || isset($_POST['btnForwarding']) || isset($_POST['btnArch'])) {
     ?>
     <script language='JavaScript' type='text/JavaScript'>
       window.onload = function() {
@@ -263,25 +277,36 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
             <table width="90%">
             <tr>
               <td align="center">
-                <p class="testo">Jump Control Hazard Resolution</p>
+                <p class="testo">Architecture</p>
                 <form action="" method="post" style="margin:0px;">
-                  <select name="selectBranchRes" class="form" style="width:180px;" onchange="javascript:document.getElementById('btn_BranchRes').click();">
-                    <option value="flush" <?php if ($_SESSION['branchRes']==0) {?> selected <?php } ?>>Flush Instruction</option>
-                    <option value="delay_slot" <?php if ($_SESSION['branchRes']==1) {?> selected <?php } ?>>Execute Delay Slot</option>
+                  <select name="selectArch" class="form" style="width:75px;" onchange="javascript:document.getElementById('btn_Arch').click();">
+                    <option value="rv64im" <?php if ($_SESSION['XLEN']==64) {?> selected <?php } ?>>RV64IM</option>
+                    <option value="rv32im" <?php if ($_SESSION['XLEN']==32) {?> selected <?php } ?>>RV32IM</option>
                   </select>
-                  <input type="submit" value="Select" name="btnBranchRes" class="form" style="width:60px; padding:1px;" id="btn_BranchRes">
-                  <script language='JavaScript' type='text/JavaScript'>document.getElementById('btn_BranchRes').style.display='none';</script>
+                  <input type="submit" value="Select" name="btnArch" class="form" style="width:60px; padding:1px;" id="btn_Arch">
+                  <script language='JavaScript' type='text/JavaScript'>document.getElementById('btn_Arch').style.display='none';</script>
                 </form>
               </td>
               <td align="center">
-                <p class="testo">Forwarding Inside Pipeline</p>
+                <p class="testo">Forwarding</p>
                 <form action="" method="post" style="margin:0px;">
-                  <select name="selectForwarding" class="form" style="width:150px;" onchange="javascript:document.getElementById('btn_Forwarding').click();">
+                  <select name="selectForwarding" class="form" style="width:75px;" onchange="javascript:document.getElementById('btn_Forwarding').click();">
                     <option value="forwarding_true" <?php if ($_SESSION['forwarding']==1) {?> selected <?php } ?>>Activated</option>
                     <option value="forwarding_false" <?php if ($_SESSION['forwarding']==0) {?> selected <?php } ?>>Deactivated</option>
                   </select>
                   <input type="submit" value="Select" name="btnForwarding" class="form" style="width:60px; padding:1px;" id="btn_Forwarding">
                   <script language='JavaScript' type='text/JavaScript'>document.getElementById('btn_Forwarding').style.display='none';</script>
+                </form>
+              </td>
+              <td align="center">
+                <p class="testo">Branch Hazard Handling</p>
+                <form action="" method="post" style="margin:0px;">
+                  <select name="selectBranchRes" class="form" style="width:135px;" onchange="javascript:document.getElementById('btn_BranchRes').click();">
+                    <option value="flush" <?php if ($_SESSION['branchRes']==0) {?> selected <?php } ?>>Flush Instruction</option>
+                    <option value="delay_slot" <?php if ($_SESSION['branchRes']==1) {?> selected <?php } ?>>Execute Delay Slot</option>
+                  </select>
+                  <input type="submit" value="Select" name="btnBranchRes" class="form" style="width:60px; padding:1px;" id="btn_BranchRes">
+                  <script language='JavaScript' type='text/JavaScript'>document.getElementById('btn_BranchRes').style.display='none';</script>
                 </form>
               </td>
             </tr>
@@ -360,8 +385,8 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
                 <p class="testo">Data Memory</p>
                 <form action="" method="post" style="margin:0px;">
                   <select name="selectMemDatiShow" class="form" style="width:140px;" onchange="javascript:document.getElementById('btn_MemDatiShow').click();">
-                    <option value="high_to_low" <?php if ($_SESSION['memDatiShow']==0) {?> selected <?php } ?>>Upper to Lower bytes</option>
                     <option value="low_to_high" <?php if ($_SESSION['memDatiShow']==1) {?> selected <?php } ?>>Lower to Upper bytes</option>
+                    <option value="high_to_low" <?php if ($_SESSION['memDatiShow']==0) {?> selected <?php } ?>>Upper to Lower bytes</option>
                   </select>
                   <input type="submit" value="Select" name="btnMemDatiShow" class="form" style="width:60px; padding:1px;" id="btn_MemDatiShow">
                   <script language='JavaScript' type='text/JavaScript'>document.getElementById('btn_MemDatiShow').style.display='none';</script>

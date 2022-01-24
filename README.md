@@ -40,17 +40,19 @@ If you would like to cite WebRISC-V, please use this reference:
 
 ### Features
 
-* 5-stage Graphical Pipeline 64-bit Simulator
-  * Pipeline Schema taken from Patterson's 'Computer Organization and Design: RISC-V Edition' and enhanced
+* 5-stage Graphical Pipeline 32/64-bit Simulator
+  * Pipeline Schema taken and enhanced from Patterson's 'Computer Organization and Design: RISC-V Edition'
   * Visualize every Architectural Element and the Data and Control paths
-  * Execute with or without the Forwarding and the Delay Slot
+  * Execute with or without Forwarding
+  * Change the Branch Hazard handling using the Delay Slot
   * Keep track of the execution in the Pipeline
     * Instruction Memory | Data Memory | Registers
-  * Pipeline Table to show the execution trace
-  * Console to interact with the execution through implemented syscalls
-* Supported instructions are the full **RV64I** Base Instruction Set (excluding: fence) and **RV64M** Standard Multiplication Extension
-  * List of supported instruction with small descriptions of the underlying function visible on click
-  * RISC-V Assembly small examples available
+  * Show the execution trace with the Pipeline Table
+  * Interact with the execution through implemented syscalls on the Console
+* Supported instructions are the full **RV32I** and **RV64I** Base Instruction Sets (excluding: fence) as well as the full **RV32M** and **RV64M** Standard Multiplication Extensions
+  * List of supported instructions with small Verilog descriptions available
+  * List of supported directives with small descriptions of meaning available
+  * RISC-V Assembly simple examples available
 
 ### Local Installation
 
@@ -63,8 +65,7 @@ The reference Installation has been done on the Linux distro Ubuntu 18.04 LTS
 * To install the web-server Apache with the PHP interpreter issue the following commands:
 ```
   sudo apt -y update
-  sudo apt -y install apache2 php libapache2-mod-php
-  sudo apt -y install php-gmp
+  sudo apt -y install apache2 php libapache2-mod-php php-gmp
   sudo ufw allow "Apache"           (ufw may fail if you don't have ufw... just ignore it)
   sudo systemctl status apache2
 
@@ -83,6 +84,7 @@ The reference Installation has been done on the Linux distro Ubuntu 18.04 LTS
 ```
 * To install the WebRISC-V software:
 ```
+  sudo apt -y install wget unzip
   wget https://github.com/Mariotti94/WebRISC-V/archive/refs/heads/master.zip -O WebRISC-V-master.zip
   unzip WebRISC-V-master.zip
   sudo rm /var/www/html/*
@@ -108,6 +110,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 ```
 * To install the WebRISC-V docker container:
 ```
+  sudo apt -y install wget unzip
   wget https://github.com/Mariotti94/WebRISC-V/archive/refs/heads/master.zip -O WebRISC-V-master.zip
   unzip WebRISC-V-master.zip
   cd WebRISC-V-master

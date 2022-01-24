@@ -1,10 +1,18 @@
 <?php
+/**
+ * WebRISC-V
+ *
+ * @copyright Copyright (c) 2019, Roberto Giorgi and Gianfranco Mariotti, University of Siena, Italy
+ * @license   BSD-3-Clause
+ */
+
 session_start();
-require_once 'src/init.php';
 $_SESSION['codice']='';
 $_SESSION['memDatiShow']=1;
 $_SESSION['branchRes']=0;
 $_SESSION['forwarding']=1;
+$_SESSION['XLEN']=64;
+require_once 'src/init.php';
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
