@@ -1,6 +1,6 @@
 ## Changelog
->logs only major versions<br>
->minor version improvements logged on following major version
+>logs only major and minor releases<br>
+>patch release improvements logged on following minor release
 
 * **Version 1.8**
   * Implementation of the full RV32I (excluding: fence) and RV32M instruction set

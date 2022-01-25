@@ -1,6 +1,8 @@
 ## Regression testing
 
-* Clock cycles to complete execution of example programs.
+>To validate the software installation, we suggest running the following example programs to check if the results match.
+
+* Clock cycles to complete execution.
 
 |     Example Name    | w/ Forwarding | w/o Forwarding |
 |:-------------------:|:-------------:|:--------------:|
