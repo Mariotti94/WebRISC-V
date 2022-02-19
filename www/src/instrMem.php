@@ -33,7 +33,7 @@ if ($dim!=0)
       $rd=substr($a,20,5);
       $rs1=substr($a,12,5);
       $rs2=substr($a,7,5);
-      $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".codRegister(BinToGMP($rs1,1)).", ".codRegister(BinToGMP($rs2,1));
+      $istruzione=$oper." ".encRegister(BinToGMP($rd,1)).", ".encRegister(BinToGMP($rs1,1)).", ".encRegister(BinToGMP($rs2,1));
     }
     else if ($tipo=="I")
     {
@@ -43,22 +43,22 @@ if ($dim!=0)
       $check=BinToGMP($op,1);
       if ($check==hexdec(3) || $check==hexdec(67))
       {
-        $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".BinToGMP($imm,0)."(".codRegister(BinToGMP($rs1,1)).")";
+        $istruzione=$oper." ".encRegister(BinToGMP($rd,1)).", ".BinToGMP($imm,0)."(".encRegister(BinToGMP($rs1,1)).")";
       }
       else
       {
         if (BinToGMP($op,1)==hexdec(13) && (BinToGMP($funct3,1)==1 || BinToGMP($funct3,1)==5)) {
           if ($_SESSION['XLEN']==64) {
             $imm=str_repeat('0',5).substr($a,6,6);
-            $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".codRegister(BinToGMP($rs1,1)).", ".BinToGMP($imm,1);
+            $istruzione=$oper." ".encRegister(BinToGMP($rd,1)).", ".encRegister(BinToGMP($rs1,1)).", ".BinToGMP($imm,1);
           }
           else {
             $imm=str_repeat('0',7).substr($a,7,5);
-            $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".codRegister(BinToGMP($rs1,1)).", ".BinToGMP($imm,1);
+            $istruzione=$oper." ".encRegister(BinToGMP($rd,1)).", ".encRegister(BinToGMP($rs1,1)).", ".BinToGMP($imm,1);
           }
         }
         else if (BinToGMP($op,1)!=hexdec(73) )
-          $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".codRegister(BinToGMP($rs1,1)).", ".BinToGMP($imm,0);
+          $istruzione=$oper." ".encRegister(BinToGMP($rd,1)).", ".encRegister(BinToGMP($rs1,1)).", ".BinToGMP($imm,0);
         else
           $istruzione=$oper;
       }
@@ -68,7 +68,7 @@ if ($dim!=0)
       $imm=substr($a,0,7).substr($a,20,5);
       $rs1=substr($a,12,5);
       $rs2=substr($a,7,5);
-      $istruzione=$oper." ".codRegister(BinToGMP($rs2,1)).", ".BinToGMP($imm,0)."(".codRegister(BinToGMP($rs1,1)).")";
+      $istruzione=$oper." ".encRegister(BinToGMP($rs2,1)).", ".BinToGMP($imm,0)."(".encRegister(BinToGMP($rs1,1)).")";
     }
     else if ($tipo=="SB")
     {
@@ -76,20 +76,20 @@ if ($dim!=0)
       $rs1=substr($a,12,5);
       $rs2=substr($a,7,5);
       $address=($index*4+BinToGMP($imm,0)*2);
-      $istruzione=$oper." ".codRegister(BinToGMP($rs1,1)).", ".codRegister(BinToGMP($rs2,1)).", ".$address;
+      $istruzione=$oper." ".encRegister(BinToGMP($rs1,1)).", ".encRegister(BinToGMP($rs2,1)).", ".$address;
     }
     else if ($tipo=="U")
     {
       $rd=substr($a,20,5);
       $imm=substr($a,0,20);
-      $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".BinToGMP($imm,1);
+      $istruzione=$oper." ".encRegister(BinToGMP($rd,1)).", ".BinToGMP($imm,1);
     }
     else if ($tipo=="UJ")
     {
       $rd=substr($a,20,5);
       $imm=substr($a,0,1).substr($a,12,8).substr($a,11,1).substr($a,1,10);
       $address=($index*4+BinToGMP($imm,0)*2);
-      $istruzione=$oper." ".codRegister(BinToGMP($rd,1)).", ".$address;
+      $istruzione=$oper." ".encRegister(BinToGMP($rd,1)).", ".$address;
     }
     ?>
     <br>

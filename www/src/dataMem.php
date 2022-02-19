@@ -304,7 +304,7 @@ if ($_SESSION['memDatiShow']==0)
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateDWordsH2L($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genDWordsH2L($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex-8;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {
@@ -332,7 +332,7 @@ if ($_SESSION['memDatiShow']==0)
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateDWordsH2L($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genDWordsH2L($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex-8;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {
@@ -360,7 +360,7 @@ if ($_SESSION['memDatiShow']==0)
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateDWordsH2L($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genDWordsH2L($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex-8;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {
@@ -385,7 +385,7 @@ if ($_SESSION['memDatiShow']==0)
       $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
       $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
       $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-      $chunkText=$chunkText.generateDWordsH2L($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
+      $chunkText=$chunkText.genDWordsH2L($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
       echo $tabStart;
       echo $chunkText;
       echo $tabEnd;
@@ -414,7 +414,7 @@ if ($_SESSION['memDatiShow']==0)
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateDWordsH2L($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genDWordsH2L($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex-8;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {
@@ -438,7 +438,7 @@ if ($_SESSION['memDatiShow']==0)
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateWordsH2L($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genWordsH2L($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex-4;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {
@@ -462,7 +462,7 @@ if ($_SESSION['memDatiShow']==0)
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateWordsH2L($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genWordsH2L($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex-4;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {
@@ -486,7 +486,7 @@ if ($_SESSION['memDatiShow']==0)
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateWordsH2L($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genWordsH2L($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex-4;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {
@@ -507,7 +507,7 @@ if ($_SESSION['memDatiShow']==0)
       $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
       $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
       $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-      $chunkText=$chunkText.generateWordsH2L($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
+      $chunkText=$chunkText.genWordsH2L($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
       echo $tabStart;
       echo $chunkText;
       echo $tabEnd;
@@ -532,7 +532,7 @@ if ($_SESSION['memDatiShow']==0)
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateWordsH2L($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genWordsH2L($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex-4;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {
@@ -586,7 +586,7 @@ else
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateDWordsL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genDWordsL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex+8;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {
@@ -614,7 +614,7 @@ else
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateDWordsL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genDWordsL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex+8;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {
@@ -642,7 +642,7 @@ else
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateDWordsL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genDWordsL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex+8;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {
@@ -667,7 +667,7 @@ else
       $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
       $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
       $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-      $chunkText=$chunkText.generateDWordsL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
+      $chunkText=$chunkText.genDWordsL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
       echo $tabStart;
       echo $chunkText;
       echo $tabEnd;
@@ -696,7 +696,7 @@ else
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateDWordsL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genDWordsL2H($height,$memIndex,$byte7,$byte6,$byte5,$byte4,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex+8;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {
@@ -720,7 +720,7 @@ else
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateWordsL2H($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genWordsL2H($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex+4;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {
@@ -744,7 +744,7 @@ else
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateWordsL2H($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genWordsL2H($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex+4;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {
@@ -768,7 +768,7 @@ else
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateWordsL2H($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genWordsL2H($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex+4;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {
@@ -789,7 +789,7 @@ else
       $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
       $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
       $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-      $chunkText=$chunkText.generateWordsL2H($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
+      $chunkText=$chunkText.genWordsL2H($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
       echo $tabStart;
       echo $chunkText;
       echo $tabEnd;
@@ -814,7 +814,7 @@ else
         $byte2=isset($memDati[$memIndex+2])?$memDati[$memIndex+2]:str_repeat('0',8);
         $byte1=isset($memDati[$memIndex+1])?$memDati[$memIndex+1]:str_repeat('0',8);
         $byte0=isset($memDati[$memIndex])?$memDati[$memIndex]:str_repeat('0',8);
-        $chunkText=$chunkText.generateWordsL2H($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
+        $chunkText=$chunkText.genWordsL2H($height,$memIndex,$byte3,$byte2,$byte1,$byte0);
         $memIndex=$memIndex+4;
         $chunkIndex++;
         if ($chunkIndex>=$chunkAmount) {

@@ -186,7 +186,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
   for ($i=0; $i<count($_SESSION['data'][$_SESSION['index']]['execTrail']); ++$i) {
     $a=$_SESSION['data'][$_SESSION['index']]['execTrail'][$i];
     if ($a===NULL) continue;
-    $istruzione=encodeIstr($_SESSION['memIstr'][$a]);
+    $istruzione=encInstr($_SESSION['memIstr'][$a]);
     if ($i==0) {
       echo "<tr>";
       echo "<td align='center' colspan='".($clock+1)."' style='padding-bottom: 10px;'>EXECUTION TABLE</td>";
@@ -225,7 +225,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
   for ($i=0; $i<count($rmInstrTrail); ++$i) {
     $a=$rmInstrTrail[$i];
     if ($a===NULL) continue;
-    $istruzione=encodeIstr($_SESSION['memIstr'][$a]);
+    $istruzione=encInstr($_SESSION['memIstr'][$a]);
     if ($i==0) {
       echo "<tr>";
       echo "<td align='center' colspan='".(($clock-$totReductCycle)+1)."' style='padding-bottom: 10px;'>EXECUTION TABLE</td>";
@@ -270,7 +270,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 
   echo "<div id='squashedLoopList' style='display: none;'>";
   for ($i=0; $i<count($finalInstrList); $i++) {
-    echo "<pre>LOOP #".$i." - '".encodeIstr($_SESSION['memIstr'][$finalInstrList[$i][0]])."' TO '".encodeIstr($_SESSION['memIstr'][$finalInstrList[$i][1]])."': ".($finalCycleList[$i][1]-$finalCycleList[$i][0]+1)." cycles ".$repeat[$i][1]." times</pre>";
+    echo "<pre>LOOP #".$i." - '".encInstr($_SESSION['memIstr'][$finalInstrList[$i][0]])."' TO '".encInstr($_SESSION['memIstr'][$finalInstrList[$i][1]])."': ".($finalCycleList[$i][1]-$finalCycleList[$i][0]+1)." cycles ".$repeat[$i][1]." times</pre>";
   }
   echo "</div>";
 

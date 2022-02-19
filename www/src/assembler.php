@@ -397,7 +397,7 @@ for ($i=0; $i<$segTextCnt; ++$i)
   $a=strpos($segText[$i],':',1) ? (strpos($segText[$i],':',1)+1) : 0; //a!=0 -> label
   if ($a==0)
   {
-    $a=decodeIstr($segText[$i],$_SESSION['XLEN']);
+    $a=decInstr($segText[$i],$_SESSION['XLEN']);
     if ($a!='ERR')
     {
       if ($a!='MULTI')
@@ -407,7 +407,7 @@ for ($i=0; $i<$segTextCnt; ++$i)
       }
       else
       {
-        $arrInstr=decodeMultiIstr($segText[$i],$instrCnt*4,$relTabData);
+        $arrInstr=decMultiInstr($segText[$i],$instrCnt*4,$relTabData);
         if ($arrInstr[0]!='ERR')
         {
           foreach ($arrInstr as $instr) {
