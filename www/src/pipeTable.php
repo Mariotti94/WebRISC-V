@@ -32,7 +32,8 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 </head>
 <body bgcolor="#f0f0f0" style="margin: 5px;">
 <?php
-  if (count($_SESSION['data'][$_SESSION['index']]['execTrail'])==0) {
+  $trailLen=count($_SESSION['data'][$_SESSION['index']]['execTrail']);
+  if ($trailLen==0) {
     echo "<table style='border-collapse: collapse;'>";
     echo "<tr>";
     echo "<td align='center' style='padding-bottom: 10px;'>EXECUTION TABLE</td>";
@@ -51,28 +52,54 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
   $clock=($_SESSION['data'][$_SESSION['index']]['finito'])?$_SESSION['data'][$_SESSION['index']]['clock']-1:$_SESSION['data'][$_SESSION['index']]['clock'];
 
   $rmInstrTrail=$_SESSION['data'][$_SESSION['index']]['execTrail'];
-  $sequences=array();
-  for ($startPos=0; $startPos<count($rmInstrTrail); $startPos++) {
-    for ($sequenceLength=1; $sequenceLength<=(count($rmInstrTrail)-$startPos)/2; $sequenceLength++) {
+  $block=array();
+  for ($startPos=0; $startPos<$trailLen; $startPos++) {
+    for ($distance=1; $distance<($trailLen-$startPos); $distance++) {
       $sequencesAreEqual=true;
-      for ($i=0; $i<$sequenceLength; $i++) {
-        if (($rmInstrTrail[$startPos+$i]==NULL)||($rmInstrTrail[$startPos + $i]!=$rmInstrTrail[$startPos+$sequenceLength+$i])) {
+      for ($i=0; $i<$distance; $i++) {
+        if (($startPos+$distance+$i)>=$trailLen) {
+          $sequencesAreEqual=false;
+          break;
+        }
+        if ($rmInstrTrail[$startPos + $i]!=$rmInstrTrail[$startPos+$distance+$i]) {
           $sequencesAreEqual=false;
           break;
         }
       }
       if ($sequencesAreEqual) {
-        $rmInstrTrail=array_merge(array_slice($rmInstrTrail,0,$startPos),array_fill(0, $sequenceLength, NULL),array_slice($rmInstrTrail,$startPos+$sequenceLength));
-        array_push($sequences,array($startPos,$sequenceLength));
-        $startPos=0;
-        $sequenceLength=1;
+        $reps=1;
+        $do=true;
+        while($do) {
+          $reps++;
+          for ($i=0; $i<$distance; $i++) {
+            if (($startPos+$distance*$reps+$i)>=$trailLen) {
+              $do=false;
+              break;
+            }
+            if ($rmInstrTrail[$startPos+$i]!=$rmInstrTrail[$startPos+$distance*$reps+$i]) {
+              $do=false;
+              break;
+            }
+          }
+        }
+        array_push($block,array($startPos,$distance,$reps));
+        $startPos=$startPos+$distance*$reps-1;
+        break;
       }
+    }
+  }
+
+  foreach ($block as $elem) {
+    $start=$elem[0];
+    $length=$elem[1]*($elem[2]-1);
+    for ($i=0; $i<$length; $i++) {
+      $rmInstrTrail[$start+$i]=NULL;
     }
   }
 
   $rmInstrList=array();
   $rmInstr=array(NULL,NULL);
-  for ($i=0; $i<count($rmInstrTrail); $i++) {
+  for ($i=0; $i<$trailLen; $i++) {
     if ($rmInstrTrail[$i]===NULL) {
         if ($rmInstr[0]===NULL) $rmInstr[0]=$i;
         else $rmInstr[1]=$i;
@@ -85,30 +112,14 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
     }
   }
 
-  $repeat=array();
-  for ($i=0; $i<count($rmInstrList); $i++) {
-    $start=$rmInstrList[$i][0];
-    $stop=$rmInstrList[$i][1];
-    $rep=1;
-    $step=0;
-    for ($j=0; $j<count($sequences); $j++) {
-      if ($sequences[$j][0]>=$start && $sequences[$j][0]<=$stop) {
-        $rep++;
-        $step=$sequences[$j][1];
-      }
-    }
-    array_push($repeat,array($step,$rep));
-  }
-
-  $c=array();
-  for ($i=0; $i<count($_SESSION['data'][$_SESSION['index']]['execTrail']); $i++) {
+  $a=array();
+  for ($i=0; $i<$trailLen; $i++) {
     for ($j=1; $j<=$clock; $j++) {
       if (isset($_SESSION['data'][$_SESSION['index']]['pipeTable'][$j][$i]))
-        $c[$i][$j]=$_SESSION['data'][$_SESSION['index']]['pipeTable'][$j][$i];
+        $a[$i][$j]=$_SESSION['data'][$_SESSION['index']]['pipeTable'][$j][$i];
     }
   }
 
-  $a=$c;
   $totReductCycle=0;
   for ($k=0; $k<count($rmInstrList); $k++) {
     $range=array(NULL,NULL);
@@ -138,7 +149,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
     $reductCycle=($range[1]-$range[0]+1);
     $totReductCycle+=$reductCycle;
 
-    for ($i=0; $i<count($_SESSION['data'][$_SESSION['index']]['execTrail']); $i++) {
+    for ($i=0; $i<$trailLen; $i++) {
       for ($j=1; $j<=$clock; ++$j) {
         if (isset($b[$i][$j]))
           $a[$i][$j-$reductCycle]=$b[$i][$j];
@@ -147,7 +158,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
   }
 
   $c=array();
-  for ($i=0; $i<count($_SESSION['data'][$_SESSION['index']]['execTrail']); $i++) {
+  for ($i=0; $i<$trailLen; $i++) {
     for ($j=1; $j<=$clock; $j++) {
       if (isset($a[$i][$j]))
         $c[$j][$i]=$a[$i][$j];
@@ -159,17 +170,17 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
   $markerList=array();
   for ($i=0; $i<count($rmInstrList); $i++) {
     $start=$rmInstrList[$i][1]+1;
-    $stop=$start+$repeat[$i][0]-1;
+    $stop=$start+$block[$i][1]-1;
     array_push($finalInstrList,array($rmInstrTrail[$start],$rmInstrTrail[$stop]));
 
     $range=array(NULL,NULL);
-    for ($j=1; $j<=$clock; $j++) {
+    for ($j=1; $j<=($clock-$totReductCycle); $j++) {
       if (array_key_exists($start, $c[$j]) && $c[$j][$start]=='F'){
         $range[0]=$j;
         break;
       }
     }
-    for ($j=1; $j<=$clock; $j++) {
+    for ($j=1; $j<=($clock-$totReductCycle); $j++) {
       if (array_key_exists($stop, $c[$j]) && $c[$j][$stop]=='F'){
         $range[1]=$j;
         break;
@@ -183,7 +194,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 
   // NORMAL PIPELINE DIAGRAM
   echo "<table id='simplePipeTable' style='border-collapse: collapse;'>";
-  for ($i=0; $i<count($_SESSION['data'][$_SESSION['index']]['execTrail']); ++$i) {
+  for ($i=0; $i<$trailLen; ++$i) {
     $a=$_SESSION['data'][$_SESSION['index']]['execTrail'][$i];
     if ($a===NULL) continue;
     $istruzione=encInstr($_SESSION['memIstr'][$a]);
@@ -222,7 +233,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 
   // SQUASHED PIPELINE DIAGRAM
   echo "<table id='squashedPipeTable' style='border-collapse: collapse; display: none;'>";
-  for ($i=0; $i<count($rmInstrTrail); ++$i) {
+  for ($i=0; $i<$trailLen; ++$i) {
     $a=$rmInstrTrail[$i];
     if ($a===NULL) continue;
     $istruzione=encInstr($_SESSION['memIstr'][$a]);
@@ -270,7 +281,7 @@ if(!isset($_SESSION['version'])) { header('Location: ../index.php'); exit; }
 
   echo "<div id='squashedLoopList' style='display: none;'>";
   for ($i=0; $i<count($finalInstrList); $i++) {
-    echo "<pre>LOOP #".$i." - '".encInstr($_SESSION['memIstr'][$finalInstrList[$i][0]])."' TO '".encInstr($_SESSION['memIstr'][$finalInstrList[$i][1]])."': ".($finalCycleList[$i][1]-$finalCycleList[$i][0]+1)." cycles ".$repeat[$i][1]." times</pre>";
+    echo "<pre>LOOP #".$i." - '".encInstr($_SESSION['memIstr'][$finalInstrList[$i][0]])."' TO '".encInstr($_SESSION['memIstr'][$finalInstrList[$i][1]])."': ".($finalCycleList[$i][1]-$finalCycleList[$i][0]+1)." cycles ".$block[$i][2]." times</pre>";
   }
   echo "</div>";
 

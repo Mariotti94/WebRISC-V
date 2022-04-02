@@ -27,20 +27,13 @@ $codice = explode(PHP_EOL,$codice);                 //split to array
 for ($i=0, $codiceCnt=count($codice); $i < $codiceCnt; ++$i)
 {
   $enable=true;
-  $delete=false;
   for ($j = 0, $stringLen=strlen($codice[$i]); $j < $stringLen; ++$j)
   {
-    if ($delete) {
-      $codice[$i]=substr_replace($codice[$i], ' ', $j, strlen($codice[$i][$j]));
-      continue;
-    }
-
     if ($codice[$i][$j]=='#')
     {
       if ($enable) {
-        $codice[$i]=substr_replace($codice[$i], ' ', $j, strlen('#'));
-        $delete=true;
-        continue;
+        $codice[$i]=substr_replace($codice[$i], ' ', $j);
+        break;
       }
     }
 
