@@ -32,6 +32,7 @@ $sysman = $sysman."Read Int     = 5".PHP_EOL;
 <head>
   <title>WebRISC-V - RISC-V PIPELINED DATAPATH SIMULATION ONLINE</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <link rel="icon" href="../img/content/favicon.ico" type="image/x-icon">
   <link href="../css/main.css" rel="stylesheet" type="text/css">
   <meta name="robots" content="noindex">
 </head>
