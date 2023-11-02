@@ -1904,26 +1904,35 @@ function decMultiInstr($istr,$pc,$tabRil)
       }
 
       $binImm=GMPToBin($imm,64,0);
-      $addi_param=GMPToBin($rd,5,1).GMPToBin(hexdec(0),3,1).GMPToBin($rd,5,1).GMPToBin(hexdec(13),7,1);
+      $addi_param=GMPToBin(hexdec(0),3,1).GMPToBin($rd,5,1).GMPToBin(hexdec(13),7,1);
       $slli_param=GMPToBin($rd,5,1).GMPToBin(hexdec(1),3,1).GMPToBin($rd,5,1).GMPToBin(hexdec(13),7,1);
+
+      if ($binImm == str_repeat("0", 64)) {
+        $function_ret=array();
+        array_push($function_ret,str_repeat("0", 17).$addi_param);
+        break;
+      }
 
       $binTempVal=array();
       $i=0;
       while ($i<64) {
-          $step=($i==0)?9:11;
-          $str=substr($binImm,0,$step);
-          array_push($binTempVal,$str);
-          $binImm=substr($binImm,$step);
-          $i+=$step;
+        $step=($i==0)?9:11;
+        $str=substr($binImm,0,$step);
+        array_push($binTempVal,$str);
+        $binImm=substr($binImm,$step);
+        $i+=$step;
       }
       $function_ret=array();
       $shift_trigger=false;
+      $rs_trigger=false;
       $cntBinTempVal=count($binTempVal);
       for ($i=0; $i<$cntBinTempVal; $i++)
       {
         if ($binTempVal[$i]!=0) {
-          array_push($function_ret,GMPToBin(BinToGMP($binTempVal[$i],1),12,0).$addi_param);
+          $addi_rs=($rs_trigger ? GMPToBin($rd,5,1) : "00000");
+          array_push($function_ret,GMPToBin(BinToGMP($binTempVal[$i],1),12,0).$addi_rs.$addi_param);
           $shift_trigger=true;
+          $rs_trigger=true;
         }
         if ($shift_trigger && $i!=($cntBinTempVal-1)) {
           array_push($function_ret,GMPToBin(11,12,0).$slli_param);
