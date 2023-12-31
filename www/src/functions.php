@@ -1410,10 +1410,19 @@ function decInstr($istr,$XLEN)
     case 'jal':
       $tipo='UJ';
       $op=hexdec('6F');
-      $rd='ra';
       if (strlen($a)==0)
       {
+        $rd='ERR';
         $target='ERR';
+        break;
+      }
+      $rd=strtok($a,',');
+      $a=substr($a,strlen($a)-(strlen($a)-(strlen($rd)+1)));
+      $rd=trim($rd);
+      if (strlen($a)==0)
+      {
+        $target=$rd;
+        $rd='ra';
         break;
       }
       $target=strtok($a,PHP_EOL);
