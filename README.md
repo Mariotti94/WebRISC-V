@@ -14,21 +14,19 @@ It is suitable for teaching how assembly level code is executed on the RISC-V pi
 If you would like to cite WebRISC-V, please use this reference:
 
 ```
-@InProceedings{Giorgi19-wcae,
-  author = {Giorgi, Roberto and Mariotti, Gianfranco},
-  title = {{WebRISC-V}: a Web-Based Education-Oriented  RISC-V Pipeline Simulation Environment},
-  booktitle = "ACM Workshop on Computer Architecture Education (WCAE-19)",
-  address = "Phoenix, AX, (USA)",
-  pages = "1-6",
-  rkey = "",
-  surl = "",
-  month = "jun",
-  year = "2019",
-  url = "http://www.dii.unisi.it/~giorgi/papers/Giorgi19-wcae.pdf",
-  doi = "10.1145/3338698.3338894",
-  isbn= "978-1-4503-6842-1/19/06",
-  dxdo="http://doi.acm.org/",
-  scopus="2-s2.0-8507127341"
+@Article{Mariotti22-softwarex,
+  author = {Mariotti, Gianfranco and Giorgi, Roberto},
+  title = {{WebRISC-V}: A 32/64-bit RISC-V pipeline simulation tool},
+  journal = {SoftwareX},
+  publisher = {Elsevier},
+  volume = {18},
+  pages = {1--7},
+  month = {May},
+  year = {2022},
+  url = {https://doi.org/10.1016/j.softx.2022.101105},
+  doi = {10.1016/j.softx.2022.101105},
+  issn = {2352-7110},
+  scopus = {2-s2.0-85130837344}
 }
 ```
 
