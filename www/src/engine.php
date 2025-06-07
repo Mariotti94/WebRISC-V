@@ -404,7 +404,14 @@ if ($tipo=='UJ') {
 }
 
 //############################################
-//HAZARD DETECTION
+//HAZARD DETECTION, FORWARDING
+
+$crit_RL1=!(($tipo=='U')||($tipo=='UJ'));
+$crit_RL2=!(($tipo=='I')||($tipo=='U')||($tipo=='UJ'));
+
+$prevtipo=instrType($ID_EX_campoOp);
+$crit_ID_EX_RS1=!(($prevtipo=='U')||($prevtipo=='UJ'));
+$crit_ID_EX_RS2=!(($prevtipo=='I')||($prevtipo=='U')||($prevtipo=='UJ'));
 
 //********************************************
 //hazard: LOAD->R,I (forward: M=>X)
@@ -412,7 +419,7 @@ if ($tipo=='UJ') {
 
 if (substr($ID_EX_M,0,1)=="1") //MemRead ID/EX
 {
-  if (($ID_EX_RD==$RL1 || $ID_EX_RD==$RL2) && $ID_EX_RD!=0) //ignore x0
+  if ((($crit_RL1 && $ID_EX_RD==$RL1) || ($crit_RL2 && $ID_EX_RD==$RL2)) && $ID_EX_RD!=0) //ignore x0
   {
     if ($stallo==0)
     {
@@ -428,7 +435,7 @@ if (substr($EX_MEM_M,0,1)=="1") //MemRead EX/MEM
 {
   if ($isBranch && $_SESSION['forwarding']==1)
   {
-    if (($EX_MEM_RegW==$RL1 || $EX_MEM_RegW==$RL2) && $EX_MEM_RegW!=0) //ignore x0
+    if ((($crit_RL1 && $EX_MEM_RegW==$RL1) || ($crit_RL2 && $EX_MEM_RegW==$RL2)) && $EX_MEM_RegW!=0) //ignore x0
     {
       if ($stallo==0)
       {
@@ -445,7 +452,7 @@ if (substr($ID_EX_WB,0,1)=="1") //RegWrite ID/EX
 {
   if ($isBranch)
   {
-    if (($ID_EX_RD==$RL1 || $ID_EX_RD==$RL2) && $ID_EX_RD!=0) //ignore x0
+    if ((($crit_RL1 && $ID_EX_RD==$RL1) || ($crit_RL2 && $ID_EX_RD==$RL2)) && $ID_EX_RD!=0) //ignore x0
     {
       if ($stallo==0) {
         $stallo++;
@@ -464,7 +471,7 @@ if ($_SESSION['forwarding']==0)
 {
   if (substr($EX_MEM_WB,0,1)=="1") //RegWrite EX/MEM
   {
-    if ($EX_MEM_RegW==$ID_EX_RS2 && substr($ID_EX_M,1,1)=="1") {
+    if ($crit_ID_EX_RS2 && $EX_MEM_RegW==$ID_EX_RS2 && substr($ID_EX_M,1,1)=="1") {
       $stallo+=2;
     }
   }
@@ -477,7 +484,7 @@ if ($_SESSION['forwarding']==0)
 {
   if (substr($ID_EX_WB,0,1)=="1") //RegWrite ID/EX
   {
-    if (($ID_EX_RD==$RL1 || $ID_EX_RD==$RL2) && $ID_EX_RD!=0) //ignore x0
+    if ((($crit_RL1 && $ID_EX_RD==$RL1) || ($crit_RL2 && $ID_EX_RD==$RL2)) && $ID_EX_RD!=0) //ignore x0
     {
       if ($stallo==0) {
         $stallo+=2;
@@ -487,7 +494,7 @@ if ($_SESSION['forwarding']==0)
 
   if (substr($EX_MEM_WB,0,1)=="1") //RegWrite EX/MEM
   {
-    if (($EX_MEM_RegW==$RL1 || $EX_MEM_RegW==$RL2) && $EX_MEM_RegW!=0) //ignore x0
+    if ((($crit_RL1 && $EX_MEM_RegW==$RL1) || ($crit_RL2 && $EX_MEM_RegW==$RL2)) && $EX_MEM_RegW!=0) //ignore x0
     {
       if ($stallo==0) {
         $stallo++;
@@ -495,9 +502,6 @@ if ($_SESSION['forwarding']==0)
     }
   }
 }
-
-//############################################
-//FORWARDING
 
 //********************************************
 //forward: =>D (hazard: ->SB)
@@ -509,7 +513,7 @@ if ($_SESSION['forwarding']==1)
 {
   if (substr($EX_MEM_WB,0,1)=="1") //RegWrite EX/MEM
   {
-    if ($EX_MEM_RegW==$RL1 && $EX_MEM_RegW!=0) //ignore x0
+    if ($crit_RL1 && $EX_MEM_RegW==$RL1 && $EX_MEM_RegW!=0) //ignore x0
     {
       if (substr($EX_MEM_WB,1,1)=="0") { //MemToReg EX/MEM
         $bDato1=$EX_MEM_RIS;
@@ -521,7 +525,7 @@ if ($_SESSION['forwarding']==1)
       }
     }
 
-    if ($EX_MEM_RegW==$RL2 && $EX_MEM_RegW!=0) //ignore x0
+    if ($crit_RL2 && $EX_MEM_RegW==$RL2 && $EX_MEM_RegW!=0) //ignore x0
     {
       if (substr($EX_MEM_WB,1,1)=="0") {
         $bDato2=$EX_MEM_RIS;
@@ -544,7 +548,7 @@ $Mux4Ctrl="00";
 
 if ($_SESSION['forwarding']==1)
 {
-  if ($ID_EX_RS1!=0) //ignore x0
+  if ($crit_ID_EX_RS1 && $ID_EX_RS1!=0) //ignore x0
   {
     if ($EX_MEM_RegW==$ID_EX_RS1 && substr($EX_MEM_WB,0,1)=="1") {
       $Mux3Ctrl="10";
@@ -554,7 +558,7 @@ if ($_SESSION['forwarding']==1)
     }
   }
 
-  if ($ID_EX_RS2!=0) //ignore x0
+  if ($crit_ID_EX_RS2 && $ID_EX_RS2!=0) //ignore x0
   {
     if ($EX_MEM_RegW==$ID_EX_RS2 && substr($EX_MEM_WB,0,1)=="1") {
       $Mux4Ctrl="10";
