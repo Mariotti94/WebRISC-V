@@ -7,7 +7,7 @@
  */
 
 //VERSION
-$_SESSION['version']="1.8.5";
+$_SESSION['version']="1.8.6";
 
 //BOUNDS
 $_SESSION['maxCycle']=2000;

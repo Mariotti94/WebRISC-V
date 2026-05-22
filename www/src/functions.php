@@ -2894,14 +2894,55 @@ function genWordsL2H($height,$memIndex,$byte3,$byte2,$byte1,$byte0) {
 //#########################################################################
 function sanitizeArray(&$input)
 {
-  require_once '../libs/htmlpurifier-4.13.0-standalone/HTMLPurifier.standalone.php';
-  $config = HTMLPurifier_Config::createDefault();
-  $purifier = new HTMLPurifier($config);
+  static $purifier = null;
 
-  foreach ($input as &$value) {
-    $value = $purifier->purify($value);
+  if (!is_array($input)) {
+    return;
   }
-  unset($value);
-  unset($input);
+
+  $old_error_reporting = error_reporting();
+  error_reporting($old_error_reporting & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+
+  try {
+    if ($purifier === null) {
+      $project_root = dirname(__DIR__);
+
+      $composer_autoload = $project_root . '/vendor/autoload.php';
+      $standalone_htmlpurifier =
+        $project_root .
+        '/libs/htmlpurifier-4.13.0-standalone/HTMLPurifier.standalone.php';
+
+      if (!class_exists('HTMLPurifier', false)) {
+        if (is_file($composer_autoload)) {
+          require_once $composer_autoload;
+        } elseif (is_file($standalone_htmlpurifier)) {
+          require_once $standalone_htmlpurifier;
+        } else {
+          throw new RuntimeException('HTMLPurifier library not found');
+        }
+      }
+
+      if (
+        !class_exists('HTMLPurifier_Config') ||
+        !class_exists('HTMLPurifier')
+      ) {
+        throw new RuntimeException('HTMLPurifier classes not available');
+      }
+
+      $config = HTMLPurifier_Config::createDefault();
+      $purifier = new HTMLPurifier($config);
+    }
+
+    foreach ($input as $key => $value) {
+      if (is_array($value)) {
+        sanitizeArray($value);
+        $input[$key] = $value;
+      } elseif (is_string($value)) {
+        $input[$key] = $purifier->purify($value);
+      }
+    }
+  } finally {
+    error_reporting($old_error_reporting);
+  }
 }
 ?>
